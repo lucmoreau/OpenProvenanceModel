@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<opmGraph xmlns="http://twiki.ipaw.info/bin/view/Challenge/OPM">
+    <accounts>
+        <account id="green"/>
+        <account id="orange"/>
+    </accounts>
+    <processes>
+        <process id="p1">
+            <account id="green"/>
+            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">http://process.org/add1ToAll</value>
+        </process>
+        <process id="p2">
+            <account id="orange"/>
+            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">http://process.org/split</value>
+        </process>
+        <process id="p3">
+            <account id="orange"/>
+            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">http://process.org/plus1</value>
+        </process>
+        <process id="p4">
+            <account id="orange"/>
+            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">http://process.org/plus1</value>
+        </process>
+        <process id="p5">
+            <account id="orange"/>
+            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">http://process.org/cons</value>
+        </process>
+    </processes>
+    <artifacts>
+        <artifact id="a1">
+            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">(2,6)</value>
+            <account id="green"/>
+            <account id="orange"/>
+        </artifact>
+        <artifact id="a2">
+            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">(3,7)</value>
+            <account id="green"/>
+            <account id="orange"/>
+        </artifact>
+        <artifact id="a3">
+            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">2</value>
+            <account id="orange"/>
+        </artifact>
+        <artifact id="a4">
+            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">6</value>
+            <account id="orange"/>
+        </artifact>
+        <artifact id="a5">
+            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">3</value>
+            <account id="orange"/>
+        </artifact>
+        <artifact id="a6">
+            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">7</value>
+            <account id="orange"/>
+        </artifact>
+    </artifacts>
+    <causalLinks>
+        <used>
+            <effect id="p1"/>
+            <role>in</role>
+            <cause id="a1"/>
+            <account id="green"/>
+        </used>
+        <used>
+            <effect id="p2"/>
+            <role>pair</role>
+            <cause id="a1"/>
+            <account id="orange"/>
+        </used>
+        <used>
+            <effect id="p3"/>
+            <role>in</role>
+            <cause id="a3"/>
+            <account id="orange"/>
+        </used>
+        <used>
+            <effect id="p4"/>
+            <role>in</role>
+            <cause id="a4"/>
+            <account id="orange"/>
+        </used>
+        <used>
+            <effect id="p5"/>
+            <role>left</role>
+            <cause id="a5"/>
+            <account id="orange"/>
+        </used>
+        <used>
+            <effect id="p5"/>
+            <role>right</role>
+            <cause id="a6"/>
+            <account id="orange"/>
+        </used>
+        <wasGeneratedBy>
+            <effect id="a2"/>
+            <role>out</role>
+            <cause id="p1"/>
+            <account id="green"/>
+        </wasGeneratedBy>
+        <wasGeneratedBy>
+            <effect id="a3"/>
+            <role>left</role>
+            <cause id="p2"/>
+            <account id="orange"/>
+        </wasGeneratedBy>
+        <wasGeneratedBy>
+            <effect id="a4"/>
+            <role>right</role>
+            <cause id="p2"/>
+            <account id="orange"/>
+        </wasGeneratedBy>
+        <wasGeneratedBy>
+            <effect id="a5"/>
+            <role>out</role>
+            <cause id="p3"/>
+            <account id="orange"/>
+        </wasGeneratedBy>
+        <wasGeneratedBy>
+            <effect id="a6"/>
+            <role>out</role>
+            <cause id="p4"/>
+            <account id="orange"/>
+        </wasGeneratedBy>
+        <wasGeneratedBy>
+            <effect id="a2"/>
+            <role>pair</role>
+            <cause id="p5"/>
+            <account id="orange"/>
+        </wasGeneratedBy>
+    </causalLinks>
+    <views>
+        <overlaps>
+            <account id="green"/>
+            <account id="orange"/>
+        </overlaps>
+    </views>
+</opmGraph>

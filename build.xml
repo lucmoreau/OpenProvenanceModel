@@ -1,0 +1,79 @@
+
+<project name="project1" default="go">
+  
+  <property name="slocation" value="c:/pasoa/luc-1.9-SNAPSHOT/common-pschemas/src/test/resource/"/>
+
+	<target name="schema_test">
+	
+		<xmlvalidate 	failonerror="yes" 
+                                lenient="no" 
+                                warn="yes"
+                                file="${file}">
+
+			<attribute name="http://xml.org/sax/features/namespaces" value="true"/>
+			<attribute name="http://apache.org/xml/features/validation/schema"  value="true"/>
+
+			<property  name="http://apache.org/xml/properties/schema/external-schemaLocation"
+                                   value="http://www.w3.org/2001/XMLSchema ${slocation}/XMLSchema.xsd http://schemas.xmlsoap.org/wsdl ${slocation}/wsdl.xsd http://schemas.xmlsoap.org/wsdl/soap ${slocation}/soapwsdl.xsd"/>
+
+
+
+		</xmlvalidate>
+	</target>
+
+	<target name="go">
+	   <antcall target="schema_test">
+             <param name="file" value="opm.1_01.xsd"/>
+	   </antcall>
+
+	</target>
+
+</project>
+
+
+<!--
+
+ http://www.w3.org/XML/1998/namespace ${user.dir}/xml.xsd
+wsdl/distribution/PLinks.xsd
+wsdl/docstyle/formattedtransformdefinition.xsd
+wsdl/docstyle/transformdefinition.xsd
+wsdl/docstyle/transformdefinitionold.xsd
+wsdl/docstyle/transformdefinitionold2.xsd
+wsdl/infer/InferredPStruct.xsd
+wsdl/PHeader.xsd
+wsdl/pquery/ProvenanceQuery.xsd
+wsdl/pquery/XPathPQuery.xsd
+wsdl/PStruct.xsd
+wsdl/record/PRecord.xsd
+wsdl/test.xsd
+wsdl/ws/addressing/WS-Addressing.xsd
+wsdl/ws/xml.xsd
+wsdl/wsrf/faults/WS-BaseFaults.xsd
+wsdl/wsrf/lifetime/WS-ResourceLifetime.xsd
+wsdl/wsrf/notification/WS-BaseN.xsd
+wsdl/wsrf/notification/WS-Topics.xsd
+wsdl/wsrf/properties/WS-ResourceProperties.xsd
+wsdl/wsrf/servicegroup/WS-ServiceGroup.xsd
+wsdl/XMLSchema.xsd
+wsdl/xpath/XPath.xsd
+wsdl/xpathIterator/XPathIterator.xsd
+wsdl/xquery/XQuery.xsd
+
+			<attribute name="http://xml.org/sax/features/validation" value="true"/>
+
+                        <Attribute name="http://apache.org/xml/features/validation/schema-full-checking"
+							value="true"/
+>
+			<property  name="http://apache.org/xml/properties/schema/external-noNamespaceSchemaLocation"
+			           value="http://schemas.xmlsoap.org/wsdl wsdl/wsdl.xsd"/>
+
+
+			<property  name="http://apache.org/xml/properties/schema/external-schemaLocation"
+                                   value="http://www.w3.org/2001/XMLSchema wsdl/XMLSchema.xsd"/>
+ http://schemas.xmlsoap.org/wsdl/ wsdl/wsdl.xsd
+-->
+
+<!--
+			<property  name="http://apache.org/xml/properties/validation/schema/root-type-definition"
+                                   value="xs:schema"/>
+-->

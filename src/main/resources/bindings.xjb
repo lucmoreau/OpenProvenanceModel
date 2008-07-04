@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jaxb:bindings
+        version="1.0"
+        xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+   
+
+    <jaxb:bindings schemaLocation="opm.1_01.xsd" 
+                   node="/xs:schema">       
+        <jaxb:schemaBindings>
+            <jaxb:package name="opm"/>
+        </jaxb:schemaBindings>   
+    </jaxb:bindings>
+
+
+</jaxb:bindings>
