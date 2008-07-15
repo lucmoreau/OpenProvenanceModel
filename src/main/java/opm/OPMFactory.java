@@ -116,6 +116,12 @@ public class OPMFactory {
     }
         
 
+    public Role newRole(String value) {
+        Role res=of.createRole();
+        res.setValue(value);
+        return res;
+    }
+
     public Artifact newArtifact_(String id,
                                 Collection<AccountId> accounts,
                                 Object value) {
@@ -144,7 +150,7 @@ public class OPMFactory {
     }
 
     public Used newUsed(ProcessId pid,
-                        String role,
+                        Role role,
                         ArtifactId aid,
                         Collection<AccountId> accounts) {
         Used res=of.createUsed();
@@ -158,7 +164,7 @@ public class OPMFactory {
     }
 
     public Used newUsed(Process p,
-                        String role,
+                        Role role,
                         Artifact a,
                         Collection<Account> accounts) {
         ProcessId pid=newProcessId(p);
@@ -172,7 +178,7 @@ public class OPMFactory {
 
 
     public WasGeneratedBy newWasGeneratedBy(ArtifactId aid,
-                                            String role,
+                                            Role role,
                                             ProcessId pid,
                                             Collection<AccountId> accounts) {
         WasGeneratedBy res=of.createWasGeneratedBy();
@@ -186,7 +192,7 @@ public class OPMFactory {
     }
 
     public WasGeneratedBy newWasGeneratedBy(Artifact a,
-                                            String role,
+                                            Role role,
                                             Process p,
                                             Collection<Account> accounts) {
         ArtifactId aid=newArtifactId(a);
@@ -199,17 +205,20 @@ public class OPMFactory {
     }
 
     public OPMGraph newOPMGraph(Collection<Account> accs,
+                                Collection<Overlaps> ops,
                                 Collection<Process> ps,
                                 Collection<Artifact> as,
                                 Collection<Agent> ags,
-                                Collection<Object> lks,
-                                Collection<Overlaps> ops)
+                                Collection<Object> lks)
     {
         OPMGraph res=of.createOPMGraph();
         if (accs!=null) {
             Accounts aaccs=of.createAccounts();
             aaccs.getAccount().addAll(accs);
+            if (ops!=null) 
+                aaccs.getOverlaps().addAll(ops);
             res.setAccounts(aaccs);
+            
         }
         if (ps!=null) {
             Processes pps=of.createProcesses();
@@ -227,33 +236,42 @@ public class OPMFactory {
             res.setAgents(aags);
         }
         if (lks!=null) {
-            CausalLinks ccls=of.createCausalLinks();
+            CausalDependencies ccls=of.createCausalDependencies();
             ccls.getUsedOrWasGeneratedByOrWasTriggeredBy().addAll(lks);
-            res.setCausalLinks(ccls);
-        }
-        if (ops!=null) {
-            OverlapsDeclarations ovds=of.createOverlapsDeclarations();
-            ovds.getOverlaps().addAll(ops);
-            res.setViews(ovds);
+            res.setCausalDependencies(ccls);
         }
         return res;
     }
 
     public OPMGraph newOPMGraph(Collection<Account> accs,
+                                Overlaps [] ovs,
                                 Process [] ps,
                                 Artifact [] as,
                                 Agent [] ags,
-                                Object [] lks,
-                                Overlaps [] ovs) 
+                                Object [] lks) 
     {
 
         return newOPMGraph(accs,
+                           ((ovs==null) ? null : Arrays.asList(ovs)),
                            ((ps==null) ? null : Arrays.asList(ps)),
                            ((as==null) ? null : Arrays.asList(as)),
                            ((ags==null) ? null : Arrays.asList(ags)),
-                           ((lks==null) ? null : Arrays.asList(lks)),
-                           ((ovs==null) ? null : Arrays.asList(ovs)));
+                           ((lks==null) ? null : Arrays.asList(lks)));
     }
-        
 
+    public OPMGraph newOPMGraph(Accounts accs,
+                                Processes ps,
+                                Artifacts as,
+                                Agents ags,
+                                CausalDependencies lks)
+    {
+        OPMGraph res=of.createOPMGraph();
+        res.setAccounts(accs);
+        res.setProcesses(ps);
+        res.setArtifacts(as);
+        res.setAgents(ags);
+        res.setCausalDependencies(lks);
+        return res;
+    }
+            
 }

@@ -87,32 +87,33 @@ public class Example1Test
                                          orange,
                                          "7");
 
-        Used u1=oFactory.newUsed(p1,"in",a1,green);
-        Used u2=oFactory.newUsed(p2,"pair",a1,orange);
-        Used u3=oFactory.newUsed(p3,"in",a3,orange);
-        Used u4=oFactory.newUsed(p4,"in",a4,orange);
-        Used u5=oFactory.newUsed(p5,"left",a5,orange);
-        Used u6=oFactory.newUsed(p5,"right",a6,orange);
+        Used u1=oFactory.newUsed(p1,oFactory.newRole("in"),a1,green);
+        Used u2=oFactory.newUsed(p2,oFactory.newRole("pair"),a1,orange);
+        Used u3=oFactory.newUsed(p3,oFactory.newRole("in"),a3,orange);
+        Used u4=oFactory.newUsed(p4,oFactory.newRole("in"),a4,orange);
+        Used u5=oFactory.newUsed(p5,oFactory.newRole("left"),a5,orange);
+        Used u6=oFactory.newUsed(p5,oFactory.newRole("right"),a6,orange);
 
 
 
 
-        WasGeneratedBy wg1=oFactory.newWasGeneratedBy(a2,"out",p1,green);
-        WasGeneratedBy wg2=oFactory.newWasGeneratedBy(a3,"left",p2,orange);
-        WasGeneratedBy wg3=oFactory.newWasGeneratedBy(a4,"right",p2,orange);
-        WasGeneratedBy wg4=oFactory.newWasGeneratedBy(a5,"out",p3,orange);
-        WasGeneratedBy wg5=oFactory.newWasGeneratedBy(a6,"out",p4,orange);
-        WasGeneratedBy wg6=oFactory.newWasGeneratedBy(a2,"pair",p5,orange);
+        WasGeneratedBy wg1=oFactory.newWasGeneratedBy(a2,oFactory.newRole("out"),p1,green);
+        WasGeneratedBy wg2=oFactory.newWasGeneratedBy(a3,oFactory.newRole("left"),p2,orange);
+        WasGeneratedBy wg3=oFactory.newWasGeneratedBy(a4,oFactory.newRole("right"),p2,orange);
+        WasGeneratedBy wg4=oFactory.newWasGeneratedBy(a5,oFactory.newRole("out"),p3,orange);
+        WasGeneratedBy wg5=oFactory.newWasGeneratedBy(a6,oFactory.newRole("out"),p4,orange);
+        WasGeneratedBy wg6=oFactory.newWasGeneratedBy(a2,oFactory.newRole("pair"),p5,orange);
 
         Overlaps ov1=oFactory.newOverlaps(green_orange);
 
+
         OPMGraph graph=oFactory.newOPMGraph(green_orange,
+                                            new Overlaps[] { ov1 },
                                             new Process[] {p1,p2,p3,p4,p5},
                                             new Artifact[] {a1,a2,a3,a4,a5,a6},
                                             null,
                                             new Object[] {u1,u2,u3,u4,u5,u6,
-                                                          wg1,wg2,wg3,wg4,wg5,wg6},
-                                            new Overlaps[] { ov1 } );
+                                                          wg1,wg2,wg3,wg4,wg5,wg6} );
 
 
 

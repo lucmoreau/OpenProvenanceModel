@@ -3,6 +3,10 @@
     <accounts>
         <account id="green"/>
         <account id="orange"/>
+        <overlaps>
+            <account id="green"/>
+            <account id="orange"/>
+        </overlaps>
     </accounts>
     <processes>
         <process id="p1">
@@ -54,84 +58,78 @@
             <account id="orange"/>
         </artifact>
     </artifacts>
-    <causalLinks>
+    <causalDependencies>
         <used>
             <effect id="p1"/>
-            <role>in</role>
+            <role value="in"/>
             <cause id="a1"/>
             <account id="green"/>
         </used>
         <used>
             <effect id="p2"/>
-            <role>pair</role>
+            <role value="pair"/>
             <cause id="a1"/>
             <account id="orange"/>
         </used>
         <used>
             <effect id="p3"/>
-            <role>in</role>
+            <role value="in"/>
             <cause id="a3"/>
             <account id="orange"/>
         </used>
         <used>
             <effect id="p4"/>
-            <role>in</role>
+            <role value="in"/>
             <cause id="a4"/>
             <account id="orange"/>
         </used>
         <used>
             <effect id="p5"/>
-            <role>left</role>
+            <role value="left"/>
             <cause id="a5"/>
             <account id="orange"/>
         </used>
         <used>
             <effect id="p5"/>
-            <role>right</role>
+            <role value="right"/>
             <cause id="a6"/>
             <account id="orange"/>
         </used>
         <wasGeneratedBy>
             <effect id="a2"/>
-            <role>out</role>
+            <role value="out"/>
             <cause id="p1"/>
             <account id="green"/>
         </wasGeneratedBy>
         <wasGeneratedBy>
             <effect id="a3"/>
-            <role>left</role>
+            <role value="left"/>
             <cause id="p2"/>
             <account id="orange"/>
         </wasGeneratedBy>
         <wasGeneratedBy>
             <effect id="a4"/>
-            <role>right</role>
+            <role value="right"/>
             <cause id="p2"/>
             <account id="orange"/>
         </wasGeneratedBy>
         <wasGeneratedBy>
             <effect id="a5"/>
-            <role>out</role>
+            <role value="out"/>
             <cause id="p3"/>
             <account id="orange"/>
         </wasGeneratedBy>
         <wasGeneratedBy>
             <effect id="a6"/>
-            <role>out</role>
+            <role value="out"/>
             <cause id="p4"/>
             <account id="orange"/>
         </wasGeneratedBy>
         <wasGeneratedBy>
             <effect id="a2"/>
-            <role>pair</role>
+            <role value="pair"/>
             <cause id="p5"/>
             <account id="orange"/>
         </wasGeneratedBy>
-    </causalLinks>
-    <views>
-        <overlaps>
-            <account id="green"/>
-            <account id="orange"/>
-        </overlaps>
-    </views>
+    </causalDependencies>
 </opmGraph>
