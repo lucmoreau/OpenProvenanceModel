@@ -6,12 +6,10 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import java.io.StringWriter;
-import java.io.OutputStream;
 
 public class OPMSerialiser {
     private ObjectFactory of=new ObjectFactory();
@@ -100,3 +98,4 @@ public class OPMSerialiser {
     
 
 }
+

@@ -109,7 +109,6 @@ public class OPMFactory {
         
     public Overlaps newOverlaps(AccountId aid1,AccountId aid2) {
         Overlaps res=of.createOverlaps();
-        LinkedList ll=new LinkedList();
         res.getAccount().add(aid1);
         res.getAccount().add(aid2);
         return res;
@@ -275,3 +274,4 @@ public class OPMFactory {
     }
             
 }
+

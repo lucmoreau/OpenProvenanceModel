@@ -5,7 +5,6 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.JAXBElement;
 import org.w3c.dom.Element;
-import org.xml.sax.InputSource;
 
 
 public class OPMDeserialiser {
@@ -66,3 +65,5 @@ public class OPMDeserialiser {
 
     
 }
+
+

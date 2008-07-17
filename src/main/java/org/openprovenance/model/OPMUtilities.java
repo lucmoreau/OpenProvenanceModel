@@ -1,5 +1,4 @@
 package org.openprovenance.model;
-import java.util.Collection;
 
 public class OPMUtilities {
 
@@ -87,3 +86,4 @@ public class OPMUtilities {
     }
 
 }
+
