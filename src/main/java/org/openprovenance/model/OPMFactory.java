@@ -1,4 +1,4 @@
-package opm;
+package org.openprovenance.model;
 import java.util.Collection;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -6,7 +6,7 @@ import java.util.LinkedList;
 public class OPMFactory {
 
     public static final String packageList=
-        "opm";
+        "org.openprovenance.model";
 
     private final static OPMFactory oFactory=new OPMFactory();
 

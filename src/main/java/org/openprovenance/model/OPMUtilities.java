@@ -1,4 +1,4 @@
-package opm;
+package org.openprovenance.model;
 import java.util.Collection;
 
 public class OPMUtilities {

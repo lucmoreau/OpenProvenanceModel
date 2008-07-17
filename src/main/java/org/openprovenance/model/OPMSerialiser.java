@@ -1,4 +1,4 @@
-package opm;
+package org.openprovenance.model;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;

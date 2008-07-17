@@ -1,4 +1,4 @@
-package opm;
+package org.openprovenance.model;
 import java.io.File;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;

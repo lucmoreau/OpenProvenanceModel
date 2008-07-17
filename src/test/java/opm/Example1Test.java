@@ -1,4 +1,4 @@
-package opm;
+package org.openprovenance.model;
 import java.io.File;
 import java.io.StringWriter;
 import java.util.Collection;
