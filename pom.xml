@@ -42,6 +42,28 @@
     </repository>
   </repositories>
 
+  <distributionManagement>
+    <!-- use the following if you're not using a snapshot version. -->
+     <repository>
+      <id>repo</id>
+      <name>Repository Name</name>
+      <url>scp://host/path/to/repo</url>
+      </repository>
+
+    <!-- use the following if you ARE using a snapshot version. -->
+    <snapshotRepository>
+      <id>snapshot-repo</id>
+      <name>Snapshot Repository</name>
+      <url>scp://openprovenance@websites1.ecs.soton.ac.uk/home/openprovenance/openprovenance.org/htdocs/java/maven</url>
+    </snapshotRepository>
+    <site>
+      <id>public.www.site</id>
+      <name>Site Deployment location</name>
+      <url>scp://openprovenance@websites1.ecs.soton.ac.uk/home/openprovenance/openprovenance.org/htdocs/java/site</url>
+    </site>
+
+ </distributionManagement>
+
  <pluginRepositories>
 	<pluginRepository>
   		  <id>maven2-repository.dev.java.net</id>
@@ -187,6 +209,7 @@
            <groups>
             <group>
               <title>OPM Packages</title>
+              <packages>org.openprovenance.*</packages>
               <packages>org.openprovenance.model.*</packages>
             </group>
           </groups>
