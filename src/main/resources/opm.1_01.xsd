@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- Authors: Paul Groth and Luc Moreau 
-http://openprovenance.org/model/v1.01/schema/
-http://openprovenance.org/model/v1.01
-http://openprovenance.org/model
-http://openprovenance.org/
-http://openprovenance.org/
-org.openprovenance.model
--->
+<!-- Authors: Paul Groth and Luc Moreau -->
 
 
-<xs:schema targetNamespace="http://twiki.ipaw.info/bin/view/Challenge/OPM"
+<xs:schema targetNamespace="http://openprovenance.org/model/v1.01.a"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:opm="http://twiki.ipaw.info/bin/view/Challenge/OPM"
+           xmlns:opm="http://openprovenance.org/model/v1.01.a"
            elementFormDefault="qualified"
            attributeFormDefault="unqualified">
 
@@ -69,44 +62,50 @@ org.openprovenance.model
 
   <xs:complexType name="Used">
 	<xs:sequence>
-	  <xs:element name="effect" type="opm:ProcessId"/>  <!-- or should it be named process? -->
-	  <xs:element name="role"   type="opm:Role"/>
-	  <xs:element name="cause"  type="opm:ArtifactId"/>
-	  <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="opm:AccountId"/>
+	  <xs:element name="effect"  type="opm:ProcessId"/>  <!-- or should it be named process? -->
+	  <xs:element name="role"    type="opm:Role"/>
+	  <xs:element name="cause"   type="opm:ArtifactId"/>
+	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountId"/>
+      <xs:element name="time"    type="opm:OTime" minOccurs="0"/>
 	</xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="WasGeneratedBy">
 	<xs:sequence>
-	  <xs:element name="effect" type="opm:ArtifactId"/>
-	  <xs:element name="role"   type="opm:Role"/>
-	  <xs:element name="cause"  type="opm:ProcessId"/>
-	  <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="opm:AccountId"/>
+	  <xs:element name="effect"  type="opm:ArtifactId"/>
+	  <xs:element name="role"    type="opm:Role"/>
+	  <xs:element name="cause"   type="opm:ProcessId"/>
+	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountId"/>
+      <xs:element name="time"    type="opm:OTime" minOccurs="0"/>
 	</xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="WasControlledBy">
 	<xs:sequence>
-	  <xs:element name="effect" type="opm:ProcessId"/>
-	  <xs:element name="role"   type="opm:Role"/>
-	  <xs:element name="cause"  type="opm:AgentId"/>
-	  <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="opm:AccountId"/>
+	  <xs:element name="effect"  type="opm:ProcessId"/>
+	  <xs:element name="role"    type="opm:Role"/>
+	  <xs:element name="cause"   type="opm:AgentId"/>
+	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountId"/>
+      <xs:element name="start"   type="opm:OTime" minOccurs="0"/>
+      <xs:element name="end"     type="opm:OTime" minOccurs="0"/>
 	</xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="WasDerivedFrom">
 	<xs:sequence>
-	  <xs:element name="effect" type="opm:ArtifactId"/>
-	  <xs:element name="cause"  type="opm:ArtifactId"/>
-	  <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="opm:AccountId"/>
+	  <xs:element name="effect"  type="opm:ArtifactId"/>
+	  <xs:element name="cause"   type="opm:ArtifactId"/>
+	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountId"/>
+      <xs:element name="time"    type="opm:OTime" minOccurs="0"/>
 	</xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="WasTriggeredBy">
 	<xs:sequence>
-	  <xs:element name="effect" type="opm:ProcessId"/>
-	  <xs:element name="cause" type="opm:ProcessId"/>
-	  <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="opm:AccountId"/>
+	  <xs:element name="effect"  type="opm:ProcessId"/>
+	  <xs:element name="cause"   type="opm:ProcessId"/>
+	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountId"/>
+      <xs:element name="time"    type="opm:OTime" minOccurs="0"/>
 	</xs:sequence>
   </xs:complexType>
 
@@ -114,10 +113,10 @@ org.openprovenance.model
   <xs:complexType name="CausalDependencies">
 	<xs:sequence>
 	  <xs:choice minOccurs="0" maxOccurs="unbounded">
-		<xs:element name="used" type="opm:Used"/>
-		<xs:element name="wasGeneratedBy" type="opm:WasGeneratedBy"/>
-		<xs:element name="wasTriggeredBy" type="opm:WasTriggeredBy"/>
-		<xs:element name="wasDerivedFrom" type="opm:WasDerivedFrom"/>
+		<xs:element name="used"            type="opm:Used"/>
+		<xs:element name="wasGeneratedBy"  type="opm:WasGeneratedBy"/>
+		<xs:element name="wasTriggeredBy"  type="opm:WasTriggeredBy"/>
+		<xs:element name="wasDerivedFrom"  type="opm:WasDerivedFrom"/>
 		<xs:element name="wasControlledBy" type="opm:WasControlledBy"/>
 	  </xs:choice>
 	</xs:sequence>
@@ -132,7 +131,7 @@ org.openprovenance.model
 
   <xs:complexType name="Accounts">
 	<xs:sequence>
-	  <xs:element name="account" type="opm:Account" minOccurs="0" maxOccurs="unbounded"/>
+	  <xs:element name="account"  type="opm:Account"  minOccurs="0" maxOccurs="unbounded"/>
 	  <xs:element name="overlaps" type="opm:Overlaps" minOccurs="0" maxOccurs="unbounded"/>
 	</xs:sequence>
   </xs:complexType>
@@ -152,12 +151,9 @@ org.openprovenance.model
 
   <xs:complexType name="Agents">
 	<xs:sequence>
-	  <xs:element name="agent" type="opm:Agent" minOccurs="0" maxOccurs="unbounded"/>
+	  <xs:element name="agent"   type="opm:Agent" minOccurs="0" maxOccurs="unbounded"/>
 	</xs:sequence>
   </xs:complexType>
-
-
-
 
   <xs:complexType name="OPMGraph">
 	<xs:sequence>
@@ -175,7 +171,14 @@ org.openprovenance.model
 	</xs:annotation>
   </xs:element>
 
-
+ <!-- Observed Time allow for interval of observation. -->
+  <xs:complexType name="OTime">
+	<xs:sequence>
+	  <xs:element name="noLaterThan"   type="xs:time" minOccurs="0"  maxOccurs="1" />
+	  <xs:element name="noEarlierThan" type="xs:time" minOccurs="0"  maxOccurs="1" />
+	  <xs:element name="clockId"       type="xs:string"/>
+	</xs:sequence>
+  </xs:complexType>
 
 
 
