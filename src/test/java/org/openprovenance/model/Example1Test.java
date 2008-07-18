@@ -38,7 +38,7 @@ public class Example1Test
     static OPMGraph graph1;
     static OPMGraph graph2;
 
-    /** Creates and serialises a graph. */
+    /** Creates and serialises an OPM graph. */
 
     public void testOPM1() throws JAXBException
     {
@@ -131,7 +131,7 @@ public class Example1Test
 
 
     
-    /** Deserialises a graph. */
+    /** Deserialises an OPM graph. */
     public void testOPM2() throws JAXBException    {
         OPMDeserialiser deserial=OPMDeserialiser.getThreadOPMDeserialiser();
         OPMGraph graph=deserial.deserialiseOPMGraph(new File("src/test/resources/example.xml"));
@@ -140,7 +140,8 @@ public class Example1Test
         System.out.println(graph2);
 
     }
-
+    /** Checks that the graph read from the file is the same as the
+     * one created. */
     public void testOPM3() throws JAXBException    {
         assertTrue (graph1.equals(graph2));
     }

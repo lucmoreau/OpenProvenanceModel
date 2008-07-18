@@ -6,7 +6,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.JAXBElement;
 import org.w3c.dom.Element;
 
-
+/** Deserialiser of OPM Graphs. */
 public class OPMDeserialiser {
 
 

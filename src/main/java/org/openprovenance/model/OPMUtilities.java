@@ -1,5 +1,7 @@
 package org.openprovenance.model;
 
+/** Utilities for manipulating OPM Graphs. */
+
 public class OPMUtilities {
 
     private OPMFactory of=new OPMFactory();

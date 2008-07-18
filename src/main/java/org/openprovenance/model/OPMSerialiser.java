@@ -11,6 +11,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import java.io.StringWriter;
 
+/** Serialiser of OPM Graphs. */
+
 public class OPMSerialiser {
     private ObjectFactory of=new ObjectFactory();
 	static DocumentBuilder docBuilder;

@@ -3,6 +3,8 @@ import java.util.Collection;
 import java.util.Arrays;
 import java.util.LinkedList;
 
+/** Factory of OPM objects. */
+
 public class OPMFactory {
 
     public static final String packageList=
