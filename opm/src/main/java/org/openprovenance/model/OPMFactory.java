@@ -274,6 +274,19 @@ public class OPMFactory {
         res.setCausalDependencies(lks);
         return res;
     }
+
+    public Accounts newAccounts(Collection<Account> accs,
+                                Collection<Overlaps> ovlps) {
+        Accounts res=of.createAccounts();
+        if (accs!=null) {
+            res.getAccount().addAll(accs);
+        }
+        if (ovlps!=null) {
+            res.getOverlaps().addAll(ovlps);
+        }
+        return res;
+    }
+
             
 }
 

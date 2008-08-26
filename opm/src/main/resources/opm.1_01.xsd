@@ -6,8 +6,36 @@
 <xs:schema targetNamespace="http://openprovenance.org/model/v1.01.a"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:opm="http://openprovenance.org/model/v1.01.a"
+           xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
            elementFormDefault="qualified"
-           attributeFormDefault="unqualified">
+           attributeFormDefault="unqualified"
+           jxb:version="2.0">
+
+
+  <xs:element name="opmGraph" type="opm:OPMGraph">
+	<xs:annotation>
+	  <xs:documentation>A set of assertions about the provenance of things</xs:documentation>
+	</xs:annotation>
+  </xs:element>
+
+  <xs:complexType name="OPMGraph">
+    <xs:annotation>
+      <xs:appinfo>
+        <jxb:class>
+         <jxb:javadoc>
+           <![CDATA[ Java class for OPMGraph complex type. See <A href="http://twiki.ipaw.info/bin/view/Challenge/OPM1-01Review">OPMGraph</A>.]]>
+         </jxb:javadoc>
+        </jxb:class>
+      </xs:appinfo>
+    </xs:annotation> 
+	<xs:sequence>
+	  <xs:element name="accounts" type="opm:Accounts" minOccurs="0"/>
+	  <xs:element name="processes" type="opm:Processes" minOccurs="0"/>
+	  <xs:element name="artifacts" type="opm:Artifacts" minOccurs="0"/>
+	  <xs:element name="agents" type="opm:Agents" minOccurs="0"/>
+	  <xs:element name="causalDependencies" type="opm:CausalDependencies" minOccurs="0"/>
+	</xs:sequence>
+  </xs:complexType>
 
   <xs:complexType name="ProcessId">
 	<xs:attribute name="id" type="xs:IDREF"/>
@@ -154,22 +182,6 @@
 	  <xs:element name="agent"   type="opm:Agent" minOccurs="0" maxOccurs="unbounded"/>
 	</xs:sequence>
   </xs:complexType>
-
-  <xs:complexType name="OPMGraph">
-	<xs:sequence>
-	  <xs:element name="accounts" type="opm:Accounts" minOccurs="0"/>
-	  <xs:element name="processes" type="opm:Processes" minOccurs="0"/>
-	  <xs:element name="artifacts" type="opm:Artifacts" minOccurs="0"/>
-	  <xs:element name="agents" type="opm:Agents" minOccurs="0"/>
-	  <xs:element name="causalDependencies" type="opm:CausalDependencies" minOccurs="0"/>
-	</xs:sequence>
-  </xs:complexType>
-
-  <xs:element name="opmGraph" type="opm:OPMGraph">
-	<xs:annotation>
-	  <xs:documentation>A set of assertions about the provenance of things</xs:documentation>
-	</xs:annotation>
-  </xs:element>
 
  <!-- Observed Time allow for interval of observation. -->
   <xs:complexType name="OTime">

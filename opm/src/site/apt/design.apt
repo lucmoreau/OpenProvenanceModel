@@ -1,0 +1,23 @@
+     ----------------------------------
+      An Introduction the XML Schema for the Open Provenance Model
+     ----------------------------------
+         Paul Groth and Luc Moreau
+     ----------------------------------
+
+An Introduction the XML Schema for the Open Provenance Model
+
+ This introduction discusses the OPM XML Schema found at http://openprovenance.org/model/v1.01.a. 
+
+ The XML Schema for version 1.01 of the Open Provenance Model (OPM) was designed to closely reflect the formal structure defined in the OPM specification document (http://twiki.ipaw.info/bin/view/Challenge/OPM1-01Review). Hence, before using the schema it is best to read the specification particularly Section 4, which defines a provenance graph. Here, we highlight some key design decisions. 
+
+ The OPM XML Schema defines how XML can be produced for a single OPM graph. Our assumption is that one XML document corresponds to one OPM provenance graph. Therefore, when using the schema it is best to start with the element opmGraph. An opmGraph consists of a list of accounts, processes, artifacts, agents and causal dependencies. Each of these lists are defined as complex types that act as containers for their respective element (e.g. Processes contains a sequence of process elements). Complex types were used in order to restrict the contents of the containers to the appropriate type. 
+
+ Each base element whether it is a process, agent, account or artifact has a corresponding id. These ids are defined via the xs:ID schema element which ensures that ids are unique within an XML document. While the use of xs:ID enforces uniqueness, it does not greatly restrict or mandate the form of identifiers that applications can use. Essentially, ids can therefore be any string without a colon (see http://www.w3.org/TR/xmlschema-2/#NCName).  Thus, the OPM XML Schema ensures naming consistency within an opmGraph serialization without prescribing a global naming mechanism. Thus, applications wishing to ensure consistency across various opmGraph XML documents should adopt an appropriate common naming scheme. 
+
+ In addition to certain elements that are defined by the OPM Specification (e.g. Process can belong to an Account) each base element contains a value element. This is the location in which application specific data can be put and provides an extensibility point within the schema. Applications are free to define the types of content they expect to find within the value element. Thus, the OPM XML Schema defines the structure of a provenance graph but not its associated content.
+
+ Beyond mirroring the OPM specification, the aim of this version of the schema was to enable the automatic generation of programatic representations of OPM XML (e.g. Java Objects). Hence, we have tried to use the simplest XML Schema primitives as possible. This may result in more verbose XML output than maybe possible using more complex primitives.
+
+ We encourage comments and suggestions to improve the usability of this schema. 
+
+ Paul Groth and Luc Moreau

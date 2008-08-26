@@ -28,7 +28,20 @@ public class OPMUtilities {
     }
 
     public Accounts union (Accounts g1, Accounts g2) {
-        return null;
+        Accounts res=of.newAccounts(null,null);
+        if (g1.getAccount()!=null) {
+            res.getAccount().addAll(g1.getAccount());
+        }
+        if (g2.getAccount()!=null) {
+            res.getAccount().addAll(g2.getAccount());
+        }
+        if (g1.getOverlaps()!=null) {
+            res.getOverlaps().addAll(g1.getOverlaps());
+        }
+        if (g2.getOverlaps()!=null) {
+            res.getOverlaps().addAll(g2.getOverlaps());
+        }
+        return res;
     }
 
     public Agents union (Agents g1, Agents g2) {
