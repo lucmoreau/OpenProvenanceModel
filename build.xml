@@ -1,0 +1,114 @@
+
+
+<project name="oopm" default="start" basedir=".">
+
+  <target name="start">
+    <echo>
+      Welcome to the OPM project.
+      Call "ant build.all" to build everything.
+      Call "ant test.all" to test everything.
+    </echo>
+  </target>
+
+  <property name="build.dir"    location="build" />
+  <property name="dist.dir"     location="dist" />
+  <property name="src.dir"      location="opm/src" />
+  <property name="target.dir"   location="target" />
+  <property name="lib.dir"      location="lib" />
+
+
+  <property name="generateDSLocation" value="opm-py/opm-py/generateDS-1.14c/generateDS.py"/>
+  <property name="xsdfile"            value="opm/src/main/resources/opm.1_01.xsd"/>
+  
+  <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+    <classpath>
+      <fileset dir="${lib.dir}" includes="*.jar" />
+    </classpath>
+  </taskdef>
+  
+  <path id="ant.classpath">
+    <fileset dir="${lib.dir}" includes="*.jar"/>
+  </path>
+
+  <target name="build.all"
+          description="build everyting">
+    <antcall target="prep.dir"/>
+    <antcall target="schema.compile"/>
+    <antcall target="compile"/>
+    <antcall target="opm.jar"/>
+    <antcall target="build.python"/>
+  </target>
+
+
+
+  <target name="test.all"
+          description="test everyting">
+    <antcall target="test"/>
+    <antcall target="test.python"/>
+  </target>
+
+
+
+  
+  <target name="schema.compile">
+    <xjc schema="${xsdfile}"
+         destdir="${target.dir}/generated-sources"
+         package="org.openprovenance.model"/>
+  </target>
+
+  <target name="compile"
+          description="compile opm library">
+    <javac source="1.5" 
+           destdir="${build.dir}"> 
+        <src>
+          <pathelement location="${src.dir}/main/java/org/openprovenance/model/"/>
+          <pathelement location="${target.dir}/generated-sources/"/>
+        </src>
+        <classpath refid="ant.classpath"/>
+    </javac>
+  </target>
+  
+  
+  <target name="opm.jar"
+          description="Compiles and creates a jar file for opm">
+    <jar destfile="${dist.dir}/opm.jar"
+      	 includes = "org/openprovenance/model/**/*"
+         basedir="${build.dir}"/>
+  </target>
+  
+  
+  <target name="prep.dir"
+          description="prepare directory for compilation">
+    <delete dir="${build.dir}"/>
+    <delete dir="${target.dir}"/>
+    <delete dir="${dist.dir}"/>
+    <mkdir dir="${build.dir}"/>
+    <mkdir dir="${dist.dir}"/>
+    <mkdir dir="${target.dir}"/>
+    <mkdir dir="${target.dir}/generated-sources"/>
+  </target>
+  
+  
+  <target name="build.python">
+	<exec executable="python">
+      <arg value="${generateDSLocation}"/>
+      <arg value="-o"/>
+      <arg value="${dist.dir}/opm.py"/>
+      <arg value="--no-process-includes"/>
+      <arg value="${xsdfile}"/>
+    </exec>
+  </target>
+
+  <target name="test">
+    <echo>
+      Still to be written
+    </echo>
+  </target>
+  <target name="test.python">
+    <echo>
+      Still to be written
+    </echo>
+  </target>
+
+
+</project>
