@@ -30,6 +30,11 @@ public class OPMToDot {
         processNameMap.put("http://process.org/fry","fry");
         processNameMap.put("http://process.org/bake","bake");
         processNameMap.put("http://process.org/badBake","badBake");
+        edgeStyleMap.put("org.openprovenance.model.Used","dotted");
+        edgeStyleMap.put("org.openprovenance.model.WasGeneratedBy","dotted");
+        edgeStyleMap.put("org.openprovenance.model.WasDerivedFrom","bold");
+        accountColourMap.put("orange","red");
+        defaultEdgeStyle="filled";
         this.name="OPMGraph";
         this.defaultAccountLabel="black";
         this.displayProcessValue=true;
@@ -111,7 +116,7 @@ public class OPMToDot {
 
     public void emitEdgeAttributes(String accountLabel, Edge e, PrintStream out) {
         String colour=convertAccount(accountLabel);
-        out.println("[color=\"" + colour + "\", fontcolor=\"" + colour + "\"]");
+        out.println("[color=\"" + colour + "\", fontcolor=\"" + colour + "\",style=\"" + getEdgeStyle(e) + "\"]");
     }
 
     HashMap<String,String> accountColourMap=new HashMap<String,String>();
@@ -133,6 +138,18 @@ public class OPMToDot {
         if (name!=null) return name;
         return artifact;
     }
+
+    String defaultEdgeStyle;
+    HashMap<String,String> edgeStyleMap=new HashMap<String,String>();
+    public String getEdgeStyle(Edge edge) {
+        String name=edge.getClass().getName();
+        System.out.println("name " + name);
+        String style=edgeStyleMap.get(name);
+        if (style!=null) return style;
+        return defaultEdgeStyle;
+    }
+
+    
 
     String name;
     String defaultAccountLabel;
