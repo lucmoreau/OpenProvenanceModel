@@ -205,6 +205,60 @@ public class OPMFactory {
         return  newWasGeneratedBy(aid,role,pid,ll);
     }
 
+    public WasDerivedFrom newWasDerivedFrom(ArtifactId aid1,
+                                            ArtifactId aid2,
+                                            Collection<AccountId> accounts) {
+        WasDerivedFrom res=of.createWasDerivedFrom();
+        res.setCause(aid2);
+        res.setEffect(aid1);
+        if ((accounts !=null) && (accounts.size()!=0)) {
+            res.getAccount().addAll(accounts);
+        }
+
+        return res;
+    }
+
+    public WasDerivedFrom newWasDerivedFrom(Artifact a1,
+                                            Artifact a2,
+                                            Collection<Account> accounts) {
+        ArtifactId aid1=newArtifactId(a1);
+        ArtifactId aid2=newArtifactId(a2);
+        LinkedList ll=new LinkedList();
+        for (Account acc: accounts) {
+            ll.add(newAccountId(acc));
+        }
+        return  newWasDerivedFrom(aid1,aid2,ll);
+    }
+
+
+
+    public WasTriggeredBy newWasTriggeredBy(ProcessId pid1,
+                                            ProcessId pid2,
+                                            Collection<AccountId> accounts) {
+        WasTriggeredBy res=of.createWasTriggeredBy();
+        res.setEffect(pid1);
+        res.setCause(pid2);
+        if ((accounts !=null) && (accounts.size()!=0)) {
+            res.getAccount().addAll(accounts);
+        }
+
+        return res;
+    }
+
+    public WasTriggeredBy newWasTriggeredBy(Process p1,
+                                            Process p2,
+                                            Collection<Account> accounts) {
+        ProcessId pid1=newProcessId(p1);
+        ProcessId pid2=newProcessId(p2);
+        LinkedList ll=new LinkedList();
+        for (Account acc: accounts) {
+            ll.add(newAccountId(acc));
+        }
+        return  newWasTriggeredBy(pid1,pid2,ll);
+    }
+
+
+
     public OPMGraph newOPMGraph(Collection<Account> accs,
                                 Collection<Overlaps> ops,
                                 Collection<Process> ps,

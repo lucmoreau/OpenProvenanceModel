@@ -27,6 +27,9 @@ public class OPMToDot {
         processNameMap.put("http://process.org/split","split");
         processNameMap.put("http://process.org/plus1","+1");
         processNameMap.put("http://process.org/cons","cons");
+        processNameMap.put("http://process.org/fry","fry");
+        processNameMap.put("http://process.org/bake","bake");
+        processNameMap.put("http://process.org/badBake","badBake");
         this.name="OPMGraph";
         this.defaultAccountLabel="black";
         this.displayProcessValue=true;
