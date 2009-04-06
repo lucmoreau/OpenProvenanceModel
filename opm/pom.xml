@@ -147,6 +147,73 @@
   	              <arg value="Account.java" />
                 </exec>
 
+                <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
+  	              <arg value="-e s/implements Equals, HashCode, ToString/implements Equals, HashCode, ToString, Node/" />
+  	              <arg value="-iBAK" />
+  	              <arg value="Artifact.java" />
+                </exec>
+
+                <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
+  	              <arg value="-e s/implements Equals, HashCode, ToString/implements Equals, HashCode, ToString, Node/" />
+  	              <arg value="-iBAK" />
+  	              <arg value="Process.java" />
+                </exec>
+
+                <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
+  	              <arg value="-e s/implements Equals, HashCode, ToString/implements Equals, HashCode, ToString, Node/" />
+  	              <arg value="-iBAK" />
+  	              <arg value="Agent.java" />
+                </exec>
+
+                <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
+  	              <arg value="-e s/implements Equals, HashCode, ToString/implements Equals, HashCode, ToString, Edge/" />
+  	              <arg value="-iBAK" />
+  	              <arg value="Used.java" />
+                </exec>
+
+                <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
+  	              <arg value="-e s/implements Equals, HashCode, ToString/implements Equals, HashCode, ToString, Edge/" />
+  	              <arg value="-iBAK" />
+  	              <arg value="WasDerivedFrom.java" />
+                </exec>
+
+                <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
+  	              <arg value="-e s/implements Equals, HashCode, ToString/implements Equals, HashCode, ToString, Edge/" />
+  	              <arg value="-iBAK" />
+  	              <arg value="WasControlledBy.java" />
+                </exec>
+
+
+                <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
+  	              <arg value="-e s/implements Equals, HashCode, ToString/implements Equals, HashCode, ToString, Edge/" />
+  	              <arg value="-iBAK" />
+  	              <arg value="WasGeneratedBy.java" />
+                </exec>
+
+                <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
+  	              <arg value="-e s/implements Equals, HashCode, ToString/implements Equals, HashCode, ToString, Edge/" />
+  	              <arg value="-iBAK" />
+  	              <arg value="WasTriggeredBy.java" />
+                </exec>
+
+                <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
+  	              <arg value="-e s/implements Equals, HashCode, ToString/implements Equals, HashCode, ToString, Id/" />
+  	              <arg value="-iBAK" />
+  	              <arg value="ArtifactId.java" />
+                </exec>
+
+                <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
+  	              <arg value="-e s/implements Equals, HashCode, ToString/implements Equals, HashCode, ToString, Id/" />
+  	              <arg value="-iBAK" />
+  	              <arg value="ProcessId.java" />
+                </exec>
+
+                <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
+  	              <arg value="-e s/implements Equals, HashCode, ToString/implements Equals, HashCode, ToString, Id/" />
+  	              <arg value="-iBAK" />
+  	              <arg value="AgentId.java" />
+                </exec>
+
 
               </tasks>
             </configuration>

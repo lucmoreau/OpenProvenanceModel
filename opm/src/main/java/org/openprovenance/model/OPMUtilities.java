@@ -1,10 +1,31 @@
 package org.openprovenance.model;
+import java.util.List;
+import java.util.LinkedList;
 
 /** Utilities for manipulating OPM Graphs. */
 
 public class OPMUtilities {
 
     private OPMFactory of=new OPMFactory();
+
+    public List<Node> getNodes(OPMGraph g) {
+        List<Node> res=new LinkedList();
+        res.addAll(g.getArtifacts().getArtifact());
+        res.addAll(g.getProcesses().getProcess());
+        res.addAll(g.getAgents().getAgent());
+        return res;
+    }
+
+    public List<Edge> getEdges(OPMGraph g) {
+        List<Edge> res=new LinkedList();
+        CausalDependencies dep=g.getCausalDependencies();
+        for (Object o:dep.getUsedOrWasGeneratedByOrWasTriggeredBy()) {
+            res.add((Edge)o);
+        }
+        return res;
+    }
+
+        
 
     public OPMGraph union (OPMGraph g1, OPMGraph g2) {
 
