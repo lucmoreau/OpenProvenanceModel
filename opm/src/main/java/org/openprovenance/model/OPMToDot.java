@@ -18,6 +18,21 @@ public class OPMToDot {
     OPMUtilities u=new OPMUtilities();
     OPMFactory of=new OPMFactory();
 
+    public OPMToDot() {
+        init();
+    }
+
+    public void init() {
+        processNameMap.put("http://process.org/add1ToAll","add1ToAll");
+        processNameMap.put("http://process.org/split","split");
+        processNameMap.put("http://process.org/plus1","+1");
+        processNameMap.put("http://process.org/cons","cons");
+        this.name="OPMGraph";
+        this.defaultAccountLabel="black";
+        this.displayProcessValue=true;
+        this.displayArtifactValue=true;
+    }
+
     public void convert(OPMGraph graph, String dotFile, String pdfFile)
         throws java.io.FileNotFoundException, java.io.IOException {
         convert(graph,new File(dotFile));
@@ -38,6 +53,9 @@ public class OPMToDot {
         for (Process p: graph.getProcesses().getProcess()) {
             emitProcess(p,out);
         }
+        for (Artifact p: graph.getArtifacts().getArtifact()) {
+            emitArtifact(p,out);
+        }
 
         for (Edge e: edges) {
             emitEdge(e,out);
@@ -48,7 +66,29 @@ public class OPMToDot {
     }
 
     public void emitProcess(Process p, PrintStream out) {
-        out.println(p.getId() + "[shape=polygon,sides=4]");
+        out.println(p.getId() + "[shape=polygon,sides=4,label=\"" + processLabel(p) + "\"]");
+    }
+
+    public void emitArtifact(Artifact a, PrintStream out) {
+        out.println(a.getId() + "[label=\"" + artifactLabel(a) + "\"]");
+    }
+
+    boolean displayProcessValue;
+    boolean displayArtifactValue;
+
+    public String processLabel(Process p) {
+        if (displayProcessValue) {
+            return convertProcessName(""+p.getValue());
+        } else {
+            return p.getId();
+        }
+    }
+    public String artifactLabel(Artifact p) {
+        if (displayArtifactValue) {
+            return convertArtifactName(""+p.getValue());
+        } else {
+            return p.getId();
+        }
     }
 
     public void emitEdge(Edge e, PrintStream out) {
@@ -78,8 +118,21 @@ public class OPMToDot {
         return account;
     }
 
-    String name="OPMGraph";
-    String defaultAccountLabel="black";
+    HashMap<String,String> processNameMap=new HashMap<String,String>();
+    public String convertProcessName(String process) {
+        String name=processNameMap.get(process);
+        if (name!=null) return name;
+        return process;
+    }
+    HashMap<String,String> artifactNameMap=new HashMap<String,String>();
+    public String convertArtifactName(String artifact) {
+        String name=artifactNameMap.get(artifact);
+        if (name!=null) return name;
+        return artifact;
+    }
+
+    String name;
+    String defaultAccountLabel;
 
     void prelude(PrintStream out) {
         out.println("digraph " + name + " { rankdir=\"BT\"; ");
