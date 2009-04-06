@@ -52,11 +52,8 @@ public class Example3Test
         OPMToDot toDot=new OPMToDot();
 
         
-        toDot.convert(graph1,new File("test.dot"));
+        toDot.convert(graph1,"test.dot", "test.pdf");
 
-        Runtime runtime = Runtime.getRuntime();
-
-        java.lang.Process proc = runtime.exec("dot -o test.pdf -Tpdf test.dot");
             
     }
 }
