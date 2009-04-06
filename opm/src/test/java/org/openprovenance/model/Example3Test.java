@@ -40,7 +40,7 @@ public class Example3Test
     /** Deserialises an OPM graph. */
     public void testOPM() throws JAXBException    {
         OPMDeserialiser deserial=OPMDeserialiser.getThreadOPMDeserialiser();
-        OPMGraph graph=deserial.deserialiseOPMGraph(new File("src/test/resources/example.xml"));
+        OPMGraph graph=deserial.deserialiseOPMGraph(new File("src/test/resources/example2.xml"));
 
         graph1=graph;
 
