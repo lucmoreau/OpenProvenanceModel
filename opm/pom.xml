@@ -107,6 +107,9 @@
         </executions>
       </plugin>
 
+      <!-- executable to be run as target/appassembler/bin/opm2dot src/test/resources/example2.xml file.dot file.pdf -->
+
+
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>appassembler-maven-plugin</artifactId>
