@@ -85,6 +85,7 @@
 		       </plugins>
                <schemaIncludes>
                  <schemaInclude>**/opm.1_01.xsd</schemaInclude>
+                 <schemaInclude>**/opm_printer_config.xsd</schemaInclude>
                </schemaIncludes>
                <bindingDirectory>src/main/resources</bindingDirectory>
                <bindingIncludes>

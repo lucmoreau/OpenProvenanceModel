@@ -163,7 +163,7 @@ public class Example4Test
     /** Produces a dot representation
      * one created. */
     public void testConversion() throws java.io.FileNotFoundException,  java.io.IOException   {
-        OPMToDot toDot=new OPMToDot();
+        OPMToDot toDot=new OPMToDot("src/test/resources/defaultConfig.xml");
         System.out.println("testOPM2 " + graph1);
         
         toDot.convert(graph1,"badcake.dot", "badcake.pdf");

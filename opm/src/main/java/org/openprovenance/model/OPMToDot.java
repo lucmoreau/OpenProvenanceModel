@@ -19,27 +19,92 @@ public class OPMToDot {
     OPMUtilities u=new OPMUtilities();
     OPMFactory of=new OPMFactory();
 
+
     public OPMToDot() {
         init();
     }
 
+    public OPMToDot(String configurationFile) {
+        init(configurationFile);
+    }
+
+    public void init(String configurationFile) {
+        OPMDeserialiser deserial=OPMDeserialiser.getThreadOPMDeserialiser();
+        try {
+            OPMPrinterConfiguration opc=deserial.deserialiseOPMPrinterConfiguration(new File(configurationFile));
+            init(opc);
+        } catch (JAXBException je) {
+            je.printStackTrace();
+            // continue with defult initialistion
+            init();
+        }
+    }
+
+    public void init(OPMPrinterConfiguration configuration) {
+        if (configuration==null) return;
+        init();
+
+        if (configuration.getEdges()!=null) {
+            if (configuration.getEdges().getDefault()!=null) {
+                defaultEdgeStyle=configuration.getEdges().getDefault();
+            }
+            
+            for (EdgeStyleMapEntry edge: configuration.getEdges().getEdge()) {
+                edgeStyleMap.put(edge.getType(),edge.getStyle());
+            }
+        }
+
+        if (configuration.getProcesses()!=null) {
+            if (configuration.getProcesses().isDisplayValue()!=null) {
+                this.displayProcessValue=configuration.getProcesses().isDisplayValue();
+            }
+            for (ProcessMapEntry process: configuration.getProcesses().getProcess()) {
+                processNameMap.put(process.getValue(),process.getDisplay());
+            }
+        }
+
+        if (configuration.getArtifacts()!=null) {
+            if (configuration.getArtifacts().isDisplayValue()!=null) {
+                this.displayArtifactValue=configuration.getArtifacts().isDisplayValue();
+            }
+            for (ArtifactMapEntry artifact: configuration.getArtifacts().getArtifact()) {
+                artifactNameMap.put(artifact.getValue(),artifact.getDisplay());
+            }
+        }
+
+        if (configuration.getAccounts()!=null) {
+            if (configuration.getAccounts().getDefault()!=null) {
+                this.defaultAccountLabel=configuration.getAccounts().getDefault();
+            }
+            for (AccountColorMapEntry account: configuration.getAccounts().getAccount()) {
+                accountColourMap.put(account.getName(),account.getColor());
+            }
+        }
+
+        if (configuration.getGraphName()!=null) {
+            this.name=configuration.getGraphName();
+        }
+
+    }
+
     public void init() {
-        processNameMap.put("http://process.org/add1ToAll","add1ToAll");
-        processNameMap.put("http://process.org/split","split");
-        processNameMap.put("http://process.org/plus1","+1");
-        processNameMap.put("http://process.org/cons","cons");
-        processNameMap.put("http://process.org/fry","fry");
-        processNameMap.put("http://process.org/bake","bake");
-        processNameMap.put("http://process.org/badBake","badBake");
-        edgeStyleMap.put("org.openprovenance.model.Used","dotted");
-        edgeStyleMap.put("org.openprovenance.model.WasGeneratedBy","dotted");
-        edgeStyleMap.put("org.openprovenance.model.WasDerivedFrom","bold");
-        accountColourMap.put("orange","red");
-        defaultEdgeStyle="filled";
-        this.name="OPMGraph";
-        this.defaultAccountLabel="black";
-        this.displayProcessValue=true;
-        this.displayArtifactValue=true;
+//         processNameMap.put("http://process.org/add1ToAll","add1ToAll");
+//         processNameMap.put("http://process.org/split","split");
+//         processNameMap.put("http://process.org/plus1","+1");
+//         processNameMap.put("http://process.org/cons","cons");
+//         processNameMap.put("http://process.org/fry","fry");
+//         processNameMap.put("http://process.org/bake","bake");
+//         processNameMap.put("http://process.org/badBake","badBake");
+        //edgeStyleMap.put("org.openprovenance.model.Used","dotted");
+        //edgeStyleMap.put("org.openprovenance.model.WasGeneratedBy","dotted");
+        //edgeStyleMap.put("org.openprovenance.model.WasDerivedFrom","bold");
+        //        accountColourMap.put("orange","red");
+        //defaultEdgeStyle="filled";
+        //this.name="OPMGraph";
+        //this.defaultAccountLabel="black";
+
+        //this.displayProcessValue=true;
+        //this.displayArtifactValue=true;
     }
 
     public void convert(OPMGraph graph, String dotFile, String pdfFile)

@@ -15,4 +15,12 @@
     </jaxb:bindings>
 
 
+    <jaxb:bindings schemaLocation="opm_printer_config.xsd" 
+                   node="/xs:schema">       
+        <jaxb:schemaBindings>
+            <jaxb:package name="org.openprovenance.model"/>
+        </jaxb:schemaBindings>   
+    </jaxb:bindings>
+
+
 </jaxb:bindings>

@@ -63,6 +63,15 @@ public class OPMDeserialiser {
     }
 
 
+    public OPMPrinterConfiguration deserialiseOPMPrinterConfiguration (File serialised)
+        throws JAXBException {
+        Unmarshaller u=jc.createUnmarshaller();
+        Object root= u.unmarshal(serialised);
+        OPMPrinterConfiguration res=(OPMPrinterConfiguration)((JAXBElement<OPMPrinterConfiguration>) root).getValue();
+        return res;
+    }
+
+
     
 }
 
