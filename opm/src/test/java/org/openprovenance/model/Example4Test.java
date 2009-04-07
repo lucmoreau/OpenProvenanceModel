@@ -164,7 +164,6 @@ public class Example4Test
      * of created graph. */
     public void testConversion() throws java.io.FileNotFoundException,  java.io.IOException   {
         OPMToDot toDot=new OPMToDot();
-        System.out.println("testOPM2 " + graph1);
         
         toDot.convert(graph1,"target/badcake.dot", "target/badcake.pdf");
     }
@@ -172,13 +171,27 @@ public class Example4Test
     /** And another! */
     public void testConversion2() throws java.io.FileNotFoundException,  java.io.IOException   {
         OPMToDot toDot=new OPMToDot("src/test/resources/otherConfig.xml");
-        System.out.println("testOPM2 " + graph1);
         
         toDot.convert(graph1,"target/badcake2.dot", "target/badcake2.pdf");
     }
 
 
-    public void testConversion3() throws Exception   {
+    /** And another! */
+    public void testConversion3() throws java.io.FileNotFoundException,  java.io.IOException   {
+        OPMToDot toDot=new OPMToDot("src/test/resources/blackConfig.xml");
+        
+        toDot.convert(graph1,"target/badcake-black.dot", "target/badcake-black.pdf");
+    }
+
+    /** And another! */
+    public void testConversion4() throws java.io.FileNotFoundException,  java.io.IOException   {
+        OPMToDot toDot=new OPMToDot("src/test/resources/redConfig.xml");
+        
+        toDot.convert(graph1,"target/badcake-red.dot", "target/badcake-red.pdf");
+    }
+
+
+    public void testConversion5() throws Exception   {
 
 
         OPMToDot.main(new String[] { "src/test/resources/example2.xml", "target/foo1.dot", "target/foo1.pdf", "src/test/resources/otherConfig.xml" });
