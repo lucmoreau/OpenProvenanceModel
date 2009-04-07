@@ -107,8 +107,8 @@
       </plugin>
 
 
-      <plugin> <!-- created dummy call to ant plugin, to declare the source
-                    root directory which javadoc was not picking by itself. -->
+<!--       <plugin> created dummy call to ant plugin, to declare the source
+                    root directory which javadoc was not picking by itself. 
         <artifactId>maven-antrun-plugin</artifactId>
         <executions>
           <execution>
@@ -121,7 +121,7 @@
           </execution>
         </executions>
       </plugin>
-
+-->
 
 
       <plugin>
@@ -137,12 +137,12 @@
               <tasks>
                 
                 <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
-  	              <arg value="-e s/hashCodeBuilder.append(this.getValue())/\/\/ LUC: hashCodeBuilder.append(this.getValue())/" />
+  	              <arg value="-e s/hashCodeBuilder.append(this.getValue())/\/\/ not included in equality: hashCodeBuilder.append(this.getValue())/" />
   	              <arg value="-iBAK" />
   	              <arg value="Account.java" />
                 </exec>
                 <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
-  	              <arg value="-e s/equalsBuilder.append(this.getValue(), that.getValue())/\/\/ LUC: equalsBuilder.append(this.getValue(), that.getValue())/" />
+  	              <arg value="-e s/equalsBuilder.append(this.getValue(), that.getValue())/\/\/ not included in equality: equalsBuilder.append(this.getValue(), that.getValue())/" />
   	              <arg value="-iBAK" />
   	              <arg value="Account.java" />
                 </exec>
@@ -216,6 +216,7 @@
 
 
               </tasks>
+              <sourceRoot>${project.build.directory}/generated-sources/xjc/</sourceRoot>
             </configuration>
           </execution>
         </executions>
