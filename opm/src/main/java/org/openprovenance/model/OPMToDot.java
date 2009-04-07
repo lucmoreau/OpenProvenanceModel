@@ -38,7 +38,7 @@ public class OPMToDot {
         defaultEdgeStyle="filled";
         this.name="OPMGraph";
         this.defaultAccountLabel="black";
-        this.displayProcessValue=false;
+        this.displayProcessValue=true;
         this.displayArtifactValue=true;
     }
 
