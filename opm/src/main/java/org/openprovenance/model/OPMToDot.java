@@ -17,9 +17,28 @@ import org.w3c.dom.Element;
 /** Serialisation of  OPM Graphs to DOT format. */
 public class OPMToDot {
     public final static String DEFAULT_CONFIGURATION_FILE="defaultConfig.xml";
+    public final static String USAGE="opm2dot opmFile.xml out.dot out.pdf [configuration.xml]";
 
     OPMUtilities u=new OPMUtilities();
     OPMFactory of=new OPMFactory();
+
+
+
+    public static void main(String [] args) throws Exception {
+        if ((args==null) || (args.length==0) || (args.length>4)) {
+            System.out.println(USAGE);
+            return;
+        }
+
+        String opmFile=args[0];
+        String outDot=args[1];
+        String outPdf=args[2];
+        String configFile=((args.length==4) ? args[3] : null);
+
+        OPMToDot converter=((configFile==null) ? new OPMToDot() : new OPMToDot(configFile));
+
+        converter.convert(opmFile,outDot,outPdf);
+    }
 
 
     public OPMToDot() {
@@ -98,7 +117,10 @@ public class OPMToDot {
 
     }
 
-
+    public void convert(String opmFile, String dotFile, String pdfFile)
+        throws java.io.FileNotFoundException, java.io.IOException, JAXBException {
+        convert (OPMDeserialiser.getThreadOPMDeserialiser().deserialiseOPMGraph(new File(opmFile)),dotFile,pdfFile);
+    }
 
     public void convert(OPMGraph graph, String dotFile, String pdfFile)
         throws java.io.FileNotFoundException, java.io.IOException {
@@ -303,7 +325,6 @@ public class OPMToDot {
     HashMap<String,String> edgeStyleMap=new HashMap<String,String>();
     public String getEdgeStyle(Edge edge) {
         String name=edge.getClass().getName();
-        System.out.println("name " + name);
         String style=edgeStyleMap.get(name);
         if (style!=null) return style;
         return defaultEdgeStyle;

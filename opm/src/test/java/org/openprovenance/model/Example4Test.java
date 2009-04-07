@@ -166,7 +166,7 @@ public class Example4Test
         OPMToDot toDot=new OPMToDot();
         System.out.println("testOPM2 " + graph1);
         
-        toDot.convert(graph1,"badcake.dot", "badcake.pdf");
+        toDot.convert(graph1,"target/badcake.dot", "target/badcake.pdf");
     }
 
     /** And another! */
@@ -174,7 +174,14 @@ public class Example4Test
         OPMToDot toDot=new OPMToDot("src/test/resources/otherConfig.xml");
         System.out.println("testOPM2 " + graph1);
         
-        toDot.convert(graph1,"badcake2.dot", "badcake2.pdf");
+        toDot.convert(graph1,"target/badcake2.dot", "target/badcake2.pdf");
+    }
+
+
+    public void testConversion3() throws Exception   {
+
+
+        OPMToDot.main(new String[] { "src/test/resources/example2.xml", "target/foo1.dot", "target/foo1.pdf", "src/test/resources/otherConfig.xml" });
     }
 
 }

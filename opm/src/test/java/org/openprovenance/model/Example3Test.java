@@ -52,7 +52,7 @@ public class Example3Test
         OPMToDot toDot=new OPMToDot();
 
         
-        toDot.convert(graph1,"test.dot", "test.pdf");
+        toDot.convert(graph1,"target/test.dot", "target/test.pdf");
 
             
     }
