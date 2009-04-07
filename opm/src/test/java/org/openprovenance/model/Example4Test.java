@@ -161,12 +161,20 @@ public class Example4Test
     
 
     /** Produces a dot representation
-     * one created. */
+     * of created graph. */
     public void testConversion() throws java.io.FileNotFoundException,  java.io.IOException   {
-        OPMToDot toDot=new OPMToDot("src/test/resources/otherConfig.xml");
+        OPMToDot toDot=new OPMToDot();
         System.out.println("testOPM2 " + graph1);
         
         toDot.convert(graph1,"badcake.dot", "badcake.pdf");
+    }
+
+    /** And another! */
+    public void testConversion2() throws java.io.FileNotFoundException,  java.io.IOException   {
+        OPMToDot toDot=new OPMToDot("src/test/resources/otherConfig.xml");
+        System.out.println("testOPM2 " + graph1);
+        
+        toDot.convert(graph1,"badcake2.dot", "badcake2.pdf");
     }
 
 }
