@@ -48,19 +48,19 @@ public class Example4Test
                                        orange,
                                        "http://process.org/bake");
         Process p2=oFactory.newProcess("p2",
-                                       orange,
+                                       black,
                                        "http://process.org/split");
         Process p3=oFactory.newProcess("p3",
                                        black,
                                        "http://process.org/badBake");
         Process p4=oFactory.newProcess("p4",
-                                       orange,
+                                       black,
                                        "http://process.org/fry");
 
 
         List<Account> black_orange=new LinkedList();
-        black_orange.addAll(black);
         black_orange.addAll(orange);
+        black_orange.addAll(black);
 
         Artifact a1=oFactory.newArtifact("a1",
                                          black_orange,

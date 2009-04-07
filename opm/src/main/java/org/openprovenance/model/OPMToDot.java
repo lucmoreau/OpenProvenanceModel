@@ -88,6 +88,9 @@ public class OPMToDot {
             if (configuration.getProcesses().isDisplayValue()!=null) {
                 this.displayProcessValue=configuration.getProcesses().isDisplayValue();
             }
+            if (configuration.getProcesses().isColoredAsAccount()!=null) {
+                this.displayProcessColor=configuration.getProcesses().isColoredAsAccount();
+            }
             for (ProcessMapEntry process: configuration.getProcesses().getProcess()) {
                 processNameMap.put(process.getValue(),process.getDisplay());
             }
@@ -96,6 +99,9 @@ public class OPMToDot {
         if (configuration.getArtifacts()!=null) {
             if (configuration.getArtifacts().isDisplayValue()!=null) {
                 this.displayArtifactValue=configuration.getArtifacts().isDisplayValue();
+            }
+            if (configuration.getArtifacts().isColoredAsAccount()!=null) {
+                this.displayArtifactColor=configuration.getArtifacts().isColoredAsAccount();
             }
             for (ArtifactMapEntry artifact: configuration.getArtifacts().getArtifact()) {
                 artifactNameMap.put(artifact.getValue(),artifact.getDisplay());
@@ -176,7 +182,7 @@ public class OPMToDot {
         HashMap<String,String> properties=new HashMap();
 
         emitNode(p.getId(),
-                 addProcessShape(p,addProcessLabel(p, properties)),
+                 addProcessShape(p,addProcessLabel(p, addProcessColor(p,properties))),
                  out);
     }
 
@@ -184,7 +190,7 @@ public class OPMToDot {
         HashMap<String,String> properties=new HashMap();
 
         emitNode(a.getId(),
-                 addArtifactShape(a,addArtifactLabel(a, properties)),
+                 addArtifactShape(a,addArtifactLabel(a, addArtifactColor(a,properties))),
                  out);
     }
 
@@ -209,8 +215,24 @@ public class OPMToDot {
         return properties;
     }
 
+    public HashMap<String,String> addProcessColor(Process p, HashMap<String,String> properties) {
+        if (displayProcessColor) {
+            properties.put("color",processColor(p));
+            properties.put("fontcolor",processColor(p));
+        }
+        return properties;
+    }
+
     public HashMap<String,String> addArtifactShape(Artifact p, HashMap<String,String> properties) {
         // default is good for artifact
+        return properties;
+    }
+
+    public HashMap<String,String> addArtifactColor(Artifact a, HashMap<String,String> properties) {
+        if (displayArtifactColor) {
+            properties.put("color",artifactColor(a));
+            properties.put("fontcolor",artifactColor(a));
+        }
         return properties;
     }
 
@@ -232,9 +254,11 @@ public class OPMToDot {
 
 
 
-    boolean displayProcessValue;
-    boolean displayArtifactValue;
-    boolean displayAgentValue;
+    boolean displayProcessValue=false;
+    boolean displayProcessColor=false;
+    boolean displayArtifactValue=false;
+    boolean displayArtifactColor=false;
+    boolean displayAgentValue=false;
 
     public String processLabel(Process p) {
         if (displayProcessValue) {
@@ -243,6 +267,27 @@ public class OPMToDot {
             return p.getId();
         }
     }
+    public String processColor(Process p) {
+        // Note, I should compute effective account membership
+        List<String> colors=new LinkedList();
+        for (AccountId acc: p.getAccount()) {
+            String accountLabel=((Account)acc.getId()).getId();
+            String colour=convertAccount(accountLabel);
+            colors.add(colour);
+        }
+
+        return selectColor(colors);
+    }
+
+    // returns the first non transparent color
+    public String selectColor(List<String> colors) {
+        String tr="transparent";
+        for (String c: colors) {
+            if (!(c.equals(tr))) return c;
+        }
+        return tr;
+    }
+        
     public String artifactLabel(Artifact p) {
         if (displayArtifactValue) {
             return convertArtifactName(""+p.getValue());
@@ -250,6 +295,17 @@ public class OPMToDot {
             return p.getId();
         }
     }
+    public String artifactColor(Artifact p) {
+        // Note, I should compute effective account membership
+        List<String> colors=new LinkedList();
+        for (AccountId acc: p.getAccount()) {
+            String accountLabel=((Account)acc.getId()).getId();
+            String colour=convertAccount(accountLabel);
+            colors.add(colour);
+        }
+        return selectColor(colors);
+    }
+
     public String agentLabel(Agent p) {
         if (displayAgentValue) {
             return convertAgentName(""+p.getValue());
@@ -361,7 +417,13 @@ public class OPMToDot {
 
     public void emitProperties(StringBuffer sb,HashMap<String,String> properties) {
         sb.append(" [");
+        boolean first=true;
         for (String key: properties.keySet()) {
+            if (first) {
+                first=false;
+            } else {
+                sb.append(",");
+            }
             String value=properties.get(key);
             sb.append(key);
             sb.append("=\"");
