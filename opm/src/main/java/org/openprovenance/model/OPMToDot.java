@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.io.File;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
@@ -15,16 +16,19 @@ import org.w3c.dom.Element;
 
 /** Serialisation of  OPM Graphs to DOT format. */
 public class OPMToDot {
+    public final static String DEFAULT_CONFIGURATION_FILE="defaultConfig.xml";
 
     OPMUtilities u=new OPMUtilities();
     OPMFactory of=new OPMFactory();
 
 
     public OPMToDot() {
-        init();
+        InputStream is=this.getClass().getClassLoader().getResourceAsStream(DEFAULT_CONFIGURATION_FILE);
+        init(is);
     }
 
     public OPMToDot(String configurationFile) {
+        this();
         init(configurationFile);
     }
 
@@ -35,14 +39,21 @@ public class OPMToDot {
             init(opc);
         } catch (JAXBException je) {
             je.printStackTrace();
-            // continue with defult initialistion
-            init();
+        }
+    }
+
+    public void init(InputStream is) {
+        OPMDeserialiser deserial=OPMDeserialiser.getThreadOPMDeserialiser();
+        try {
+            OPMPrinterConfiguration opc=deserial.deserialiseOPMPrinterConfiguration(is);
+            init(opc);
+        } catch (JAXBException je) {
+            je.printStackTrace();
         }
     }
 
     public void init(OPMPrinterConfiguration configuration) {
         if (configuration==null) return;
-        init();
 
         if (configuration.getEdges()!=null) {
             if (configuration.getEdges().getDefault()!=null) {
@@ -87,25 +98,7 @@ public class OPMToDot {
 
     }
 
-    public void init() {
-//         processNameMap.put("http://process.org/add1ToAll","add1ToAll");
-//         processNameMap.put("http://process.org/split","split");
-//         processNameMap.put("http://process.org/plus1","+1");
-//         processNameMap.put("http://process.org/cons","cons");
-//         processNameMap.put("http://process.org/fry","fry");
-//         processNameMap.put("http://process.org/bake","bake");
-//         processNameMap.put("http://process.org/badBake","badBake");
-        //edgeStyleMap.put("org.openprovenance.model.Used","dotted");
-        //edgeStyleMap.put("org.openprovenance.model.WasGeneratedBy","dotted");
-        //edgeStyleMap.put("org.openprovenance.model.WasDerivedFrom","bold");
-        //        accountColourMap.put("orange","red");
-        //defaultEdgeStyle="filled";
-        //this.name="OPMGraph";
-        //this.defaultAccountLabel="black";
 
-        //this.displayProcessValue=true;
-        //this.displayArtifactValue=true;
-    }
 
     public void convert(OPMGraph graph, String dotFile, String pdfFile)
         throws java.io.FileNotFoundException, java.io.IOException {

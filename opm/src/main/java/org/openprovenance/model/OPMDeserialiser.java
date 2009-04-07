@@ -1,5 +1,6 @@
 package org.openprovenance.model;
 import java.io.File;
+import java.io.InputStream;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.JAXBException;
@@ -64,6 +65,14 @@ public class OPMDeserialiser {
 
 
     public OPMPrinterConfiguration deserialiseOPMPrinterConfiguration (File serialised)
+        throws JAXBException {
+        Unmarshaller u=jc.createUnmarshaller();
+        Object root= u.unmarshal(serialised);
+        OPMPrinterConfiguration res=(OPMPrinterConfiguration)((JAXBElement<OPMPrinterConfiguration>) root).getValue();
+        return res;
+    }
+
+    public OPMPrinterConfiguration deserialiseOPMPrinterConfiguration (InputStream serialised)
         throws JAXBException {
         Unmarshaller u=jc.createUnmarshaller();
         Object root= u.unmarshal(serialised);
