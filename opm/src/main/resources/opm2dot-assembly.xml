@@ -38,10 +38,12 @@
     <fileSet>
       <directory>${project.build.directory}/appassembler/repo</directory>
       <outputDirectory>/opm2dot/repo</outputDirectory>
-      <fileMode>755</fileMode>
-      <excludes>
-        <exclude>ant/**/*</exclude>
-      </excludes>
+      <fileMode>644</fileMode>
+    </fileSet>
+    <fileSet>
+      <directory>${project.build.directory}/classes/licenses</directory>
+      <outputDirectory>/opm2dot/repo/licenses</outputDirectory>
+      <fileMode>644</fileMode>
     </fileSet>
     <fileSet>
       <directory>src/test/resources/</directory>

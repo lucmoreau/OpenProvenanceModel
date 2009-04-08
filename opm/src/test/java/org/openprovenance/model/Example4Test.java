@@ -150,13 +150,17 @@ public class Example4Test
 
 
         OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
-        StringWriter sw=new StringWriter();
-        serial.serialiseOPMGraph(sw,graph,true);
+        serial.serialiseOPMGraph(new File("target/bad-cake.xml"),graph,true);
+
+        
         //System.out.println(sw);
 
         graph1=graph;
         System.out.println("testOPM1 asserting True");
         assertTrue( true );
+
+
+        
     }
     
 

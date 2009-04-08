@@ -43,12 +43,18 @@
       <groupId>commons-jxpath</groupId>
       <artifactId>commons-jxpath</artifactId>
       <version>1.2</version>
-       <exclusions> <!-- block maven transitive dependency on this old
-                          version of xerces, which is used by
-                          commons-jxpath-1.2 -->
+       <exclusions> 
 		<exclusion>
 			<groupId>xerces</groupId>
 			<artifactId>xerces</artifactId>
+		</exclusion>
+		<exclusion>
+			<groupId>ant</groupId>
+			<artifactId>ant-optional</artifactId>
+		</exclusion>
+		<exclusion>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
 		</exclusion>
  	   </exclusions>
     </dependency>
@@ -59,6 +65,13 @@
  </dependencies>
 
   <build>
+
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
 
 
 
@@ -292,6 +305,24 @@
         <version>2.3</version>
       </plugin>
 
+
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptors>
+          <descriptor>${project.build.directory}/classes/opm2dot-assembly.xml</descriptor>
+         </descriptors>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <id>make-assembly</id>
+              <goals>
+               <goal>single</goal>
+              </goals>
+          </execution>
+        </executions>
+      </plugin>
 
 
 

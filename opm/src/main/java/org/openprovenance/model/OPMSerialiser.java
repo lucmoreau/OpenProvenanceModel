@@ -10,6 +10,7 @@ import javax.xml.bind.Marshaller;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import java.io.StringWriter;
+import java.io.File;
 
 /** Serialiser of OPM Graphs. */
 
@@ -85,6 +86,13 @@ public class OPMSerialiser {
         m.setProperty("jaxb.formatted.output",format);
         m.marshal(of.createOpmGraph(graph),sw);
         return sw.toString();
+    }
+
+    public void serialiseOPMGraph (File file, OPMGraph graph, boolean format)
+        throws JAXBException {
+        Marshaller m=jc.createMarshaller();
+        m.setProperty("jaxb.formatted.output",format);
+        m.marshal(of.createOpmGraph(graph),file);
     }
 
     /** By default we use a document provided by the DocumentBuilder
