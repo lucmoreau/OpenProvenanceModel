@@ -1,0 +1,59 @@
+<assembly>
+  <id>opm2dot-assembly</id>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+
+  <files>
+    <file>
+      <source>../license.txt</source>
+      <outputDirectory>/opm2dot/</outputDirectory>
+      <fileMode>644</fileMode>
+    </file>
+    
+    <file>
+      <source>${project.build.directory}/classes/README-opm2dot.txt</source>
+      <destName>README.txt</destName>
+      <outputDirectory>/opm2dot</outputDirectory>
+      <fileMode>644</fileMode>
+    </file>
+
+    <file>
+      <source>${project.build.directory}/bad-cake.xml</source>
+      <outputDirectory>/opm2dot/examples</outputDirectory>
+      <fileMode>644</fileMode>
+    </file>
+  </files>
+
+  <fileSets>
+    <fileSet>
+      <directory>${project.build.directory}/appassembler/bin</directory>
+      <outputDirectory>/opm2dot/bin</outputDirectory>
+      <fileMode>755</fileMode>
+      <excludes>
+        <exclude>opm2dotBAK</exclude>
+      </excludes>
+    </fileSet>
+    <fileSet>
+      <directory>${project.build.directory}/appassembler/repo</directory>
+      <outputDirectory>/opm2dot/repo</outputDirectory>
+      <fileMode>755</fileMode>
+      <excludes>
+        <exclude>ant/**/*</exclude>
+      </excludes>
+    </fileSet>
+    <fileSet>
+      <directory>src/test/resources/</directory>
+      <outputDirectory>/opm2dot/examples</outputDirectory>
+      <includes>
+        <include>*Config.xml</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+
+
+
+
+</assembly>
+
