@@ -109,8 +109,11 @@ public class OPMToDot {
         }
 
         if (configuration.getAccounts()!=null) {
-            if (configuration.getAccounts().getDefault()!=null) {
-                this.defaultAccountLabel=configuration.getAccounts().getDefault();
+            if (configuration.getAccounts().getDefaultAccount()!=null) {
+                this.defaultAccountLabel=configuration.getAccounts().getDefaultAccount();
+            }
+            if (configuration.getAccounts().getDefaultColor()!=null) {
+                this.defaultAccountColor=configuration.getAccounts().getDefaultColor();
             }
             for (AccountColorMapEntry account: configuration.getAccounts().getAccount()) {
                 accountColourMap.put(account.getName(),account.getColor());
@@ -374,7 +377,7 @@ public class OPMToDot {
     public String convertAccount(String account) {
         String colour=accountColourMap.get(account);
         if (colour!=null) return colour;
-        return account;
+        return defaultAccountColor;
     }
 
     String defaultEdgeStyle;
@@ -396,6 +399,7 @@ public class OPMToDot {
     
     String name;
     String defaultAccountLabel;
+    String defaultAccountColor;
 
 
     public void emitNode(String name, HashMap<String,String> properties, PrintStream out) {

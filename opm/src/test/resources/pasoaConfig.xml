@@ -25,7 +25,7 @@
   </edges>
 
 
-  <accounts default="black">
+  <accounts defaultAccount="black" defaultColor="black">
     <account name="sender"      color="blue"/>
     <account name="receiver"      color="red"/>
     <account name="original"      color="green"/>

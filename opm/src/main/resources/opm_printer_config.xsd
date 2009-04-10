@@ -45,7 +45,8 @@
 	<xs:sequence>
       <xs:element name="account" type="opc:AccountColorMapEntry" minOccurs="0" maxOccurs="unbounded"/>
 	</xs:sequence>
-	<xs:attribute name="default"  type="xs:string"/>
+	<xs:attribute name="defaultAccount"  type="xs:string"/>
+	<xs:attribute name="defaultColor"  type="xs:string"/>
   </xs:complexType>
 
   <xs:complexType name="AccountColorMapEntry">

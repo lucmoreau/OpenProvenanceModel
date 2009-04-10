@@ -25,7 +25,7 @@
   </edges>
 
 
-  <accounts default="black">
+  <accounts defaultAccount="black" defaultColor="black">
     <account name="orange"      color="red"/>
   </accounts>
 
