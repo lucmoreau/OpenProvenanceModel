@@ -36,13 +36,13 @@
       </excludes>
     </fileSet>
     <fileSet>
-      <directory>${project.build.directory}/appassembler/repo</directory>
-      <outputDirectory>/opm2dot/repo</outputDirectory>
+      <directory>${project.build.directory}/appassembler/lib</directory>
+      <outputDirectory>/opm2dot/lib</outputDirectory>
       <fileMode>644</fileMode>
     </fileSet>
     <fileSet>
       <directory>${project.build.directory}/classes/licenses</directory>
-      <outputDirectory>/opm2dot/repo/licenses</outputDirectory>
+      <outputDirectory>/opm2dot/lib/licenses</outputDirectory>
       <fileMode>644</fileMode>
     </fileSet>
     <fileSet>
