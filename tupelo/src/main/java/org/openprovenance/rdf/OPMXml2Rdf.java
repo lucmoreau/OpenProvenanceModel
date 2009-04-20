@@ -72,7 +72,7 @@ public class OPMXml2Rdf {
 
         if (graph.getAccounts()!=null) {
             for (Account acc: graph.getAccounts().getAccount()) {
-                Resource res=Resource.uriRef(urify(acc.getId()));
+                Resource res=Resource.resource(urify(acc.getId()));
                 ProvenanceAccount rdfAccount=pcf.newAccount(acc.getId(),res);
                 pcf.assertAccount(rdfAccount);
                 accountTable.put(acc.getId(),rdfAccount);
