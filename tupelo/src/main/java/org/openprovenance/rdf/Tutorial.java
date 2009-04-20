@@ -1,8 +1,11 @@
 package org.openprovenance.rdf;
 
+import java.util.Set;
 import java.io.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.File;
+import java.io.FileOutputStream;
 
 import org.tupeloproject.provenance.ProvenanceAccount;
 import org.tupeloproject.provenance.ProvenanceRole;
@@ -10,6 +13,7 @@ import org.tupeloproject.provenance.ProvenanceProcess;
 import org.tupeloproject.provenance.ProvenanceArtifact;
 import org.tupeloproject.provenance.impl.ProvenanceContextFacade;
 import org.tupeloproject.rdf.Resource;
+import org.tupeloproject.rdf.Triple;
 import org.tupeloproject.kernel.Context;
 import org.tupeloproject.kernel.UnionContext;
 import org.tupeloproject.kernel.impl.ResourceContext;
@@ -17,6 +21,7 @@ import org.tupeloproject.kernel.impl.MemoryContext;
 import org.tupeloproject.kernel.impl.FileContext;
 import org.tupeloproject.kernel.impl.BasicLocalContext;
 import org.tupeloproject.util.Xml;
+import org.tupeloproject.rdf.xml.RdfXml;
 import org.tupeloproject.kernel.OperatorException; 
 
 
@@ -24,8 +29,7 @@ public class Tutorial {
     public void example (String [] args) throws OperatorException, IOException {
       
 
-        BasicLocalContext mc = new BasicLocalContext(); //MemoryContext
-        mc.setPath("target/foo.rdf");
+        MemoryContext mc = new MemoryContext(); //
         
         ResourceContext rc = new ResourceContext("http://example.org/data/","/provenanceExample/");
         Context context = new UnionContext();
@@ -66,5 +70,9 @@ public class Tutorial {
         pcf.assertUsed(transformProcess, docArtifact, inputDocumentRole, account);
         pcf.assertUsed(transformProcess, sheetArtifact, stylesheetRole, account);
         pcf.assertGeneratedBy(resultArtifact, transformProcess, outputRole, account);
+
+
+        Set<Triple> triplesToWrite = mc.getTriples();
+        RdfXml.write(triplesToWrite, new FileOutputStream(new File("target/foo.xml")));
     }
 }
