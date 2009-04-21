@@ -38,7 +38,7 @@ public class Example3Test
     static OPMGraph graph1;
     
     /** Deserialises an OPM graph. */
-    public void testOPM() throws JAXBException    {
+    public void testConvert1() throws JAXBException    {
         OPMDeserialiser deserial=OPMDeserialiser.getThreadOPMDeserialiser();
         OPMGraph graph=deserial.deserialiseOPMGraph(new File("src/test/resources/example2.xml"));
 
@@ -48,7 +48,7 @@ public class Example3Test
 
     /** Produces a dot representation
      * one created. */
-    public void testOPM2() throws java.io.FileNotFoundException,  java.io.IOException   {
+    public void testConvert2() throws java.io.FileNotFoundException,  java.io.IOException   {
         OPMToDot toDot=new OPMToDot();
 
         

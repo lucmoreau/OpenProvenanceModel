@@ -37,7 +37,7 @@ public class Example2Test
 
     /** Creates and serialises an OPM graph. */
 
-    public void testOPM1() throws JAXBException
+    public void testOPMGraph1() throws JAXBException
     {
         OPMFactory oFactory=new OPMFactory();
 
@@ -57,7 +57,7 @@ public class Example2Test
     }
 
 
-    public void testOPM2() throws JAXBException
+    public void testOPMGraph2() throws JAXBException
     {
         OPMFactory oFactory=new OPMFactory();
 
