@@ -17,6 +17,10 @@
   <artifacts displayValue="true">
   </artifacts>
 
+  <agents displayValue="true">
+  </agents>
+
+
 
   <edges default="filled">
     <edge type="org.openprovenance.model.Used"           style="filled"/>

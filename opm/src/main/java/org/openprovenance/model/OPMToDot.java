@@ -108,6 +108,18 @@ public class OPMToDot {
             }
         }
 
+        if (configuration.getAgents()!=null) {
+            if (configuration.getAgents().isDisplayValue()!=null) {
+                this.displayAgentValue=configuration.getAgents().isDisplayValue();
+            }
+            if (configuration.getAgents().isColoredAsAccount()!=null) {
+                this.displayAgentColor=configuration.getAgents().isColoredAsAccount();
+            }
+            for (AgentMapEntry agent: configuration.getAgents().getAgent()) {
+                agentNameMap.put(agent.getValue(),agent.getDisplay());
+            }
+        }
+
         if (configuration.getAccounts()!=null) {
             if (configuration.getAccounts().getDefaultAccount()!=null) {
                 this.defaultAccountLabel=configuration.getAccounts().getDefaultAccount();
@@ -201,14 +213,14 @@ public class OPMToDot {
         HashMap<String,String> properties=new HashMap();
 
         emitNode(ag.getId(),
-                 addAgentShape(ag,addAgentLabel(ag, properties)),
+                 addAgentShape(ag,addAgentLabel(ag, addAgentColor(ag,properties))),
                  out);
     }
 
     
 
     public HashMap<String,String> addProcessShape(Process p, HashMap<String,String> properties) {
-        properties.put("shape","poligon");
+        properties.put("shape","polygon");
         properties.put("sides","4");
         return properties;
     }
@@ -245,7 +257,7 @@ public class OPMToDot {
     }
 
     public HashMap<String,String> addAgentShape(Agent p, HashMap<String,String> properties) {
-        properties.put("shape","poligon");
+        properties.put("shape","polygon");
         properties.put("sides","5");
         return properties;
     }
@@ -255,12 +267,20 @@ public class OPMToDot {
         return properties;
     }
 
+    public HashMap<String,String> addAgentColor(Agent a, HashMap<String,String> properties) {
+        if (displayAgentColor) {
+            properties.put("color",agentColor(a));
+            properties.put("fontcolor",agentColor(a));
+        }
+        return properties;
+    }
 
 
     boolean displayProcessValue=false;
     boolean displayProcessColor=false;
     boolean displayArtifactValue=false;
     boolean displayArtifactColor=false;
+    boolean displayAgentColor=false;
     boolean displayAgentValue=false;
 
     public String processLabel(Process p) {
@@ -299,6 +319,16 @@ public class OPMToDot {
         }
     }
     public String artifactColor(Artifact p) {
+        // Note, I should compute effective account membership
+        List<String> colors=new LinkedList();
+        for (AccountId acc: p.getAccount()) {
+            String accountLabel=((Account)acc.getId()).getId();
+            String colour=convertAccount(accountLabel);
+            colors.add(colour);
+        }
+        return selectColor(colors);
+    }
+    public String agentColor(Agent p) {
         // Note, I should compute effective account membership
         List<String> colors=new LinkedList();
         for (AccountId acc: p.getAccount()) {

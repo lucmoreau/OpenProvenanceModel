@@ -17,11 +17,15 @@
   <artifacts displayValue="true">
   </artifacts>
 
+  <agents displayValue="true">
+  </agents>
+
 
   <edges default="filled">
-    <edge type="org.openprovenance.model.Used"           style="filled"/>
-    <edge type="org.openprovenance.model.WasGeneratedBy" style="filled"/>
-    <edge type="org.openprovenance.model.WasDerivedFrom" style="bold"/>
+    <edge type="org.openprovenance.model.Used"            style="filled"/>
+    <edge type="org.openprovenance.model.WasControlledBy" style="filled"/>
+    <edge type="org.openprovenance.model.WasGeneratedBy"  style="filled"/>
+    <edge type="org.openprovenance.model.WasDerivedFrom"  style="bold"/>
   </edges>
 
 

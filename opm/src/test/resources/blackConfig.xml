@@ -17,11 +17,16 @@
   <artifacts displayValue="true" coloredAsAccount="true">
   </artifacts>
 
+  <agents displayValue="true" coloredAsAccount="true">
+  </agents>
+
+
 
   <edges default="filled">
-    <edge type="org.openprovenance.model.Used"           style="dotted"/>
-    <edge type="org.openprovenance.model.WasGeneratedBy" style="dotted"/>
-    <edge type="org.openprovenance.model.WasDerivedFrom" style="bold"/>
+    <edge type="org.openprovenance.model.Used"            style="dotted"/>
+    <edge type="org.openprovenance.model.WasGeneratedBy"  style="dotted"/>
+    <edge type="org.openprovenance.model.WasControlledBy" style="dotted"/>
+    <edge type="org.openprovenance.model.WasDerivedFrom"  style="bold"/>
   </edges>
 
 

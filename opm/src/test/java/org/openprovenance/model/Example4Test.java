@@ -62,6 +62,11 @@ public class Example4Test
         black_orange.addAll(orange);
         black_orange.addAll(black);
 
+        Agent ag1=oFactory.newAgent("ag1",
+                                    black_orange,
+                                    "John");
+
+
         Artifact a1=oFactory.newArtifact("a1",
                                          black_orange,
                                          "100g butter");
@@ -130,6 +135,10 @@ public class Example4Test
 
         WasTriggeredBy wt1=oFactory.newWasTriggeredBy(p3,p4,black);
 
+
+        WasControlledBy wc1=oFactory.newWasControlledBy(p1,oFactory.newRole("baker"),ag1,orange);
+        WasControlledBy wc2=oFactory.newWasControlledBy(p3,oFactory.newRole("baker"),ag1,black);
+
         Overlaps ov1=oFactory.newOverlaps(black_orange);
 
         
@@ -139,11 +148,12 @@ public class Example4Test
                                             new Overlaps[] { ov1 },
                                             new Process[] {p1,p2,p3,p4},
                                             new Artifact[] {a1,a2,a3,a4,a5,a6, a7, a8},
-                                            new Agent[] {},
+                                            new Agent[] { ag1 },
                                             new Object[] {u1,u2,u3,u4,u5,u6,u7, u8, u9, u10,
                                                           wg1,wg2,wg3,wg4,wg5,
                                                           wd1,wd2,wd3,wd4,wd5,wd6,wd7,wd8,wd9,wd10,wd11,
-                                                          wt1} );
+                                                          wt1,
+                                                          wc1, wc2} );
 
 
 

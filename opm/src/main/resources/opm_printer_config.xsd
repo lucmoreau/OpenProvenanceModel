@@ -23,6 +23,7 @@
 	  <xs:element name="edges"                type="opc:EdgeStyleMap" minOccurs="0"/>
 	  <xs:element name="processes"            type="opc:ProcessMap"   minOccurs="0"/>
 	  <xs:element name="artifacts"            type="opc:ArtifactMap"  minOccurs="0"/>
+	  <xs:element name="agents"               type="opc:AgentMap"     minOccurs="0"/>
 	  <xs:element name="accounts"             type="opc:AccountMap"   minOccurs="0"/>
 	  <xs:element name="displayArtifactValue" type="xs:boolean"       minOccurs="0"/>
 	  <xs:element name="graphName"            type="xs:string"        minOccurs="0"/>
@@ -77,6 +78,19 @@
   </xs:complexType>
 
   <xs:complexType name="ArtifactMapEntry">
+	<xs:attribute name="value"   type="xs:string"/>
+	<xs:attribute name="display" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="AgentMap">
+	<xs:sequence>
+      <xs:element name="agent" type="opc:AgentMapEntry" minOccurs="0" maxOccurs="unbounded"/>
+	</xs:sequence>
+	<xs:attribute name="displayValue"  type="xs:boolean"/>
+	<xs:attribute name="coloredAsAccount" type="xs:boolean"/>
+  </xs:complexType>
+
+  <xs:complexType name="AgentMapEntry">
 	<xs:attribute name="value"   type="xs:string"/>
 	<xs:attribute name="display" type="xs:string"/>
   </xs:complexType>

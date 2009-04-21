@@ -90,6 +90,22 @@ public class OPMFactory {
         return res;
     }
 
+    public Agent newAgent(String ag,
+                          Collection<Account> accounts,
+                          Object value) {
+        Agent res=of.createAgent();
+        res.setId(ag);
+        if ((accounts !=null) && (accounts.size()!=0)) {
+            LinkedList ll=new LinkedList();
+            for (Account acc: accounts) {
+                ll.add(newAccountId(acc));
+            }
+            res.getAccount().addAll(ll);
+        }
+        res.setValue(value);
+        return res;
+    }
+
     public Account newAccount(String acc) {
         Account res=of.createAccount();
         res.setId(acc);
@@ -191,11 +207,10 @@ public class OPMFactory {
         }
         return res;
     }
-
     public WasGeneratedBy newWasGeneratedBy(Artifact a,
-                                            Role role,
-                                            Process p,
-                                            Collection<Account> accounts) {
+                                             Role role,
+                                             Process p,
+                                             Collection<Account> accounts) {
         ArtifactId aid=newArtifactId(a);
         ProcessId pid=newProcessId(p);
         LinkedList ll=new LinkedList();
@@ -203,6 +218,36 @@ public class OPMFactory {
             ll.add(newAccountId(acc));
         }
         return  newWasGeneratedBy(aid,role,pid,ll);
+    }
+
+
+
+    public WasControlledBy newWasControlledBy(ProcessId pid,
+                                              Role role,
+                                              AgentId agid,
+                                              Collection<AccountId> accounts) {
+        WasControlledBy res=of.createWasControlledBy();
+        res.setEffect(pid);
+        res.setRole(role);
+        res.setCause(agid);
+        if ((accounts !=null) && (accounts.size()!=0)) {
+            res.getAccount().addAll(accounts);
+        }
+        return res;
+    }
+
+
+    public WasControlledBy newWasControlledBy(Process p,
+                                              Role role,
+                                              Agent ag,
+                                              Collection<Account> accounts) {
+        AgentId agid=newAgentId(ag);
+        ProcessId pid=newProcessId(p);
+        LinkedList ll=new LinkedList();
+        for (Account acc: accounts) {
+            ll.add(newAccountId(acc));
+        }
+        return  newWasControlledBy(pid,role,agid,ll);
     }
 
     public WasDerivedFrom newWasDerivedFrom(ArtifactId aid1,
