@@ -1,5 +1,5 @@
 <assembly>
-  <id>opm2dot-assembly</id>
+  <id>release</id>
   <formats>
     <format>zip</format>
   </formats>
@@ -14,16 +14,38 @@
     
     <file>
       <source>${project.build.directory}/classes/README-opm2dot.txt</source>
-      <destName>README-opm2dot.txt</destName>
+      <outputDirectory>/opmToolbox</outputDirectory>
+      <fileMode>644</fileMode>
+    </file>
+    <file>
+      <source>${project.build.directory}/classes/README-opmxml2rdf.txt</source>
+      <outputDirectory>/opmToolbox</outputDirectory>
+      <fileMode>644</fileMode>
+    </file>
+    <file>
+      <source>${project.build.directory}/classes/README-opmrdf2xml.txt</source>
+      <outputDirectory>/opmToolbox</outputDirectory>
+      <fileMode>644</fileMode>
+    </file>
+    <file>
+      <source>${project.build.directory}/classes/README-licenses.txt</source>
       <outputDirectory>/opmToolbox</outputDirectory>
       <fileMode>644</fileMode>
     </file>
 
     <file>
-      <source>${project.build.directory}/bad-cake.xml</source>
+      <source>../opm/target/bad-cake.xml</source>
       <outputDirectory>/opmToolbox/examples</outputDirectory>
       <fileMode>644</fileMode>
     </file>
+
+    <file>
+      <source>../tupelo/target/example4.xml</source>
+      <destName>bad-cake.rdf</destName>
+      <outputDirectory>/opmToolbox/examples</outputDirectory>
+      <fileMode>644</fileMode>
+    </file>
+
   </files>
 
   <fileSets>
@@ -36,17 +58,17 @@
       </excludes>
     </fileSet>
     <fileSet>
-      <directory>${project.build.directory}/appassembler/lib</directory>
-      <outputDirectory>/opmToolbox/lib</outputDirectory>
+      <directory>${project.build.directory}/appassembler/repo</directory>
+      <outputDirectory>/opmToolbox/repo</outputDirectory>
       <fileMode>644</fileMode>
     </fileSet>
     <fileSet>
       <directory>${project.build.directory}/classes/licenses</directory>
-      <outputDirectory>/opmToolbox/lib/licenses</outputDirectory>
+      <outputDirectory>/opmToolbox/repo/licenses</outputDirectory>
       <fileMode>644</fileMode>
     </fileSet>
     <fileSet>
-      <directory>src/test/resources/</directory>
+      <directory>../opm/src/test/resources/</directory>
       <outputDirectory>/opmToolbox/examples</outputDirectory>
       <includes>
         <include>*Config.xml</include>

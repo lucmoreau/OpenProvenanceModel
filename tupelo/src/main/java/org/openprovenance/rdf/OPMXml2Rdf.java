@@ -229,7 +229,7 @@ public class OPMXml2Rdf {
 
     public static void main(String [] args) throws OperatorException, IOException, JAXBException {
         if ((args==null) || (args.length!=2)) {
-            System.out.println("Usage: opmrdf2xml fileIn fileOut");
+            System.out.println("Usage: opmxml2rdf fileIn fileOut");
             return;
         }
         OPMXml2Rdf converter=new OPMXml2Rdf();

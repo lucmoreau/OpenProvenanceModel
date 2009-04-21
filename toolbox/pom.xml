@@ -64,7 +64,7 @@
             </program>
           </programs>
           <repositoryLayout>default</repositoryLayout>
-          <repositoryName>lib</repositoryName>
+          <repositoryName>repo</repositoryName>
           <platforms>
             <platform>windows</platform>
             <platform>unix</platform>

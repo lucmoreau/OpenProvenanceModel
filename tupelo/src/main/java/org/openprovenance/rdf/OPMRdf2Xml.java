@@ -337,7 +337,12 @@ public class OPMRdf2Xml {
 
 
     public String deUrify(String id) {
-        return id.substring(OPMXml2Rdf.URI_PREFIX.length(),id.length());
+        if (id.startsWith(OPMXml2Rdf.URI_PREFIX)) {
+            return id.substring(OPMXml2Rdf.URI_PREFIX.length(),id.length());
+        } else {
+            return id;
+        }
+            
     }
 
 
