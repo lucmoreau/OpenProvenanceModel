@@ -5,6 +5,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.OutputStream;
 
 import java.util.List;
 import java.util.Set;
@@ -18,10 +19,14 @@ import org.openprovenance.model.AccountId;
 import org.openprovenance.model.Id; 
 import org.openprovenance.model.Processes; 
 import org.openprovenance.model.Node; 
-import org.openprovenance.model.Used; 
+import org.openprovenance.model.Agent; 
 import org.openprovenance.model.Process; 
 import org.openprovenance.model.Artifact; 
+import org.openprovenance.model.Used; 
 import org.openprovenance.model.WasGeneratedBy; 
+import org.openprovenance.model.WasTriggeredBy; 
+import org.openprovenance.model.WasDerivedFrom; 
+import org.openprovenance.model.WasControlledBy; 
 import org.openprovenance.model.OPMUtilities; 
 
 
@@ -50,7 +55,11 @@ public class OPMXml2Rdf {
     
     OPMUtilities u=new OPMUtilities();
 
-    public void convert (OPMGraph graph) throws OperatorException, IOException {
+    public void convert (OPMGraph graph, String filename) throws OperatorException, IOException {
+        convert(graph,new FileOutputStream(new File(filename)));
+    }
+    
+    public void convert (OPMGraph graph, OutputStream out) throws OperatorException, IOException {
       
 
         BasicLocalContext mc = new BasicLocalContext(); //MemoryContext
@@ -102,6 +111,16 @@ public class OPMXml2Rdf {
             }
         }
 
+
+        if (graph.getAgents()!=null) {
+            for (Agent a: graph.getAgents().getAgent()) {
+                Resource res=Resource.uriRef(urify(a.getId()));
+                ProvenanceAgent rdfAgent = pcf.newAgent((String)a.getValue(),res);
+                pcf.assertAgent(rdfAgent);
+                agentTable.put(a.getId(),rdfAgent);
+            }
+        }
+
         List<Edge> edges=u.getEdges(graph);
         for (Edge e: edges) {
             List<AccountId> accounts= e.getAccount();
@@ -117,73 +136,84 @@ public class OPMXml2Rdf {
                     pcf.assertUsed(effect, cause, role, account);
                 } else {
                     for (AccountId aid: accounts) {
-                    ProvenanceAccount account=accountTable.get(((Account)aid.getId()).getId());
-                    pcf.assertUsed(effect, cause, role, account);
+                        ProvenanceAccount account=accountTable.get(((Account)aid.getId()).getId());
+                        pcf.assertUsed(effect, cause, role, account);
                     }
                 }
             }
-
-
-            if (e instanceof WasGeneratedBy) {
-                ProvenanceProcess cause=processTable.get(causeId);
-                ProvenanceArtifact effect=artifactTable.get(effectId);
-                ProvenanceRole role = pcf.newRole(((WasGeneratedBy)e).getRole().getValue());
-                if (accounts.isEmpty()) {
-                    ProvenanceAccount account=accountTable.get(NULL_ACCOUNT);
-                    pcf.assertGeneratedBy(effect, cause, role, account);
-                } else {
-                    for (AccountId aid: accounts) {
-                    ProvenanceAccount account=accountTable.get(((Account)aid.getId()).getId());
-                    pcf.assertGeneratedBy(effect, cause, role, account);
+            else {
+                if (e instanceof WasGeneratedBy) {
+                    ProvenanceProcess cause=processTable.get(causeId);
+                    ProvenanceArtifact effect=artifactTable.get(effectId);
+                    ProvenanceRole role = pcf.newRole(((WasGeneratedBy)e).getRole().getValue());
+                    if (accounts.isEmpty()) {
+                        ProvenanceAccount account=accountTable.get(NULL_ACCOUNT);
+                        pcf.assertGeneratedBy(effect, cause, role, account);
+                    } else {
+                        for (AccountId aid: accounts) {
+                            ProvenanceAccount account=accountTable.get(((Account)aid.getId()).getId());
+                            pcf.assertGeneratedBy(effect, cause, role, account);
+                        }
+                    }
+                }
+                else {
+                    if (e instanceof WasTriggeredBy) {
+                        ProvenanceProcess cause=processTable.get(causeId);
+                        ProvenanceProcess effect=processTable.get(effectId);
+                        if (accounts.isEmpty()) {
+                            ProvenanceAccount account=accountTable.get(NULL_ACCOUNT);
+                            pcf.assertTriggeredBy(effect, cause, account);
+                        } else {
+                            for (AccountId aid: accounts) {
+                                ProvenanceAccount account=accountTable.get(((Account)aid.getId()).getId());
+                                pcf.assertTriggeredBy(effect, cause, account);
+                            }
+                        }
+                    }
+                    else {
+                        if (e instanceof WasDerivedFrom) {
+                            ProvenanceArtifact cause=artifactTable.get(causeId);
+                            ProvenanceArtifact effect=artifactTable.get(effectId);
+                            if (accounts.isEmpty()) {
+                                ProvenanceAccount account=accountTable.get(NULL_ACCOUNT);
+                                pcf.assertDerivedFrom(effect, cause, account);
+                            } else {
+                                for (AccountId aid: accounts) {
+                                    ProvenanceAccount account=accountTable.get(((Account)aid.getId()).getId());
+                                    pcf.assertDerivedFrom(effect, cause, account);
+                                }
+                            }
+                        }
+                        else {
+                            if (e instanceof WasControlledBy) {
+                                ProvenanceAgent cause=agentTable.get(causeId);
+                                ProvenanceProcess effect=processTable.get(effectId);
+                                ProvenanceRole role = pcf.newRole(((WasControlledBy)e).getRole().getValue());
+                                if (accounts.isEmpty()) {
+                                    ProvenanceAccount account=accountTable.get(NULL_ACCOUNT);
+                                    pcf.assertControlledBy(effect, cause, role, account);
+                                } else {
+                                    for (AccountId aid: accounts) {
+                                        ProvenanceAccount account=accountTable.get(((Account)aid.getId()).getId());
+                                        pcf.assertControlledBy(effect, cause, role, account);
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
-                                       
         }
 
-
-        /* 
-        Resource sheet = Resource.uriRef("http://example.org/data/style.xsl");
-        Resource doc = Resource.uriRef("http://example.org/data/doc.xml");
- 
-        ProvenanceArtifact docArtifact = pcf.newArtifact("source doc", doc);
-        ProvenanceArtifact sheetArtifact = pcf.newArtifact("stylesheet", sheet);
- 
-        ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-        //Xml.transform(context.read(doc), context.read(sheet), outBuffer);
-        ByteArrayInputStream inBuffer = new ByteArrayInputStream(outBuffer.toByteArray());
-
-        Resource result = Resource.uriRef("http://example.org/data/result.xml");
-        context.write(result, inBuffer);
- 
-        // the process has completed, now let's record the provenance
-        ProvenanceArtifact resultArtifact = pcf.newArtifact("transform result");
-        ProvenanceProcess transformProcess = pcf.newProcess("xslt transform");
- 
-        pcf.assertArtifact(sheetArtifact);
-        pcf.assertArtifact(docArtifact);
-        pcf.assertProcess(transformProcess);
-        pcf.assertArtifact(resultArtifact);
- 
-        // the input document and stylesheet are two different kinds of inputs for the transform
-        // process, so each has its own role
-        ProvenanceRole inputDocumentRole = pcf.newRole("input document");
-        ProvenanceRole stylesheetRole = pcf.newRole("stylesheet");
-        ProvenanceRole outputRole = pcf.newRole("output");
- 
-        //pcf.assertUsed(transformProcess, docArtifact, inputDocumentRole, account);
-        //pcf.assertUsed(transformProcess, sheetArtifact, stylesheetRole, account);
-        //pcf.assertGeneratedBy(resultArtifact, transformProcess, outputRole, account);
-
-        */
-
         Set<Triple> triplesToWrite = mc.getTriples();
-        RdfXml.write(triplesToWrite, new FileOutputStream(new File("target/foo.xml")));
+        RdfXml.write(triplesToWrite, out);
 
     }
+
+    public static String URI_PREFIX="id:";
 
     public String urify(String id) {
-        return "id:" + id;
+        return  URI_PREFIX + id;
     }
-        
+    
 }

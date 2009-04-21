@@ -43,20 +43,27 @@ public class Example1Test
         super( testName );
     }
 
+    static OPMGraph graph1;
+    static OPMGraph graph2;
+
     /**
      * @return the suite of tests being tested
      */
     public static Test suite()
     {
-        return new TestSuite( Example1Test.class );
+        System.out.println("================================>");
+        TestSuite suite=new TestSuite();
+        suite.addTest(new Example1Test("testGraph"));
+        suite.addTest(new Example1Test("testRDF"));
+
+        return suite;
     }
 
-    static OPMGraph graph1;
-    static OPMGraph graph2;
+
 
     /** Creates and serialises an OPM graph. */
 
-    public void testOPM1() throws JAXBException
+    public void test________Graph() throws JAXBException
     {
         OPMFactory oFactory=new OPMFactory();
 
@@ -138,7 +145,7 @@ public class Example1Test
         OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
         StringWriter sw=new StringWriter();
         serial.serialiseOPMGraph(sw,graph,true);
-        System.out.println(sw);
+        //System.out.println(sw);
 
         graph1=graph;
 
@@ -148,6 +155,7 @@ public class Example1Test
 
     public void testRDF() throws Exception {
         OPMXml2Rdf toRdf=new OPMXml2Rdf();
-        toRdf.convert(graph1);
+        //System.out.println("graph is " + graph1);
+        toRdf.convert(graph1,"target/example1.xml");
     }
 }
