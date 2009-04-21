@@ -1,0 +1,61 @@
+<assembly>
+  <id>opm2dot-assembly</id>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+
+  <files>
+    <file>
+      <source>../license.txt</source>
+      <outputDirectory>/opmToolbox/</outputDirectory>
+      <fileMode>644</fileMode>
+    </file>
+    
+    <file>
+      <source>${project.build.directory}/classes/README-opm2dot.txt</source>
+      <destName>README-opm2dot.txt</destName>
+      <outputDirectory>/opmToolbox</outputDirectory>
+      <fileMode>644</fileMode>
+    </file>
+
+    <file>
+      <source>${project.build.directory}/bad-cake.xml</source>
+      <outputDirectory>/opmToolbox/examples</outputDirectory>
+      <fileMode>644</fileMode>
+    </file>
+  </files>
+
+  <fileSets>
+    <fileSet>
+      <directory>${project.build.directory}/appassembler/bin</directory>
+      <outputDirectory>/opmToolbox/bin</outputDirectory>
+      <fileMode>755</fileMode>
+      <excludes>
+        <exclude>opm2dotBAK</exclude>
+      </excludes>
+    </fileSet>
+    <fileSet>
+      <directory>${project.build.directory}/appassembler/lib</directory>
+      <outputDirectory>/opmToolbox/lib</outputDirectory>
+      <fileMode>644</fileMode>
+    </fileSet>
+    <fileSet>
+      <directory>${project.build.directory}/classes/licenses</directory>
+      <outputDirectory>/opmToolbox/lib/licenses</outputDirectory>
+      <fileMode>644</fileMode>
+    </fileSet>
+    <fileSet>
+      <directory>src/test/resources/</directory>
+      <outputDirectory>/opmToolbox/examples</outputDirectory>
+      <includes>
+        <include>*Config.xml</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+
+
+
+
+</assembly>
+

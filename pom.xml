@@ -18,6 +18,7 @@
 
   <modules>
     <module>opm</module>    
+    <module>tupelo</module>    
   </modules>
 
 
