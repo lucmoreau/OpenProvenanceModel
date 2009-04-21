@@ -1,5 +1,7 @@
 package org.openprovenance.rdf;
 
+import javax.xml.bind.JAXBException;
+
 import java.io.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -28,6 +30,7 @@ import org.openprovenance.model.WasTriggeredBy;
 import org.openprovenance.model.WasDerivedFrom; 
 import org.openprovenance.model.WasControlledBy; 
 import org.openprovenance.model.OPMUtilities; 
+import org.openprovenance.model.OPMDeserialiser; 
 
 
 import org.tupeloproject.provenance.ProvenanceAccount;
@@ -215,5 +218,24 @@ public class OPMXml2Rdf {
     public String urify(String id) {
         return  URI_PREFIX + id;
     }
+
+
+    public void convert (String inFilename, String outFilename) throws OperatorException, IOException, JAXBException {
+        OPMDeserialiser deserial=OPMDeserialiser.getThreadOPMDeserialiser();
+        OPMGraph graph=deserial.deserialiseOPMGraph(new File(inFilename));
+        convert(graph,outFilename);
+    }
+    
+
+    public static void main(String [] args) throws OperatorException, IOException, JAXBException {
+        if ((args==null) || (args.length!=2)) {
+            System.out.println("Usage: opmrdf2xml fileIn fileOut");
+            return;
+        }
+        OPMXml2Rdf converter=new OPMXml2Rdf();
+        converter.convert(args[0],args[1]);
+    }
+
+
     
 }

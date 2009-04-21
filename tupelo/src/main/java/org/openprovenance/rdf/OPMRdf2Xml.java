@@ -1,5 +1,7 @@
 package org.openprovenance.rdf;
 
+import javax.xml.bind.JAXBException;
+
 import java.io.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -35,6 +37,7 @@ import org.openprovenance.model.WasDerivedFrom;
 import org.openprovenance.model.WasControlledBy; 
 import org.openprovenance.model.OPMUtilities; 
 import org.openprovenance.model.OPMFactory; 
+import org.openprovenance.model.OPMSerialiser; 
 
 
 import org.tupeloproject.provenance.ProvenanceAccount;
@@ -131,7 +134,7 @@ public class OPMRdf2Xml {
 
                 if (element instanceof ProvenanceArtifact) {
                     Artifact a=getArtifact((ProvenanceArtifact) element);
-                    System.out.println("found element " + a);
+                    //System.out.println("found element " + a);
                     Collection<ProvenanceUsedArc> used=pcf.getUsedBy((ProvenanceArtifact) element);
                     if (used!=null) {
                         usedArcs.addAll(used);
@@ -148,7 +151,7 @@ public class OPMRdf2Xml {
 
                 if (element instanceof ProvenanceProcess) {
                     Process p=getProcess((ProvenanceProcess)element);
-                    System.out.println("found element " + p);
+                    //System.out.println("found element " + p);
                     Collection<ProvenanceTriggeredArc> triggered=pcf.getTriggeredBy((ProvenanceProcess) element);
                     if (triggered!=null) {
                         triggeredArcs.addAll(triggered);
@@ -159,7 +162,7 @@ public class OPMRdf2Xml {
 
                 if (element instanceof ProvenanceAgent) {
                     Agent ag=getAgent((ProvenanceAgent)element);
-                    System.out.println("found element " + ag);
+                    //System.out.println("found element " + ag);
                     Collection<ProvenanceControlledArc> controlled=pcf.getControlled((ProvenanceAgent) element);
                     if (controlled!=null) {
                         controlledArcs.addAll(controlled);
@@ -336,5 +339,24 @@ public class OPMRdf2Xml {
     public String deUrify(String id) {
         return id.substring(OPMXml2Rdf.URI_PREFIX.length(),id.length());
     }
+
+
+    public void convert (String inFilename, String outFilename) throws OperatorException, IOException, JAXBException {
+        OPMGraph graph=convert(inFilename);
+
+        OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
+        serial.serialiseOPMGraph(new File(outFilename),graph,true);
+
+    }
+
+    public static void main(String [] args) throws OperatorException, IOException, JAXBException {
+        if ((args==null) || (args.length!=2)) {
+            System.out.println("Usage: opmrdf2xml fileIn fileOut");
+            return;
+        }
+        OPMRdf2Xml converter=new OPMRdf2Xml();
+        converter.convert(args[0],args[1]);
+    }
+
     
 }
