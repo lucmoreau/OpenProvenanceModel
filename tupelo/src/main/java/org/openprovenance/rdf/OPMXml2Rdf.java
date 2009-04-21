@@ -65,8 +65,10 @@ public class OPMXml2Rdf {
     public void convert (OPMGraph graph, OutputStream out) throws OperatorException, IOException {
       
 
-        BasicLocalContext mc = new BasicLocalContext(); //MemoryContext
-        mc.setPath("target/foo.rdf");
+        //BasicLocalContext mc = new BasicLocalContext(); //MemoryContext
+        //mc.setPath("target/foo.rdf");
+
+        MemoryContext mc = new MemoryContext(); 
         
         ResourceContext rc = new ResourceContext("http://example.org/data/","/provenanceExample/");
         Context context = new UnionContext();
