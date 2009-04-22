@@ -18,7 +18,7 @@ public class OPMFactory {
         return oFactory;
     }
 
-    private ObjectFactory of;
+    protected ObjectFactory of;
 
     public OPMFactory() {
         of=new ObjectFactory();
