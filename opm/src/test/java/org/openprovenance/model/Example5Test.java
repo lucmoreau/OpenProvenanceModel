@@ -33,11 +33,12 @@ public class Example5Test
 
 
     static OPMGraph graph1;
+    static OPMGraph graph2;
 
 
 
 
-    public void test_OPM1() throws JAXBException
+    public void testCreateSenderReceiverGraph() throws JAXBException
     {
         OPMFactory oFactory=new OPMFactory();
 
@@ -45,6 +46,12 @@ public class Example5Test
         Collection<Account> original=Collections.singleton(oFactory.newAccount("original"));
         Collection<Account> sender=Collections.singleton(oFactory.newAccount("sender"));
         Collection<Account> receiver=Collections.singleton(oFactory.newAccount("receiver"));
+        Collection<Account> allAccounts=new LinkedList();
+        allAccounts.addAll(black);
+        allAccounts.addAll(original);
+        allAccounts.addAll(sender);
+        allAccounts.addAll(receiver);
+        
         
         Process p1=oFactory.newProcess("p1",
                                        black,
@@ -141,7 +148,7 @@ public class Example5Test
         
 
 
-        OPMGraph graph=oFactory.newOPMGraph(null,
+        OPMGraph graph=oFactory.newOPMGraph(allAccounts,
                                             new Overlaps[] {  },
                                             new Process[] {p1,p2,p3,p4},
                                             new Artifact[] {a1,a2,a3,a4,a5,a6, a7, a8, a9, a10},
@@ -169,10 +176,24 @@ public class Example5Test
         
     }
     
+    /** Deserialises an OPM graph. */
+    public void testLoadAnotherGraph() throws JAXBException    {
+        OPMDeserialiser deserial=OPMDeserialiser.getThreadOPMDeserialiser();
+        OPMGraph graph=deserial.deserialiseOPMGraph(new File("src/test/resources/example3.xml"));
+
+        graph2=graph;
+
+    }
+
+    /** Checks that the graph read from the file is the same as the
+     * one created. */
+    public void testGraphEquality() throws JAXBException    {
+        assertTrue (graph1.equals(graph2));
+    }
 
     /** Produces a dot representation
      * of created graph. */
-    public void testConversion() throws java.io.FileNotFoundException,  java.io.IOException   {
+    public void testConversion6() throws java.io.FileNotFoundException,  java.io.IOException   {
         OPMToDot toDot=new OPMToDot("src/test/resources/pasoaConfig.xml");        
         toDot.convert(graph1,"target/pasoa1.dot", "target/pasoa1.pdf");
     }

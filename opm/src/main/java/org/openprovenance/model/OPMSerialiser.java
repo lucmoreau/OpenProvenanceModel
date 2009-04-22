@@ -7,6 +7,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.PropertyException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import java.io.StringWriter;
@@ -53,14 +54,32 @@ public class OPMSerialiser {
     }
     protected JAXBContext jc;
 
+    public static String defaultNamespace="http://example.com/";
+
+    final boolean usePrefixMapper;
     public OPMSerialiser () throws JAXBException {
-        
         jc = JAXBContext.newInstance( OPMFactory.packageList );
+        usePrefixMapper=true;
+    }
+    public OPMSerialiser (boolean usePrefixMapper) throws JAXBException {
+        jc = JAXBContext.newInstance( OPMFactory.packageList );
+        this.usePrefixMapper=usePrefixMapper;
     }
 
     public OPMSerialiser (String packageList) throws JAXBException {
-        
         jc = JAXBContext.newInstance( packageList );
+        usePrefixMapper=true;
+    }
+    public OPMSerialiser (boolean usePrefixMapper, String packageList) throws JAXBException {
+        jc = JAXBContext.newInstance( packageList );
+        this.usePrefixMapper=usePrefixMapper;
+    }
+
+    public void configurePrefixes(Marshaller m) throws PropertyException {
+        if (usePrefixMapper) {
+            m.setProperty("com.sun.xml.bind.namespacePrefixMapper",
+                          new NamespacePrefixMapper(defaultNamespace));
+        }
     }
 
     public Document serialiseOPMGraph (OPMGraph request) throws JAXBException {
@@ -84,6 +103,7 @@ public class OPMSerialiser {
         throws JAXBException {
         Marshaller m=jc.createMarshaller();
         m.setProperty("jaxb.formatted.output",format);
+        configurePrefixes(m);
         m.marshal(of.createOpmGraph(graph),sw);
         return sw.toString();
     }
@@ -92,6 +112,7 @@ public class OPMSerialiser {
         throws JAXBException {
         Marshaller m=jc.createMarshaller();
         m.setProperty("jaxb.formatted.output",format);
+        configurePrefixes(m);
         m.marshal(of.createOpmGraph(graph),file);
     }
 
