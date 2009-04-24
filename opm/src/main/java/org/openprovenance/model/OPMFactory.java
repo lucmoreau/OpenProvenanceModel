@@ -193,6 +193,40 @@ public class OPMFactory {
         return newUsed(pid,role,aid,ll);
     }
 
+    public Used newUsed(Used u) {
+        return newUsed(u.getEffect(),
+                       u.getRole(),
+                       u.getCause(),
+                       u.getAccount());
+    }
+
+    public WasControlledBy newWasControlledBy(WasControlledBy c) {
+        return newWasControlledBy(c.getEffect(),
+                                  c.getRole(),
+                                  c.getCause(),
+                                  c.getAccount());
+    }
+
+    public WasGeneratedBy newWasGeneratedBy(WasGeneratedBy g) {
+        return newWasGeneratedBy(g.getEffect(),
+                                 g.getRole(),
+                                 g.getCause(),
+                                 g.getAccount());
+    }
+
+    public WasDerivedFrom newWasDerivedFrom(WasDerivedFrom d) {
+        return newWasDerivedFrom(d.getEffect(),
+                                 d.getCause(),
+                                 d.getAccount());
+    }
+
+    public WasTriggeredBy newWasTriggeredBy(WasTriggeredBy d) {
+        return newWasTriggeredBy(d.getEffect(),
+                                 d.getCause(),
+                                 d.getAccount());
+    }
+
+
 
     public WasGeneratedBy newWasGeneratedBy(ArtifactId aid,
                                             Role role,

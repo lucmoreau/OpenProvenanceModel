@@ -7,6 +7,7 @@ import org.openprovenance.model.OPMFactory;
 import org.openprovenance.model.ArtifactId;
 import org.openprovenance.model.Artifact;
 import org.openprovenance.model.AccountId;
+import org.openprovenance.model.WasDerivedFrom;
 import org.openprovenance.model.Account;
 import org.openprovenance.model.NamedWasDerivedFrom;
 
@@ -40,6 +41,8 @@ public class OPMExtendedFactory extends OPMFactory {
     }
 
 
+
+
     public NamedWasDerivedFrom newNamedWasDerivedFrom(Artifact a1,
                                                       Artifact a2,
                                                       String type,
@@ -53,6 +56,22 @@ public class OPMExtendedFactory extends OPMFactory {
         return  newNamedWasDerivedFrom(aid1,aid2,type,ll);
     }
 
+    public NamedWasDerivedFrom newNamedWasDerivedFrom(NamedWasDerivedFrom g) {
+        return newNamedWasDerivedFrom(g.getEffect(),
+                                      g.getCause(),
+                                      g.getType(),
+                                      g.getAccount());
+    }
+
+    public WasDerivedFrom newWasDerivedFrom(WasDerivedFrom g) {
+        if (g instanceof NamedWasDerivedFrom) {
+            return newNamedWasDerivedFrom((NamedWasDerivedFrom) g);
+        } else {
+            return newWasDerivedFrom(g.getEffect(),
+                                     g.getCause(),
+                                     g.getAccount());
+        }
+    }
 
             
 }

@@ -103,6 +103,7 @@ public class Example7Test
         Used u6=oFactory.newUsed(p3,oFactory.newRole("in"),a6,black);
         Used u7=oFactory.newUsed(p3,oFactory.newRole("in"),a3,black);
         Used u8=oFactory.newUsed(p3,oFactory.newRole("in"),a4,black);
+        Used u8bis=oFactory.newUsed(p3,oFactory.newRole("in"),a4,orange);
 
 
         Used u9=oFactory.newUsed(p4,oFactory.newRole("in"),a7,black);
@@ -113,6 +114,7 @@ public class Example7Test
 
 
         WasGeneratedBy wg1=oFactory.newWasGeneratedBy(a5,oFactory.newRole("out"),p1,orange);
+        WasGeneratedBy wg1bis=oFactory.newWasGeneratedBy(a5,oFactory.newRole("out"),p1,black);
         WasGeneratedBy wg2=oFactory.newWasGeneratedBy(a5,oFactory.newRole("out"),p3,black);
         WasGeneratedBy wg3=oFactory.newWasGeneratedBy(a8,oFactory.newRole("out"),p4,black);
         WasGeneratedBy wg4=oFactory.newWasGeneratedBy(a6,oFactory.newRole("out"),p2,black);
@@ -151,8 +153,8 @@ public class Example7Test
                                             new Process[] {p1,p2,p3,p4},
                                             new Artifact[] {a1,a2,a3,a4,a5,a6, a7, a8},
                                             new Agent[] { ag1 },
-                                            new Object[] {u1,u2,u3,u4,u5,u6,u7, u8, u9, u10,
-                                                          wg1,wg2,wg3,wg4,wg5,
+                                            new Object[] {u1,u2,u3,u4,u5,u6,u7, u8, u8bis, u9, u10,
+                                                          wg1,wg1bis,wg2,wg3,wg4,wg5,
                                                           wd1,wd2,wd3,wd4,wd5,wd6,wd7,wd8,wd9,wd10,wd11,
                                                           wt1,
                                                           wc1, wc2} );
@@ -161,7 +163,7 @@ public class Example7Test
 
 
 
-        IndexedOPMGraph graph2=new IndexedOPMGraph(graph);
+        IndexedOPMGraph graph2=new IndexedOPMGraph(oFactory,graph);
         System.out.println("testOPM1 asserting True");
 
         OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
