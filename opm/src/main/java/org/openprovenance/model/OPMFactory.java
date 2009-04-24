@@ -139,17 +139,17 @@ public class OPMFactory {
         return res;
     }
 
-    public Artifact newArtifact_(String id,
-                                Collection<AccountId> accounts,
-                                Object value) {
-        Artifact res=of.createArtifact();
-        res.setId(id);
-        if ((accounts !=null) && (accounts.size()!=0)) {
-            res.getAccount().addAll(accounts);
-        }
-        res.setValue(value);
-        return res;
-    }
+//     public Artifact newArtifact_(String id,
+//                                 Collection<AccountId> accounts,
+//                                 Object value) {
+//         Artifact res=of.createArtifact();
+//         res.setId(id);
+//         if ((accounts !=null) && (accounts.size()!=0)) {
+//             res.getAccount().addAll(accounts);
+//         }
+//         res.setValue(value);
+//         return res;
+//     }
     public Artifact newArtifact(String id,
                                 Collection<Account> accounts,
                                 Object value) {

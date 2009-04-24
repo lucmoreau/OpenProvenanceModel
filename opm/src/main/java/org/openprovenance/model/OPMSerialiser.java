@@ -56,7 +56,7 @@ public class OPMSerialiser {
 
     public static String defaultNamespace="http://example.com/";
 
-    final boolean usePrefixMapper;
+    protected final boolean usePrefixMapper;
     public OPMSerialiser () throws JAXBException {
         jc = JAXBContext.newInstance( OPMFactory.packageList );
         usePrefixMapper=true;

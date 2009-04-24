@@ -1,11 +1,13 @@
 package org.openprovenance.model.extension;
 import java.util.Collection;
+import java.util.List;
 import java.util.Arrays;
 import java.util.LinkedList;
 
 import org.openprovenance.model.OPMFactory;
 import org.openprovenance.model.ArtifactId;
 import org.openprovenance.model.Artifact;
+import org.openprovenance.model.ArtifactExt;
 import org.openprovenance.model.AccountId;
 import org.openprovenance.model.WasDerivedFrom;
 import org.openprovenance.model.Account;
@@ -72,6 +74,27 @@ public class OPMExtendedFactory extends OPMFactory {
                                      g.getAccount());
         }
     }
+
+    public ArtifactExt newArtifactExt(String id,
+                                      Collection<Account> accounts,
+                                      Object value,
+                                      List<Object> any) {
+        ArtifactExt res=of.createArtifactExt();
+        res.setId(id);
+        if ((accounts !=null) && (accounts.size()!=0)) {
+            LinkedList ll=new LinkedList();
+            for (Account acc: accounts) {
+                ll.add(newAccountId(acc));
+            }
+            res.getAccount().addAll(ll);
+        }
+        res.setValue(value);
+        if (any!=null) {
+            res.getAny().addAll(any);
+        }
+        return res;
+    }
+
 
             
 }
