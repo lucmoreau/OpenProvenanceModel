@@ -172,6 +172,14 @@ public class Example7Test
         assertTrue( true );
 
 
+
+        assertTrue(graph2.getUsed().size()==10);
+        assertTrue(graph2.getWasGeneratedBy().size()==5);
+        assertTrue(graph2.getWasDerivedFrom().size()==8);
+        assertTrue(graph2.getWasTriggeredBy().size()==1);
+        assertTrue(graph2.getWasControlledBy().size()==2);
+
+
     }
     
 }

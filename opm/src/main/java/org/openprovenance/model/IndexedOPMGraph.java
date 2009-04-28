@@ -81,6 +81,64 @@ public class IndexedOPMGraph extends OPMGraph {
         return artifactUsedMap.get(p.getId());
     }
 
+    /** Return all WasGeneratedBy edges for this graph. */
+    public Collection<WasGeneratedBy> getWasGeneratedBy() {
+        return allWasGeneratedBy;
+    }
+    /** Return all WasGeneratedBy edges with process p as an effect. */
+    public Collection<WasGeneratedBy> getWasGeneratedBy(Process p) {
+        return processWasGeneratedByMap.get(p.getId());
+    }
+
+    /** Return all WasGeneratedBy edges with artifact a as a cause. */
+    public Collection<WasGeneratedBy> getWasGeneratedBy(Artifact p) {
+        return artifactWasGeneratedByMap.get(p.getId());
+    }
+
+    /** Return all WasDerivedFrom edges for this graph. */
+    public Collection<WasDerivedFrom> getWasDerivedFrom() {
+        return allWasDerivedFrom;
+    }
+    /** Return all WasDerivedFrom edges with artifact a as a cause. */
+    public Collection<WasDerivedFrom> getWasDerivedFromWithCause(Artifact a) {
+        return artifactCauseWasDerivedFromMap.get(a.getId());
+    }
+
+    /** Return all WasDerivedFrom edges with artifact a as an effect . */
+    public Collection<WasDerivedFrom> getWasDerivedFromWithEffect(Artifact a) {
+        return artifactEffectWasDerivedFromMap.get(a.getId());
+    }
+
+
+    /** Return all WasTriggeredBy edges for this graph. */
+    public Collection<WasTriggeredBy> getWasTriggeredBy() {
+        return allWasTriggeredBy;
+    }
+    /** Return all WasTriggeredBy edges with process p as a cause. */
+    public Collection<WasTriggeredBy> getWasTriggeredByWithCause(Process a) {
+        return processCauseWasTriggeredByMap.get(a.getId());
+    }
+
+    /** Return all WasTriggeredBy edges with process a as an effect. */
+    public Collection<WasTriggeredBy> getWasTriggeredByWithEffect(Process a) {
+        return processEffectWasTriggeredByMap.get(a.getId());
+    }
+
+    /** Return all WasControlledBy edges for this graph. */
+    public Collection<WasControlledBy> getWasControlledBy() {
+        return allWasControlledBy;
+    }
+    /** Return all WasControlledBy edges with process p as an effect. */
+    public Collection<WasControlledBy> getWasControlledBy(Process p) {
+        return processWasControlledByMap.get(p.getId());
+    }
+
+    /** Return all WasControlledBy edges with artifact a as a cause. */
+    public Collection<WasControlledBy> getWasControlledBy(Agent a) {
+        return agentWasControlledByMap.get(a.getId());
+    
+}
+
 
     protected ObjectFactory of=new ObjectFactory();
 
@@ -326,7 +384,7 @@ public class IndexedOPMGraph extends OPMGraph {
 
     /** Add a wasDerivedFrom edge to the graph. Update processWasDerivedFromMap and
         artifactWasDerivedFromMap accordingly.  By doing so, aggregate all wasDerivedFrom
-        edges (p,r,a) with different accounts in a single edge.
+        edges (a1,r,a2) with different accounts in a single edge.
         Return the wasDerivedFrom edge itself (if it had not been encountered
         before), or the instance encountered before.*/
 
@@ -349,7 +407,7 @@ public class IndexedOPMGraph extends OPMGraph {
 
             for (WasDerivedFrom d: dcoll) {
                 
-                if (aid1.equals(d.getCause())) {
+                if ((aid1.equals(d.getCause())) && (aid2.equals(d.getEffect()))) {
                     addNewAccounts(d.getAccount(),accs);
                     result=d;
                     found=true;
@@ -377,6 +435,7 @@ public class IndexedOPMGraph extends OPMGraph {
             allWasDerivedFrom.add(wasDerivedFrom);
             getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy().add(wasDerivedFrom);
         }
+
         return result;
    }
 
@@ -442,7 +501,7 @@ public class IndexedOPMGraph extends OPMGraph {
 
     /** Add a wasTriggeredBy edge to the graph. Update processWasTriggeredByMap and
         artifactWasTriggeredByMap accordingly.  By doing so, aggregate all wasTriggeredBy
-        edges (p,r,a) with different accounts in a single edge.
+        edges (p1,r,p2) with different accounts in a single edge.
         Return the wasTriggeredBy edge itself (if it had not been encountered
         before), or the instance encountered before.*/
 
