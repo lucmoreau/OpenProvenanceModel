@@ -25,6 +25,7 @@ import org.openprovenance.model.Agent;
 import org.openprovenance.model.Process; 
 import org.openprovenance.model.Artifact; 
 import org.openprovenance.model.Used; 
+import org.openprovenance.model.Role; 
 import org.openprovenance.model.WasGeneratedBy; 
 import org.openprovenance.model.WasTriggeredBy; 
 import org.openprovenance.model.WasDerivedFrom; 
@@ -50,11 +51,14 @@ import org.tupeloproject.kernel.impl.FileContext;
 import org.tupeloproject.kernel.impl.BasicLocalContext;
 import org.tupeloproject.util.Xml;
 import org.tupeloproject.kernel.OperatorException; 
+import org.apache.log4j.Logger;
 
 
 public class OPMXml2Rdf {
+    static Logger logger = Logger.getLogger(OPMXml2Rdf.class);
 
     static String NULL_ACCOUNT="_null";
+    static String UNKNOWN_ROLE="_unknown";
     
     OPMUtilities u=new OPMUtilities();
 
@@ -84,6 +88,11 @@ public class OPMXml2Rdf {
         HashMap<String,ProvenanceArtifact> artifactTable=new HashMap();
         HashMap<String,ProvenanceAgent> agentTable=new HashMap();
 
+        Resource nullRes=Resource.uriRef(urify(NULL_ACCOUNT));
+        ProvenanceAccount nullRdfAccount=pcf.newAccount(NULL_ACCOUNT,nullRes);
+        pcf.assertAccount(nullRdfAccount);
+        accountTable.put(NULL_ACCOUNT,nullRdfAccount);
+
         if (graph.getAccounts()!=null) {
             for (Account acc: graph.getAccounts().getAccount()) {
                 Resource res=Resource.resource(urify(acc.getId()));
@@ -91,17 +100,19 @@ public class OPMXml2Rdf {
                 pcf.assertAccount(rdfAccount);
                 accountTable.put(acc.getId(),rdfAccount);
             }
-            Resource res=Resource.uriRef(urify(NULL_ACCOUNT));
-            ProvenanceAccount rdfAccount=pcf.newAccount(NULL_ACCOUNT,res);
-            pcf.assertAccount(rdfAccount);
-            accountTable.put(NULL_ACCOUNT,rdfAccount);
         }
 
 
         if (graph.getProcesses()!=null) {
             for (Process p: graph.getProcesses().getProcess()) {
                 Resource res=Resource.uriRef(urify(p.getId()));
-                ProvenanceProcess rdfProcess = pcf.newProcess((String)p.getValue(),res);
+                ProvenanceProcess rdfProcess;
+                if (p.getValue() instanceof String) {
+                    rdfProcess = pcf.newProcess((String)p.getValue(),res);
+                } else {
+                    logger.warn("how to serialise process value? " + p.getValue().toString());
+                    rdfProcess = pcf.newProcess(p.getValue().toString(),res);
+                }
                 pcf.assertProcess(rdfProcess);
                 processTable.put(p.getId(),rdfProcess);
             }
@@ -110,7 +121,13 @@ public class OPMXml2Rdf {
         if (graph.getArtifacts()!=null) {
             for (Artifact a: graph.getArtifacts().getArtifact()) {
                 Resource res=Resource.uriRef(urify(a.getId()));
-                ProvenanceArtifact rdfArtifact = pcf.newArtifact((String)a.getValue(),res);
+                ProvenanceArtifact rdfArtifact;
+                if (a.getValue() instanceof String) {
+                    rdfArtifact = pcf.newArtifact((String)a.getValue(),res);
+                } else {
+                    logger.warn("how to serialise artifact value? " + a.getValue().toString());
+                    rdfArtifact = pcf.newArtifact("hello",res);
+                }
                 pcf.assertArtifact(rdfArtifact);
                 artifactTable.put(a.getId(),rdfArtifact);
             }
@@ -120,7 +137,13 @@ public class OPMXml2Rdf {
         if (graph.getAgents()!=null) {
             for (Agent a: graph.getAgents().getAgent()) {
                 Resource res=Resource.uriRef(urify(a.getId()));
-                ProvenanceAgent rdfAgent = pcf.newAgent((String)a.getValue(),res);
+                ProvenanceAgent rdfAgent;
+                if (a.getValue() instanceof String) {
+                    rdfAgent = pcf.newAgent((String)a.getValue(),res);
+                } else {
+                    logger.warn("how to serialise agent value?");
+                    rdfAgent = pcf.newAgent(a.getValue().toString(),res);
+                }
                 pcf.assertAgent(rdfAgent);
                 agentTable.put(a.getId(),rdfAgent);
             }
@@ -135,7 +158,13 @@ public class OPMXml2Rdf {
             if (e instanceof Used) {
                 ProvenanceArtifact cause=artifactTable.get(causeId);
                 ProvenanceProcess effect=processTable.get(effectId);
-                ProvenanceRole role = pcf.newRole(((Used)e).getRole().getValue());
+                Role thisRole=((Used)e).getRole();
+                ProvenanceRole role;
+                if (thisRole!=null) {
+                    role=pcf.newRole(thisRole.getValue());
+                } else {
+                    role=pcf.newRole(UNKNOWN_ROLE);
+                }
                 if (accounts.isEmpty()) {
                     ProvenanceAccount account=accountTable.get(NULL_ACCOUNT);
                     pcf.assertUsed(effect, cause, role, account);
@@ -150,7 +179,13 @@ public class OPMXml2Rdf {
                 if (e instanceof WasGeneratedBy) {
                     ProvenanceProcess cause=processTable.get(causeId);
                     ProvenanceArtifact effect=artifactTable.get(effectId);
-                    ProvenanceRole role = pcf.newRole(((WasGeneratedBy)e).getRole().getValue());
+                    Role thisRole=((WasGeneratedBy)e).getRole();
+                    ProvenanceRole role;
+                    if (thisRole!=null) {
+                        role=pcf.newRole(thisRole.getValue());
+                    } else {
+                        role=pcf.newRole(UNKNOWN_ROLE);
+                    }
                     if (accounts.isEmpty()) {
                         ProvenanceAccount account=accountTable.get(NULL_ACCOUNT);
                         pcf.assertGeneratedBy(effect, cause, role, account);
@@ -218,7 +253,7 @@ public class OPMXml2Rdf {
     public static String URI_PREFIX="id:";
 
     public String urify(String id) {
-        return  URI_PREFIX + id;
+        return  URI_PREFIX + id.replaceAll("#","_");
     }
 
 

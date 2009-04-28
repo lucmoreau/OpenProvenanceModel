@@ -112,6 +112,30 @@
   	              <arg value="opm2dot.bat" />
                 </exec>
 
+                <exec executable="sed" dir="${project.build.directory}/appassembler/bin">
+  	              <arg value="-e s/^cd/#### no CD ### Luc/" />
+  	              <arg value="-iBAK" />
+  	              <arg value="opmxml2rdf" />
+                </exec>
+
+                <exec executable="chmod" dir="${project.build.directory}/appassembler/bin">
+  	              <arg value="a+x" />
+  	              <arg value="opmxml2rdf" />
+  	              <arg value="opmxml2rdf.bat" />
+                </exec>
+
+                <exec executable="sed" dir="${project.build.directory}/appassembler/bin">
+  	              <arg value="-e s/^cd/#### no CD ### Luc/" />
+  	              <arg value="-iBAK" />
+  	              <arg value="opmrdf2xml" />
+                </exec>
+
+                <exec executable="chmod" dir="${project.build.directory}/appassembler/bin">
+  	              <arg value="a+x" />
+  	              <arg value="opmrdf2xml" />
+  	              <arg value="opmrdf2xml.bat" />
+                </exec>
+
 
               </tasks>
             </configuration>
