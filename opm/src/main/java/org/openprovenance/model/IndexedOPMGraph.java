@@ -524,7 +524,7 @@ public class IndexedOPMGraph extends OPMGraph {
 
             for (WasTriggeredBy d: dcoll) {
                 
-                if (pid1.equals(d.getCause())) {
+                if ( (pid1.equals(d.getCause())) && (pid2.equals(d.getEffect()))) {
                     addNewAccounts(d.getAccount(),accs);
                     result=d;
                     found=true;
