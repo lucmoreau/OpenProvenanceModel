@@ -303,7 +303,7 @@ public class IndexedOPMGraph extends OPMGraph {
         if (ucoll==null) {
             ucoll=new LinkedList();
             ucoll.add(used);
-            artifactUsedMap.put(p.getId(),ucoll);
+            artifactUsedMap.put(a.getId(),ucoll);
         } else {
             if (!found) {
                 // if we had not found it in the first table, then we
@@ -365,7 +365,7 @@ public class IndexedOPMGraph extends OPMGraph {
         if (gcoll==null) {
             gcoll=new LinkedList();
             gcoll.add(wasGeneratedBy);
-            artifactWasGeneratedByMap.put(p.getId(),gcoll);
+            artifactWasGeneratedByMap.put(a.getId(),gcoll);
         } else {
             if (!found) {
                 // if we had not found it in the first table, then we
