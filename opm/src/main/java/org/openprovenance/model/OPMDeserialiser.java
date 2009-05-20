@@ -1,6 +1,7 @@
 package org.openprovenance.model;
 import java.io.File;
 import java.io.InputStream;
+import java.io.IOException;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.JAXBException;
@@ -86,15 +87,18 @@ public class OPMDeserialiser {
         return res;
     }
 
-    public OPMGraph validateOPMGraph (File serialised)
-        throws JAXBException,SAXException {
+    public OPMGraph validateOPMGraph (String[] schemaFiles, File serialised)
+        throws JAXBException,SAXException, IOException {
         SchemaFactory sf = SchemaFactory.newInstance(javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Source [] sources=new Source[] {
-            new StreamSource(this.getClass().getResourceAsStream("/"+"opm.1_01.xsd")),
-            new StreamSource(this.getClass().getResourceAsStream("/"+"opm_extension.1_01.xsd"))
-        };
+        Source [] sources=new Source[2+schemaFiles.length];
+        sources[0]=new StreamSource(this.getClass().getResourceAsStream("/"+"opm.1_01.xsd"));
+        sources[1]=new StreamSource(this.getClass().getResourceAsStream("/"+"opm_extension.1_01.xsd"));
+        int i=0;
+        for (String schemaFile: schemaFiles) {
+            sources[2+i]=new StreamSource(new File(schemaFile));
+            i++;
+        }
         Schema schema = sf.newSchema(sources);  
-
         Unmarshaller u=jc.createUnmarshaller();
         //u.setValidating(true); was jaxb1.0
         u.setSchema(schema);
@@ -105,13 +109,17 @@ public class OPMDeserialiser {
 
     public static void main(String [] args) {
         OPMDeserialiser deserial=OPMDeserialiser.getThreadOPMDeserialiser();
-        if ((args==null) ||  (args.length!=1)) {
-            System.out.println("Usage: opmxml-validate <filename>");
+        if ((args==null) ||  (args.length==0)) {
+            System.out.println("Usage: opmxml-validate <filename> {schemaFiles}*");
             return;
         }
         File f=new File(args[0]);
+        String [] schemas=new String[args.length-1];
+        for (int i=1; i< args.length; i++) {
+            schemas[i-1]=args[i];
+        }
         try {
-            deserial.validateOPMGraph(f);
+            deserial.validateOPMGraph(schemas,f);
             System.out.println(args[0] + " IS a valid OPM graph");
             return ;
         } catch (JAXBException je) {
@@ -119,6 +127,9 @@ public class OPMDeserialiser {
             System.out.println(args[0] + " IS NOT a valid OPM graph");
         } catch (SAXException je) {
             je.printStackTrace();
+            System.out.println(args[0] + " IS NOT a valid OPM graph");
+        } catch (IOException io) {
+            io.printStackTrace();
             System.out.println(args[0] + " IS NOT a valid OPM graph");
         }
     }
