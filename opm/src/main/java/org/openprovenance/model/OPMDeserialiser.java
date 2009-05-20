@@ -11,6 +11,7 @@ import org.xml.sax.SAXException;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Schema;
 import javax.xml.transform.stream.StreamSource;
+import javax.xml.transform.Source;
 
 /** Deserialiser of OPM Graphs. */
 public class OPMDeserialiser {
@@ -88,7 +89,12 @@ public class OPMDeserialiser {
     public OPMGraph validateOPMGraph (File serialised)
         throws JAXBException,SAXException {
         SchemaFactory sf = SchemaFactory.newInstance(javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema schema = sf.newSchema(new StreamSource(this.getClass().getResourceAsStream("/"+"opm.1_01.xsd")));  
+        Source [] sources=new Source[] {
+            new StreamSource(this.getClass().getResourceAsStream("/"+"opm.1_01.xsd")),
+            new StreamSource(this.getClass().getResourceAsStream("/"+"opm_extension.1_01.xsd"))
+        };
+        Schema schema = sf.newSchema(sources);  
+
         Unmarshaller u=jc.createUnmarshaller();
         //u.setValidating(true); was jaxb1.0
         u.setSchema(schema);
