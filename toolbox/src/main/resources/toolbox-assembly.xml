@@ -28,6 +28,11 @@
       <fileMode>644</fileMode>
     </file>
     <file>
+      <source>${project.build.directory}/classes/README-opmxml-validate.txt</source>
+      <outputDirectory>/opmToolbox</outputDirectory>
+      <fileMode>644</fileMode>
+    </file>
+    <file>
       <source>${project.build.directory}/classes/README-licenses.txt</source>
       <outputDirectory>/opmToolbox</outputDirectory>
       <fileMode>644</fileMode>

@@ -62,6 +62,10 @@
               <mainClass>org.openprovenance.rdf.OPMRdf2Xml</mainClass>
               <name>opmrdf2xml</name>
             </program>
+            <program>
+              <mainClass>org.openprovenance.model.OPMDeserialiser</mainClass>
+              <name>opmxml-validate</name>
+            </program>
           </programs>
           <repositoryLayout>default</repositoryLayout>
           <repositoryName>repo</repositoryName>
@@ -134,6 +138,19 @@
   	              <arg value="a+x" />
   	              <arg value="opmrdf2xml" />
   	              <arg value="opmrdf2xml.bat" />
+                </exec>
+
+
+                <exec executable="sed" dir="${project.build.directory}/appassembler/bin">
+  	              <arg value="-e s/^cd/#### no CD ### Luc/" />
+  	              <arg value="-iBAK" />
+  	              <arg value="opmxml-validate" />
+                </exec>
+
+                <exec executable="chmod" dir="${project.build.directory}/appassembler/bin">
+  	              <arg value="a+x" />
+  	              <arg value="opmxml-validate" />
+  	              <arg value="opmxml-validate.bat" />
                 </exec>
 
 

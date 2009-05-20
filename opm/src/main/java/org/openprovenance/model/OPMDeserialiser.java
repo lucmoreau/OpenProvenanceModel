@@ -6,6 +6,11 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.JAXBElement;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
+
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Schema;
+import javax.xml.transform.stream.StreamSource;
 
 /** Deserialiser of OPM Graphs. */
 public class OPMDeserialiser {
@@ -80,8 +85,35 @@ public class OPMDeserialiser {
         return res;
     }
 
+    public OPMGraph validateOPMGraph (File serialised)
+        throws JAXBException,SAXException {
+        SchemaFactory sf = SchemaFactory.newInstance(javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        Schema schema = sf.newSchema(new StreamSource(this.getClass().getResourceAsStream("/"+"opm.1_01.xsd")));  
+        Unmarshaller u=jc.createUnmarshaller();
+        //u.setValidating(true); was jaxb1.0
+        u.setSchema(schema);
+        Object root= u.unmarshal(serialised);
+        OPMGraph res=(OPMGraph)((JAXBElement<OPMGraph>) root).getValue();
+        return res;
+    }
 
-    
+    public static void main(String [] args) {
+        OPMDeserialiser deserial=OPMDeserialiser.getThreadOPMDeserialiser();
+        if ((args==null) ||  (args.length!=1)) {
+            System.out.println("Usage: opmxml-validate <filename>");
+            return;
+        }
+        File f=new File(args[0]);
+        try {
+            deserial.validateOPMGraph(f);
+            System.out.println(args[0] + " IS a valid OPM graph");
+            return ;
+        } catch (JAXBException je) {
+            je.printStackTrace();
+            System.out.println(args[0] + " IS NOT a valid OPM graph");
+        } catch (SAXException je) {
+            je.printStackTrace();
+            System.out.println(args[0] + " IS NOT a valid OPM graph");
+        }
+    }
 }
-
-
