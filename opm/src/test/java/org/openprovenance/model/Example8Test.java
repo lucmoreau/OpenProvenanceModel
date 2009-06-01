@@ -11,6 +11,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.openprovenance.model.extension.OPMExtendedFactory;
+import org.openprovenance.model.collections.CollectionFactory;
 
 
 /**
@@ -42,6 +43,7 @@ public class Example8Test
     public void testCollectionProposal1() throws Exception
     {
         OPMExtendedFactory oFactory=new OPMExtendedFactory();
+        CollectionFactory cFactory=new CollectionFactory(oFactory);
 
         Collection<Account> black=Collections.singleton(oFactory.newAccount("black"));
         Collection<Account> orange=Collections.singleton(oFactory.newAccount("orange"));
@@ -128,25 +130,25 @@ public class Example8Test
         NamedWasDerivedFrom wd2=oFactory.newNamedWasDerivedFrom(a2,a1,"wasAliasOf",black);
 
         NamedWasDerivedFrom wd3=oFactory.newNamedWasDerivedFrom(g2,g1,"wasAliasOf",black);
-        NamedWasDerivedFrom wd4=oFactory.newNamedWasDerivedFrom(a3,g2,"contained",black);
+        NamedWasDerivedFrom wd4=cFactory.newContained(a3,g2,black);
 
         NamedWasDerivedFrom wd5=oFactory.newNamedWasDerivedFrom(f2,f1,"wasAliasOf",orange);
         NamedWasDerivedFrom wd6=oFactory.newNamedWasDerivedFrom(f3,f2,"wasAliasOf",orange);
-        NamedWasDerivedFrom wd7=oFactory.newNamedWasDerivedFrom(a2,f2,"contained",orange);
-        NamedWasDerivedFrom wd8=oFactory.newNamedWasDerivedFrom(a3,f3,"contained",orange);
-        NamedWasDerivedFrom wd9=oFactory.newNamedWasDerivedFrom(a1,f1,"contained",orange);
+        NamedWasDerivedFrom wd7=cFactory.newContained(a2,f2,orange);
+        NamedWasDerivedFrom wd8=cFactory.newContained(a3,f3,orange);
+        NamedWasDerivedFrom wd9=cFactory.newContained(a1,f1,orange);
 
 
         NamedWasDerivedFrom wd10=oFactory.newNamedWasDerivedFrom(b2,b1,"wasAppendedTo",black);
         NamedWasDerivedFrom wd10b=oFactory.newNamedWasDerivedFrom(b2,a1,"wasAppendedTo",black);
         NamedWasDerivedFrom wd11=oFactory.newNamedWasDerivedFrom(b3,b2,"updated",black);
 
-        NamedWasDerivedFrom wd12=oFactory.newNamedWasDerivedFrom(b2,a2,"contained",black);
-        NamedWasDerivedFrom wd13=oFactory.newNamedWasDerivedFrom(b3,a3,"contained",black);
+        NamedWasDerivedFrom wd12=cFactory.newContained(b2,a2,black);
+        NamedWasDerivedFrom wd13=cFactory.newContained(b3,a3,black);
 
-        NamedWasDerivedFrom wd14=oFactory.newNamedWasDerivedFrom(b1,c1,"contained",orange);
-        NamedWasDerivedFrom wd15=oFactory.newNamedWasDerivedFrom(b2,c2,"contained",orange);
-        NamedWasDerivedFrom wd16=oFactory.newNamedWasDerivedFrom(b3,c3,"contained",orange);
+        NamedWasDerivedFrom wd14=cFactory.newContained(b1,c1,orange);
+        NamedWasDerivedFrom wd15=cFactory.newContained(b2,c2,orange);
+        NamedWasDerivedFrom wd16=cFactory.newContained(b3,c3,orange);
 
         NamedWasDerivedFrom wd17=oFactory.newNamedWasDerivedFrom(c3,c2,"wasAliasOf",orange);
         NamedWasDerivedFrom wd18=oFactory.newNamedWasDerivedFrom(c2,c1,"wasAliasOf",orange);
