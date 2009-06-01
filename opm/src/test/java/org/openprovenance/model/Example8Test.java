@@ -39,7 +39,7 @@ public class Example8Test
 
 
 
-    public void testCollectionProposal1() throws JAXBException
+    public void testCollectionProposal1() throws Exception
     {
         OPMExtendedFactory oFactory=new OPMExtendedFactory();
 
@@ -183,6 +183,11 @@ public class Example8Test
         System.out.println("testOPM1 asserting True");
         assertTrue( true );
 
+
+
+        OPMToDot toDot=new OPMToDot();
+        
+        toDot.convert(graph1,"target/collection1.dot", "target/collection1.pdf");
 
         
     }

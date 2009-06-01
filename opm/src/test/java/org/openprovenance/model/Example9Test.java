@@ -11,6 +11,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.openprovenance.model.extension.OPMExtendedFactory;
+import org.openprovenance.model.collections.CollectionFactory;
 
 
 /**
@@ -39,9 +40,10 @@ public class Example9Test
 
 
 
-    public void testCollectionProposal2() throws JAXBException
+    public void testCollectionProposal2() throws Exception 
     {
         OPMExtendedFactory oFactory=new OPMExtendedFactory();
+        CollectionFactory cFactory=new CollectionFactory(oFactory);
 
         Collection<Account> black=Collections.singleton(oFactory.newAccount("black"));
         Collection<Account> orange=Collections.singleton(oFactory.newAccount("orange"));
@@ -86,13 +88,13 @@ public class Example9Test
         Artifact b1=oFactory.newArtifact("b",
                                          black,
                                          "[b]");
-        Artifact bi1=oFactory.newArtifact("b_i1",
+        Artifact bj1=oFactory.newArtifact("b_j1",
                                          black,
-                                         "b_i1");
+                                         "b_j1");
 
-        Artifact bi2=oFactory.newArtifact("b_i2",
+        Artifact bj2=oFactory.newArtifact("b_j2",
                                          black,
-                                         "b_i2");
+                                         "b_j2");
 
 
         Artifact c1=oFactory.newArtifact("c",
@@ -123,15 +125,15 @@ public class Example9Test
         NamedWasDerivedFrom wd2=oFactory.newNamedWasDerivedFrom(c1,b1,"wasRightProduct",black);
 
         NamedWasDerivedFrom wd3=oFactory.newNamedWasDerivedFrom(ai2,ai1,"wasAliasOf",orange);
-        NamedWasDerivedFrom wd4=oFactory.newNamedWasDerivedFrom(bi2,bi1,"wasAliasOf",orange);
+        NamedWasDerivedFrom wd4=oFactory.newNamedWasDerivedFrom(bj2,bj1,"wasAliasOf",orange);
 
-        NamedWasDerivedFrom wd5=oFactory.newNamedWasDerivedFrom(a1,ai1,"contained",orange);
-        NamedWasDerivedFrom wd6=oFactory.newNamedWasDerivedFrom(b1,bi1,"contained",orange);
+        NamedWasDerivedFrom wd5=cFactory.newContained(a1,ai1,orange);
+        NamedWasDerivedFrom wd6=cFactory.newContained(b1,bj1,orange);
 
-        NamedWasDerivedFrom wd7=oFactory.newNamedWasDerivedFrom(cij,ai2,"contained",orange);
-        NamedWasDerivedFrom wd8=oFactory.newNamedWasDerivedFrom(cij,bi2,"contained",orange);
+        NamedWasDerivedFrom wd7=cFactory.newContained(cij,ai2,orange);
+        NamedWasDerivedFrom wd8=cFactory.newContained(cij,bj2,orange);
 
-        NamedWasDerivedFrom wd9=oFactory.newNamedWasDerivedFrom(c1,cij,"contained",orange);
+        NamedWasDerivedFrom wd9=cFactory.newContained(c1,cij,orange);
 
 
 
@@ -144,12 +146,12 @@ public class Example9Test
 
 
         Used u5=oFactory.newUsed(p3,oFactory.newRole("left"),ai2,orange);
-        Used u6=oFactory.newUsed(p3,oFactory.newRole("right"),bi2,orange);
+        Used u6=oFactory.newUsed(p3,oFactory.newRole("right"),bj2,orange);
         Used u7=oFactory.newUsed(p3,oFactory.newRole("fun"),pp,orange);
 
         WasGeneratedBy wg3=oFactory.newWasGeneratedBy(cij2,oFactory.newRole("result"),p3,orange);
 
-        NamedWasDerivedFrom wd10=oFactory.newNamedWasDerivedFrom(c2,cij2,"contained",orange);
+        NamedWasDerivedFrom wd10=cFactory.newContained(c2,cij2,orange);
 
         NamedWasDerivedFrom wd11=oFactory.newNamedWasDerivedFrom(cij2,cij,"wasApplied",orange);
 
@@ -159,7 +161,7 @@ public class Example9Test
         OPMGraph graph=oFactory.newOPMGraph(black_orange,
                                             new Overlaps[] { },
                                             new Process[] {p1, p2, p3},
-                                            new Artifact[] {a1,ai1, ai2, b1, bi1, bi2, c1, cij, cij2, pp, c2},
+                                            new Artifact[] {a1,ai1, ai2, b1, bj1, bj2, c1, cij, cij2, pp, c2},
                                             new Agent[] {  },
                                             new Object[] {u1,u2, u3, u4, u5, u6, u7,
                                                           wg1,wg2,wg3,
@@ -177,6 +179,11 @@ public class Example9Test
         graph1=graph;
         System.out.println("testOPM1 asserting True");
         assertTrue( true );
+
+
+        OPMToDot toDot=new OPMToDot();
+        
+        toDot.convert(graph1,"target/collection2.dot", "target/collection2.pdf");
 
 
         
