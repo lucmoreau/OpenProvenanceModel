@@ -7,11 +7,17 @@ import java.util.LinkedList;
 import org.openprovenance.model.OPMFactory;
 import org.openprovenance.model.ArtifactId;
 import org.openprovenance.model.Artifact;
+import org.openprovenance.model.ProcessId;
+import org.openprovenance.model.Process;
+import org.openprovenance.model.AgentId;
+import org.openprovenance.model.Agent;
 import org.openprovenance.model.ArtifactExt;
 import org.openprovenance.model.AccountId;
+import org.openprovenance.model.Role;
 import org.openprovenance.model.WasDerivedFrom;
 import org.openprovenance.model.Account;
 import org.openprovenance.model.NamedWasDerivedFrom;
+import org.openprovenance.model.NamedWasControlledBy;
 
 /** An extended Factory of OPM objects with NamedWasDerivedFrom edges.
     Needs to be moved in a separate module probably, since it is an extension*/
@@ -57,6 +63,42 @@ public class OPMExtendedFactory extends OPMFactory {
         }
         return  newNamedWasDerivedFrom(aid1,aid2,type,ll);
     }
+
+
+
+    public NamedWasControlledBy newNamedWasControlledBy(ProcessId pid,
+                                                        Role role,
+                                                        AgentId agid,
+                                                        String type,
+                                                        Collection<AccountId> accounts) {
+        NamedWasControlledBy res=of.createNamedWasControlledBy();
+        res.setCause(agid);
+        res.setEffect(pid);
+        res.setRole(role);
+        res.setType(type);
+        if ((accounts !=null) && (accounts.size()!=0)) {
+            res.getAccount().addAll(accounts);
+        }
+        return res;
+    }
+
+
+
+
+    public NamedWasControlledBy newNamedWasControlledBy(Process p,
+                                                        Role role,
+                                                        Agent ag,
+                                                        String type,
+                                                        Collection<Account> accounts) {
+        ProcessId pid=newProcessId(p);
+        AgentId agid=newAgentId(ag);
+        LinkedList ll=new LinkedList();
+        for (Account acc: accounts) {
+            ll.add(newAccountId(acc));
+        }
+        return  newNamedWasControlledBy(pid,role, agid,type,ll);
+    }
+
 
     public NamedWasDerivedFrom newNamedWasDerivedFrom(NamedWasDerivedFrom g) {
         return newNamedWasDerivedFrom(g.getEffect(),

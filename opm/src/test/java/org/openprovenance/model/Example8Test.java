@@ -11,6 +11,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.openprovenance.model.extension.OPMExtendedFactory;
+import org.openprovenance.model.extension.ExtOPMToDot;
 import org.openprovenance.model.collections.CollectionFactory;
 
 
@@ -127,13 +128,13 @@ public class Example8Test
 
 
         NamedWasDerivedFrom wd1=oFactory.newNamedWasDerivedFrom(a3,a2,"wasUpdated",black);
-        NamedWasDerivedFrom wd2=oFactory.newNamedWasDerivedFrom(a2,a1,"wasAliasOf",black);
+        NamedWasDerivedFrom wd2=cFactory.newWasAliasOf(a2,a1,black);
 
-        NamedWasDerivedFrom wd3=oFactory.newNamedWasDerivedFrom(g2,g1,"wasAliasOf",black);
+        NamedWasDerivedFrom wd3=cFactory.newWasAliasOf(g2,g1,black);
         NamedWasDerivedFrom wd4=cFactory.newContained(a3,g2,black);
 
-        NamedWasDerivedFrom wd5=oFactory.newNamedWasDerivedFrom(f2,f1,"wasAliasOf",orange);
-        NamedWasDerivedFrom wd6=oFactory.newNamedWasDerivedFrom(f3,f2,"wasAliasOf",orange);
+        NamedWasDerivedFrom wd5=cFactory.newWasAliasOf(f2,f1,orange);
+        NamedWasDerivedFrom wd6=cFactory.newWasAliasOf(f3,f2,orange);
         NamedWasDerivedFrom wd7=cFactory.newContained(a2,f2,orange);
         NamedWasDerivedFrom wd8=cFactory.newContained(a3,f3,orange);
         NamedWasDerivedFrom wd9=cFactory.newContained(a1,f1,orange);
@@ -150,8 +151,8 @@ public class Example8Test
         NamedWasDerivedFrom wd15=cFactory.newContained(b2,c2,orange);
         NamedWasDerivedFrom wd16=cFactory.newContained(b3,c3,orange);
 
-        NamedWasDerivedFrom wd17=oFactory.newNamedWasDerivedFrom(c3,c2,"wasAliasOf",orange);
-        NamedWasDerivedFrom wd18=oFactory.newNamedWasDerivedFrom(c2,c1,"wasAliasOf",orange);
+        NamedWasDerivedFrom wd17=cFactory.newWasAliasOf(c3,c2,orange);
+        NamedWasDerivedFrom wd18=cFactory.newWasAliasOf(c2,c1,orange);
 
 
 
@@ -187,8 +188,8 @@ public class Example8Test
 
 
 
-        OPMToDot toDot=new OPMToDot();
-        
+
+        OPMToDot toDot=new ExtOPMToDot();        
         toDot.convert(graph1,"target/collection1.dot", "target/collection1.pdf");
 
         

@@ -7,23 +7,30 @@ import  org.openprovenance.model.Edge;
 import java.util.HashMap;
 
 import org.openprovenance.model.NamedWasDerivedFrom;
+import org.openprovenance.model.NamedWasControlledBy;
 
 
 
 public class ExtOPMToDot extends OPMToDot {
 
-    public void addName(Edge e, HashMap<String,String> properties) {
+    public void addEdgeName(Edge e, HashMap<String,String> properties) {
         if (e instanceof NamedWasDerivedFrom) {
             NamedWasDerivedFrom edge=(NamedWasDerivedFrom) e;
             properties.put("label",convertEdgeLabel(edge.getType()));
+            properties.put("labelfontsize","8");
+        }
+        if (e instanceof NamedWasControlledBy) {
+            NamedWasControlledBy edge=(NamedWasControlledBy) e;
+            properties.put("label",convertEdgeLabel(edge.getType()));
+            properties.put("labelfontsize","8");
         }
     }
 
     public String convertEdgeLabel(String label) {
-        return label;
+        return label.substring(label.indexOf("#")+1, label.length());
     }
 
-    public OPMDeserialiser getDeserialiser() {
-        return OPMDeserialiser.getThreadOPMDeserialiser();
-    }
+    
+
+
 }

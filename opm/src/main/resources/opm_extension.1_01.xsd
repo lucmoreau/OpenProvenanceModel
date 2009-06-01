@@ -38,6 +38,15 @@
 	</xs:complexContent>
   </xs:complexType>
   
+  <xs:complexType name="NamedWasControlledBy">
+	<xs:complexContent>
+	  <xs:extension base="opm:WasControlledBy">
+		<xs:sequence>
+		  <xs:element name="type" type="xs:string"/>
+		</xs:sequence>
+	  </xs:extension>
+	</xs:complexContent>
+  </xs:complexType>
 
 
 </xs:schema>

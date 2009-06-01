@@ -42,6 +42,19 @@ public class CollectionFactory  implements CollectionURIs {
     }
 
 
+    public NamedWasDerivedFrom newWasAliasOf(ArtifactId aid1,
+                                             ArtifactId aid2,
+                                             Collection<AccountId> accounts) {
+        return eFactory.newNamedWasDerivedFrom(aid1,aid2,WASALIASOF,accounts);
+    }
+
+    public NamedWasDerivedFrom newWasAliasOf(Artifact a1,
+                                            Artifact a2,
+                                            Collection<Account> accounts) {
+        return eFactory.newNamedWasDerivedFrom(a1,a2,WASALIASOF,accounts);
+    }
+
+
 
 
 }

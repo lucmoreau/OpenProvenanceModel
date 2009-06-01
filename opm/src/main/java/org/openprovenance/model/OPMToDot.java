@@ -403,11 +403,11 @@ public class OPMToDot {
         properties.put("color",colour);
         properties.put("fontcolor",colour);
         properties.put("style",getEdgeStyle(e));
-        addName(e,properties);
+        addEdgeName(e,properties);
         return properties;
     }
 
-    public void addName(Edge e, HashMap<String,String> properties) {
+    public void addEdgeName(Edge e, HashMap<String,String> properties) {
     }
 
     HashMap<String,String> accountColourMap=new HashMap<String,String>();

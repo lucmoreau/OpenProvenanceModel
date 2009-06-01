@@ -11,6 +11,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.openprovenance.model.extension.OPMExtendedFactory;
+import org.openprovenance.model.extension.ExtOPMToDot;
 import org.openprovenance.model.collections.CollectionFactory;
 
 
@@ -124,8 +125,8 @@ public class Example9Test
         NamedWasDerivedFrom wd1=oFactory.newNamedWasDerivedFrom(c1,a1,"wasLeftProduct",black);
         NamedWasDerivedFrom wd2=oFactory.newNamedWasDerivedFrom(c1,b1,"wasRightProduct",black);
 
-        NamedWasDerivedFrom wd3=oFactory.newNamedWasDerivedFrom(ai2,ai1,"wasAliasOf",orange);
-        NamedWasDerivedFrom wd4=oFactory.newNamedWasDerivedFrom(bj2,bj1,"wasAliasOf",orange);
+        NamedWasDerivedFrom wd3=cFactory.newWasAliasOf(ai2,ai1,orange);
+        NamedWasDerivedFrom wd4=cFactory.newWasAliasOf(bj2,bj1,orange);
 
         NamedWasDerivedFrom wd5=cFactory.newContained(a1,ai1,orange);
         NamedWasDerivedFrom wd6=cFactory.newContained(b1,bj1,orange);
@@ -181,7 +182,7 @@ public class Example9Test
         assertTrue( true );
 
 
-        OPMToDot toDot=new OPMToDot();
+        OPMToDot toDot=new ExtOPMToDot();
         
         toDot.convert(graph1,"target/collection2.dot", "target/collection2.pdf");
 
