@@ -51,8 +51,12 @@ public class OPMToDot {
         init(configurationFile);
     }
 
+    public OPMDeserialiser getDeserialiser() {
+        return OPMDeserialiser.getThreadOPMDeserialiser();
+    }
+    
     public void init(String configurationFile) {
-        OPMDeserialiser deserial=OPMDeserialiser.getThreadOPMDeserialiser();
+        OPMDeserialiser deserial=getDeserialiser();
         try {
             OPMPrinterConfiguration opc=deserial.deserialiseOPMPrinterConfiguration(new File(configurationFile));
             init(opc);
@@ -62,7 +66,7 @@ public class OPMToDot {
     }
 
     public void init(InputStream is) {
-        OPMDeserialiser deserial=OPMDeserialiser.getThreadOPMDeserialiser();
+        OPMDeserialiser deserial=getDeserialiser();
         try {
             OPMPrinterConfiguration opc=deserial.deserialiseOPMPrinterConfiguration(is);
             init(opc);
@@ -399,9 +403,12 @@ public class OPMToDot {
         properties.put("color",colour);
         properties.put("fontcolor",colour);
         properties.put("style",getEdgeStyle(e));
+        addName(e,properties);
         return properties;
     }
 
+    public void addName(Edge e, HashMap<String,String> properties) {
+    }
 
     HashMap<String,String> accountColourMap=new HashMap<String,String>();
     public String convertAccount(String account) {
