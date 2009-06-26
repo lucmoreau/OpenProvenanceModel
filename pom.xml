@@ -4,15 +4,15 @@
   <groupId>org.openprovenance</groupId>
   <artifactId>specs</artifactId>
   <name>Open Provenance Specifications</name>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.01-SNAPSHOT</version>
   <url>http://openprovenance.org/java/site</url>
   <packaging>pom</packaging>
   <description>The overarching project of Java code related to the Open Provenance specifications.</description>
 
 
   <scm>
-    <connection>scm:svn:https://provenance.ecs.soton.ac.uk/contrib-svn/trunk/opm</connection>
-    <developerConnection>scm:svn:https://provenance.ecs.soton.ac.uk/contrib-svn/trunk/opm</developerConnection>
+    <connection>scm:svn:https://provenance.ecs.soton.ac.uk/contrib-svn/branches/opmv1_01</connection>
+    <developerConnection>scm:svn:https://provenance.ecs.soton.ac.uk/contrib-svn/branches/opmv1_01</developerConnection>
   </scm>   
 
   <modules>
