@@ -12,6 +12,7 @@ import java.io.OutputStream;
 import java.util.List;
 import java.util.Set;
 import java.util.HashMap;
+import java.util.Collection;
 
 
 import org.openprovenance.model.OPMGraph; 
@@ -33,6 +34,8 @@ import org.openprovenance.model.WasControlledBy;
 import org.openprovenance.model.OPMUtilities; 
 import org.openprovenance.model.OPMDeserialiser; 
 
+import org.openprovenance.model.NamedWasDerivedFrom; 
+
 
 import org.tupeloproject.provenance.ProvenanceAccount;
 import org.tupeloproject.provenance.ProvenanceRole;
@@ -52,6 +55,9 @@ import org.tupeloproject.kernel.impl.BasicLocalContext;
 import org.tupeloproject.util.Xml;
 import org.tupeloproject.kernel.OperatorException; 
 import org.apache.log4j.Logger;
+
+import org.tupeloproject.provenance.ProvenanceDerivedArc;
+import org.tupeloproject.provenance.impl.RdfProvenanceArtifact;
 
 
 public class OPMXml2Rdf {
@@ -222,6 +228,22 @@ public class OPMXml2Rdf {
                                     ProvenanceAccount account=accountTable.get(((Account)aid.getId()).getId());
                                     pcf.assertDerivedFrom(effect, cause, account);
                                 }
+                            }
+                            if (e instanceof NamedWasDerivedFrom) {
+                                NamedWasDerivedFrom nwdf=(NamedWasDerivedFrom) e;
+                                String type=nwdf.getType();
+                                Collection<ProvenanceDerivedArc> derived=pcf.getDerivedFrom(effect);
+                                ProvenanceDerivedArc me=null;
+                                for (ProvenanceDerivedArc a: derived) {
+                                    if (a.getAntecedent().equals(cause)
+                                        && a.getConsequent().equals(effect)) {
+                                        System.out.println("Found " + a);
+                                        System.out.println("Found " + ((RdfProvenanceArtifact)cause).getSubject());
+                                        System.out.println("Found " + ((RdfProvenanceArtifact)effect).getSubject());
+                                        break;
+                                    }
+                                }
+                                //System.out.println("triples " + mc.getTriples());
                             }
                         }
                         else {

@@ -67,13 +67,13 @@ public class Example8Test
 
         Artifact a1=oFactory.newArtifact("a1",
                                          black,
-                                         "[a1]");
+                                         "a1:[]");
         Artifact a2=oFactory.newArtifact("a2",
                                          black,
-                                         "[a2]");
+                                         "a2:[]");
         Artifact a3=oFactory.newArtifact("a3",
                                          black,
-                                         "[a3]");
+                                         "a3:[]");
 
 
         Artifact g1=oFactory.newArtifact("g1",
@@ -97,14 +97,14 @@ public class Example8Test
 
         Artifact b1=oFactory.newArtifact("b1",
                                          black,
-                                         "[b1]");
+                                         "b1:[]");
         Artifact b2=oFactory.newArtifact("b2",
                                          black,
-                                         "[b2]");
+                                         "b2:[]");
 
         Artifact b3=oFactory.newArtifact("b3",
                                          black,
-                                         "[b3]");
+                                         "b3:[]");
 
 
         Artifact c1=oFactory.newArtifact("c1",
@@ -128,13 +128,13 @@ public class Example8Test
 
 
         NamedWasDerivedFrom wd1=oFactory.newNamedWasDerivedFrom(a3,a2,"wasUpdated",black);
-        NamedWasDerivedFrom wd2=cFactory.newWasAliasOf(a2,a1,black);
+        NamedWasDerivedFrom wd2=cFactory.newWasIdenticalTo(a2,a1,black);
 
-        NamedWasDerivedFrom wd3=cFactory.newWasAliasOf(g2,g1,black);
+        NamedWasDerivedFrom wd3=cFactory.newWasIdenticalTo(g2,g1,black);
         NamedWasDerivedFrom wd4=cFactory.newContained(a3,g2,black);
 
-        NamedWasDerivedFrom wd5=cFactory.newWasAliasOf(f2,f1,orange);
-        NamedWasDerivedFrom wd6=cFactory.newWasAliasOf(f3,f2,orange);
+        NamedWasDerivedFrom wd5=cFactory.newWasIdenticalTo(f2,f1,orange);
+        NamedWasDerivedFrom wd6=cFactory.newWasIdenticalTo(f3,f2,orange);
         NamedWasDerivedFrom wd7=cFactory.newContained(a2,f2,orange);
         NamedWasDerivedFrom wd8=cFactory.newContained(a3,f3,orange);
         NamedWasDerivedFrom wd9=cFactory.newContained(a1,f1,orange);
@@ -151,8 +151,8 @@ public class Example8Test
         NamedWasDerivedFrom wd15=cFactory.newContained(b2,c2,orange);
         NamedWasDerivedFrom wd16=cFactory.newContained(b3,c3,orange);
 
-        NamedWasDerivedFrom wd17=cFactory.newWasAliasOf(c3,c2,orange);
-        NamedWasDerivedFrom wd18=cFactory.newWasAliasOf(c2,c1,orange);
+        NamedWasDerivedFrom wd17=cFactory.newWasIdenticalTo(c3,c2,orange);
+        NamedWasDerivedFrom wd18=cFactory.newWasIdenticalTo(c2,c1,orange);
 
 
 
