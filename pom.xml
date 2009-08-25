@@ -145,6 +145,18 @@
       </plugin>
 -->
 
+
+
+<!-- call by hand, mvn assembly:assembly -->
+    <plugin>
+      <artifactId>maven-assembly-plugin</artifactId>
+      <configuration>
+        <descriptors>
+          <descriptor>src/resources/assembly/assembly.xml</descriptor>
+        </descriptors>
+      </configuration>
+    </plugin>
+
     </plugins>
 
    <pluginManagement>

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+
+<assembly>
+  <id>opm</id>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <includeBaseDirectory>true</includeBaseDirectory>
+
+ <files>
+    <file>
+      <source>license.txt</source>
+      <outputDirectory>/</outputDirectory>
+    </file>
+    <file>
+      <source>pom.xml</source>
+      <outputDirectory>/</outputDirectory>
+      <filtered>true</filtered>
+    </file>
+  </files>
+
+  <moduleSets>
+    <moduleSet>
+
+
+      <includes>
+        <include>org.openprovenance:opm</include>
+        <include>org.openprovenance:tupelo</include>
+        <include>org.openprovenance:toolbox</include>
+      </includes>
+      <sources>
+        <fileSets>
+          <fileSet>
+            <outputDirectory></outputDirectory>
+            <includes>
+              <include>src/**</include>
+              <include>target/generated-sources/**</include>
+              <include>pom.xml</include>
+              <include>license.txt</include>
+              <include>build.xml</include>
+            </includes>
+          </fileSet>
+        </fileSets>
+      </sources>
+
+
+      <!--
+      <binaries>
+        <outputDirectory>lib</outputDirectory>
+        <unpack>false</unpack>
+      </binaries>
+      -->
+
+    </moduleSet>
+  </moduleSets>
+</assembly>
