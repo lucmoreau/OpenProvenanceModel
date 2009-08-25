@@ -25,8 +25,11 @@ DUAL LICENSE CDDL V1.0 AND GPL V2.
 ACTIVATION LICENSE
 - javax/activation/activation/1.1/activation-1.1.jar
    
-UNKNOWN
-- tupelo   
+NCSA OPEN SOURCE LICENSE
+- org/tupeloproject/tupelo-cet/2.4.3/tupelo-cet-2.4.3.jar
+- org/tupeloproject/tupelo-kernel/2.4.3/tupelo-kernel-2.4.3.jar
+- org/tupeloproject/tupelo-util/2.4.3/tupelo-util-2.4.3.jar
+
 
 
 
