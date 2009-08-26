@@ -8,11 +8,13 @@ import java.util.LinkedList;
 public class OPMFactory {
 
     public static final String packageList=
-        "org.openprovenance.model";
+        "org.openprovenance.model:org.openprovenance.model.extension";
+
+    public String getPackageList() {
+        return packageList;
+    }
 
     private final static OPMFactory oFactory=new OPMFactory();
-
-
 
     public static OPMFactory getFactory() {
         return oFactory;

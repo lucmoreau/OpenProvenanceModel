@@ -11,22 +11,30 @@ import org.openprovenance.model.ProcessId;
 import org.openprovenance.model.Process;
 import org.openprovenance.model.AgentId;
 import org.openprovenance.model.Agent;
-import org.openprovenance.model.ArtifactExt;
 import org.openprovenance.model.AccountId;
 import org.openprovenance.model.Role;
 import org.openprovenance.model.WasDerivedFrom;
 import org.openprovenance.model.Account;
-import org.openprovenance.model.NamedWasDerivedFrom;
-import org.openprovenance.model.NamedWasControlledBy;
+// import org.openprovenance.model.ArtifactExt;
+// import org.openprovenance.model.NamedWasDerivedFrom;
+// import org.openprovenance.model.NamedWasControlledBy;
 
 /** An extended Factory of OPM objects with NamedWasDerivedFrom edges.
     Needs to be moved in a separate module probably, since it is an extension*/
 
 public class OPMExtendedFactory extends OPMFactory {
 
+    public static final String packageList=
+        "org.openprovenance.model:org.openprovenance.model.extension";
+
+    public String getPackageList() {
+        return packageList;
+    }
+
+
     private final static OPMFactory oFactory=new OPMExtendedFactory();
 
-
+    protected ObjectFactory extof=new ObjectFactory();
 
     public static OPMFactory getFactory() {
         return oFactory;
@@ -37,7 +45,7 @@ public class OPMExtendedFactory extends OPMFactory {
                                                       ArtifactId aid2,
                                                       String type,
                                                       Collection<AccountId> accounts) {
-        NamedWasDerivedFrom res=of.createNamedWasDerivedFrom();
+        NamedWasDerivedFrom res=extof.createNamedWasDerivedFrom();
         res.setCause(aid2);
         res.setEffect(aid1);
         res.setType(type);
@@ -71,7 +79,7 @@ public class OPMExtendedFactory extends OPMFactory {
                                                         AgentId agid,
                                                         String type,
                                                         Collection<AccountId> accounts) {
-        NamedWasControlledBy res=of.createNamedWasControlledBy();
+        NamedWasControlledBy res=extof.createNamedWasControlledBy();
         res.setCause(agid);
         res.setEffect(pid);
         res.setRole(role);
@@ -121,7 +129,7 @@ public class OPMExtendedFactory extends OPMFactory {
                                       Collection<Account> accounts,
                                       Object value,
                                       List<Object> any) {
-        ArtifactExt res=of.createArtifactExt();
+        ArtifactExt res=extof.createArtifactExt();
         res.setId(id);
         if ((accounts !=null) && (accounts.size()!=0)) {
             LinkedList ll=new LinkedList();

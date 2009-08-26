@@ -22,7 +22,6 @@ import org.openprovenance.model.WasGeneratedBy;
 import org.openprovenance.model.WasDerivedFrom; 
 import org.openprovenance.model.WasTriggeredBy; 
 import org.openprovenance.model.WasControlledBy; 
-import org.openprovenance.model.NamedWasDerivedFrom; 
 import org.openprovenance.model.OPMDeserialiser; 
 import org.openprovenance.model.OPMSerialiser; 
 import org.openprovenance.model.Overlaps; 
@@ -30,6 +29,7 @@ import org.openprovenance.model.Process;
 import org.openprovenance.model.OPMUtilities; 
 
 import org.openprovenance.model.extension.OPMExtendedFactory;
+import org.openprovenance.model.extension.NamedWasDerivedFrom; 
 import org.openprovenance.model.extension.ExtOPMToDot;
 import org.openprovenance.model.collections.CollectionFactory;
 

@@ -13,7 +13,7 @@ import junit.framework.TestSuite;
 import org.openprovenance.model.extension.OPMExtendedFactory;
 import org.openprovenance.model.extension.ExtOPMToDot;
 import org.openprovenance.model.collections.CollectionFactory;
-
+import org.openprovenance.model.extension.NamedWasDerivedFrom;
 
 /**
  * Unit test for simple App.

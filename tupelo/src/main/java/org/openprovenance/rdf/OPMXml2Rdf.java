@@ -34,7 +34,7 @@ import org.openprovenance.model.WasControlledBy;
 import org.openprovenance.model.OPMUtilities; 
 import org.openprovenance.model.OPMDeserialiser; 
 
-import org.openprovenance.model.NamedWasDerivedFrom; 
+import org.openprovenance.model.extension.NamedWasDerivedFrom; 
 
 
 import org.tupeloproject.provenance.ProvenanceAccount;

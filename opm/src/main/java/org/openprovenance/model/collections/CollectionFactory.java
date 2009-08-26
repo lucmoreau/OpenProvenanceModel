@@ -9,11 +9,11 @@ import java.util.LinkedList;
 import org.openprovenance.model.extension.OPMExtendedFactory;
 import org.openprovenance.model.ArtifactId;
 import org.openprovenance.model.Artifact;
-import org.openprovenance.model.ArtifactExt;
+import org.openprovenance.model.extension.ArtifactExt;
 import org.openprovenance.model.AccountId;
 import org.openprovenance.model.WasDerivedFrom;
 import org.openprovenance.model.Account;
-import org.openprovenance.model.NamedWasDerivedFrom;
+import org.openprovenance.model.extension.NamedWasDerivedFrom;
 
 
 

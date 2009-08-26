@@ -13,6 +13,13 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.JAXBElement;
 import org.w3c.dom.Element;
 
+import org.openprovenance.model.printer.OPMPrinterConfiguration;
+import org.openprovenance.model.printer.AgentMapEntry;
+import org.openprovenance.model.printer.AccountColorMapEntry;
+import org.openprovenance.model.printer.ArtifactMapEntry;
+import org.openprovenance.model.printer.ProcessMapEntry;
+import org.openprovenance.model.printer.EdgeStyleMapEntry;
+import org.openprovenance.model.printer.OPMPrinterConfigDeserialiser;
 
 /** Serialisation of  OPM Graphs to DOT format. */
 public class OPMToDot {
@@ -51,14 +58,14 @@ public class OPMToDot {
         init(configurationFile);
     }
 
-    public OPMDeserialiser getDeserialiser() {
-        return OPMDeserialiser.getThreadOPMDeserialiser();
+    public OPMPrinterConfigDeserialiser getDeserialiser() {
+        return OPMPrinterConfigDeserialiser.getThreadOPMPrinterConfigDeserialiser();
     }
     
     public void init(String configurationFile) {
-        OPMDeserialiser deserial=getDeserialiser();
+        OPMPrinterConfigDeserialiser printerDeserial=getDeserialiser();
         try {
-            OPMPrinterConfiguration opc=deserial.deserialiseOPMPrinterConfiguration(new File(configurationFile));
+            OPMPrinterConfiguration opc=printerDeserial.deserialiseOPMPrinterConfiguration(new File(configurationFile));
             init(opc);
         } catch (JAXBException je) {
             je.printStackTrace();
@@ -66,9 +73,9 @@ public class OPMToDot {
     }
 
     public void init(InputStream is) {
-        OPMDeserialiser deserial=getDeserialiser();
+        OPMPrinterConfigDeserialiser printerDeserial=getDeserialiser();
         try {
-            OPMPrinterConfiguration opc=deserial.deserialiseOPMPrinterConfiguration(is);
+            OPMPrinterConfiguration opc=printerDeserial.deserialiseOPMPrinterConfiguration(is);
             init(opc);
         } catch (JAXBException je) {
             je.printStackTrace();

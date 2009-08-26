@@ -6,8 +6,8 @@ import  org.openprovenance.model.Edge;
 
 import java.util.HashMap;
 
-import org.openprovenance.model.NamedWasDerivedFrom;
-import org.openprovenance.model.NamedWasControlledBy;
+import org.openprovenance.model.extension.NamedWasDerivedFrom;
+import org.openprovenance.model.extension.NamedWasControlledBy;
 
 
 

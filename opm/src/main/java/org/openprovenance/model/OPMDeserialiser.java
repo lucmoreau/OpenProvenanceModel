@@ -14,6 +14,8 @@ import javax.xml.validation.Schema;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.transform.Source;
 
+import org.openprovenance.model.printer.OPMPrinterConfiguration;
+
 /** Deserialiser of OPM Graphs. */
 public class OPMDeserialiser {
 
@@ -70,22 +72,6 @@ public class OPMDeserialiser {
         return res;
     }
 
-
-    public OPMPrinterConfiguration deserialiseOPMPrinterConfiguration (File serialised)
-        throws JAXBException {
-        Unmarshaller u=jc.createUnmarshaller();
-        Object root= u.unmarshal(serialised);
-        OPMPrinterConfiguration res=(OPMPrinterConfiguration)((JAXBElement<OPMPrinterConfiguration>) root).getValue();
-        return res;
-    }
-
-    public OPMPrinterConfiguration deserialiseOPMPrinterConfiguration (InputStream serialised)
-        throws JAXBException {
-        Unmarshaller u=jc.createUnmarshaller();
-        Object root= u.unmarshal(serialised);
-        OPMPrinterConfiguration res=(OPMPrinterConfiguration)((JAXBElement<OPMPrinterConfiguration>) root).getValue();
-        return res;
-    }
 
     public OPMGraph validateOPMGraph (String[] schemaFiles, File serialised)
         throws JAXBException,SAXException, IOException {
