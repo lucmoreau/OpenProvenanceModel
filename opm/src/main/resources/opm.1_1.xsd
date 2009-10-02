@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Authors: Paul Groth and Luc Moreau -->
+
+
+<xs:schema targetNamespace="http://openprovenance.org/model/v1.01.a"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:opm="http://openprovenance.org/model/v1.01.a"
+           xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified"
+           jxb:version="2.0">
+
+
+  <xs:element name="opmGraph" type="opm:OPMGraph">
+	<xs:annotation>
+	  <xs:documentation>A set of assertions about the provenance of things</xs:documentation>
+	</xs:annotation>
+  </xs:element>
+
+  <xs:complexType name="OPMGraph">
+    <xs:annotation>
+      <xs:appinfo>
+        <jxb:class>
+         <jxb:javadoc>
+           <![CDATA[ Java class for OPMGraph complex type. See <A href="http://twiki.ipaw.info/bin/view/Challenge/OPM1-01Review">OPMGraph</A>.]]>
+         </jxb:javadoc>
+        </jxb:class>
+      </xs:appinfo>
+    </xs:annotation> 
+	<xs:sequence>
+	  <xs:element name="accounts" type="opm:Accounts" minOccurs="0"/>
+	  <xs:element name="processes" type="opm:Processes" minOccurs="0"/>
+	  <xs:element name="artifacts" type="opm:Artifacts" minOccurs="0"/>
+	  <xs:element name="agents" type="opm:Agents" minOccurs="0"/>
+	  <xs:element name="causalDependencies" type="opm:CausalDependencies" minOccurs="0"/>
+	  <xs:element name="annotations" type="opm:Annotations" minOccurs="0"/>
+	</xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProcessId">
+	<xs:attribute name="opmid" type="xs:IDREF"/>
+	<xs:attribute name="id" type="xs:ID"/>
+  </xs:complexType>
+  <xs:complexType name="ArtifactId">
+	<xs:attribute name="opmid" type="xs:IDREF"/>
+	<xs:attribute name="id" type="xs:ID"/>
+  </xs:complexType>
+  <xs:complexType name="AgentId">
+	<xs:attribute name="opmid" type="xs:IDREF"/>
+	<xs:attribute name="id" type="xs:ID"/>
+  </xs:complexType>
+  <xs:complexType name="AccountId">
+	<xs:attribute name="opmid" type="xs:IDREF"/>
+	<xs:attribute name="id" type="xs:ID"/>
+  </xs:complexType>
+  <xs:complexType name="RoleId">
+    <xs:attribute name="opmid" type="xs:IDREF"/>
+    <xs:attribute name="id" type="xs:ID"/>
+  </xs:complexType>
+  
+
+  <xs:complexType name="Account">
+	<xs:sequence>
+      <xs:element name="value"/>
+	</xs:sequence>
+	<xs:attribute name="id" type="xs:ID"/>
+  </xs:complexType>
+
+  <xs:complexType name="Role">
+	<xs:sequence>
+	   <xs:element name="value"/>
+	</xs:sequence>
+	<xs:attribute name="id" type="xs:ID"/>
+  </xs:complexType>
+  
+  <xs:complexType name="Annotation">
+     <xs:sequence>
+        <!-- This allows for references to external entities. 
+             However, this does not enforce the no annotation to annotation policy -->
+        <xs:choice>
+            <xs:element name="anyOPMEntity" type="xs:anyURI" ></xs:element>
+            <xs:element name="localOPMEntity" type="xs:IDREF"></xs:element>
+        </xs:choice>
+        <xs:choice>
+            <xs:element name="urlProperty" type="xs:anyURI"></xs:element>
+            <xs:element name="stringProperty" type="xs:string"></xs:element>
+        </xs:choice>
+        <xs:choice>
+            <xs:element name="urlValue" type="xs:anyURI"></xs:element>
+            <xs:element name="stringValue" type="xs:string"></xs:element>
+        </xs:choice>
+     </xs:sequence>
+     <xs:attribute name="id" type="xs:ID"/>
+  </xs:complexType>
+
+  <xs:complexType name="Process">
+	<xs:sequence>
+	  <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="opm:AccountId"/>
+	</xs:sequence>
+	<xs:attribute name="id" type="xs:ID"/>
+  </xs:complexType>
+
+
+  <xs:complexType name="Artifact">
+	<xs:sequence>
+      <xs:element name="value"/>
+	  <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="opm:AccountId"/>
+	</xs:sequence>
+	<xs:attribute name="id" type="xs:ID"/>
+  </xs:complexType>
+
+
+  <xs:complexType name="Agent">
+	<xs:sequence>
+	  <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="opm:AccountId"/>
+	</xs:sequence>
+	<xs:attribute name="id" type="xs:ID"/>
+  </xs:complexType>
+
+
+  <xs:complexType name="Used">
+	<xs:sequence>
+	  <xs:element name="effect"  type="opm:ProcessId"/>  <!-- or should it be named process? -->
+	  <xs:element name="role"    type="opm:Role"/>
+	  <xs:element name="cause"   type="opm:ArtifactId"/>
+	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountId"/>
+      <xs:element name="time"    type="opm:OTime" minOccurs="0"/>
+	</xs:sequence>
+    <xs:attribute name="id" type="xs:ID"/>
+  </xs:complexType>
+
+  <xs:complexType name="WasGeneratedBy">
+	<xs:sequence>
+	  <xs:element name="effect"  type="opm:ArtifactId"/>
+	  <xs:element name="role"    type="opm:Role"/>
+	  <xs:element name="cause"   type="opm:ProcessId"/>
+	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountId"/>
+      <xs:element name="time"    type="opm:OTime" minOccurs="0"/>
+	</xs:sequence>
+    <xs:attribute name="id" type="xs:ID"/>
+  </xs:complexType>
+
+  <xs:complexType name="WasControlledBy">
+	<xs:sequence>
+	  <xs:element name="effect"  type="opm:ProcessId"/>
+	  <xs:element name="role"    type="opm:Role"/>
+	  <xs:element name="cause"   type="opm:AgentId"/>
+	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountId"/>
+      <xs:element name="start"   type="opm:OTime" minOccurs="0"/>
+      <xs:element name="end"     type="opm:OTime" minOccurs="0"/>
+	</xs:sequence>
+    <xs:attribute name="id" type="xs:ID"/>
+  </xs:complexType>
+
+  <xs:complexType name="WasDerivedFrom">
+	<xs:sequence>
+	  <xs:element name="effect"  type="opm:ArtifactId"/>
+	  <xs:element name="cause"   type="opm:ArtifactId"/>
+	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountId"/>
+      <xs:element name="time"    type="opm:OTime" minOccurs="0"/>
+	</xs:sequence>
+	<xs:attribute name="id" type="xs:ID"/>
+  </xs:complexType>
+
+  <xs:complexType name="WasTriggeredBy">
+	<xs:sequence>
+	  <xs:element name="effect"  type="opm:ProcessId"/>
+	  <xs:element name="cause"   type="opm:ProcessId"/>
+	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountId"/>
+      <xs:element name="time"    type="opm:OTime" minOccurs="0"/>
+	</xs:sequence>
+	<xs:attribute name="id" type="xs:ID"/>
+  </xs:complexType>
+
+
+  <xs:complexType name="CausalDependencies">
+	<xs:sequence>
+	  <xs:choice minOccurs="0" maxOccurs="unbounded">
+		<xs:element name="used"            type="opm:Used"/>
+		<xs:element name="wasGeneratedBy"  type="opm:WasGeneratedBy"/>
+		<xs:element name="wasTriggeredBy"  type="opm:WasTriggeredBy"/>
+		<xs:element name="wasDerivedFrom"  type="opm:WasDerivedFrom"/>
+		<xs:element name="wasControlledBy" type="opm:WasControlledBy"/>
+	  </xs:choice>
+	</xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Artifacts">
+	<xs:sequence>
+	  <xs:element name="artifact" type="opm:Artifact" minOccurs="0" maxOccurs="unbounded"/>
+	</xs:sequence>
+  </xs:complexType>
+
+
+  <xs:complexType name="Accounts">
+	<xs:sequence>
+	  <xs:element name="account"  type="opm:Account"  minOccurs="0" maxOccurs="unbounded"/>
+	  <xs:element name="overlaps" type="opm:Overlaps" minOccurs="0" maxOccurs="unbounded"/>
+	</xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Overlaps">
+	<xs:sequence>
+	  <xs:element name="account" type="opm:AccountId" minOccurs="2" maxOccurs="2"/>
+	</xs:sequence>
+  </xs:complexType>
+
+
+  <xs:complexType name="Processes">
+	<xs:sequence>
+	  <xs:element name="process" type="opm:Process" minOccurs="0" maxOccurs="unbounded"/>
+	</xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Agents">
+	<xs:sequence>
+	  <xs:element name="agent"   type="opm:Agent" minOccurs="0" maxOccurs="unbounded"/>
+	</xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="Annotations">
+    <xs:sequence>
+      <xs:element name="annotation"   type="opm:Annotation" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+
+ <!-- Observed Time allow for interval of observation. -->
+  <xs:complexType name="OTime">
+	<xs:sequence>
+	  <xs:element name="noLaterThan"   type="xs:dateTime" minOccurs="0"  maxOccurs="1" />
+	  <xs:element name="noEarlierThan" type="xs:dateTime" minOccurs="0"  maxOccurs="1" />
+	  <xs:element name="clockId"       type="xs:string"/>
+	</xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
