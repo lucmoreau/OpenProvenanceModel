@@ -36,6 +36,7 @@
 	  <xs:element name="causalDependencies" type="opm:CausalDependencies" minOccurs="0"/>
 	  <xs:element name="annotations" type="opm:Annotations" minOccurs="0"/>
 	</xs:sequence>
+	<xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
 
   <xs:complexType name="ProcessId">
@@ -76,8 +77,7 @@
   
   <xs:complexType name="Annotation">
      <xs:sequence>
-        <!-- This allows for references to external entities. 
-             However, this does not enforce the no annotation to annotation policy -->
+        <!-- This allows for references to external entities. -->
         <xs:choice>
             <xs:element name="anyOPMEntity" type="xs:anyURI" ></xs:element>
             <xs:element name="localOPMEntity" type="xs:IDREF"></xs:element>
@@ -91,7 +91,6 @@
             <xs:element name="stringValue" type="xs:string"></xs:element>
         </xs:choice>
      </xs:sequence>
-     <xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
 
   <xs:complexType name="Process">
