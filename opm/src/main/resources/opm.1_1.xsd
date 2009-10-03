@@ -40,24 +40,19 @@
   </xs:complexType>
 
   <xs:complexType name="ProcessId">
-	<xs:attribute name="opmid" type="xs:IDREF"/>
-	<xs:attribute name="id" type="xs:ID"/>
+	<xs:attribute name="ref" type="xs:IDREF"/>
   </xs:complexType>
   <xs:complexType name="ArtifactId">
-	<xs:attribute name="opmid" type="xs:IDREF"/>
-	<xs:attribute name="id" type="xs:ID"/>
+	<xs:attribute name="ref" type="xs:IDREF"/>
   </xs:complexType>
   <xs:complexType name="AgentId">
-	<xs:attribute name="opmid" type="xs:IDREF"/>
-	<xs:attribute name="id" type="xs:ID"/>
+	<xs:attribute name="ref" type="xs:IDREF"/>
   </xs:complexType>
   <xs:complexType name="AccountId">
-	<xs:attribute name="opmid" type="xs:IDREF"/>
-	<xs:attribute name="id" type="xs:ID"/>
+	<xs:attribute name="ref" type="xs:IDREF"/>
   </xs:complexType>
   <xs:complexType name="RoleId">
-    <xs:attribute name="opmid" type="xs:IDREF"/>
-    <xs:attribute name="id" type="xs:ID"/>
+    <xs:attribute name="ref" type="xs:IDREF"/>
   </xs:complexType>
   
 
@@ -90,6 +85,7 @@
             <xs:element name="urlValue" type="xs:anyURI"></xs:element>
             <xs:element name="stringValue" type="xs:string"></xs:element>
         </xs:choice>
+        <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountId"/>
      </xs:sequence>
   </xs:complexType>
 
