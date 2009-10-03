@@ -39,6 +39,9 @@
 	<xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
 
+  <xs:complexType name="OPMGraphID">
+    <xs:attribute name="ref" type="xs:IDREF"/>
+  </xs:complexType>
   <xs:complexType name="ProcessId">
 	<xs:attribute name="ref" type="xs:IDREF"/>
   </xs:complexType>
@@ -52,6 +55,9 @@
 	<xs:attribute name="ref" type="xs:IDREF"/>
   </xs:complexType>
   <xs:complexType name="RoleId">
+    <xs:attribute name="ref" type="xs:IDREF"/>
+  </xs:complexType>
+  <xs:complexType name="CausalDependencyId">
     <xs:attribute name="ref" type="xs:IDREF"/>
   </xs:complexType>
   
@@ -74,8 +80,13 @@
      <xs:sequence>
         <!-- This allows for references to external entities. -->
         <xs:choice>
-            <xs:element name="anyOPMEntity" type="xs:anyURI" ></xs:element>
-            <xs:element name="localOPMEntity" type="xs:IDREF"></xs:element>
+            <xs:element name="externalEntity" type="xs:anyURI" ></xs:element>
+            <xs:element name="graph" type="opm:OPMGraphID"></xs:element>
+            <xs:element name="artifact" type="opm:ArtifactId"></xs:element>
+            <xs:element name="process" type="opm:ProcessId"></xs:element>
+            <xs:element name="causalDependency" type="opm:CausalDependencyId"></xs:element>
+            <xs:element name="role" type="opm:RoleId"></xs:element>
+            <xs:element name="agent" type="opm:AgentId"></xs:element>
         </xs:choice>
         <xs:choice>
             <xs:element name="urlProperty" type="xs:anyURI"></xs:element>
@@ -87,6 +98,7 @@
         </xs:choice>
         <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountId"/>
      </xs:sequence>
+     <xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
 
   <xs:complexType name="Process">
