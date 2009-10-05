@@ -75,6 +75,8 @@
 	</xs:sequence>
 	<xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
+ 
+ 
   
   <xs:complexType name="Annotation">
      <xs:sequence>
@@ -88,14 +90,8 @@
             <xs:element name="role" type="opm:RoleId"></xs:element>
             <xs:element name="agent" type="opm:AgentId"></xs:element>
         </xs:choice>
-        <xs:choice>
-            <xs:element name="urlProperty" type="xs:anyURI"></xs:element>
-            <xs:element name="stringProperty" type="xs:string"></xs:element>
-        </xs:choice>
-        <xs:choice>
-            <xs:element name="urlValue" type="xs:anyURI"></xs:element>
-            <xs:element name="stringValue" type="xs:string"></xs:element>
-        </xs:choice>
+        <xs:element name="property" type="xs:anyType"></xs:element>
+        <xs:element name="value" type="xs:anyType"></xs:element>
         <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountId"/>
      </xs:sequence>
      <xs:attribute name="id" type="xs:ID"/>

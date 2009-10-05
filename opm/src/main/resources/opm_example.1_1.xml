@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opm:opmGraph xmlns:opm="http://openprovenance.org/model/v1.01.a" 
+              xmlns:xs="http://www.w3.org/2001/XMLSchema"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xsi:schemaLocation="http://openprovenance.org/model/v1.01.a opm.1_1.xsd ">
+    <opm:accounts>
+        <opm:account id="acc1">
+            <opm:value>blue</opm:value>
+        </opm:account>
+    </opm:accounts>
+    <opm:artifacts>
+        <opm:artifact id="a1">
+            <opm:value>Artifact 1</opm:value>
+        </opm:artifact>
+        <opm:artifact id="a2">
+            <opm:value>Artifact 2</opm:value>
+        </opm:artifact>
+    </opm:artifacts>
+    <opm:causalDependencies>
+        <opm:wasDerivedFrom id="cd1">
+            <opm:effect ref="a2"/>
+            <opm:cause ref="a1"/>
+        </opm:wasDerivedFrom>  
+    </opm:causalDependencies>
+    <opm:annotations>
+        <opm:annotation>
+            <opm:artifact ref="a1"/>
+            <opm:property>http://example.com/userReadableName</opm:property>
+            <opm:value xsi:type="xs:string">Nice Artifact</opm:value>
+            <opm:account ref="acc1"/>
+        </opm:annotation>
+        
+    </opm:annotations>
+</opm:opmGraph>
