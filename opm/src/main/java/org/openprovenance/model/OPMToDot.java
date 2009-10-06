@@ -305,7 +305,7 @@ public class OPMToDot {
         // Note, I should compute effective account membership
         List<String> colors=new LinkedList();
         for (AccountId acc: p.getAccount()) {
-            String accountLabel=((Account)acc.getId()).getId();
+            String accountLabel=((Account)acc.getRef()).getId();
             String colour=convertAccount(accountLabel);
             colors.add(colour);
         }
@@ -333,7 +333,7 @@ public class OPMToDot {
         // Note, I should compute effective account membership
         List<String> colors=new LinkedList();
         for (AccountId acc: p.getAccount()) {
-            String accountLabel=((Account)acc.getId()).getId();
+            String accountLabel=((Account)acc.getRef()).getId();
             String colour=convertAccount(accountLabel);
             colors.add(colour);
         }
@@ -343,7 +343,7 @@ public class OPMToDot {
         // Note, I should compute effective account membership
         List<String> colors=new LinkedList();
         for (AccountId acc: p.getAccount()) {
-            String accountLabel=((Account)acc.getId()).getId();
+            String accountLabel=((Account)acc.getRef()).getId();
             String colour=convertAccount(accountLabel);
             colors.add(colour);
         }
@@ -394,10 +394,10 @@ public class OPMToDot {
         }
             
         for (AccountId acc: accounts) {
-            String accountLabel=((Account)acc.getId()).getId();
+            String accountLabel=((Account)acc.getRef()).getId();
             addEdgeAttributes(accountLabel,e,properties);
-            emitEdge( ((Node)e.getEffect().getId()).getId(),
-                      ((Node)e.getCause().getId()).getId(),
+            emitEdge( ((Node)e.getEffect().getRef()).getId(),
+                      ((Node)e.getCause().getRef()).getId(),
                       properties,
                       out);
         }

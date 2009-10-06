@@ -3,16 +3,16 @@
 <!-- Authors: Paul Groth and Luc Moreau -->
 
 
-<xs:schema targetNamespace="http://openprovenance.org/model/extension/v1.01.a"
+<xs:schema targetNamespace="http://openprovenance.org/model/extension/v1.1.a"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:opm="http://openprovenance.org/model/v1.01.a"
+           xmlns:opm="http://openprovenance.org/model/v1.1.a"
            xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
            elementFormDefault="qualified"
            attributeFormDefault="unqualified"
            jxb:version="2.0">
 
-  <xs:import namespace="http://openprovenance.org/model/v1.01.a"
-		     schemaLocation="./opm.1_01.xsd" />
+  <xs:import namespace="http://openprovenance.org/model/v1.1.a"
+		     schemaLocation="./opm.1_1.xsd" />
 
 
 

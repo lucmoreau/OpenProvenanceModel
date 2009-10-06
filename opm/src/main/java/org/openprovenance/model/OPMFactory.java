@@ -28,38 +28,38 @@ public class OPMFactory {
 
     public ProcessId newProcessId(Process p) {
         ProcessId res=of.createProcessId();
-        res.setId(p);
+        res.setRef(p);
         return res;
     }
 
     public ArtifactId newArtifactId(Artifact a) {
         ArtifactId res=of.createArtifactId();
-        res.setId(a);
+        res.setRef(a);
         return res;
     }
     public AgentId newAgentId(Agent a) {
         AgentId res=of.createAgentId();
-        res.setId(a);
+        res.setRef(a);
         return res;
     }
     public ProcessId newProcessId(String s) {
         ProcessId res=of.createProcessId();
-        res.setId(s);
+        res.setRef(s);
         return res;
     }
     public ArtifactId newArtifactId(String s) {
         ArtifactId res=of.createArtifactId();
-        res.setId(s);
+        res.setRef(s);
         return res;
     }
     public AgentId newAgentId(String s) {
         AgentId res=of.createAgentId();
-        res.setId(s);
+        res.setRef(s);
         return res;
     }
     public AccountId newAccountId(Account acc) {
         AccountId res=of.createAccountId();
-        res.setId(acc);
+        res.setRef(acc);
         return res;
     }
 

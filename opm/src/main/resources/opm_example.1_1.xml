@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<opm:opmGraph xmlns:opm="http://openprovenance.org/model/v1.01.a" 
+<opm:opmGraph xmlns:opm="http://openprovenance.org/model/v1.1.a" 
               xmlns:xs="http://www.w3.org/2001/XMLSchema"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-              xsi:schemaLocation="http://openprovenance.org/model/v1.01.a opm.1_1.xsd ">
+              xsi:schemaLocation="http://openprovenance.org/model/v1.1.a opm.1_1.xsd ">
     <opm:accounts>
         <opm:account id="acc1">
             <opm:value>blue</opm:value>

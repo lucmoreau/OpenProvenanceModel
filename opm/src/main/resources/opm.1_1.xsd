@@ -3,9 +3,9 @@
 <!-- Authors: Paul Groth and Luc Moreau -->
 
 
-<xs:schema targetNamespace="http://openprovenance.org/model/v1.01.a"
+<xs:schema targetNamespace="http://openprovenance.org/model/v1.1.a"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:opm="http://openprovenance.org/model/v1.01.a"
+           xmlns:opm="http://openprovenance.org/model/v1.1.a"
            xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
            elementFormDefault="qualified"
            attributeFormDefault="unqualified"
@@ -71,11 +71,14 @@
 
   <xs:complexType name="Role">
 	<xs:sequence>
-	   <xs:element name="value"/>
 	</xs:sequence>
+	<xs:attribute name="value" type="xs:string"/>
 	<xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
- 
+
+
+
+
  
   
   <xs:complexType name="Annotation">
@@ -100,6 +103,7 @@
   <xs:complexType name="Process">
 	<xs:sequence>
 	  <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="opm:AccountId"/>
+      <xs:element name="value"/>
 	</xs:sequence>
 	<xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
@@ -107,8 +111,8 @@
 
   <xs:complexType name="Artifact">
 	<xs:sequence>
-      <xs:element name="value"/>
 	  <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="opm:AccountId"/>
+      <xs:element name="value"/>
 	</xs:sequence>
 	<xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
@@ -117,6 +121,7 @@
   <xs:complexType name="Agent">
 	<xs:sequence>
 	  <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="opm:AccountId"/>
+      <xs:element name="value"/>
 	</xs:sequence>
 	<xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>

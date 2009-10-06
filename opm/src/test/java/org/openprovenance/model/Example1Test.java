@@ -122,6 +122,7 @@ public class Example1Test
         OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
         StringWriter sw=new StringWriter();
         serial.serialiseOPMGraph(sw,graph,true);
+        serial.serialiseOPMGraph(new File("target/copy-example.xml"),graph,true);
         System.out.println(sw);
 
         graph1=graph;
@@ -143,6 +144,9 @@ public class Example1Test
     /** Checks that the graph read from the file is the same as the
      * one created. */
     public void testOPM3() throws JAXBException    {
+        System.out.println("===> " + graph1.getAccounts());
+        System.out.println("===> " + graph2.getAccounts());
+        assertTrue (graph1.getAccounts().equals(graph2.getAccounts()));
         assertTrue (graph1.equals(graph2));
     }
 }

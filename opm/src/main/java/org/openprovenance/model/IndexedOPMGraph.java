@@ -268,9 +268,9 @@ public class IndexedOPMGraph extends OPMGraph {
 
     public Used addUsed(Used used) {
         ProcessId pid=used.getEffect();
-        Process p=(Process)(pid.getId());
+        Process p=(Process)(pid.getRef());
         ArtifactId aid=used.getCause();
-        Artifact a=(Artifact)(aid.getId());
+        Artifact a=(Artifact)(aid.getRef());
         Role r=used.getRole();
         Collection<AccountId> accs=used.getAccount();
 
@@ -330,9 +330,9 @@ public class IndexedOPMGraph extends OPMGraph {
 
     public WasGeneratedBy addWasGeneratedBy(WasGeneratedBy wasGeneratedBy) {
         ProcessId pid=wasGeneratedBy.getCause();
-        Process p=(Process)(pid.getId());
+        Process p=(Process)(pid.getRef());
         ArtifactId aid=wasGeneratedBy.getEffect();
-        Artifact a=(Artifact)(aid.getId());
+        Artifact a=(Artifact)(aid.getRef());
         Role r=wasGeneratedBy.getRole();
         Collection<AccountId> accs=wasGeneratedBy.getAccount();
 
@@ -390,9 +390,9 @@ public class IndexedOPMGraph extends OPMGraph {
 
     public WasDerivedFrom addWasDerivedFrom(WasDerivedFrom wasDerivedFrom) {
         ArtifactId aid2=wasDerivedFrom.getEffect();
-        Artifact a2=(Artifact)(aid2.getId());
+        Artifact a2=(Artifact)(aid2.getRef());
         ArtifactId aid1=wasDerivedFrom.getCause();
-        Artifact a1=(Artifact)(aid1.getId());
+        Artifact a1=(Artifact)(aid1.getRef());
         Collection<AccountId> accs=wasDerivedFrom.getAccount();
 
         WasDerivedFrom result=wasDerivedFrom;
@@ -448,9 +448,9 @@ public class IndexedOPMGraph extends OPMGraph {
 
     public WasControlledBy addWasControlledBy(WasControlledBy wasControlledBy) {
         ProcessId pid=wasControlledBy.getEffect();
-        Process p=(Process)(pid.getId());
+        Process p=(Process)(pid.getRef());
         AgentId aid=wasControlledBy.getCause();
-        Agent a=(Agent)(aid.getId());
+        Agent a=(Agent)(aid.getRef());
         Role r=wasControlledBy.getRole();
         Collection<AccountId> accs=wasControlledBy.getAccount();
 
@@ -507,9 +507,9 @@ public class IndexedOPMGraph extends OPMGraph {
 
     public WasTriggeredBy addWasTriggeredBy(WasTriggeredBy wasTriggeredBy) {
         ProcessId pid2=wasTriggeredBy.getEffect();
-        Process p2=(Process)(pid2.getId());
+        Process p2=(Process)(pid2.getRef());
         ProcessId pid1=wasTriggeredBy.getCause();
-        Process p1=(Process)(pid1.getId());
+        Process p1=(Process)(pid1.getRef());
         Collection<AccountId> accs=wasTriggeredBy.getAccount();
 
         WasTriggeredBy result=wasTriggeredBy;

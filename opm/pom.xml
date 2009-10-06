@@ -97,7 +97,7 @@
 			     </plugin>
 		       </plugins>
                <schemaIncludes>
-                 <schemaInclude>**/opm.1_01.xsd</schemaInclude>
+                 <schemaInclude>**/opm.1_1.xsd</schemaInclude>
                  <schemaInclude>**/opm_extension.1_01.xsd</schemaInclude>
                  <schemaInclude>**/opm_printer_config.xsd</schemaInclude>
                </schemaIncludes>
@@ -246,19 +246,19 @@
                 </exec>
 
                 <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
-  	              <arg value="-e s/implements Equals, HashCode, ToString/implements Id, Equals, HashCode, ToString/" />
+  	              <arg value="-e s/implements Equals, HashCode, ToString/implements IdRef, Equals, HashCode, ToString/" />
   	              <arg value="-iBAK" />
   	              <arg value="ArtifactId.java" />
                 </exec>
 
                 <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
-  	              <arg value="-e s/implements Equals, HashCode, ToString/implements Id, Equals, HashCode, ToString/" />
+  	              <arg value="-e s/implements Equals, HashCode, ToString/implements IdRef, Equals, HashCode, ToString/" />
   	              <arg value="-iBAK" />
   	              <arg value="ProcessId.java" />
                 </exec>
 
                 <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
-  	              <arg value="-e s/implements Equals, HashCode, ToString/implements Id, Equals, HashCode, ToString/" />
+  	              <arg value="-e s/implements Equals, HashCode, ToString/implements IdRef, Equals, HashCode, ToString/" />
   	              <arg value="-iBAK" />
   	              <arg value="AgentId.java" />
                 </exec>
