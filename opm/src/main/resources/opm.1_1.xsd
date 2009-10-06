@@ -60,6 +60,9 @@
   <xs:complexType name="CausalDependencyId">
     <xs:attribute name="ref" type="xs:IDREF"/>
   </xs:complexType>
+  <xs:complexType name="AnnotationId">
+    <xs:attribute name="ref" type="xs:IDREF"/>
+  </xs:complexType>
   
 
   <xs:complexType name="Account">
@@ -92,8 +95,9 @@
             <xs:element name="causalDependency" type="opm:CausalDependencyId"></xs:element>
             <xs:element name="role" type="opm:RoleId"></xs:element>
             <xs:element name="agent" type="opm:AgentId"></xs:element>
+            <xs:element name="annotation" type="opm:AnnotationId"></xs:element>
         </xs:choice>
-        <xs:element name="property" type="xs:anyType"></xs:element>
+        <xs:element name="property" type="xs:anyURI"></xs:element>
         <xs:element name="value" type="xs:anyType"></xs:element>
         <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountId"/>
      </xs:sequence>

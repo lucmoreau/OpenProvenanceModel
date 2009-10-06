@@ -32,6 +32,12 @@ public class OPMFactory {
         return res;
     }
 
+    public AnnotationId newAnnotationId(Annotation a) {
+        AnnotationId res=of.createAnnotationId();
+        res.setRef(a);
+        return res;
+    }
+
     public ArtifactId newArtifactId(Artifact a) {
         ArtifactId res=of.createArtifactId();
         res.setRef(a);
@@ -331,13 +337,84 @@ public class OPMFactory {
                                             Collection<Account> accounts) {
         ProcessId pid1=newProcessId(p1);
         ProcessId pid2=newProcessId(p2);
-        LinkedList ll=new LinkedList();
+        LinkedList<AccountId> ll=new LinkedList();
         for (Account acc: accounts) {
             ll.add(newAccountId(acc));
         }
         return  newWasTriggeredBy(pid1,pid2,ll);
     }
 
+    public Annotation newAnnotation(String id,
+                                    Artifact a,
+                                    String property,
+                                    Object value,
+                                    Collection<Account> accs) {
+        ArtifactId aid=newArtifactId(a);
+        LinkedList<AccountId> ll=new LinkedList();
+        if (accs!=null) {
+            for (Account acc: accs) {
+                ll.add(newAccountId(acc));
+            }
+        }
+        return newAnnotation(id,aid,property,value,ll);
+    }
+    public Annotation newAnnotation(String id,
+                                    Process p,
+                                    String property,
+                                    Object value,
+                                    Collection<Account> accs) {
+        ProcessId pid=newProcessId(p);
+        LinkedList<AccountId> ll=new LinkedList();
+        if (accs!=null) {
+            for (Account acc: accs) {
+                ll.add(newAccountId(acc));
+            }
+        }
+        return newAnnotation(id,pid,property,value,ll);
+    }
+
+    public Annotation newAnnotation(String id,
+                                    Annotation a,
+                                    String property,
+                                    Object value,
+                                    Collection<Account> accs) {
+        AnnotationId aid=newAnnotationId(a);
+        LinkedList<AccountId> ll=new LinkedList();
+        if (accs!=null) {
+            for (Account acc: accs) {
+                ll.add(newAccountId(acc));
+            }
+        }
+        return newAnnotation(id,aid,property,value,ll);
+    }
+
+    public Annotation newAnnotation(String id,
+                                    IdRef ref,
+                                    String property,
+                                    Object value,
+                                    Collection<AccountId> accs) {
+        Annotation res=of.createAnnotation();
+        res.setId(id);
+        setIdRef(res,ref);
+        res.setProperty(property);
+        res.setValue(value);
+        if (accs!=null) {
+            res.getAccount().addAll(accs);
+        }
+        return res;
+    }
+
+    void setIdRef(Annotation ann, IdRef ref) {
+        if (ref instanceof ArtifactId) {
+            ann.setArtifact((ArtifactId) ref);
+        }
+        if (ref instanceof AnnotationId) {
+            ann.setAnnotation((AnnotationId) ref);
+        }
+        if (ref instanceof ProcessId) {
+            ann.setProcess((ProcessId) ref);
+        }
+    }
 
 
     public OPMGraph newOPMGraph(Collection<Account> accs,
@@ -345,7 +422,17 @@ public class OPMFactory {
                                 Collection<Process> ps,
                                 Collection<Artifact> as,
                                 Collection<Agent> ags,
-                                Collection<Object> lks)
+                                Collection<Object> lks) {
+        return newOPMGraph(accs,ops,ps,as,ags,lks,null);
+    }
+
+    public OPMGraph newOPMGraph(Collection<Account> accs,
+                                Collection<Overlaps> ops,
+                                Collection<Process> ps,
+                                Collection<Artifact> as,
+                                Collection<Agent> ags,
+                                Collection<Object> lks,
+                                Collection<Annotation> anns)
     {
         OPMGraph res=of.createOPMGraph();
         if (accs!=null) {
@@ -376,6 +463,12 @@ public class OPMFactory {
             ccls.getUsedOrWasGeneratedByOrWasTriggeredBy().addAll(lks);
             res.setCausalDependencies(ccls);
         }
+
+        if (anns!=null) {
+            Annotations l=of.createAnnotations();
+            l.getAnnotation().addAll(anns);
+            res.setAnnotations(l);
+        }
         return res;
     }
 
@@ -394,6 +487,23 @@ public class OPMFactory {
                            ((ags==null) ? null : Arrays.asList(ags)),
                            ((lks==null) ? null : Arrays.asList(lks)));
     }
+    public OPMGraph newOPMGraph(Collection<Account> accs,
+                                Overlaps [] ovs,
+                                Process [] ps,
+                                Artifact [] as,
+                                Agent [] ags,
+                                Object [] lks,
+                                Annotation [] anns) 
+    {
+
+        return newOPMGraph(accs,
+                           ((ovs==null) ? null : Arrays.asList(ovs)),
+                           ((ps==null) ? null : Arrays.asList(ps)),
+                           ((as==null) ? null : Arrays.asList(as)),
+                           ((ags==null) ? null : Arrays.asList(ags)),
+                           ((lks==null) ? null : Arrays.asList(lks)),
+                           ((anns==null) ? null : Arrays.asList(anns)));
+    }
 
     public OPMGraph newOPMGraph(Accounts accs,
                                 Processes ps,
@@ -407,6 +517,23 @@ public class OPMFactory {
         res.setArtifacts(as);
         res.setAgents(ags);
         res.setCausalDependencies(lks);
+        return res;
+    }
+
+    public OPMGraph newOPMGraph(Accounts accs,
+                                Processes ps,
+                                Artifacts as,
+                                Agents ags,
+                                CausalDependencies lks,
+                                Annotations anns)
+    {
+        OPMGraph res=of.createOPMGraph();
+        res.setAccounts(accs);
+        res.setProcesses(ps);
+        res.setArtifacts(as);
+        res.setAgents(ags);
+        res.setCausalDependencies(lks);
+        res.setAnnotations(anns);
         return res;
     }
 

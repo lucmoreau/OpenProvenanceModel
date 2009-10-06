@@ -263,6 +263,19 @@
   	              <arg value="AgentId.java" />
                 </exec>
 
+                <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
+  	              <arg value="-e s/implements Equals, HashCode, ToString/implements IdRef, Equals, HashCode, ToString/" />
+  	              <arg value="-iBAK" />
+  	              <arg value="AnnotationId.java" />
+                </exec>
+
+                <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
+  	              <arg value="-e s/implements Equals, HashCode, ToString/implements IdRef, Equals, HashCode, ToString/" />
+  	              <arg value="-iBAK" />
+  	              <arg value="RoleId.java" />
+                </exec>
+
+
 
               </tasks>
               <sourceRoot>${project.build.directory}/generated-sources/xjc/</sourceRoot>
