@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<opmGraph xmlns="http://openprovenance.org/model/v1.1.a" xmlns:ns2="http://openprovenance.org/model/extension/v1.1.a" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns5="http://example.com/">
+    <accounts>
+        <account id="green"/>
+        <account id="orange"/>
+        <overlaps>
+            <account ref="green"/>
+            <account ref="orange"/>
+        </overlaps>
+    </accounts>
+    <processes>
+        <process id="p1">
+            <account ref="green"/>
+            <value xsi:type="xsd:string">http://process.org/add1ToAll</value>
+        </process>
+        <process id="p2">
+            <account ref="orange"/>
+            <value xsi:type="xsd:string">http://process.org/split</value>
+        </process>
+        <process id="p3">
+            <account ref="orange"/>
+            <value xsi:type="xsd:string">http://process.org/plus1</value>
+        </process>
+        <process id="p4">
+            <account ref="orange"/>
+            <value xsi:type="xsd:string">http://process.org/plus1</value>
+        </process>
+        <process id="p5">
+            <account ref="orange"/>
+            <value xsi:type="xsd:string">http://process.org/cons</value>
+        </process>
+    </processes>
+    <artifacts>
+        <artifact id="a1">
+            <account ref="green"/>
+            <account ref="orange"/>
+            <value xsi:type="xsd:string">(2,6)</value>
+        </artifact>
+        <artifact id="a2">
+            <account ref="green"/>
+            <account ref="orange"/>
+            <value xsi:type="xsd:string">(3,7)</value>
+        </artifact>
+        <artifact id="a3">
+            <account ref="orange"/>
+            <value xsi:type="xsd:string">2</value>
+        </artifact>
+        <artifact id="a4">
+            <account ref="orange"/>
+            <value xsi:type="xsd:string">6</value>
+        </artifact>
+        <artifact id="a5">
+            <account ref="orange"/>
+            <value xsi:type="xsd:string">3</value>
+        </artifact>
+        <artifact id="a6">
+            <account ref="orange"/>
+            <value xsi:type="xsd:string">7</value>
+        </artifact>
+    </artifacts>
+    <causalDependencies>
+        <used>
+            <effect ref="p1"/>
+            <role value="in"/>
+            <cause ref="a1"/>
+            <account ref="green"/>
+        </used>
+        <used>
+            <effect ref="p2"/>
+            <role value="pair"/>
+            <cause ref="a1"/>
+            <account ref="orange"/>
+        </used>
+        <used>
+            <effect ref="p3"/>
+            <role value="in"/>
+            <cause ref="a3"/>
+            <account ref="orange"/>
+        </used>
+        <used>
+            <effect ref="p4"/>
+            <role value="in"/>
+            <cause ref="a4"/>
+            <account ref="orange"/>
+        </used>
+        <used>
+            <effect ref="p5"/>
+            <role value="left"/>
+            <cause ref="a5"/>
+            <account ref="orange"/>
+        </used>
+        <used>
+            <effect ref="p5"/>
+            <role value="right"/>
+            <cause ref="a6"/>
+            <account ref="orange"/>
+        </used>
+        <wasGeneratedBy>
+            <effect ref="a2"/>
+            <role value="out"/>
+            <cause ref="p1"/>
+            <account ref="green"/>
+        </wasGeneratedBy>
+        <wasGeneratedBy>
+            <effect ref="a3"/>
+            <role value="left"/>
+            <cause ref="p2"/>
+            <account ref="orange"/>
+        </wasGeneratedBy>
+        <wasGeneratedBy>
+            <effect ref="a4"/>
+            <role value="right"/>
+            <cause ref="p2"/>
+            <account ref="orange"/>
+        </wasGeneratedBy>
+        <wasGeneratedBy>
+            <effect ref="a5"/>
+            <role value="out"/>
+            <cause ref="p3"/>
+            <account ref="orange"/>
+        </wasGeneratedBy>
+        <wasGeneratedBy>
+            <effect ref="a6"/>
+            <role value="out"/>
+            <cause ref="p4"/>
+            <account ref="orange"/>
+        </wasGeneratedBy>
+        <wasGeneratedBy>
+            <effect ref="a2"/>
+            <role value="pair"/>
+            <cause ref="p5"/>
+            <account ref="orange"/>
+        </wasGeneratedBy>
+    </causalDependencies>
+    <annotations>
+        <annotation id="an1">
+            <artifact ref="a1"/>
+            <property>http://property.org/hasQuality</property>
+            <value xsi:type="xsd:string">good</value>
+        </annotation>
+        <annotation id="an2">
+            <artifact ref="a1"/>
+            <property>http://property.org/hasQuality</property>
+            <value xsi:type="xsd:int">1</value>
+        </annotation>
+        <annotation id="an3">
+            <artifact ref="a1"/>
+            <property>http://property.org/hasQuality</property>
+            <value xsi:type="xsd:float">1.01</value>
+        </annotation>
+        <annotation id="an4">
+            <artifact ref="a2"/>
+            <property>http://property.org/hasQuality</property>
+            <value xsi:type="xsd:float">1.01</value>
+            <account ref="green"/>
+            <account ref="orange"/>
+        </annotation>
+        <annotation id="an5">
+            <artifact ref="a3"/>
+            <property>http://property.org/hasQuality</property>
+            <value xsi:type="xsd:int">1</value>
+            <account ref="green"/>
+        </annotation>
+        <annotation id="an6">
+            <process ref="p1"/>
+            <property>http://property.org/hasQuality</property>
+            <value xsi:type="xsd:int">1</value>
+            <account ref="green"/>
+        </annotation>
+        <annotation id="an7">
+            <annotation ref="an6"/>
+            <property>http://property.org/hasQuality</property>
+            <value xsi:type="xsd:string">bad</value>
+            <account ref="orange"/>
+        </annotation>
+    </annotations>
+</opmGraph>
