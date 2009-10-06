@@ -103,7 +103,7 @@
   <xs:complexType name="Process">
 	<xs:sequence>
 	  <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="opm:AccountId"/>
-      <xs:element name="value"/>
+      <xs:element name="value"/> <!-- TO DELETE -->
 	</xs:sequence>
 	<xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
@@ -112,7 +112,7 @@
   <xs:complexType name="Artifact">
 	<xs:sequence>
 	  <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="opm:AccountId"/>
-      <xs:element name="value"/>
+      <xs:element name="value"/> 
 	</xs:sequence>
 	<xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
@@ -121,7 +121,7 @@
   <xs:complexType name="Agent">
 	<xs:sequence>
 	  <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="opm:AccountId"/>
-      <xs:element name="value"/>
+      <xs:element name="value"/> <!-- TO DELETE -->
 	</xs:sequence>
 	<xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
