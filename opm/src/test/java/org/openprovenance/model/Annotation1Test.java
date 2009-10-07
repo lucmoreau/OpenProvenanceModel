@@ -140,7 +140,6 @@ public class Annotation1Test
 
         OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
         StringWriter sw=new StringWriter();
-        System.out.println("graph is " + graph);
         serial.serialiseOPMGraph(sw,graph,true);
         serial.serialiseOPMGraph(new File("target/annotation-example1.xml"),graph,true);
         System.out.println(sw);
