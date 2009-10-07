@@ -82,12 +82,20 @@
 
 
   <xs:complexType name="Annotation">
-     <xs:sequence>
-        <!-- This allows for references to external entities. -->
-        <xs:choice>
+	<xs:complexContent>
+	  <xs:extension base="opm:EmbeddedAnnotation">
+		<xs:sequence>
+          <xs:choice minOccurs="0" maxOccurs="1">
             <xs:element name="externalSubject" type="xs:anyURI"/>
             <xs:element name="localSubject"    type="xs:IDREF"/>
-        </xs:choice>
+          </xs:choice>
+		</xs:sequence>
+	  </xs:extension>
+	</xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="EmbeddedAnnotation">
+     <xs:sequence>
         <xs:element name="property" type="xs:anyURI"/>
         <xs:element name="value" type="xs:anyType"/>
         <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountRef"/>
@@ -108,6 +116,7 @@
 	<xs:sequence>
 	  <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="opm:AccountRef"/>
       <xs:element name="value"/> 
+	  <xs:element name="annotation" minOccurs="0" maxOccurs="unbounded" type="opm:EmbeddedAnnotation"/>
 	</xs:sequence>
 	<xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
