@@ -252,8 +252,8 @@ public class IndexedOPMGraph extends OPMGraph {
     }
 
     /** Only adds to acc1s elements of acc2s that are not already in acc1s. */
-    void addNewAccounts(Collection<AccountId> acc1s, Collection<AccountId> acc2s) {
-        for (AccountId acc2: acc2s) {
+    void addNewAccounts(Collection<AccountRef> acc1s, Collection<AccountRef> acc2s) {
+        for (AccountRef acc2: acc2s) {
             if (!(acc1s.contains(acc2))) {
                 acc1s.add(acc2);
             }
@@ -267,12 +267,12 @@ public class IndexedOPMGraph extends OPMGraph {
         before), or the instance encountered before.*/
 
     public Used addUsed(Used used) {
-        ProcessId pid=used.getEffect();
+        ProcessRef pid=used.getEffect();
         Process p=(Process)(pid.getRef());
-        ArtifactId aid=used.getCause();
+        ArtifactRef aid=used.getCause();
         Artifact a=(Artifact)(aid.getRef());
         Role r=used.getRole();
-        Collection<AccountId> accs=used.getAccount();
+        Collection<AccountRef> accs=used.getAccount();
 
         Used result=used;
 
@@ -329,12 +329,12 @@ public class IndexedOPMGraph extends OPMGraph {
         before), or the instance encountered before.*/
 
     public WasGeneratedBy addWasGeneratedBy(WasGeneratedBy wasGeneratedBy) {
-        ProcessId pid=wasGeneratedBy.getCause();
+        ProcessRef pid=wasGeneratedBy.getCause();
         Process p=(Process)(pid.getRef());
-        ArtifactId aid=wasGeneratedBy.getEffect();
+        ArtifactRef aid=wasGeneratedBy.getEffect();
         Artifact a=(Artifact)(aid.getRef());
         Role r=wasGeneratedBy.getRole();
-        Collection<AccountId> accs=wasGeneratedBy.getAccount();
+        Collection<AccountRef> accs=wasGeneratedBy.getAccount();
 
         WasGeneratedBy result=wasGeneratedBy;
 
@@ -389,11 +389,11 @@ public class IndexedOPMGraph extends OPMGraph {
         before), or the instance encountered before.*/
 
     public WasDerivedFrom addWasDerivedFrom(WasDerivedFrom wasDerivedFrom) {
-        ArtifactId aid2=wasDerivedFrom.getEffect();
+        ArtifactRef aid2=wasDerivedFrom.getEffect();
         Artifact a2=(Artifact)(aid2.getRef());
-        ArtifactId aid1=wasDerivedFrom.getCause();
+        ArtifactRef aid1=wasDerivedFrom.getCause();
         Artifact a1=(Artifact)(aid1.getRef());
-        Collection<AccountId> accs=wasDerivedFrom.getAccount();
+        Collection<AccountRef> accs=wasDerivedFrom.getAccount();
 
         WasDerivedFrom result=wasDerivedFrom;
 
@@ -447,12 +447,12 @@ public class IndexedOPMGraph extends OPMGraph {
         before), or the instance encountered before.*/
 
     public WasControlledBy addWasControlledBy(WasControlledBy wasControlledBy) {
-        ProcessId pid=wasControlledBy.getEffect();
+        ProcessRef pid=wasControlledBy.getEffect();
         Process p=(Process)(pid.getRef());
-        AgentId aid=wasControlledBy.getCause();
+        AgentRef aid=wasControlledBy.getCause();
         Agent a=(Agent)(aid.getRef());
         Role r=wasControlledBy.getRole();
-        Collection<AccountId> accs=wasControlledBy.getAccount();
+        Collection<AccountRef> accs=wasControlledBy.getAccount();
 
         WasControlledBy result=wasControlledBy;
 
@@ -506,11 +506,11 @@ public class IndexedOPMGraph extends OPMGraph {
         before), or the instance encountered before.*/
 
     public WasTriggeredBy addWasTriggeredBy(WasTriggeredBy wasTriggeredBy) {
-        ProcessId pid2=wasTriggeredBy.getEffect();
+        ProcessRef pid2=wasTriggeredBy.getEffect();
         Process p2=(Process)(pid2.getRef());
-        ProcessId pid1=wasTriggeredBy.getCause();
+        ProcessRef pid1=wasTriggeredBy.getCause();
         Process p1=(Process)(pid1.getRef());
-        Collection<AccountId> accs=wasTriggeredBy.getAccount();
+        Collection<AccountRef> accs=wasTriggeredBy.getAccount();
 
         WasTriggeredBy result=wasTriggeredBy;
 

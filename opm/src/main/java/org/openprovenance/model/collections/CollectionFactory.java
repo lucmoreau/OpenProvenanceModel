@@ -7,10 +7,10 @@ import java.util.LinkedList;
 
 
 import org.openprovenance.model.extension.OPMExtendedFactory;
-import org.openprovenance.model.ArtifactId;
+import org.openprovenance.model.ArtifactRef;
 import org.openprovenance.model.Artifact;
 import org.openprovenance.model.extension.ArtifactExt;
-import org.openprovenance.model.AccountId;
+import org.openprovenance.model.AccountRef;
 import org.openprovenance.model.WasDerivedFrom;
 import org.openprovenance.model.Account;
 import org.openprovenance.model.extension.NamedWasDerivedFrom;
@@ -29,9 +29,9 @@ public class CollectionFactory  implements CollectionURIs {
     }
    
 
-    public NamedWasDerivedFrom newContained(ArtifactId aid1,
-                                            ArtifactId aid2,
-                                            Collection<AccountId> accounts) {
+    public NamedWasDerivedFrom newContained(ArtifactRef aid1,
+                                            ArtifactRef aid2,
+                                            Collection<AccountRef> accounts) {
         return eFactory.newNamedWasDerivedFrom(aid1,aid2,CONTAINED,accounts);
     }
 
@@ -42,9 +42,9 @@ public class CollectionFactory  implements CollectionURIs {
     }
 
 
-    public NamedWasDerivedFrom newWasIdenticalTo(ArtifactId aid1,
-                                                 ArtifactId aid2,
-                                                 Collection<AccountId> accounts) {
+    public NamedWasDerivedFrom newWasIdenticalTo(ArtifactRef aid1,
+                                                 ArtifactRef aid2,
+                                                 Collection<AccountRef> accounts) {
         return eFactory.newNamedWasDerivedFrom(aid1,aid2,WASIDENTICALTO,accounts);
     }
 

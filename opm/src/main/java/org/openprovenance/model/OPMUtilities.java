@@ -106,7 +106,7 @@ public class OPMUtilities {
         return g2;
     }
 
-    public Accounts accountMembership (ArtifactId aid, OPMGraph g) {
+    public Accounts accountMembership (ArtifactRef aid, OPMGraph g) {
         return null;
     }
 

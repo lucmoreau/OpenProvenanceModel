@@ -55,7 +55,7 @@ public class Example4Test
 
 
 
-    public void test_OPM1() throws JAXBException
+    public void testCreateBadCake() throws JAXBException
     {
         OPMFactory oFactory=new OPMFactory();
 
@@ -194,6 +194,7 @@ public class Example4Test
     public void testRDF4() throws Exception {
         OPMXml2Rdf toRdf=new OPMXml2Rdf();
         System.out.println("testRDF4");
+        System.out.println("testRDF4" + graph1);
         toRdf.convert(graph1,"target/example4.xml");
     }
 

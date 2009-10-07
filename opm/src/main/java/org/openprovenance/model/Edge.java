@@ -5,5 +5,5 @@ import java.util.List;
 public interface Edge extends Id {
     IdRef getCause();
     IdRef getEffect();
-    List<AccountId> getAccount();
+    List<AccountRef> getAccount();
 } 

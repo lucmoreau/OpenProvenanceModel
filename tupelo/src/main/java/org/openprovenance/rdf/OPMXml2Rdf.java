@@ -18,7 +18,7 @@ import java.util.Collection;
 import org.openprovenance.model.OPMGraph; 
 import org.openprovenance.model.Edge; 
 import org.openprovenance.model.Account; 
-import org.openprovenance.model.AccountId; 
+import org.openprovenance.model.AccountRef; 
 import org.openprovenance.model.Id; 
 import org.openprovenance.model.Processes; 
 import org.openprovenance.model.Node; 
@@ -157,7 +157,7 @@ public class OPMXml2Rdf {
 
         List<Edge> edges=u.getEdges(graph);
         for (Edge e: edges) {
-            List<AccountId> accounts= e.getAccount();
+            List<AccountRef> accounts= e.getAccount();
             String causeId=((Node)e.getCause().getRef()).getId();
             String effectId=((Node)e.getEffect().getRef()).getId();
 
@@ -175,7 +175,7 @@ public class OPMXml2Rdf {
                     ProvenanceAccount account=accountTable.get(NULL_ACCOUNT);
                     pcf.assertUsed(effect, cause, role, account);
                 } else {
-                    for (AccountId aid: accounts) {
+                    for (AccountRef aid: accounts) {
                         ProvenanceAccount account=accountTable.get(((Account)aid.getRef()).getId());
                         pcf.assertUsed(effect, cause, role, account);
                     }
@@ -196,7 +196,7 @@ public class OPMXml2Rdf {
                         ProvenanceAccount account=accountTable.get(NULL_ACCOUNT);
                         pcf.assertGeneratedBy(effect, cause, role, account);
                     } else {
-                        for (AccountId aid: accounts) {
+                        for (AccountRef aid: accounts) {
                             ProvenanceAccount account=accountTable.get(((Account)aid.getRef()).getId());
                             pcf.assertGeneratedBy(effect, cause, role, account);
                         }
@@ -210,7 +210,7 @@ public class OPMXml2Rdf {
                             ProvenanceAccount account=accountTable.get(NULL_ACCOUNT);
                             pcf.assertTriggeredBy(effect, cause, account);
                         } else {
-                            for (AccountId aid: accounts) {
+                            for (AccountRef aid: accounts) {
                                 ProvenanceAccount account=accountTable.get(((Account)aid.getRef()).getId());
                                 pcf.assertTriggeredBy(effect, cause, account);
                             }
@@ -224,7 +224,7 @@ public class OPMXml2Rdf {
                                 ProvenanceAccount account=accountTable.get(NULL_ACCOUNT);
                                 pcf.assertDerivedFrom(effect, cause, account);
                             } else {
-                                for (AccountId aid: accounts) {
+                                for (AccountRef aid: accounts) {
                                     ProvenanceAccount account=accountTable.get(((Account)aid.getRef()).getId());
                                     pcf.assertDerivedFrom(effect, cause, account);
                                 }
@@ -255,7 +255,7 @@ public class OPMXml2Rdf {
                                     ProvenanceAccount account=accountTable.get(NULL_ACCOUNT);
                                     pcf.assertControlledBy(effect, cause, role, account);
                                 } else {
-                                    for (AccountId aid: accounts) {
+                                    for (AccountRef aid: accounts) {
                                         ProvenanceAccount account=accountTable.get(((Account)aid.getRef()).getId());
                                         pcf.assertControlledBy(effect, cause, role, account);
                                     }

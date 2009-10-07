@@ -26,88 +26,76 @@ public class OPMFactory {
         of=new ObjectFactory();
     }
 
-    public ProcessId newProcessId(Process p) {
-        ProcessId res=of.createProcessId();
+    public ProcessRef newProcessRef(Process p) {
+        ProcessRef res=of.createProcessRef();
         res.setRef(p);
         return res;
     }
 
-    public RoleId newRoleId(Role p) {
-        RoleId res=of.createRoleId();
+    public RoleRef newRoleRef(Role p) {
+        RoleRef res=of.createRoleRef();
         res.setRef(p);
         return res;
     }
 
-    public AnnotationId newAnnotationId(Annotation a) {
-        AnnotationId res=of.createAnnotationId();
+    public AnnotationRef newAnnotationRef(Annotation a) {
+        AnnotationRef res=of.createAnnotationRef();
         res.setRef(a);
         return res;
     }
 
-    public ArtifactId newArtifactId(Artifact a) {
-        ArtifactId res=of.createArtifactId();
+    public ArtifactRef newArtifactRef(Artifact a) {
+        ArtifactRef res=of.createArtifactRef();
         res.setRef(a);
         return res;
     }
-    public AgentId newAgentId(Agent a) {
-        AgentId res=of.createAgentId();
+    public AgentRef newAgentRef(Agent a) {
+        AgentRef res=of.createAgentRef();
         res.setRef(a);
         return res;
     }
-    public ProcessId newProcessId_delete(String s) {
-        ProcessId res=of.createProcessId();
-        res.setRef(s);
-        return res;
-    }
-    public ArtifactId newArtifactId_delete(String s) {
-        ArtifactId res=of.createArtifactId();
-        res.setRef(s);
-        return res;
-    }
-    public AgentId newAgentId_delete(String s) {
-        AgentId res=of.createAgentId();
-        res.setRef(s);
-        return res;
-    }
-    public AccountId newAccountId(Account acc) {
-        AccountId res=of.createAccountId();
+
+    public AccountRef newAccountRef(Account acc) {
+        AccountRef res=of.createAccountRef();
         res.setRef(acc);
         return res;
     }
 
 
 
-    public CausalDependencyId newCausalDependencyId(WasGeneratedBy edge) {
-        CausalDependencyId res=of.createCausalDependencyId();
+
+
+    public CausalDependencyRef newCausalDependencyRef(WasGeneratedBy edge) {
+        CausalDependencyRef res=of.createCausalDependencyRef();
         res.setRef(edge);
         return res;
     }
 
-    public CausalDependencyId newCausalDependencyId(Used edge) {
-        CausalDependencyId res=of.createCausalDependencyId();
+    public CausalDependencyRef newCausalDependencyRef(Used edge) {
+        CausalDependencyRef res=of.createCausalDependencyRef();
         res.setRef(edge);
         return res;
     }
-    public CausalDependencyId newCausalDependencyId(WasDerivedFrom edge) {
-        CausalDependencyId res=of.createCausalDependencyId();
+    public CausalDependencyRef newCausalDependencyRef(WasDerivedFrom edge) {
+        CausalDependencyRef res=of.createCausalDependencyRef();
         res.setRef(edge);
         return res;
     }
 
-    public CausalDependencyId newCausalDependencyId(WasControlledBy edge) {
-        CausalDependencyId res=of.createCausalDependencyId();
+    public CausalDependencyRef newCausalDependencyRef(WasControlledBy edge) {
+        CausalDependencyRef res=of.createCausalDependencyRef();
         res.setRef(edge);
         return res;
     }
-    public CausalDependencyId newCausalDependencyId(WasTriggeredBy edge) {
-        CausalDependencyId res=of.createCausalDependencyId();
+    public CausalDependencyRef newCausalDependencyRef(WasTriggeredBy edge) {
+        CausalDependencyRef res=of.createCausalDependencyRef();
         res.setRef(edge);
         return res;
     }
 
 
     public Process newProcess_(String pr,
-                              Collection<AccountId> accounts,
+                              Collection<AccountRef> accounts,
                               Object value) {
         Process res=of.createProcess();
         res.setId(pr);
@@ -126,7 +114,7 @@ public class OPMFactory {
         if ((accounts !=null) && (accounts.size()!=0)) {
             LinkedList ll=new LinkedList();
             for (Account acc: accounts) {
-                ll.add(newAccountId(acc));
+                ll.add(newAccountRef(acc));
             }
             res.getAccount().addAll(ll);
         }
@@ -142,7 +130,7 @@ public class OPMFactory {
         if ((accounts !=null) && (accounts.size()!=0)) {
             LinkedList ll=new LinkedList();
             for (Account acc: accounts) {
-                ll.add(newAccountId(acc));
+                ll.add(newAccountRef(acc));
             }
             res.getAccount().addAll(ll);
         }
@@ -162,14 +150,14 @@ public class OPMFactory {
         int i=0;
         for (Account acc: accounts) {
             if (i==2) break;
-            ll.add(newAccountId(acc));
+            ll.add(newAccountRef(acc));
             i++;
         }
         res.getAccount().addAll(ll);
         return res;
     }
         
-    public Overlaps newOverlaps(AccountId aid1,AccountId aid2) {
+    public Overlaps newOverlaps(AccountRef aid1,AccountRef aid2) {
         Overlaps res=of.createOverlaps();
         res.getAccount().add(aid1);
         res.getAccount().add(aid2);
@@ -191,7 +179,7 @@ public class OPMFactory {
     }
 
 //     public Artifact newArtifact_(String id,
-//                                 Collection<AccountId> accounts,
+//                                 Collection<AccountRef> accounts,
 //                                 Object value) {
 //         Artifact res=of.createArtifact();
 //         res.setId(id);
@@ -209,7 +197,7 @@ public class OPMFactory {
         if ((accounts !=null) && (accounts.size()!=0)) {
             LinkedList ll=new LinkedList();
             for (Account acc: accounts) {
-                ll.add(newAccountId(acc));
+                ll.add(newAccountRef(acc));
             }
             res.getAccount().addAll(ll);
         }
@@ -217,10 +205,10 @@ public class OPMFactory {
         return res;
     }
 
-    public Used newUsed(ProcessId pid,
+    public Used newUsed(ProcessRef pid,
                         Role role,
-                        ArtifactId aid,
-                        Collection<AccountId> accounts) {
+                        ArtifactRef aid,
+                        Collection<AccountRef> accounts) {
         Used res=of.createUsed();
         res.setEffect(pid);
         res.setRole(role);
@@ -235,11 +223,11 @@ public class OPMFactory {
                         Role role,
                         Artifact a,
                         Collection<Account> accounts) {
-        ProcessId pid=newProcessId(p);
-        ArtifactId aid=newArtifactId(a);
+        ProcessRef pid=newProcessRef(p);
+        ArtifactRef aid=newArtifactRef(a);
         LinkedList ll=new LinkedList();
         for (Account acc: accounts) {
-            ll.add(newAccountId(acc));
+            ll.add(newAccountRef(acc));
         }
         return newUsed(pid,role,aid,ll);
     }
@@ -289,10 +277,10 @@ public class OPMFactory {
 
 
 
-    public WasGeneratedBy newWasGeneratedBy(ArtifactId aid,
+    public WasGeneratedBy newWasGeneratedBy(ArtifactRef aid,
                                             Role role,
-                                            ProcessId pid,
-                                            Collection<AccountId> accounts) {
+                                            ProcessRef pid,
+                                            Collection<AccountRef> accounts) {
         WasGeneratedBy res=of.createWasGeneratedBy();
         res.setCause(pid);
         res.setRole(role);
@@ -306,11 +294,11 @@ public class OPMFactory {
                                             Role role,
                                             Process p,
                                             Collection<Account> accounts) {
-        ArtifactId aid=newArtifactId(a);
-        ProcessId pid=newProcessId(p);
+        ArtifactRef aid=newArtifactRef(a);
+        ProcessRef pid=newProcessRef(p);
         LinkedList ll=new LinkedList();
         for (Account acc: accounts) {
-            ll.add(newAccountId(acc));
+            ll.add(newAccountRef(acc));
         }
         return  newWasGeneratedBy(aid,role,pid,ll);
     }
@@ -328,10 +316,10 @@ public class OPMFactory {
 
 
 
-    public WasControlledBy newWasControlledBy(ProcessId pid,
+    public WasControlledBy newWasControlledBy(ProcessRef pid,
                                               Role role,
-                                              AgentId agid,
-                                              Collection<AccountId> accounts) {
+                                              AgentRef agid,
+                                              Collection<AccountRef> accounts) {
         WasControlledBy res=of.createWasControlledBy();
         res.setEffect(pid);
         res.setRole(role);
@@ -347,18 +335,18 @@ public class OPMFactory {
                                               Role role,
                                               Agent ag,
                                               Collection<Account> accounts) {
-        AgentId agid=newAgentId(ag);
-        ProcessId pid=newProcessId(p);
+        AgentRef agid=newAgentRef(ag);
+        ProcessRef pid=newProcessRef(p);
         LinkedList ll=new LinkedList();
         for (Account acc: accounts) {
-            ll.add(newAccountId(acc));
+            ll.add(newAccountRef(acc));
         }
         return  newWasControlledBy(pid,role,agid,ll);
     }
 
-    public WasDerivedFrom newWasDerivedFrom(ArtifactId aid1,
-                                            ArtifactId aid2,
-                                            Collection<AccountId> accounts) {
+    public WasDerivedFrom newWasDerivedFrom(ArtifactRef aid1,
+                                            ArtifactRef aid2,
+                                            Collection<AccountRef> accounts) {
         WasDerivedFrom res=of.createWasDerivedFrom();
         res.setCause(aid2);
         res.setEffect(aid1);
@@ -372,20 +360,20 @@ public class OPMFactory {
     public WasDerivedFrom newWasDerivedFrom(Artifact a1,
                                             Artifact a2,
                                             Collection<Account> accounts) {
-        ArtifactId aid1=newArtifactId(a1);
-        ArtifactId aid2=newArtifactId(a2);
+        ArtifactRef aid1=newArtifactRef(a1);
+        ArtifactRef aid2=newArtifactRef(a2);
         LinkedList ll=new LinkedList();
         for (Account acc: accounts) {
-            ll.add(newAccountId(acc));
+            ll.add(newAccountRef(acc));
         }
         return  newWasDerivedFrom(aid1,aid2,ll);
     }
 
 
 
-    public WasTriggeredBy newWasTriggeredBy(ProcessId pid1,
-                                            ProcessId pid2,
-                                            Collection<AccountId> accounts) {
+    public WasTriggeredBy newWasTriggeredBy(ProcessRef pid1,
+                                            ProcessRef pid2,
+                                            Collection<AccountRef> accounts) {
         WasTriggeredBy res=of.createWasTriggeredBy();
         res.setEffect(pid1);
         res.setCause(pid2);
@@ -399,11 +387,11 @@ public class OPMFactory {
     public WasTriggeredBy newWasTriggeredBy(Process p1,
                                             Process p2,
                                             Collection<Account> accounts) {
-        ProcessId pid1=newProcessId(p1);
-        ProcessId pid2=newProcessId(p2);
-        LinkedList<AccountId> ll=new LinkedList();
+        ProcessRef pid1=newProcessRef(p1);
+        ProcessRef pid2=newProcessRef(p2);
+        LinkedList<AccountRef> ll=new LinkedList();
         for (Account acc: accounts) {
-            ll.add(newAccountId(acc));
+            ll.add(newAccountRef(acc));
         }
         return  newWasTriggeredBy(pid1,pid2,ll);
     }
@@ -413,11 +401,11 @@ public class OPMFactory {
                                     String property,
                                     Object value,
                                     Collection<Account> accs) {
-        ArtifactId aid=newArtifactId(a);
-        LinkedList<AccountId> ll=new LinkedList();
+        ArtifactRef aid=newArtifactRef(a);
+        LinkedList<AccountRef> ll=new LinkedList();
         if (accs!=null) {
             for (Account acc: accs) {
-                ll.add(newAccountId(acc));
+                ll.add(newAccountRef(acc));
             }
         }
         return newAnnotation(id,aid,property,value,ll);
@@ -427,11 +415,11 @@ public class OPMFactory {
                                     String property,
                                     Object value,
                                     Collection<Account> accs) {
-        ProcessId pid=newProcessId(p);
-        LinkedList<AccountId> ll=new LinkedList();
+        ProcessRef pid=newProcessRef(p);
+        LinkedList<AccountRef> ll=new LinkedList();
         if (accs!=null) {
             for (Account acc: accs) {
-                ll.add(newAccountId(acc));
+                ll.add(newAccountRef(acc));
             }
         }
         return newAnnotation(id,pid,property,value,ll);
@@ -442,11 +430,11 @@ public class OPMFactory {
                                     String property,
                                     Object value,
                                     Collection<Account> accs) {
-        AnnotationId aid=newAnnotationId(a);
-        LinkedList<AccountId> ll=new LinkedList();
+        AnnotationRef aid=newAnnotationRef(a);
+        LinkedList<AccountRef> ll=new LinkedList();
         if (accs!=null) {
             for (Account acc: accs) {
-                ll.add(newAccountId(acc));
+                ll.add(newAccountRef(acc));
             }
         }
         return newAnnotation(id,aid,property,value,ll);
@@ -457,11 +445,11 @@ public class OPMFactory {
                                     String property,
                                     Object value,
                                     Collection<Account> accs) {
-        CausalDependencyId cid=newCausalDependencyId(edge);
-        LinkedList<AccountId> ll=new LinkedList();
+        CausalDependencyRef cid=newCausalDependencyRef(edge);
+        LinkedList<AccountRef> ll=new LinkedList();
         if (accs!=null) {
             for (Account acc: accs) {
-                ll.add(newAccountId(acc));
+                ll.add(newAccountRef(acc));
             }
         }
         return newAnnotation(id,cid,property,value,ll);
@@ -471,11 +459,11 @@ public class OPMFactory {
                                     String property,
                                     Object value,
                                     Collection<Account> accs) {
-        CausalDependencyId cid=newCausalDependencyId(edge);
-        LinkedList<AccountId> ll=new LinkedList();
+        CausalDependencyRef cid=newCausalDependencyRef(edge);
+        LinkedList<AccountRef> ll=new LinkedList();
         if (accs!=null) {
             for (Account acc: accs) {
-                ll.add(newAccountId(acc));
+                ll.add(newAccountRef(acc));
             }
         }
         return newAnnotation(id,cid,property,value,ll);
@@ -485,11 +473,11 @@ public class OPMFactory {
                                     String property,
                                     Object value,
                                     Collection<Account> accs) {
-        CausalDependencyId cid=newCausalDependencyId(edge);
-        LinkedList<AccountId> ll=new LinkedList();
+        CausalDependencyRef cid=newCausalDependencyRef(edge);
+        LinkedList<AccountRef> ll=new LinkedList();
         if (accs!=null) {
             for (Account acc: accs) {
-                ll.add(newAccountId(acc));
+                ll.add(newAccountRef(acc));
             }
         }
         return newAnnotation(id,cid,property,value,ll);
@@ -499,11 +487,11 @@ public class OPMFactory {
                                     String property,
                                     Object value,
                                     Collection<Account> accs) {
-        CausalDependencyId cid=newCausalDependencyId(edge);
-        LinkedList<AccountId> ll=new LinkedList();
+        CausalDependencyRef cid=newCausalDependencyRef(edge);
+        LinkedList<AccountRef> ll=new LinkedList();
         if (accs!=null) {
             for (Account acc: accs) {
-                ll.add(newAccountId(acc));
+                ll.add(newAccountRef(acc));
             }
         }
         return newAnnotation(id,cid,property,value,ll);
@@ -513,11 +501,11 @@ public class OPMFactory {
                                     String property,
                                     Object value,
                                     Collection<Account> accs) {
-        CausalDependencyId cid=newCausalDependencyId(edge);
-        LinkedList<AccountId> ll=new LinkedList();
+        CausalDependencyRef cid=newCausalDependencyRef(edge);
+        LinkedList<AccountRef> ll=new LinkedList();
         if (accs!=null) {
             for (Account acc: accs) {
-                ll.add(newAccountId(acc));
+                ll.add(newAccountRef(acc));
             }
         }
         return newAnnotation(id,cid,property,value,ll);
@@ -528,11 +516,11 @@ public class OPMFactory {
                                     String property,
                                     Object value,
                                     Collection<Account> accs) {
-        RoleId rid=newRoleId(role);
-        LinkedList<AccountId> ll=new LinkedList();
+        RoleRef rid=newRoleRef(role);
+        LinkedList<AccountRef> ll=new LinkedList();
         if (accs!=null) {
             for (Account acc: accs) {
-                ll.add(newAccountId(acc));
+                ll.add(newAccountRef(acc));
             }
         }
         return newAnnotation(id,rid,property,value,ll);
@@ -543,7 +531,7 @@ public class OPMFactory {
                                     IdRef ref,
                                     String property,
                                     Object value,
-                                    Collection<AccountId> accs) {
+                                    Collection<AccountRef> accs) {
         Annotation res=of.createAnnotation();
         res.setId(id);
         res.setLocalSubject(ref.getRef());
@@ -556,14 +544,14 @@ public class OPMFactory {
     }
 
 //     void setIdRef(Annotation ann, IdRef ref) {
-//         if (ref instanceof ArtifactId) {
-//             ann.setArtifact((ArtifactId) ref);
+//         if (ref instanceof ArtifactRef) {
+//             ann.setArtifact((ArtifactRef) ref);
 //         }
-//         if (ref instanceof AnnotationId) {
-//             ann.setAnnotation((AnnotationId) ref);
+//         if (ref instanceof AnnotationRef) {
+//             ann.setAnnotation((AnnotationRef) ref);
 //         }
-//         if (ref instanceof ProcessId) {
-//             ann.setProcess((ProcessId) ref);
+//         if (ref instanceof ProcessRef) {
+//             ann.setProcess((ProcessRef) ref);
 //         }
 //     }
 

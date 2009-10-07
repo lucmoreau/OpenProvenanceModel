@@ -304,7 +304,7 @@ public class OPMToDot {
     public String processColor(Process p) {
         // Note, I should compute effective account membership
         List<String> colors=new LinkedList();
-        for (AccountId acc: p.getAccount()) {
+        for (AccountRef acc: p.getAccount()) {
             String accountLabel=((Account)acc.getRef()).getId();
             String colour=convertAccount(accountLabel);
             colors.add(colour);
@@ -332,7 +332,7 @@ public class OPMToDot {
     public String artifactColor(Artifact p) {
         // Note, I should compute effective account membership
         List<String> colors=new LinkedList();
-        for (AccountId acc: p.getAccount()) {
+        for (AccountRef acc: p.getAccount()) {
             String accountLabel=((Account)acc.getRef()).getId();
             String colour=convertAccount(accountLabel);
             colors.add(colour);
@@ -342,7 +342,7 @@ public class OPMToDot {
     public String agentColor(Agent p) {
         // Note, I should compute effective account membership
         List<String> colors=new LinkedList();
-        for (AccountId acc: p.getAccount()) {
+        for (AccountRef acc: p.getAccount()) {
             String accountLabel=((Account)acc.getRef()).getId();
             String colour=convertAccount(accountLabel);
             colors.add(colour);
@@ -387,13 +387,13 @@ public class OPMToDot {
     public void emitDependency(Edge e, PrintStream out) {
         HashMap<String,String> properties=new HashMap();
 
-        List<AccountId> accounts=e.getAccount();
+        List<AccountRef> accounts=e.getAccount();
         if (accounts.isEmpty()) {
             accounts=new LinkedList();
-            accounts.add(of.newAccountId(of.newAccount(defaultAccountLabel)));
+            accounts.add(of.newAccountRef(of.newAccount(defaultAccountLabel)));
         }
             
-        for (AccountId acc: accounts) {
+        for (AccountRef acc: accounts) {
             String accountLabel=((Account)acc.getRef()).getId();
             addEdgeAttributes(accountLabel,e,properties);
             emitEdge( ((Node)e.getEffect().getRef()).getId(),

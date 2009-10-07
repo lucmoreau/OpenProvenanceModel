@@ -5,13 +5,13 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import org.openprovenance.model.OPMFactory;
-import org.openprovenance.model.ArtifactId;
+import org.openprovenance.model.ArtifactRef;
 import org.openprovenance.model.Artifact;
-import org.openprovenance.model.ProcessId;
+import org.openprovenance.model.ProcessRef;
 import org.openprovenance.model.Process;
-import org.openprovenance.model.AgentId;
+import org.openprovenance.model.AgentRef;
 import org.openprovenance.model.Agent;
-import org.openprovenance.model.AccountId;
+import org.openprovenance.model.AccountRef;
 import org.openprovenance.model.Role;
 import org.openprovenance.model.WasDerivedFrom;
 import org.openprovenance.model.Account;
@@ -41,10 +41,10 @@ public class OPMExtendedFactory extends OPMFactory {
     }
 
 
-    public NamedWasDerivedFrom newNamedWasDerivedFrom(ArtifactId aid1,
-                                                      ArtifactId aid2,
+    public NamedWasDerivedFrom newNamedWasDerivedFrom(ArtifactRef aid1,
+                                                      ArtifactRef aid2,
                                                       String type,
-                                                      Collection<AccountId> accounts) {
+                                                      Collection<AccountRef> accounts) {
         NamedWasDerivedFrom res=extof.createNamedWasDerivedFrom();
         res.setCause(aid2);
         res.setEffect(aid1);
@@ -63,22 +63,22 @@ public class OPMExtendedFactory extends OPMFactory {
                                                       Artifact a2,
                                                       String type,
                                                       Collection<Account> accounts) {
-        ArtifactId aid1=newArtifactId(a1);
-        ArtifactId aid2=newArtifactId(a2);
+        ArtifactRef aid1=newArtifactRef(a1);
+        ArtifactRef aid2=newArtifactRef(a2);
         LinkedList ll=new LinkedList();
         for (Account acc: accounts) {
-            ll.add(newAccountId(acc));
+            ll.add(newAccountRef(acc));
         }
         return  newNamedWasDerivedFrom(aid1,aid2,type,ll);
     }
 
 
 
-    public NamedWasControlledBy newNamedWasControlledBy(ProcessId pid,
+    public NamedWasControlledBy newNamedWasControlledBy(ProcessRef pid,
                                                         Role role,
-                                                        AgentId agid,
+                                                        AgentRef agid,
                                                         String type,
-                                                        Collection<AccountId> accounts) {
+                                                        Collection<AccountRef> accounts) {
         NamedWasControlledBy res=extof.createNamedWasControlledBy();
         res.setCause(agid);
         res.setEffect(pid);
@@ -98,11 +98,11 @@ public class OPMExtendedFactory extends OPMFactory {
                                                         Agent ag,
                                                         String type,
                                                         Collection<Account> accounts) {
-        ProcessId pid=newProcessId(p);
-        AgentId agid=newAgentId(ag);
+        ProcessRef pid=newProcessRef(p);
+        AgentRef agid=newAgentRef(ag);
         LinkedList ll=new LinkedList();
         for (Account acc: accounts) {
-            ll.add(newAccountId(acc));
+            ll.add(newAccountRef(acc));
         }
         return  newNamedWasControlledBy(pid,role, agid,type,ll);
     }
@@ -134,7 +134,7 @@ public class OPMExtendedFactory extends OPMFactory {
         if ((accounts !=null) && (accounts.size()!=0)) {
             LinkedList ll=new LinkedList();
             for (Account acc: accounts) {
-                ll.add(newAccountId(acc));
+                ll.add(newAccountRef(acc));
             }
             res.getAccount().addAll(ll);
         }

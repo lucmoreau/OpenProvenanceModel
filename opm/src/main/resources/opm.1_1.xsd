@@ -39,28 +39,28 @@
 	<xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
 
-  <xs:complexType name="OPMGraphID">
+  <xs:complexType name="OPMGraphRef">
     <xs:attribute name="ref" type="xs:IDREF"/>
   </xs:complexType>
-  <xs:complexType name="ProcessId">
+  <xs:complexType name="ProcessRef">
 	<xs:attribute name="ref" type="xs:IDREF"/>
   </xs:complexType>
-  <xs:complexType name="ArtifactId">
+  <xs:complexType name="ArtifactRef">
 	<xs:attribute name="ref" type="xs:IDREF"/>
   </xs:complexType>
-  <xs:complexType name="AgentId">
+  <xs:complexType name="AgentRef">
 	<xs:attribute name="ref" type="xs:IDREF"/>
   </xs:complexType>
-  <xs:complexType name="AccountId">
+  <xs:complexType name="AccountRef">
 	<xs:attribute name="ref" type="xs:IDREF"/>
   </xs:complexType>
-  <xs:complexType name="RoleId">
+  <xs:complexType name="RoleRef">
     <xs:attribute name="ref" type="xs:IDREF"/>
   </xs:complexType>
-  <xs:complexType name="CausalDependencyId">
+  <xs:complexType name="CausalDependencyRef">
     <xs:attribute name="ref" type="xs:IDREF"/>
   </xs:complexType>
-  <xs:complexType name="AnnotationId">
+  <xs:complexType name="AnnotationRef">
     <xs:attribute name="ref" type="xs:IDREF"/>
   </xs:complexType>
   
@@ -91,26 +91,26 @@
             <xs:element name="externalSubject" type="xs:anyURI"/>
             <xs:element name="localSubject"    type="xs:IDREF"/>
             <!-- used to be
-            <xs:element name="graph" type="opm:OPMGraphID"></xs:element>
-            <xs:element name="artifact" type="opm:ArtifactId"></xs:element>
-            <xs:element name="process" type="opm:ProcessId"></xs:element>
-            <xs:element name="causalDependency" type="opm:CausalDependencyId"></xs:element>
-            <xs:element name="role" type="opm:RoleId"></xs:element>
-            <xs:element name="agent" type="opm:AgentId"></xs:element>
-            <xs:element name="annotation" type="opm:AnnotationId"></xs:element>
+            <xs:element name="graph" type="opm:OPMGraphRef"></xs:element>
+            <xs:element name="artifact" type="opm:ArtifactRef"></xs:element>
+            <xs:element name="process" type="opm:ProcessRef"></xs:element>
+            <xs:element name="causalDependency" type="opm:CausalDependencyRef"></xs:element>
+            <xs:element name="role" type="opm:RoleRef"></xs:element>
+            <xs:element name="agent" type="opm:AgentRef"></xs:element>
+            <xs:element name="annotation" type="opm:AnnotationRef"></xs:element>
             -->
 
         </xs:choice>
         <xs:element name="property" type="xs:anyURI"></xs:element>
         <xs:element name="value" type="xs:anyType"></xs:element>
-        <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountId"/>
+        <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountRef"/>
      </xs:sequence>
      <xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
 
   <xs:complexType name="Process">
 	<xs:sequence>
-	  <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="opm:AccountId"/>
+	  <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="opm:AccountRef"/>
       <xs:element name="value"/> <!-- TO DELETE -->
 	</xs:sequence>
 	<xs:attribute name="id" type="xs:ID"/>
@@ -119,7 +119,7 @@
 
   <xs:complexType name="Artifact">
 	<xs:sequence>
-	  <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="opm:AccountId"/>
+	  <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="opm:AccountRef"/>
       <xs:element name="value"/> 
 	</xs:sequence>
 	<xs:attribute name="id" type="xs:ID"/>
@@ -128,7 +128,7 @@
 
   <xs:complexType name="Agent">
 	<xs:sequence>
-	  <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="opm:AccountId"/>
+	  <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="opm:AccountRef"/>
       <xs:element name="value"/> <!-- TO DELETE -->
 	</xs:sequence>
 	<xs:attribute name="id" type="xs:ID"/>
@@ -137,10 +137,10 @@
 
   <xs:complexType name="Used">
 	<xs:sequence>
-	  <xs:element name="effect"  type="opm:ProcessId"/>  <!-- or should it be named process? -->
+	  <xs:element name="effect"  type="opm:ProcessRef"/>  <!-- or should it be named process? -->
 	  <xs:element name="role"    type="opm:Role"/>
-	  <xs:element name="cause"   type="opm:ArtifactId"/>
-	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountId"/>
+	  <xs:element name="cause"   type="opm:ArtifactRef"/>
+	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountRef"/>
       <xs:element name="time"    type="opm:OTime" minOccurs="0"/>
 	</xs:sequence>
     <xs:attribute name="id" type="xs:ID"/>
@@ -148,10 +148,10 @@
 
   <xs:complexType name="WasGeneratedBy">
 	<xs:sequence>
-	  <xs:element name="effect"  type="opm:ArtifactId"/>
+	  <xs:element name="effect"  type="opm:ArtifactRef"/>
 	  <xs:element name="role"    type="opm:Role"/>
-	  <xs:element name="cause"   type="opm:ProcessId"/>
-	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountId"/>
+	  <xs:element name="cause"   type="opm:ProcessRef"/>
+	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountRef"/>
       <xs:element name="time"    type="opm:OTime" minOccurs="0"/>
 	</xs:sequence>
     <xs:attribute name="id" type="xs:ID"/>
@@ -159,10 +159,10 @@
 
   <xs:complexType name="WasControlledBy">
 	<xs:sequence>
-	  <xs:element name="effect"  type="opm:ProcessId"/>
+	  <xs:element name="effect"  type="opm:ProcessRef"/>
 	  <xs:element name="role"    type="opm:Role"/>
-	  <xs:element name="cause"   type="opm:AgentId"/>
-	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountId"/>
+	  <xs:element name="cause"   type="opm:AgentRef"/>
+	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountRef"/>
       <xs:element name="start"   type="opm:OTime" minOccurs="0"/>
       <xs:element name="end"     type="opm:OTime" minOccurs="0"/>
 	</xs:sequence>
@@ -171,9 +171,9 @@
 
   <xs:complexType name="WasDerivedFrom">
 	<xs:sequence>
-	  <xs:element name="effect"  type="opm:ArtifactId"/>
-	  <xs:element name="cause"   type="opm:ArtifactId"/>
-	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountId"/>
+	  <xs:element name="effect"  type="opm:ArtifactRef"/>
+	  <xs:element name="cause"   type="opm:ArtifactRef"/>
+	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountRef"/>
       <xs:element name="time"    type="opm:OTime" minOccurs="0"/>
 	</xs:sequence>
 	<xs:attribute name="id" type="xs:ID"/>
@@ -181,9 +181,9 @@
 
   <xs:complexType name="WasTriggeredBy">
 	<xs:sequence>
-	  <xs:element name="effect"  type="opm:ProcessId"/>
-	  <xs:element name="cause"   type="opm:ProcessId"/>
-	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountId"/>
+	  <xs:element name="effect"  type="opm:ProcessRef"/>
+	  <xs:element name="cause"   type="opm:ProcessRef"/>
+	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountRef"/>
       <xs:element name="time"    type="opm:OTime" minOccurs="0"/>
 	</xs:sequence>
 	<xs:attribute name="id" type="xs:ID"/>
@@ -218,7 +218,7 @@
 
   <xs:complexType name="Overlaps">
 	<xs:sequence>
-	  <xs:element name="account" type="opm:AccountId" minOccurs="2" maxOccurs="2"/>
+	  <xs:element name="account" type="opm:AccountRef" minOccurs="2" maxOccurs="2"/>
 	</xs:sequence>
   </xs:complexType>
 
