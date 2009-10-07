@@ -528,7 +528,7 @@ public class OPMFactory {
 
 
     public Annotation newAnnotation(String id,
-                                    IdRef ref,
+                                    Ref ref,
                                     String property,
                                     Object value,
                                     Collection<AccountRef> accs) {
@@ -543,7 +543,7 @@ public class OPMFactory {
         return res;
     }
 
-//     void setIdRef(Annotation ann, IdRef ref) {
+//     void setRef(Annotation ann, Ref ref) {
 //         if (ref instanceof ArtifactRef) {
 //             ann.setArtifact((ArtifactRef) ref);
 //         }

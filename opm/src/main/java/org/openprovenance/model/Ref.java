@@ -1,6 +1,6 @@
 
 package org.openprovenance.model;
 
-public interface IdRef {
+public interface Ref {
     public Object getRef();
 } 
