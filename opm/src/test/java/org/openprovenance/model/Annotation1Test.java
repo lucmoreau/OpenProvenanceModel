@@ -123,7 +123,7 @@ public class Annotation1Test
 
         Annotation an10=oFactory.newAnnotation("an10",r1,"http://property.org/hasQuality", "bad", orange);
 
-
+        a4.getAnnotation().add(oFactory.newEmbeddedAnnotation("an11","http://property.org/hasQuality", "bad", orange));
 
         OPMGraph graph=oFactory.newOPMGraph(green_orange,
                                             new Overlaps[] { ov1 },

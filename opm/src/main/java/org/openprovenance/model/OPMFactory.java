@@ -396,6 +396,19 @@ public class OPMFactory {
         return  newWasTriggeredBy(pid1,pid2,ll);
     }
 
+    public EmbeddedAnnotation newEmbeddedAnnotation(String id,
+                                                    String property,
+                                                    Object value,
+                                                    Collection<Account> accs) {
+        LinkedList<AccountRef> ll=new LinkedList();
+        if (accs!=null) {
+            for (Account acc: accs) {
+                ll.add(newAccountRef(acc));
+            }
+        }
+        return newEmbeddedAnnotation(id,property,value,ll,null);
+    }
+
     public Annotation newAnnotation(String id,
                                     Artifact a,
                                     String property,
@@ -535,6 +548,21 @@ public class OPMFactory {
         Annotation res=of.createAnnotation();
         res.setId(id);
         res.setLocalSubject(ref.getRef());
+        res.setProperty(property);
+        res.setValue(value);
+        if (accs!=null) {
+            res.getAccount().addAll(accs);
+        }
+        return res;
+    }
+
+    public EmbeddedAnnotation newEmbeddedAnnotation(String id,
+                                                    String property,
+                                                    Object value,
+                                                    Collection<AccountRef> accs,
+                                                    Object dummyParameterForAvoidingSameErasure) {
+        EmbeddedAnnotation res=of.createEmbeddedAnnotation();
+        res.setId(id);
         res.setProperty(property);
         res.setValue(value);
         if (accs!=null) {
