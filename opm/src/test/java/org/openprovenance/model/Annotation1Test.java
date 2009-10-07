@@ -92,7 +92,7 @@ public class Annotation1Test
         Used u3=oFactory.newUsed(p3,oFactory.newRole("in"),a3,orange);
         Used u4=oFactory.newUsed(p4,oFactory.newRole("in"),a4,orange);
         Used u5=oFactory.newUsed(p5,oFactory.newRole("left"),a5,orange);
-        Used u6=oFactory.newUsed(p5,oFactory.newRole("right"),a6,orange);
+        Used u6=oFactory.newUsed("u6",p5,oFactory.newRole("right"),a6,orange);
 
 
 
@@ -102,7 +102,8 @@ public class Annotation1Test
         WasGeneratedBy wg3=oFactory.newWasGeneratedBy(a4,oFactory.newRole("right"),p2,orange);
         WasGeneratedBy wg4=oFactory.newWasGeneratedBy(a5,oFactory.newRole("out"),p3,orange);
         WasGeneratedBy wg5=oFactory.newWasGeneratedBy(a6,oFactory.newRole("out"),p4,orange);
-        WasGeneratedBy wg6=oFactory.newWasGeneratedBy(a2,oFactory.newRole("pair"),p5,orange);
+        Role r1=oFactory.newRole("r1","pair");
+        WasGeneratedBy wg6=oFactory.newWasGeneratedBy("wg6",a2,r1,p5,orange);
 
         Overlaps ov1=oFactory.newOverlaps(green_orange);
 
@@ -117,6 +118,12 @@ public class Annotation1Test
         Annotation an6=oFactory.newAnnotation("an6",p1,"http://property.org/hasQuality", 1, green);
         Annotation an7=oFactory.newAnnotation("an7",an6,"http://property.org/hasQuality", "bad", orange);
 
+        Annotation an8=oFactory.newAnnotation("an8",wg6,"http://property.org/hasQuality", "average", orange);
+        Annotation an9=oFactory.newAnnotation("an9",u6,"http://property.org/hasQuality", "bad", orange);
+
+        Annotation an10=oFactory.newAnnotation("an10",r1,"http://property.org/hasQuality", "bad", orange);
+
+
 
         OPMGraph graph=oFactory.newOPMGraph(green_orange,
                                             new Overlaps[] { ov1 },
@@ -125,7 +132,7 @@ public class Annotation1Test
                                             null,
                                             new Object[] {u1,u2,u3,u4,u5,u6,
                                                           wg1,wg2,wg3,wg4,wg5,wg6},
-                                            new Annotation[] {an1, an2, an3, an4, an5, an6, an7} );
+                                            new Annotation[] {an1, an2, an3, an4, an5, an6, an7, an8, an9, an10} );
 
 
 
@@ -133,6 +140,7 @@ public class Annotation1Test
 
         OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
         StringWriter sw=new StringWriter();
+        System.out.println("graph is " + graph);
         serial.serialiseOPMGraph(sw,graph,true);
         serial.serialiseOPMGraph(new File("target/annotation-example1.xml"),graph,true);
         System.out.println(sw);

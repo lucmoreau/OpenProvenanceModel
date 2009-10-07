@@ -32,6 +32,12 @@ public class OPMFactory {
         return res;
     }
 
+    public RoleId newRoleId(Role p) {
+        RoleId res=of.createRoleId();
+        res.setRef(p);
+        return res;
+    }
+
     public AnnotationId newAnnotationId(Annotation a) {
         AnnotationId res=of.createAnnotationId();
         res.setRef(a);
@@ -48,17 +54,17 @@ public class OPMFactory {
         res.setRef(a);
         return res;
     }
-    public ProcessId newProcessId(String s) {
+    public ProcessId newProcessId_delete(String s) {
         ProcessId res=of.createProcessId();
         res.setRef(s);
         return res;
     }
-    public ArtifactId newArtifactId(String s) {
+    public ArtifactId newArtifactId_delete(String s) {
         ArtifactId res=of.createArtifactId();
         res.setRef(s);
         return res;
     }
-    public AgentId newAgentId(String s) {
+    public AgentId newAgentId_delete(String s) {
         AgentId res=of.createAgentId();
         res.setRef(s);
         return res;
@@ -66,6 +72,36 @@ public class OPMFactory {
     public AccountId newAccountId(Account acc) {
         AccountId res=of.createAccountId();
         res.setRef(acc);
+        return res;
+    }
+
+
+
+    public CausalDependencyId newCausalDependencyId(WasGeneratedBy edge) {
+        CausalDependencyId res=of.createCausalDependencyId();
+        res.setRef(edge);
+        return res;
+    }
+
+    public CausalDependencyId newCausalDependencyId(Used edge) {
+        CausalDependencyId res=of.createCausalDependencyId();
+        res.setRef(edge);
+        return res;
+    }
+    public CausalDependencyId newCausalDependencyId(WasDerivedFrom edge) {
+        CausalDependencyId res=of.createCausalDependencyId();
+        res.setRef(edge);
+        return res;
+    }
+
+    public CausalDependencyId newCausalDependencyId(WasControlledBy edge) {
+        CausalDependencyId res=of.createCausalDependencyId();
+        res.setRef(edge);
+        return res;
+    }
+    public CausalDependencyId newCausalDependencyId(WasTriggeredBy edge) {
+        CausalDependencyId res=of.createCausalDependencyId();
+        res.setRef(edge);
         return res;
     }
 
@@ -147,6 +183,13 @@ public class OPMFactory {
         return res;
     }
 
+    public Role newRole(String id, String value) {
+        Role res=of.createRole();
+        res.setId(id);
+        res.setValue(value);
+        return res;
+    }
+
 //     public Artifact newArtifact_(String id,
 //                                 Collection<AccountId> accounts,
 //                                 Object value) {
@@ -201,6 +244,16 @@ public class OPMFactory {
         return newUsed(pid,role,aid,ll);
     }
 
+    public Used newUsed(String id,
+                        Process p,
+                        Role role,
+                        Artifact a,
+                        Collection<Account> accounts) {
+        Used res=newUsed(p,role,a,accounts);
+        res.setId(id);
+        return res;
+    }
+
     public Used newUsed(Used u) {
         return newUsed(u.getEffect(),
                        u.getRole(),
@@ -250,9 +303,9 @@ public class OPMFactory {
         return res;
     }
     public WasGeneratedBy newWasGeneratedBy(Artifact a,
-                                             Role role,
-                                             Process p,
-                                             Collection<Account> accounts) {
+                                            Role role,
+                                            Process p,
+                                            Collection<Account> accounts) {
         ArtifactId aid=newArtifactId(a);
         ProcessId pid=newProcessId(p);
         LinkedList ll=new LinkedList();
@@ -260,6 +313,17 @@ public class OPMFactory {
             ll.add(newAccountId(acc));
         }
         return  newWasGeneratedBy(aid,role,pid,ll);
+    }
+
+
+    public WasGeneratedBy newWasGeneratedBy(String id,
+                                            Artifact a,
+                                            Role role,
+                                            Process p,
+                                            Collection<Account> accounts) {
+        WasGeneratedBy res= newWasGeneratedBy(a,role,p,accounts);
+        res.setId(id);
+        return res;
     }
 
 
@@ -389,13 +453,100 @@ public class OPMFactory {
     }
 
     public Annotation newAnnotation(String id,
+                                    WasDerivedFrom edge,
+                                    String property,
+                                    Object value,
+                                    Collection<Account> accs) {
+        CausalDependencyId cid=newCausalDependencyId(edge);
+        LinkedList<AccountId> ll=new LinkedList();
+        if (accs!=null) {
+            for (Account acc: accs) {
+                ll.add(newAccountId(acc));
+            }
+        }
+        return newAnnotation(id,cid,property,value,ll);
+    }
+    public Annotation newAnnotation(String id,
+                                    Used edge,
+                                    String property,
+                                    Object value,
+                                    Collection<Account> accs) {
+        CausalDependencyId cid=newCausalDependencyId(edge);
+        LinkedList<AccountId> ll=new LinkedList();
+        if (accs!=null) {
+            for (Account acc: accs) {
+                ll.add(newAccountId(acc));
+            }
+        }
+        return newAnnotation(id,cid,property,value,ll);
+    }
+    public Annotation newAnnotation(String id,
+                                    WasGeneratedBy edge,
+                                    String property,
+                                    Object value,
+                                    Collection<Account> accs) {
+        CausalDependencyId cid=newCausalDependencyId(edge);
+        LinkedList<AccountId> ll=new LinkedList();
+        if (accs!=null) {
+            for (Account acc: accs) {
+                ll.add(newAccountId(acc));
+            }
+        }
+        return newAnnotation(id,cid,property,value,ll);
+    }
+    public Annotation newAnnotation(String id,
+                                    WasControlledBy edge,
+                                    String property,
+                                    Object value,
+                                    Collection<Account> accs) {
+        CausalDependencyId cid=newCausalDependencyId(edge);
+        LinkedList<AccountId> ll=new LinkedList();
+        if (accs!=null) {
+            for (Account acc: accs) {
+                ll.add(newAccountId(acc));
+            }
+        }
+        return newAnnotation(id,cid,property,value,ll);
+    }
+    public Annotation newAnnotation(String id,
+                                    WasTriggeredBy edge,
+                                    String property,
+                                    Object value,
+                                    Collection<Account> accs) {
+        CausalDependencyId cid=newCausalDependencyId(edge);
+        LinkedList<AccountId> ll=new LinkedList();
+        if (accs!=null) {
+            for (Account acc: accs) {
+                ll.add(newAccountId(acc));
+            }
+        }
+        return newAnnotation(id,cid,property,value,ll);
+    }
+
+    public Annotation newAnnotation(String id,
+                                    Role role,
+                                    String property,
+                                    Object value,
+                                    Collection<Account> accs) {
+        RoleId rid=newRoleId(role);
+        LinkedList<AccountId> ll=new LinkedList();
+        if (accs!=null) {
+            for (Account acc: accs) {
+                ll.add(newAccountId(acc));
+            }
+        }
+        return newAnnotation(id,rid,property,value,ll);
+    }
+
+
+    public Annotation newAnnotation(String id,
                                     IdRef ref,
                                     String property,
                                     Object value,
                                     Collection<AccountId> accs) {
         Annotation res=of.createAnnotation();
         res.setId(id);
-        setIdRef(res,ref);
+        res.setLocalSubject(ref.getRef());
         res.setProperty(property);
         res.setValue(value);
         if (accs!=null) {
@@ -404,17 +555,17 @@ public class OPMFactory {
         return res;
     }
 
-    void setIdRef(Annotation ann, IdRef ref) {
-        if (ref instanceof ArtifactId) {
-            ann.setArtifact((ArtifactId) ref);
-        }
-        if (ref instanceof AnnotationId) {
-            ann.setAnnotation((AnnotationId) ref);
-        }
-        if (ref instanceof ProcessId) {
-            ann.setProcess((ProcessId) ref);
-        }
-    }
+//     void setIdRef(Annotation ann, IdRef ref) {
+//         if (ref instanceof ArtifactId) {
+//             ann.setArtifact((ArtifactId) ref);
+//         }
+//         if (ref instanceof AnnotationId) {
+//             ann.setAnnotation((AnnotationId) ref);
+//         }
+//         if (ref instanceof ProcessId) {
+//             ann.setProcess((ProcessId) ref);
+//         }
+//     }
 
 
     public OPMGraph newOPMGraph(Collection<Account> accs,

@@ -88,7 +88,9 @@
      <xs:sequence>
         <!-- This allows for references to external entities. -->
         <xs:choice>
-            <xs:element name="externalEntity" type="xs:anyURI" ></xs:element>
+            <xs:element name="externalSubject" type="xs:anyURI"/>
+            <xs:element name="localSubject"    type="xs:IDREF"/>
+            <!-- used to be
             <xs:element name="graph" type="opm:OPMGraphID"></xs:element>
             <xs:element name="artifact" type="opm:ArtifactId"></xs:element>
             <xs:element name="process" type="opm:ProcessId"></xs:element>
@@ -96,6 +98,8 @@
             <xs:element name="role" type="opm:RoleId"></xs:element>
             <xs:element name="agent" type="opm:AgentId"></xs:element>
             <xs:element name="annotation" type="opm:AnnotationId"></xs:element>
+            -->
+
         </xs:choice>
         <xs:element name="property" type="xs:anyURI"></xs:element>
         <xs:element name="value" type="xs:anyType"></xs:element>
