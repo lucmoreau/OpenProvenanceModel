@@ -81,28 +81,15 @@
 
 
 
-
- 
-  
   <xs:complexType name="Annotation">
      <xs:sequence>
         <!-- This allows for references to external entities. -->
         <xs:choice>
             <xs:element name="externalSubject" type="xs:anyURI"/>
             <xs:element name="localSubject"    type="xs:IDREF"/>
-            <!-- used to be
-            <xs:element name="graph" type="opm:OPMGraphRef"></xs:element>
-            <xs:element name="artifact" type="opm:ArtifactRef"></xs:element>
-            <xs:element name="process" type="opm:ProcessRef"></xs:element>
-            <xs:element name="causalDependency" type="opm:CausalDependencyRef"></xs:element>
-            <xs:element name="role" type="opm:RoleRef"></xs:element>
-            <xs:element name="agent" type="opm:AgentRef"></xs:element>
-            <xs:element name="annotation" type="opm:AnnotationRef"></xs:element>
-            -->
-
         </xs:choice>
-        <xs:element name="property" type="xs:anyURI"></xs:element>
-        <xs:element name="value" type="xs:anyType"></xs:element>
+        <xs:element name="property" type="xs:anyURI"/>
+        <xs:element name="value" type="xs:anyType"/>
         <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountRef"/>
      </xs:sequence>
      <xs:attribute name="id" type="xs:ID"/>
