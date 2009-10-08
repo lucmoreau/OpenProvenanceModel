@@ -146,9 +146,11 @@ public class OPMXml2Rdf {
                     Resource subject=a2.getSubject();
                     List<Triple> triples=new LinkedList();
                     for (EmbeddedAnnotation ann: a.getAnnotation()) {
+                        Resource predicate=Resource.uriRef(ann.getProperty());
+                        Resource value=Resource.literal((String)ann.getValue());
                         Triple t=Triple.create(subject,
-                                               ann.getProperty(),
-                                               (String)ann.getValue());
+                                               predicate,
+                                               value);
                         triples.add(t);
                     }
                     mc.addTriples(triples);

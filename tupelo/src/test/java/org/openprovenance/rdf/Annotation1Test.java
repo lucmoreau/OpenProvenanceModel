@@ -178,7 +178,7 @@ public class Annotation1Test
     public void testAnnotationRDF1() throws Exception {
         OPMXml2Rdf toRdf=new OPMXml2Rdf();
         //System.out.println("graph is " + graph1);
-        toRdf.convert(graph1,"target/example1.xml");
+        toRdf.convert(graph1,"target/annotation1.rdf.xml");
     }
     
 
