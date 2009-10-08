@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 
 import java.util.List;
+import java.util.LinkedList;
 import java.util.Set;
 import java.util.HashMap;
 import java.util.Collection;
@@ -27,6 +28,7 @@ import org.openprovenance.model.Process;
 import org.openprovenance.model.Artifact; 
 import org.openprovenance.model.Used; 
 import org.openprovenance.model.Role; 
+import org.openprovenance.model.EmbeddedAnnotation; 
 import org.openprovenance.model.WasGeneratedBy; 
 import org.openprovenance.model.WasTriggeredBy; 
 import org.openprovenance.model.WasDerivedFrom; 
@@ -43,6 +45,8 @@ import org.tupeloproject.provenance.ProvenanceAgent;
 import org.tupeloproject.provenance.ProvenanceProcess;
 import org.tupeloproject.provenance.ProvenanceArtifact;
 import org.tupeloproject.provenance.impl.ProvenanceContextFacade;
+import org.tupeloproject.provenance.impl.RdfProvenanceArtifact;
+
 import org.tupeloproject.rdf.Resource;
 import org.tupeloproject.rdf.Triple;
 import org.tupeloproject.rdf.xml.RdfXml;
@@ -136,6 +140,21 @@ public class OPMXml2Rdf {
                 }
                 pcf.assertArtifact(rdfArtifact);
                 artifactTable.put(a.getId(),rdfArtifact);
+
+                if (!(a.getAnnotation().isEmpty())) {
+                    RdfProvenanceArtifact a2=(RdfProvenanceArtifact) rdfArtifact;
+                    Resource subject=a2.getSubject();
+                    List<Triple> triples=new LinkedList();
+                    for (EmbeddedAnnotation ann: a.getAnnotation()) {
+                        Triple t=Triple.create(subject,
+                                               ann.getProperty(),
+                                               (String)ann.getValue());
+                        triples.add(t);
+                    }
+                    mc.addTriples(triples);
+                    System.out.println("$$$$$$ " + triples);
+
+                }
             }
         }
 
