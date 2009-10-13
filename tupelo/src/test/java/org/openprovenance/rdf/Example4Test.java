@@ -191,11 +191,10 @@ public class Example4Test
         
     }
     
-    public void testRDF4() throws Exception {
+    public void testConvertToRDF4() throws Exception {
         OPMXml2Rdf toRdf=new OPMXml2Rdf();
-        System.out.println("testRDF4");
-        System.out.println("testRDF4" + graph1);
-        toRdf.convert(graph1,"target/example4.xml");
+        System.out.println("testConvertToRDF4 (Example4Test.java)");
+        toRdf.convert(graph1,"target/example4-rdf.xml");
     }
 
 

@@ -213,7 +213,7 @@ public class Example5Test
     
     public void testCollectionRDF() throws Exception {
         OPMXml2Rdf toRdf=new OPMXml2Rdf();
-        System.out.println("testRDF4");
+        System.out.println("testCollectionRDF (Example5)");
         toRdf.convert(graph1,"target/collection.rdf.xml");
     }
 

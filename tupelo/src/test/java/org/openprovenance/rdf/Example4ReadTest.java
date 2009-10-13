@@ -57,7 +57,7 @@ public class Example4ReadTest
 
 
 
-    public void test_OPM1() throws JAXBException
+    public void testCreateGraph4() throws JAXBException
     {
         OPMFactory oFactory=new OPMFactory();
 
@@ -186,7 +186,7 @@ public class Example4ReadTest
         //System.out.println(sw);
 
         graph1=graph;
-        System.out.println("testOPM1 asserting True");
+        System.out.println("testCreateGraph4 asserting True");
         assertTrue( true );
 
 
@@ -195,8 +195,8 @@ public class Example4ReadTest
     
     public void testRDFRead4() throws Exception {
         OPMRdf2Xml fromRdf=new OPMRdf2Xml();
-        System.out.println("testRDF4");
-        graph2=fromRdf.convert("target/example4.xml");
+        System.out.println("testRDFRead4 (Example4ReadTest.java)");
+        graph2=fromRdf.convert("target/example4-rdf.xml");
 
 
         OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();

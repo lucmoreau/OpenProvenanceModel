@@ -22,6 +22,7 @@ import org.openprovenance.model.OPMGraph;
 import org.openprovenance.model.Edge; 
 import org.openprovenance.model.Overlaps; 
 import org.openprovenance.model.Account; 
+import org.openprovenance.model.AccountRef; 
 import org.openprovenance.model.Id; 
 import org.openprovenance.model.Processes; 
 import org.openprovenance.model.Node; 
@@ -30,6 +31,7 @@ import org.openprovenance.model.Process;
 import org.openprovenance.model.Role; 
 import org.openprovenance.model.Artifact; 
 import org.openprovenance.model.Used; 
+import org.openprovenance.model.EmbeddedAnnotation; 
 import org.openprovenance.model.WasGeneratedBy; 
 import org.openprovenance.model.WasTriggeredBy; 
 import org.openprovenance.model.WasDerivedFrom; 
@@ -38,7 +40,7 @@ import org.openprovenance.model.OPMUtilities;
 import org.openprovenance.model.OPMFactory; 
 import org.openprovenance.model.OPMSerialiser; 
 
-
+import org.tupeloproject.kernel.SubjectFacade;
 import org.tupeloproject.provenance.ProvenanceAccount;
 import org.tupeloproject.provenance.ProvenanceRole;
 import org.tupeloproject.provenance.ProvenanceAgent;
@@ -51,6 +53,7 @@ import org.tupeloproject.provenance.ProvenanceDerivedArc;
 import org.tupeloproject.provenance.ProvenanceControlledArc;
 import org.tupeloproject.provenance.impl.ProvenanceContextFacade;
 import org.tupeloproject.provenance.impl.RdfProvenanceElement;
+import org.tupeloproject.provenance.impl.RdfProvenanceAccount;
 import org.tupeloproject.rdf.Resource;
 import org.tupeloproject.rdf.Triple;
 import org.tupeloproject.rdf.xml.RdfXml;
@@ -92,7 +95,8 @@ public class OPMRdf2Xml {
     Set<ProvenanceControlledArc> controlledArcs=new HashSet();
     Set<ProvenanceDerivedArc> derivedArcs=new HashSet();
     
-
+    Resource hasAnnotation=Resource.uriRef(OPMXml2Rdf.OPM_HAS_ANNOTATION);
+    Resource hasAccount=Resource.uriRef(OPMXml2Rdf.OPM_HAS_ACCOUNT);
 
     public OPMGraph convert (Set<Triple> triples) throws OperatorException, IOException {
 
@@ -124,16 +128,18 @@ public class OPMRdf2Xml {
 
         ProvenanceContextFacade pcf = new ProvenanceContextFacade(mc);
 
+
+
         // Find all elements
         for (Triple triple: triples) {
 
-            RdfProvenanceElement element=pcf.getElement(triple.getSubject());
+            Resource subject=triple.getSubject();
+            RdfProvenanceElement element=pcf.getElement(subject);
             if (element!=null) {
                 //System.out.println("found element " + element);
 
                 if (element instanceof ProvenanceArtifact) {
                     Artifact a=getArtifact((ProvenanceArtifact) element);
-                    //System.out.println("found element " + a);
                     Collection<ProvenanceUsedArc> used=pcf.getUsedBy((ProvenanceArtifact) element);
                     if (used!=null) {
                         usedArcs.addAll(used);
@@ -146,6 +152,12 @@ public class OPMRdf2Xml {
                     if (derived!=null) {
                         derivedArcs.addAll(derived);
                     }
+
+                    
+                    SubjectFacade sf=new SubjectFacade(subject, mc) ;
+                    java.util.Set<Resource> annotations=sf.getObjects(hasAnnotation);
+                    a.getAnnotation().addAll(convertAnnotations(annotations,pcf,mc));
+
                 }
 
                 if (element instanceof ProvenanceProcess) {
@@ -155,6 +167,10 @@ public class OPMRdf2Xml {
                     if (triggered!=null) {
                         triggeredArcs.addAll(triggered);
                     }
+
+                    SubjectFacade sf=new SubjectFacade(subject, mc) ;
+                    java.util.Set<Resource> annotations=sf.getObjects(hasAnnotation);
+                    p.getAnnotation().addAll(convertAnnotations(annotations,pcf,mc));
 
                 }
 
@@ -166,6 +182,11 @@ public class OPMRdf2Xml {
                     if (controlled!=null) {
                         controlledArcs.addAll(controlled);
                     }
+
+
+                    SubjectFacade sf=new SubjectFacade(subject, mc) ;
+                    java.util.Set<Resource> annotations=sf.getObjects(hasAnnotation);
+                    ag.getAnnotation().addAll(convertAnnotations(annotations,pcf,mc));
                 }
 
             }
@@ -174,6 +195,54 @@ public class OPMRdf2Xml {
         populateGraph(graph);
 
         return graph;
+    }
+
+
+    public List<EmbeddedAnnotation> convertAnnotations(Set<Resource> annotations,
+                                                       ProvenanceContextFacade pcf,
+                                                       Context context)
+        throws org.tupeloproject.kernel.OperatorException {
+
+        System.out.println("annotations " + annotations);
+
+        List<EmbeddedAnnotation> embedded=new LinkedList();
+        for (Resource annotation: annotations) {
+            SubjectFacade af=new SubjectFacade(annotation, context) ;
+
+
+            
+            java.util.Set<Resource> accounts=af.getObjects(hasAccount);
+            List<AccountRef> accRefs=new LinkedList();
+            for (Resource account: accounts) {
+                RdfProvenanceAccount rdfA=pcf.getAccount(account);
+                Account a=getAccount(rdfA);
+                accRefs.add(pFactory.newAccountRef(a));
+            }
+
+            String id=deUrify(annotation.getUri().toString());
+
+            String property=null;
+            Object value=null;
+            Set<Triple> triples=af.getTriples();
+            for (Triple t: triples) {
+                Resource predicate=t.getPredicate();
+                String predicateUri=predicate.getUri().toString();
+                // search for the property!!
+                if ((!(predicateUri.equals(OPMXml2Rdf.OPM_HAS_ACCOUNT)))
+                    &&
+                    (!(predicateUri.equals("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")))) {
+                    property=predicateUri;
+                    Resource object=t.getObject();
+                    Object o=object.asObject();
+                    value=o;
+                }
+            }
+
+            EmbeddedAnnotation e=pFactory.newEmbeddedAnnotation(id, property, value, accRefs,null);
+            embedded.add(e);
+        }
+
+        return embedded;
     }
 
     void populateGraph(OPMGraph graph) {
