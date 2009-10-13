@@ -68,6 +68,7 @@
   <xs:complexType name="Account">
 	<xs:sequence>
       <xs:element name="value"/>
+	  <xs:element name="annotation" minOccurs="0" maxOccurs="unbounded" type="opm:EmbeddedAnnotation"/>
 	</xs:sequence>
 	<xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
@@ -107,6 +108,7 @@
 	<xs:sequence>
 	  <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="opm:AccountRef"/>
       <xs:element name="value"/> <!-- TO DELETE -->
+	  <xs:element name="annotation" minOccurs="0" maxOccurs="unbounded" type="opm:EmbeddedAnnotation"/>
 	</xs:sequence>
 	<xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
@@ -126,6 +128,7 @@
 	<xs:sequence>
 	  <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="opm:AccountRef"/>
       <xs:element name="value"/> <!-- TO DELETE -->
+	  <xs:element name="annotation" minOccurs="0" maxOccurs="unbounded" type="opm:EmbeddedAnnotation"/>
 	</xs:sequence>
 	<xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>

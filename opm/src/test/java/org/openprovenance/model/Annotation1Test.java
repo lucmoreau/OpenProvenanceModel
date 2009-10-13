@@ -125,6 +125,8 @@ public class Annotation1Test
 
         a4.getAnnotation().add(oFactory.newEmbeddedAnnotation("an11","http://property.org/hasQuality", "bad", orange));
 
+        p5.getAnnotation().add(oFactory.newEmbeddedAnnotation("an12","http://property.org/hasQuality", "average", green));
+
         OPMGraph graph=oFactory.newOPMGraph(green_orange,
                                             new Overlaps[] { ov1 },
                                             new Process[] {p1,p2,p3,p4,p5},
@@ -142,7 +144,7 @@ public class Annotation1Test
         StringWriter sw=new StringWriter();
         serial.serialiseOPMGraph(sw,graph,true);
         serial.serialiseOPMGraph(new File("target/annotation-example1.xml"),graph,true);
-        System.out.println(sw);
+        //        System.out.println(sw);
 
         graph1=graph;
 

@@ -46,6 +46,11 @@ import org.tupeloproject.provenance.ProvenanceProcess;
 import org.tupeloproject.provenance.ProvenanceArtifact;
 import org.tupeloproject.provenance.impl.ProvenanceContextFacade;
 import org.tupeloproject.provenance.impl.RdfProvenanceArtifact;
+import org.tupeloproject.provenance.impl.RdfProvenanceProcess;
+import org.tupeloproject.provenance.impl.RdfProvenanceAgent;
+import org.tupeloproject.provenance.impl.RdfProvenanceAccount;
+
+import org.tupeloproject.rdf.Vocabulary.Rdf;
 
 import org.tupeloproject.rdf.Resource;
 import org.tupeloproject.rdf.Triple;
@@ -76,6 +81,16 @@ public class OPMXml2Rdf {
         convert(graph,new FileOutputStream(new File(filename)));
     }
     
+    HashMap<String,ProvenanceAccount> accountTable=new HashMap();
+    HashMap<String,ProvenanceProcess> processTable=new HashMap();
+    HashMap<String,ProvenanceArtifact> artifactTable=new HashMap();
+    HashMap<String,ProvenanceAgent> agentTable=new HashMap();
+
+    static String OPM_ANNOTATION="http://www.ipaw.info/2007/opm#Annotation";
+    static String OPM_HAS_ANNOTATION="http://www.ipaw.info/2007/opm#hasAnnotation";
+    static String OPM_HAS_ACCOUNT="http://www.ipaw.info/2007/opm#hasAccount";
+
+
     public void convert (OPMGraph graph, OutputStream out) throws OperatorException, IOException {
       
 
@@ -93,10 +108,7 @@ public class OPMXml2Rdf {
 
         ProvenanceContextFacade pcf = new ProvenanceContextFacade(mc);
 
-        HashMap<String,ProvenanceAccount> accountTable=new HashMap();
-        HashMap<String,ProvenanceProcess> processTable=new HashMap();
-        HashMap<String,ProvenanceArtifact> artifactTable=new HashMap();
-        HashMap<String,ProvenanceAgent> agentTable=new HashMap();
+
 
         Resource nullRes=Resource.uriRef(urify(NULL_ACCOUNT));
         ProvenanceAccount nullRdfAccount=pcf.newAccount(NULL_ACCOUNT,nullRes);
@@ -109,6 +121,13 @@ public class OPMXml2Rdf {
                 ProvenanceAccount rdfAccount=pcf.newAccount(acc.getId(),res);
                 pcf.assertAccount(rdfAccount);
                 accountTable.put(acc.getId(),rdfAccount);
+
+
+                if (!(acc.getAnnotation().isEmpty())) {
+                    RdfProvenanceAccount a2=(RdfProvenanceAccount) rdfAccount;
+                    Resource subject=a2.getSubject();
+                    mc.addTriples(triplifyAnnotations(subject,acc.getAnnotation()));
+                }
             }
         }
 
@@ -125,6 +144,13 @@ public class OPMXml2Rdf {
                 }
                 pcf.assertProcess(rdfProcess);
                 processTable.put(p.getId(),rdfProcess);
+
+
+                if (!(p.getAnnotation().isEmpty())) {
+                    RdfProvenanceProcess a2=(RdfProvenanceProcess) rdfProcess;
+                    Resource subject=a2.getSubject();
+                    mc.addTriples(triplifyAnnotations(subject,p.getAnnotation()));
+                }
             }
         }
 
@@ -144,18 +170,7 @@ public class OPMXml2Rdf {
                 if (!(a.getAnnotation().isEmpty())) {
                     RdfProvenanceArtifact a2=(RdfProvenanceArtifact) rdfArtifact;
                     Resource subject=a2.getSubject();
-                    List<Triple> triples=new LinkedList();
-                    for (EmbeddedAnnotation ann: a.getAnnotation()) {
-                        Resource predicate=Resource.uriRef(ann.getProperty());
-                        Resource value=Resource.literal((String)ann.getValue());
-                        Triple t=Triple.create(subject,
-                                               predicate,
-                                               value);
-                        triples.add(t);
-                    }
-                    mc.addTriples(triples);
-                    System.out.println("$$$$$$ " + triples);
-
+                    mc.addTriples(triplifyAnnotations(subject,a.getAnnotation()));
                 }
             }
         }
@@ -173,6 +188,12 @@ public class OPMXml2Rdf {
                 }
                 pcf.assertAgent(rdfAgent);
                 agentTable.put(a.getId(),rdfAgent);
+
+                if (!(a.getAnnotation().isEmpty())) {
+                    RdfProvenanceAgent a2=(RdfProvenanceAgent) rdfAgent;
+                    Resource subject=a2.getSubject();
+                    mc.addTriples(triplifyAnnotations(subject,a.getAnnotation()));
+                }
             }
         }
 
@@ -291,6 +312,62 @@ public class OPMXml2Rdf {
         Set<Triple> triplesToWrite = mc.getTriples();
         RdfXml.write(triplesToWrite, out);
 
+    }
+
+
+    public List<Triple> triplifyAnnotations(Resource subject, List<EmbeddedAnnotation> annotations) {
+
+        List<Triple> triples=new LinkedList();
+
+
+        Resource annotationType=Resource.uriRef(OPM_ANNOTATION);
+        Resource hasAnnotation=Resource.uriRef(OPM_HAS_ANNOTATION);
+        Resource hasAccount=Resource.uriRef(OPM_HAS_ACCOUNT);
+
+
+        for (EmbeddedAnnotation ann: annotations) {
+
+            Resource annotationInRdf;
+            if (ann.getId()!=null) {
+                annotationInRdf=Resource.uriRef(urify(ann.getId()));
+            } else {
+                annotationInRdf=Resource.uriRef();
+            }
+            Triple t1=Triple.create(subject,
+                                    hasAnnotation,
+                                    annotationInRdf);
+
+
+            triples.add(t1);
+
+            Triple t2=Triple.create(annotationInRdf,
+                                    Rdf.TYPE,
+                                    annotationType);
+
+            triples.add(t2);
+
+
+            Resource predicate=Resource.uriRef(ann.getProperty());
+            Resource value=Resource.literal((String)ann.getValue());
+            Triple t=Triple.create(annotationInRdf,
+                                   predicate,
+                                   value);
+
+            for (AccountRef aid: ann.getAccount()) {
+                ProvenanceAccount account=accountTable.get(((Account)aid.getRef()).getId());
+                RdfProvenanceAccount a2=(RdfProvenanceAccount) account;
+                Resource accountSubject=a2.getSubject();
+
+                Triple t3=Triple.create(annotationInRdf,
+                                        hasAccount,
+                                        accountSubject);
+                triples.add(t3);
+            }
+
+                
+            triples.add(t);
+        }
+        return triples;
     }
 
     public static String URI_PREFIX="id:";
