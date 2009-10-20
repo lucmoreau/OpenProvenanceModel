@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<xs:schema targetNamespace="http://openprovenance.org/profile/collections/v1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:opm="http://openprovenance.org/model/v1.1.a"
+           xmlns:col="http://openprovenance.org/profile/collections/v1.0"
+           xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified"
+           jxb:version="2.0">
+
+  <xs:import namespace="http://openprovenance.org/model/v1.1.a"
+		     schemaLocation="./opm.1_1.xsd" />
+
+
+  <xs:complexType name="CollectionAnnotation">
+	<xs:complexContent>
+	  <xs:restriction base="opm:EmbeddedAnnotation">
+		<xs:sequence>
+          <xs:element name="property" type="col:typeURI"/>
+		</xs:sequence>
+	  </xs:restriction>
+	</xs:complexContent>
+  </xs:complexType>
+
+
+  <xs:element name="type" type="col:typeURI"/>
+
+  <xs:simpleType name="typeURI">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="http://openprovenance.org/collections#type"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+
+</xs:schema>

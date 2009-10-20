@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<xs:schema targetNamespace="http://openprovenance.org/model/v1.1.a"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:opm="http://openprovenance.org/model/v1.1.a"
+           xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified"
+           jxb:version="2.0">
+
+           
+
+</xs:schema>
