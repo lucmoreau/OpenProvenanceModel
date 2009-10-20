@@ -96,17 +96,6 @@ public class OPMFactory implements CommonURIs {
     }
 
 
-//     public Process newProcess_(String pr,
-//                               Collection<AccountRef> accounts,
-//                               Object value) {
-//         Process res=of.createProcess();
-//         res.setId(pr);
-//         if ((accounts !=null) && (accounts.size()!=0)) {
-//             res.getAccount().addAll(accounts);
-//         }
-//         res.setValue(value);
-//         return res;
-//     }
 
     public Process newProcess(String pr,
                               Collection<Account> accounts,
@@ -143,7 +132,6 @@ public class OPMFactory implements CommonURIs {
     public Account newAccount(String id) {
         Account res=of.createAccount();
         res.setId(id);
-        //res.getAnnotation().add(of.createLabel(newLabel(id)));
         return res;
     }
     public Account newAccount(String id, String label) {
@@ -677,30 +665,12 @@ public class OPMFactory implements CommonURIs {
                                                     Object dummyParameterForAvoidingSameErasure) {
         EmbeddedAnnotation res=of.createEmbeddedAnnotation();
         res.setId(id);
-//         res.getPropertyAndValue().add(property);
-//         res.getPropertyAndValue().add(1);
-//         res.getPropertyAndValue().add(property);
-//         res.getPropertyAndValue().add(2);
-//        res.getPropertyAndValue().add(of.createProperty(property));
-        //        res.getPropertyAndValue().add(of.createValue(value));
         res.getProperty().add(newProperty(property,value));
         if (accs!=null) {
             res.getAccount().addAll(accs);
         }
         return res;
     }
-
-//     void setRef(Annotation ann, Ref ref) {
-//         if (ref instanceof ArtifactRef) {
-//             ann.setArtifact((ArtifactRef) ref);
-//         }
-//         if (ref instanceof AnnotationRef) {
-//             ann.setAnnotation((AnnotationRef) ref);
-//         }
-//         if (ref instanceof ProcessRef) {
-//             ann.setProcess((ProcessRef) ref);
-//         }
-//     }
 
 
     public OPMGraph newOPMGraph(Collection<Account> accs,

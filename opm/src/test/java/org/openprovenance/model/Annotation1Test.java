@@ -50,19 +50,19 @@ public class Annotation1Test
 
         Process p1=oFactory.newProcess("p1",
                                        green,
-                                       "http://process.org/add1ToAll");
+                                       "add1ToAll");
         Process p2=oFactory.newProcess("p2",
                                        orange,
-                                       "http://process.org/split");
+                                       "split");
         Process p3=oFactory.newProcess("p3",
                                        orange,
-                                       "http://process.org/plus1");
+                                       "plus1");
         Process p4=oFactory.newProcess("p4",
                                        orange,
-                                       "http://process.org/plus1");
+                                       "plus1");
         Process p5=oFactory.newProcess("p5",
                                        orange,
-                                       "http://process.org/cons");
+                                       "cons");
 
 
         List<Account> green_orange=new LinkedList();
