@@ -57,16 +57,16 @@ public class Example2Test
     }
 
 
-    public void testOPMGraph2() throws JAXBException
+    public void OBSOLETEtestOPMGraph2() throws JAXBException
     {
         OPMFactory oFactory=new OPMFactory();
 
-        Account acc1=oFactory.newAccount("green");
-        acc1.setValue("hello");
-        Account acc2=oFactory.newAccount("green");
-        acc2.setValue("bye");
-        Account acc3=oFactory.newAccount("orange");
-        acc3.setValue("bonjour");
+        Account acc1=oFactory.newAccount("green","hello");
+
+        Account acc2=oFactory.newAccount("green", "bye");
+
+        Account acc3=oFactory.newAccount("orange","bonjour");
+
 
         assertTrue( acc1.equals(acc1) );
         assertTrue( acc1.equals(acc2) );

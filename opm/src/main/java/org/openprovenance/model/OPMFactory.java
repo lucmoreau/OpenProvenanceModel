@@ -140,9 +140,16 @@ public class OPMFactory implements CommonURIs {
         return res;
     }
 
-    public Account newAccount(String acc) {
+    public Account newAccount(String id) {
         Account res=of.createAccount();
-        res.setId(acc);
+        res.setId(id);
+        //res.getAnnotation().add(of.createLabel(newLabel(id)));
+        return res;
+    }
+    public Account newAccount(String id, String label) {
+        Account res=of.createAccount();
+        res.setId(id);
+        res.getAnnotation().add(of.createLabel(newLabel(label)));
         return res;
     }
 
@@ -202,6 +209,19 @@ public class OPMFactory implements CommonURIs {
     }
     public void addAnnotation(Account account, EmbeddedAnnotation ann) {
         account.getAnnotation().add(of.createAnnotation(ann));
+    }
+
+    public void expandAnnotation(EmbeddedAnnotation ann) {
+        if (ann instanceof Label) {
+            Label label=(Label) ann;
+            String labelValue=label.getValue();
+            ann.getProperty().add(newProperty(LABEL_PROPERTY,labelValue));
+        }
+        if (ann instanceof Type) {
+            Type type=(Type) ann;
+            String typeValue=type.getValue();
+            ann.getProperty().add(newProperty(TYPE_PROPERTY,typeValue));
+        }
     }
 
 

@@ -333,6 +333,8 @@ public class OPMXml2Rdf {
         for (JAXBElement<? extends EmbeddedAnnotation> jann: annotations) {
             EmbeddedAnnotation ann=jann.getValue();
 
+            oFactory.expandAnnotation(ann);
+
             Resource annotationInRdf;
             if (ann.getId()!=null) {
                 annotationInRdf=Resource.uriRef(urify(ann.getId()));
