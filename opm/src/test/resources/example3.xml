@@ -9,62 +9,62 @@
     <opm:processes>
         <opm:process id="p1">
             <opm:account ref="black"/>
-            <opm:value xsi:type="xsd:string">P1</opm:value>
+            <opm:label value="P1"/>
         </opm:process>
         <opm:process id="p2">
             <opm:account ref="black"/>
-            <opm:value xsi:type="xsd:string">P2</opm:value>
+            <opm:label value="P2"/>
         </opm:process>
         <opm:process id="p3">
             <opm:account ref="black"/>
-            <opm:value xsi:type="xsd:string">message producer</opm:value>
+            <opm:label value="message producer"/>
         </opm:process>
         <opm:process id="p4">
             <opm:account ref="black"/>
-            <opm:value xsi:type="xsd:string">message receiver</opm:value>
+            <opm:label value="message receiver"/>
         </opm:process>
     </opm:processes>
     <opm:artifacts>
         <opm:artifact id="a1">
-            <opm:value xsi:type="xsd:string">A1s</opm:value>
             <opm:account ref="sender"/>
+            <opm:label value="A1s"/>
         </opm:artifact>
         <opm:artifact id="a2">
-            <opm:value xsi:type="xsd:string">A2s</opm:value>
             <opm:account ref="sender"/>
+            <opm:label value="A2s"/>
         </opm:artifact>
         <opm:artifact id="a3">
-            <opm:value xsi:type="xsd:string">A3s</opm:value>
             <opm:account ref="sender"/>
+            <opm:label value="A3s"/>
         </opm:artifact>
         <opm:artifact id="a4">
-            <opm:value xsi:type="xsd:string">msg</opm:value>
             <opm:account ref="sender"/>
             <opm:account ref="receiver"/>
+            <opm:label value="msg"/>
         </opm:artifact>
         <opm:artifact id="a5">
-            <opm:value xsi:type="xsd:string">A1r</opm:value>
             <opm:account ref="receiver"/>
+            <opm:label value="A1r"/>
         </opm:artifact>
         <opm:artifact id="a6">
-            <opm:value xsi:type="xsd:string">A2r</opm:value>
             <opm:account ref="receiver"/>
+            <opm:label value="A2r"/>
         </opm:artifact>
         <opm:artifact id="a7">
-            <opm:value xsi:type="xsd:string">A3r</opm:value>
             <opm:account ref="receiver"/>
+            <opm:label value="A3r"/>
         </opm:artifact>
         <opm:artifact id="a8">
-            <opm:value xsi:type="xsd:string">A1</opm:value>
             <opm:account ref="original"/>
+            <opm:label value="A1"/>
         </opm:artifact>
         <opm:artifact id="a9">
-            <opm:value xsi:type="xsd:string">A2</opm:value>
             <opm:account ref="original"/>
+            <opm:label value="A2"/>
         </opm:artifact>
         <opm:artifact id="a10">
-            <opm:value xsi:type="xsd:string">A3</opm:value>
             <opm:account ref="original"/>
+            <opm:label value="A3"/>
         </opm:artifact>
     </opm:artifacts>
     <opm:agents/>

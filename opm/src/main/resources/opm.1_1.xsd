@@ -68,7 +68,7 @@
   <xs:complexType name="Account">
 	<xs:sequence>
       <xs:element name="value"/>
-	  <xs:element name="annotation" minOccurs="0" maxOccurs="unbounded" type="opm:EmbeddedAnnotation"/>
+	  <xs:element ref="opm:annotation"  minOccurs="0" maxOccurs="unbounded"/>
 	</xs:sequence>
 	<xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
@@ -111,11 +111,13 @@
      <xs:attribute name="uri" type="xs:anyURI"/>
   </xs:complexType>
 
+
+  <xs:element name="annotation" type="opm:EmbeddedAnnotation"/>
+
   <xs:complexType name="Process">
 	<xs:sequence>
 	  <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="opm:AccountRef"/>
-      <xs:element name="value"/> <!-- TO DELETE -->
-	  <xs:element name="annotation" minOccurs="0" maxOccurs="unbounded" type="opm:EmbeddedAnnotation"/>
+	  <xs:element ref="opm:annotation"  minOccurs="0" maxOccurs="unbounded"/>
 	</xs:sequence>
 	<xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
@@ -124,8 +126,7 @@
   <xs:complexType name="Artifact">
 	<xs:sequence>
 	  <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="opm:AccountRef"/>
-      <xs:element name="value"/> 
-	  <xs:element name="annotation" minOccurs="0" maxOccurs="unbounded" type="opm:EmbeddedAnnotation"/>
+	  <xs:element ref="opm:annotation"  minOccurs="0" maxOccurs="unbounded"/>
 	</xs:sequence>
 	<xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
@@ -134,8 +135,7 @@
   <xs:complexType name="Agent">
 	<xs:sequence>
 	  <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="opm:AccountRef"/>
-      <xs:element name="value"/> <!-- TO DELETE -->
-	  <xs:element name="annotation" minOccurs="0" maxOccurs="unbounded" type="opm:EmbeddedAnnotation"/>
+	  <xs:element ref="opm:annotation"  minOccurs="0" maxOccurs="unbounded"/>
 	</xs:sequence>
 	<xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
@@ -256,5 +256,27 @@
 	  <xs:element name="clockId"       type="xs:string"/>
 	</xs:sequence>
   </xs:complexType>
+
+  
+  <xs:element name="label" type="opm:Label" substitutionGroup="opm:annotation"/>
+
+
+  <xs:complexType name="Label">
+	<xs:complexContent>
+	  <xs:extension base="opm:EmbeddedAnnotation">
+        <xs:attribute name="value" type="xs:string"/>
+	  </xs:extension>
+	</xs:complexContent>
+  </xs:complexType>
+
+  <xs:element name="type" type="opm:Type" substitutionGroup="opm:annotation"/>
+  <xs:complexType name="Type">
+	<xs:complexContent>
+	  <xs:extension base="opm:EmbeddedAnnotation">
+        <xs:attribute name="value" type="xs:anyURI"/>
+	  </xs:extension>
+	</xs:complexContent>
+  </xs:complexType>
+
 
 </xs:schema>

@@ -127,7 +127,7 @@ public class OPMExtendedFactory extends OPMFactory {
 
     public ArtifactExt newArtifactExt(String id,
                                       Collection<Account> accounts,
-                                      Object value,
+                                      String label,
                                       List<Object> any) {
         ArtifactExt res=extof.createArtifactExt();
         res.setId(id);
@@ -138,7 +138,7 @@ public class OPMExtendedFactory extends OPMFactory {
             }
             res.getAccount().addAll(ll);
         }
-        res.setValue(value);
+        res.getAnnotation().add(of.createLabel(newLabel(label)));
         if (any!=null) {
             res.getAny().addAll(any);
         }

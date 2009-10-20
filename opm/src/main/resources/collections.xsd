@@ -15,15 +15,15 @@
 		     schemaLocation="./opm.1_1.xsd" />
 
 
-  <xs:complexType name="CollectionAnnotation">
-	<xs:complexContent>
-	  <xs:restriction base="opm:EmbeddedAnnotation">
-		<xs:sequence>
-          <xs:element name="property" type="col:typeURI"/>
-		</xs:sequence>
-	  </xs:restriction>
-	</xs:complexContent>
-  </xs:complexType>
+<!--   <xs:complexType name="CollectionAnnotation"> -->
+<!-- 	<xs:complexContent> -->
+<!-- 	  <xs:restriction base="opm:EmbeddedAnnotation"> -->
+<!-- 		<xs:sequence> -->
+<!--           <xs:element name="property" type="col:typeURI"/> -->
+<!-- 		</xs:sequence> -->
+<!-- 	  </xs:restriction> -->
+<!-- 	</xs:complexContent> -->
+<!--   </xs:complexType> -->
 
 
   <xs:element name="type" type="col:typeURI"/>

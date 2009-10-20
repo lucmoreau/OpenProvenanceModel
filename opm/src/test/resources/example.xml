@@ -11,51 +11,51 @@
     <processes>
         <process id="p1">
             <account ref="green"/>
-            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">http://process.org/add1ToAll</value>
+            <label value="http://process.org/add1ToAll"/>
         </process>
         <process id="p2">
             <account ref="orange"/>
-            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">http://process.org/split</value>
+            <label value="http://process.org/split"/>
         </process>
         <process id="p3">
             <account ref="orange"/>
-            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">http://process.org/plus1</value>
+            <label value="http://process.org/plus1"/>
         </process>
         <process id="p4">
             <account ref="orange"/>
-            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">http://process.org/plus1</value>
+            <label value="http://process.org/plus1"/>
         </process>
         <process id="p5">
             <account ref="orange"/>
-            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">http://process.org/cons</value>
+            <label value="http://process.org/cons"/>
         </process>
     </processes>
     <artifacts>
         <artifact id="a1">
             <account ref="green"/>
             <account ref="orange"/>
-            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">(2,6)</value>
+            <label value="(2,6)"/>
         </artifact>
         <artifact id="a2">
             <account ref="green"/>
             <account ref="orange"/>
-            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">(3,7)</value>
+            <label value="(3,7)"/>
         </artifact>
         <artifact id="a3">
             <account ref="orange"/>
-            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">2</value>
+            <label value="2"/>
         </artifact>
         <artifact id="a4">
             <account ref="orange"/>
-            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">6</value>
+            <label value="6"/>
         </artifact>
         <artifact id="a5">
             <account ref="orange"/>
-            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">3</value>
+            <label value="3"/>
         </artifact>
         <artifact id="a6">
             <account ref="orange"/>
-            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">7</value>
+            <label value="7"/>
         </artifact>
     </artifacts>
     <causalDependencies>

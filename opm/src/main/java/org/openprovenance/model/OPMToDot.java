@@ -296,7 +296,7 @@ public class OPMToDot {
 
     public String processLabel(Process p) {
         if (displayProcessValue) {
-            return convertProcessName(""+p.getValue());
+            return convertProcessName(""+of.getLabel(p));
         } else {
             return p.getId();
         }
@@ -324,7 +324,7 @@ public class OPMToDot {
         
     public String artifactLabel(Artifact p) {
         if (displayArtifactValue) {
-            return convertArtifactName(""+p.getValue());
+            return convertArtifactName(""+of.getLabel(p));
         } else {
             return p.getId();
         }
@@ -352,7 +352,7 @@ public class OPMToDot {
 
     public String agentLabel(Agent p) {
         if (displayAgentValue) {
-            return convertAgentName(""+p.getValue());
+            return convertAgentName(""+of.getLabel(p));
         } else {
             return p.getId();
         }

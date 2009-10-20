@@ -1,6 +1,7 @@
 package org.openprovenance.rdf;
 
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.JAXBElement;
 
 import java.io.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
@@ -35,6 +36,7 @@ import org.openprovenance.model.WasTriggeredBy;
 import org.openprovenance.model.WasDerivedFrom; 
 import org.openprovenance.model.WasControlledBy; 
 import org.openprovenance.model.OPMUtilities; 
+import org.openprovenance.model.OPMFactory; 
 import org.openprovenance.model.OPMDeserialiser; 
 
 import org.openprovenance.model.extension.NamedWasDerivedFrom; 
@@ -77,6 +79,8 @@ public class OPMXml2Rdf {
     static String UNKNOWN_ROLE="_unknown";
     
     OPMUtilities u=new OPMUtilities();
+
+    static OPMFactory oFactory=new OPMFactory();
 
     public void convert (OPMGraph graph, String filename) throws OperatorException, IOException {
         convert(graph,new FileOutputStream(new File(filename)));
@@ -137,11 +141,11 @@ public class OPMXml2Rdf {
             for (Process p: graph.getProcesses().getProcess()) {
                 Resource res=Resource.uriRef(urify(p.getId()));
                 ProvenanceProcess rdfProcess;
-                if (p.getValue() instanceof String) {
-                    rdfProcess = pcf.newProcess((String)p.getValue(),res);
+                if (oFactory.getLabel(p) instanceof String) {
+                    rdfProcess = pcf.newProcess((String)oFactory.getLabel(p),res);
                 } else {
-                    logger.warn("how to serialise process value? " + p.getValue().toString());
-                    rdfProcess = pcf.newProcess(p.getValue().toString(),res);
+                    logger.warn("how to serialise process value? " + oFactory.getLabel(p).toString());
+                    rdfProcess = pcf.newProcess(oFactory.getLabel(p).toString(),res);
                 }
                 pcf.assertProcess(rdfProcess);
                 processTable.put(p.getId(),rdfProcess);
@@ -159,10 +163,10 @@ public class OPMXml2Rdf {
             for (Artifact a: graph.getArtifacts().getArtifact()) {
                 Resource res=Resource.uriRef(urify(a.getId()));
                 ProvenanceArtifact rdfArtifact;
-                if (a.getValue() instanceof String) {
-                    rdfArtifact = pcf.newArtifact((String)a.getValue(),res);
+                if (oFactory.getLabel(a) instanceof String) {
+                    rdfArtifact = pcf.newArtifact((String)oFactory.getLabel(a),res);
                 } else {
-                    logger.warn("how to serialise artifact value? " + a.getValue().toString());
+                    logger.warn("how to serialise artifact value? " + oFactory.getLabel(a).toString());
                     rdfArtifact = pcf.newArtifact("hello",res);
                 }
                 pcf.assertArtifact(rdfArtifact);
@@ -181,11 +185,11 @@ public class OPMXml2Rdf {
             for (Agent a: graph.getAgents().getAgent()) {
                 Resource res=Resource.uriRef(urify(a.getId()));
                 ProvenanceAgent rdfAgent;
-                if (a.getValue() instanceof String) {
-                    rdfAgent = pcf.newAgent((String)a.getValue(),res);
+                if (oFactory.getLabel(a) instanceof String) {
+                    rdfAgent = pcf.newAgent((String)oFactory.getLabel(a),res);
                 } else {
                     logger.warn("how to serialise agent value?");
-                    rdfAgent = pcf.newAgent(a.getValue().toString(),res);
+                    rdfAgent = pcf.newAgent(oFactory.getLabel(a).toString(),res);
                 }
                 pcf.assertAgent(rdfAgent);
                 agentTable.put(a.getId(),rdfAgent);
@@ -316,7 +320,7 @@ public class OPMXml2Rdf {
     }
 
 
-    public List<Triple> triplifyAnnotations(Resource subject, List<EmbeddedAnnotation> annotations) {
+    public List<Triple> triplifyAnnotations(Resource subject, List<JAXBElement<? extends EmbeddedAnnotation>> annotations) {
 
         List<Triple> triples=new LinkedList();
 
@@ -326,7 +330,8 @@ public class OPMXml2Rdf {
         Resource hasAccount=Resource.uriRef(OPM_HAS_ACCOUNT);
 
 
-        for (EmbeddedAnnotation ann: annotations) {
+        for (JAXBElement<? extends EmbeddedAnnotation> jann: annotations) {
+            EmbeddedAnnotation ann=jann.getValue();
 
             Resource annotationInRdf;
             if (ann.getId()!=null) {

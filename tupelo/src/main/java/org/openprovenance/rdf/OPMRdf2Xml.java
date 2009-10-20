@@ -156,7 +156,7 @@ public class OPMRdf2Xml {
                     
                     SubjectFacade sf=new SubjectFacade(subject, mc) ;
                     java.util.Set<Resource> annotations=sf.getObjects(hasAnnotation);
-                    a.getAnnotation().addAll(convertAnnotations(annotations,pcf,mc));
+                    pFactory.addAnnotation(a,convertAnnotations(annotations,pcf,mc));
 
                 }
 
@@ -170,7 +170,7 @@ public class OPMRdf2Xml {
 
                     SubjectFacade sf=new SubjectFacade(subject, mc) ;
                     java.util.Set<Resource> annotations=sf.getObjects(hasAnnotation);
-                    p.getAnnotation().addAll(convertAnnotations(annotations,pcf,mc));
+                    pFactory.addAnnotation(p,convertAnnotations(annotations,pcf,mc));
 
                 }
 
@@ -186,7 +186,7 @@ public class OPMRdf2Xml {
 
                     SubjectFacade sf=new SubjectFacade(subject, mc) ;
                     java.util.Set<Resource> annotations=sf.getObjects(hasAnnotation);
-                    ag.getAnnotation().addAll(convertAnnotations(annotations,pcf,mc));
+                    pFactory.addAnnotation(ag,convertAnnotations(annotations,pcf,mc));
                 }
 
             }

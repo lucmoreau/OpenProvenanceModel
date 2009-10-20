@@ -124,16 +124,19 @@ public class Annotation1Test
 
         Annotation an10=oFactory.newAnnotation("an10",r1,"http://property.org/hasQuality", "bad", orange);
 
-        a4.getAnnotation().add(oFactory.newEmbeddedAnnotation("an11","http://property.org/hasQuality", "bad", orange));
+        oFactory.addAnnotation(a4,
+                               oFactory.newEmbeddedAnnotation("an11","http://property.org/hasQuality", "bad", orange));
 
         EmbeddedAnnotation ann12=oFactory.newEmbeddedAnnotation("an12","http://property.org/hasQuality", "average", green);
         ann12.getProperty().add(oFactory.newProperty("http://property.org/numericQuality", 0.4));
 
-        p5.getAnnotation().add(ann12);
+        oFactory.addAnnotation(p5,ann12);
 
-        p5.getAnnotation().add(oFactory.newEmbeddedAnnotation("an13","http://property.org/hasProperty", "beau", green));
+        oFactory.addAnnotation(p5,
+                               oFactory.newEmbeddedAnnotation("an13","http://property.org/hasProperty", "beau", green));
 
-        account1.getAnnotation().add(oFactory.newEmbeddedAnnotation("an14","http://property.org/hasAlternativeName", "vert", null));
+        oFactory.addAnnotation(account1,
+                               oFactory.newEmbeddedAnnotation("an14","http://property.org/hasAlternativeName", "vert", null));
 
 
         OPMGraph graph=oFactory.newOPMGraph(green_orange,

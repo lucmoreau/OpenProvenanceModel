@@ -2,10 +2,12 @@ package org.openprovenance.model;
 import java.util.Collection;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
+import javax.xml.bind.JAXBElement;
 
 /** Factory of OPM objects. */
 
-public class OPMFactory {
+public class OPMFactory implements CommonURIs {
 
     public static final String packageList=
         "org.openprovenance.model:org.openprovenance.model.extension";
@@ -94,21 +96,21 @@ public class OPMFactory {
     }
 
 
-    public Process newProcess_(String pr,
-                              Collection<AccountRef> accounts,
-                              Object value) {
-        Process res=of.createProcess();
-        res.setId(pr);
-        if ((accounts !=null) && (accounts.size()!=0)) {
-            res.getAccount().addAll(accounts);
-        }
-        res.setValue(value);
-        return res;
-    }
+//     public Process newProcess_(String pr,
+//                               Collection<AccountRef> accounts,
+//                               Object value) {
+//         Process res=of.createProcess();
+//         res.setId(pr);
+//         if ((accounts !=null) && (accounts.size()!=0)) {
+//             res.getAccount().addAll(accounts);
+//         }
+//         res.setValue(value);
+//         return res;
+//     }
 
     public Process newProcess(String pr,
                               Collection<Account> accounts,
-                              Object value) {
+                              String label) {
         Process res=of.createProcess();
         res.setId(pr);
         if ((accounts !=null) && (accounts.size()!=0)) {
@@ -118,13 +120,13 @@ public class OPMFactory {
             }
             res.getAccount().addAll(ll);
         }
-        res.setValue(value);
+        res.getAnnotation().add(of.createLabel(newLabel(label)));
         return res;
     }
 
     public Agent newAgent(String ag,
                           Collection<Account> accounts,
-                          Object value) {
+                          String label) {
         Agent res=of.createAgent();
         res.setId(ag);
         if ((accounts !=null) && (accounts.size()!=0)) {
@@ -134,7 +136,7 @@ public class OPMFactory {
             }
             res.getAccount().addAll(ll);
         }
-        res.setValue(value);
+        res.getAnnotation().add(of.createLabel(newLabel(label)));
         return res;
     }
 
@@ -142,6 +144,91 @@ public class OPMFactory {
         Account res=of.createAccount();
         res.setId(acc);
         return res;
+    }
+
+    public Label newLabel(String label) {
+        Label res=of.createLabel();
+        res.setValue(label);
+        return res;
+    }
+    
+    public String getLabel(EmbeddedAnnotation annotation) {
+        if (annotation instanceof Label) {
+            Label label=(Label) annotation;
+            return label.getValue();
+        } else {
+            for (Property prop: annotation.getProperty()) {
+                if (prop.equals(LABEL_PROPERTY)) {
+                    return (String) prop.getValue();
+                }
+            }
+            return null;
+        }
+    }
+
+    public String getLabel(List<JAXBElement<? extends EmbeddedAnnotation>> annotations) {
+        for (JAXBElement<? extends EmbeddedAnnotation> jann: annotations) {
+            EmbeddedAnnotation ann=jann.getValue();
+            String label=getLabel(ann);
+            if (label!=null) return label;
+        }
+        return null;
+    }
+
+    public String getLabel(Process p) {
+        return getLabel(p.getAnnotation());
+    }
+    public String getLabel(Artifact a) {
+        return getLabel(a.getAnnotation());
+    }
+    public String getLabel(Agent ag) {
+        return getLabel(ag.getAnnotation());
+    }
+
+    public Type newType(String type) {
+        Type res=of.createType();
+        res.setValue(type);
+        return res;
+    }
+
+    public void addAnnotation(Process process, EmbeddedAnnotation ann) {
+        process.getAnnotation().add(of.createAnnotation(ann));
+    }
+    public void addAnnotation(Artifact artifact, EmbeddedAnnotation ann) {
+        artifact.getAnnotation().add(of.createAnnotation(ann));
+    }
+    public void addAnnotation(Agent agent, EmbeddedAnnotation ann) {
+        agent.getAnnotation().add(of.createAnnotation(ann));
+    }
+    public void addAnnotation(Account account, EmbeddedAnnotation ann) {
+        account.getAnnotation().add(of.createAnnotation(ann));
+    }
+
+
+    public void addAnnotation(Process process, List<EmbeddedAnnotation> anns) {
+        List<JAXBElement<? extends EmbeddedAnnotation>> annotations=process.getAnnotation();
+        for (EmbeddedAnnotation ann: anns) {        
+            annotations.add(of.createAnnotation(ann));
+        }
+    }
+    public void addAnnotation(Artifact artifact, List<EmbeddedAnnotation> anns) {
+        List<JAXBElement<? extends EmbeddedAnnotation>> annotations=artifact.getAnnotation();
+        for (EmbeddedAnnotation ann: anns) {        
+            annotations.add(of.createAnnotation(ann));
+        }
+    }
+    public void addAnnotation(Agent agent, List<EmbeddedAnnotation> anns) {
+        List<JAXBElement<? extends EmbeddedAnnotation>> annotations=agent.getAnnotation();
+        for (EmbeddedAnnotation ann: anns) {        
+            annotations.add(of.createAnnotation(ann));
+        }
+    }
+
+    public void addAnnotation(Account account, List<EmbeddedAnnotation> anns) {
+        List<JAXBElement<? extends EmbeddedAnnotation>> annotations=account.getAnnotation();
+        for (EmbeddedAnnotation ann: anns) {        
+            annotations.add(of.createAnnotation(ann));
+        }
     }
 
     public Overlaps newOverlaps(Collection<Account> accounts) {
@@ -191,7 +278,7 @@ public class OPMFactory {
 //     }
     public Artifact newArtifact(String id,
                                 Collection<Account> accounts,
-                                Object value) {
+                                String label) {
         Artifact res=of.createArtifact();
         res.setId(id);
         if ((accounts !=null) && (accounts.size()!=0)) {
@@ -201,7 +288,7 @@ public class OPMFactory {
             }
             res.getAccount().addAll(ll);
         }
-        res.setValue(value);
+        res.getAnnotation().add(of.createLabel(newLabel(label)));
         return res;
     }
 
