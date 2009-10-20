@@ -31,4 +31,12 @@
     </jaxb:bindings>
 
 
+    <jaxb:bindings schemaLocation="collections.xsd" 
+                   node="/xs:schema">       
+        <jaxb:schemaBindings>
+            <jaxb:package name="org.openprovenance.profile.collections"/>
+        </jaxb:schemaBindings>   
+    </jaxb:bindings>
+
+
 </jaxb:bindings>

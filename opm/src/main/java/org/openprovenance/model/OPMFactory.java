@@ -539,6 +539,14 @@ public class OPMFactory {
         return newAnnotation(id,rid,property,value,ll);
     }
 
+    public Property newProperty(String property,
+                                Object value) {
+        Property res=of.createProperty();
+        res.setUri(property);
+        res.setValue(value);
+        return res;
+    }
+
 
     public Annotation newAnnotation(String id,
                                     Ref ref,
@@ -548,8 +556,7 @@ public class OPMFactory {
         Annotation res=of.createAnnotation();
         res.setId(id);
         res.setLocalSubject(ref.getRef());
-        res.setProperty(property);
-        res.setValue(value);
+        res.getProperty().add(newProperty(property,value));
         if (accs!=null) {
             res.getAccount().addAll(accs);
         }
@@ -563,8 +570,13 @@ public class OPMFactory {
                                                     Object dummyParameterForAvoidingSameErasure) {
         EmbeddedAnnotation res=of.createEmbeddedAnnotation();
         res.setId(id);
-        res.setProperty(property);
-        res.setValue(value);
+//         res.getPropertyAndValue().add(property);
+//         res.getPropertyAndValue().add(1);
+//         res.getPropertyAndValue().add(property);
+//         res.getPropertyAndValue().add(2);
+//        res.getPropertyAndValue().add(of.createProperty(property));
+        //        res.getPropertyAndValue().add(of.createValue(value));
+        res.getProperty().add(newProperty(property,value));
         if (accs!=null) {
             res.getAccount().addAll(accs);
         }

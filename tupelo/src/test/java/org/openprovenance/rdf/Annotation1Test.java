@@ -151,7 +151,10 @@ public class Annotation1Test
 
         a4.getAnnotation().add(oFactory.newEmbeddedAnnotation("an11","http://property.org/hasQuality", "bad", orange));
 
-        p5.getAnnotation().add(oFactory.newEmbeddedAnnotation("an12","http://property.org/hasQuality", "average", green));
+        EmbeddedAnnotation ann12=oFactory.newEmbeddedAnnotation("an12","http://property.org/hasQuality", "average", green);
+        ann12.getProperty().add(oFactory.newProperty("http://property.org/numericQuality", 0.4));
+
+        p5.getAnnotation().add(ann12);
 
         p5.getAnnotation().add(oFactory.newEmbeddedAnnotation("an13","http://property.org/hasProperty", "beau", green));
 
@@ -185,7 +188,7 @@ public class Annotation1Test
     public void testAnnotationRDF1() throws Exception {
         OPMXml2Rdf toRdf=new OPMXml2Rdf();
         //System.out.println("graph is " + graph1);
-        toRdf.convert(graph1,"target/annotation1.rdf.xml");
+        toRdf.convert(graph1,"target/annotation1-rdf.xml");
     }
     
 

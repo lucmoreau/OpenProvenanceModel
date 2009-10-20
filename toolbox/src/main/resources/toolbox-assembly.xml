@@ -45,7 +45,7 @@
     </file>
 
     <file>
-      <source>../tupelo/target/example4.xml</source>
+      <source>../tupelo/target/example4-rdf.xml</source>
       <destName>bad-cake.rdf</destName>
       <outputDirectory>/opmToolbox/examples</outputDirectory>
       <fileMode>644</fileMode>

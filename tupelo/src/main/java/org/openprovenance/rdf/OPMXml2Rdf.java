@@ -28,6 +28,7 @@ import org.openprovenance.model.Process;
 import org.openprovenance.model.Artifact; 
 import org.openprovenance.model.Used; 
 import org.openprovenance.model.Role; 
+import org.openprovenance.model.Property; 
 import org.openprovenance.model.EmbeddedAnnotation; 
 import org.openprovenance.model.WasGeneratedBy; 
 import org.openprovenance.model.WasTriggeredBy; 
@@ -347,27 +348,37 @@ public class OPMXml2Rdf {
             triples.add(t2);
 
 
-            Resource predicate=Resource.uriRef(ann.getProperty());
-            Resource value=Resource.literal((String)ann.getValue());
-            Triple t=Triple.create(annotationInRdf,
-                                   predicate,
-                                   value);
+            for (Property prop: ann.getProperty()) {
+                Resource predicate=Resource.uriRef(prop.getUri());
+                Resource value=makeLiteral(prop.getValue());
+                Triple t=Triple.create(annotationInRdf,
+                                       predicate,
+                                       value);
 
-            for (AccountRef aid: ann.getAccount()) {
-                ProvenanceAccount account=accountTable.get(((Account)aid.getRef()).getId());
-                RdfProvenanceAccount a2=(RdfProvenanceAccount) account;
-                Resource accountSubject=a2.getSubject();
+                for (AccountRef aid: ann.getAccount()) {
+                    ProvenanceAccount account=accountTable.get(((Account)aid.getRef()).getId());
+                    RdfProvenanceAccount a2=(RdfProvenanceAccount) account;
+                    Resource accountSubject=a2.getSubject();
+                    
+                    Triple t3=Triple.create(annotationInRdf,
+                                            hasAccount,
+                                            accountSubject);
+                    triples.add(t3);
+                    
+                }
 
-                Triple t3=Triple.create(annotationInRdf,
-                                        hasAccount,
-                                        accountSubject);
-                triples.add(t3);
+                triples.add(t);
             }
 
-                
-            triples.add(t);
         }
         return triples;
+    }
+
+    public Resource makeLiteral(Object value) {
+        if (value instanceof String) return Resource.literal((String)value);
+        if (value instanceof Double) return Resource.literal((Double)value);
+        if (value instanceof Integer) return Resource.literal((Integer)value);
+        return null;
     }
 
     public static String URI_PREFIX="id:";

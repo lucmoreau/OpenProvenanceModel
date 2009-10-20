@@ -44,9 +44,10 @@ public class Annotation1Test
     {
         OPMFactory oFactory=new OPMFactory();
 
-        Collection<Account> green=Collections.singleton(oFactory.newAccount("green"));
+        Account account1=oFactory.newAccount("green");
+        Collection<Account> green=Collections.singleton(account1);
         Collection<Account> orange=Collections.singleton(oFactory.newAccount("orange"));
-        
+
         Process p1=oFactory.newProcess("p1",
                                        green,
                                        "http://process.org/add1ToAll");
@@ -125,7 +126,15 @@ public class Annotation1Test
 
         a4.getAnnotation().add(oFactory.newEmbeddedAnnotation("an11","http://property.org/hasQuality", "bad", orange));
 
-        p5.getAnnotation().add(oFactory.newEmbeddedAnnotation("an12","http://property.org/hasQuality", "average", green));
+        EmbeddedAnnotation ann12=oFactory.newEmbeddedAnnotation("an12","http://property.org/hasQuality", "average", green);
+        ann12.getProperty().add(oFactory.newProperty("http://property.org/numericQuality", 0.4));
+
+        p5.getAnnotation().add(ann12);
+
+        p5.getAnnotation().add(oFactory.newEmbeddedAnnotation("an13","http://property.org/hasProperty", "beau", green));
+
+        account1.getAnnotation().add(oFactory.newEmbeddedAnnotation("an14","http://property.org/hasAlternativeName", "vert", null));
+
 
         OPMGraph graph=oFactory.newOPMGraph(green_orange,
                                             new Overlaps[] { ov1 },

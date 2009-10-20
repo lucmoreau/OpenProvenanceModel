@@ -97,11 +97,18 @@
 
   <xs:complexType name="EmbeddedAnnotation">
      <xs:sequence>
-        <xs:element name="property" type="xs:anyURI"/>
-        <xs:element name="value" type="xs:anyType"/>
-        <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountRef"/>
+        <xs:element name="property" type="opm:Property"   minOccurs="1"    maxOccurs="unbounded"/>
+        <xs:element name="account"  type="opm:AccountRef" minOccurs="0"    maxOccurs="unbounded" />
      </xs:sequence>
      <xs:attribute name="id" type="xs:ID"/>
+  </xs:complexType>
+
+
+  <xs:complexType name="Property">
+     <xs:sequence>
+        <xs:element name="value" type="xs:anyType"/>
+     </xs:sequence>
+     <xs:attribute name="uri" type="xs:anyURI"/>
   </xs:complexType>
 
   <xs:complexType name="Process">
