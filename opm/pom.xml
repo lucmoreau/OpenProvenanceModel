@@ -186,6 +186,7 @@
             <configuration>
               <tasks>
                 
+<!--
                 <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
   	              <arg value="-e s/hashCodeBuilder.append(this.getValue())/\/\/ not included in equality: hashCodeBuilder.append(this.getValue())/" />
   	              <arg value="-iBAK" />
@@ -197,6 +198,7 @@
   	              <arg value="-iBAK" />
   	              <arg value="Account.java" />
                 </exec>
+-->
 
                 <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
   	              <arg value="-e s/implements Equals, HashCode, ToString/implements Node, Equals, HashCode, ToString/" />
@@ -217,19 +219,25 @@
                 </exec>
 
                 <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
-  	              <arg value="-e s/implements Equals, HashCode, ToString/implements Id, Equals, HashCode, ToString/" />
+  	              <arg value="-e s/implements Equals, HashCode, ToString/implements Annotable, Equals, HashCode, ToString/" />
   	              <arg value="-iBAK" />
   	              <arg value="OPMGraph.java" />
                 </exec>
 
                 <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
-  	              <arg value="-e s/implements Equals, HashCode, ToString/implements Id, Equals, HashCode, ToString/" />
+  	              <arg value="-e s/implements Equals, HashCode, ToString/implements Annotable, Equals, HashCode, ToString/" />
+  	              <arg value="-iBAK" />
+  	              <arg value="Account.java" />
+                </exec>
+
+                <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
+  	              <arg value="-e s/implements Equals, HashCode, ToString/implements Annotable, Equals, HashCode, ToString/" />
   	              <arg value="-iBAK" />
   	              <arg value="Role.java" />
                 </exec>
 
                 <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
-  	              <arg value="-e s/implements Equals, HashCode, ToString/implements Id, Equals, HashCode, ToString/" />
+  	              <arg value="-e s/implements Equals, HashCode, ToString/implements Annotable, Equals, HashCode, ToString/" />
   	              <arg value="-iBAK" />
   	              <arg value="Annotation.java" />
                 </exec>

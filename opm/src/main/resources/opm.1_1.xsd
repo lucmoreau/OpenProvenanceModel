@@ -35,6 +35,7 @@
 	  <xs:element name="agents" type="opm:Agents" minOccurs="0"/>
 	  <xs:element name="causalDependencies" type="opm:CausalDependencies" minOccurs="0"/>
 	  <xs:element name="annotations" type="opm:Annotations" minOccurs="0"/>
+	  <xs:element ref="opm:annotation"  minOccurs="0" maxOccurs="unbounded"/>
 	</xs:sequence>
 	<xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
@@ -74,6 +75,7 @@
 
   <xs:complexType name="Role">
 	<xs:sequence>
+	  <xs:element ref="opm:annotation"  minOccurs="0" maxOccurs="unbounded"/>
 	</xs:sequence>
 	<xs:attribute name="value" type="xs:string"/>
 	<xs:attribute name="id" type="xs:ID"/>
@@ -98,6 +100,7 @@
      <xs:sequence>
         <xs:element name="property" type="opm:Property"   minOccurs="1"    maxOccurs="unbounded"/>
         <xs:element name="account"  type="opm:AccountRef" minOccurs="0"    maxOccurs="unbounded" />
+	    <xs:element ref="opm:annotation"  minOccurs="0" maxOccurs="unbounded"/>
      </xs:sequence>
      <xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
@@ -147,6 +150,7 @@
 	  <xs:element name="cause"   type="opm:ArtifactRef"/>
 	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountRef"/>
       <xs:element name="time"    type="opm:OTime" minOccurs="0"/>
+	  <xs:element ref="opm:annotation"  minOccurs="0" maxOccurs="unbounded"/>
 	</xs:sequence>
     <xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
@@ -158,6 +162,7 @@
 	  <xs:element name="cause"   type="opm:ProcessRef"/>
 	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountRef"/>
       <xs:element name="time"    type="opm:OTime" minOccurs="0"/>
+	  <xs:element ref="opm:annotation"  minOccurs="0" maxOccurs="unbounded"/>
 	</xs:sequence>
     <xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
@@ -170,6 +175,7 @@
 	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountRef"/>
       <xs:element name="start"   type="opm:OTime" minOccurs="0"/>
       <xs:element name="end"     type="opm:OTime" minOccurs="0"/>
+	  <xs:element ref="opm:annotation"  minOccurs="0" maxOccurs="unbounded"/>
 	</xs:sequence>
     <xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
@@ -180,6 +186,7 @@
 	  <xs:element name="cause"   type="opm:ArtifactRef"/>
 	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountRef"/>
       <xs:element name="time"    type="opm:OTime" minOccurs="0"/>
+	  <xs:element ref="opm:annotation"  minOccurs="0" maxOccurs="unbounded"/>
 	</xs:sequence>
 	<xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
@@ -190,6 +197,7 @@
 	  <xs:element name="cause"   type="opm:ProcessRef"/>
 	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountRef"/>
       <xs:element name="time"    type="opm:OTime" minOccurs="0"/>
+	  <xs:element ref="opm:annotation"  minOccurs="0" maxOccurs="unbounded"/>
 	</xs:sequence>
 	<xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>

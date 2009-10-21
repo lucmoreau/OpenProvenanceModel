@@ -161,6 +161,21 @@ public class OPMFactory implements CommonURIs {
         }
     }
 
+    public String getType(EmbeddedAnnotation annotation) {
+        if (annotation instanceof Type) {
+            Type type=(Type) annotation;
+            return type.getValue();
+        } else {
+            for (Property prop: annotation.getProperty()) {
+                if (prop.equals(TYPE_PROPERTY)) {
+                    return (String) prop.getValue();
+                }
+            }
+            return null;
+        }
+    }
+
+    /** Return the value of the label property in the first annotation. */
     public String getLabel(List<JAXBElement<? extends EmbeddedAnnotation>> annotations) {
         for (JAXBElement<? extends EmbeddedAnnotation> jann: annotations) {
             EmbeddedAnnotation ann=jann.getValue();
@@ -170,14 +185,26 @@ public class OPMFactory implements CommonURIs {
         return null;
     }
 
-    public String getLabel(Process p) {
-        return getLabel(p.getAnnotation());
+
+    /** Return the value of the type property in the first annotation. */
+
+    public String getType(List<JAXBElement<? extends EmbeddedAnnotation>> annotations) {
+        for (JAXBElement<? extends EmbeddedAnnotation> jann: annotations) {
+            EmbeddedAnnotation ann=jann.getValue();
+            String type=getType(ann);
+            if (type!=null) return type;
+        }
+        return null;
     }
-    public String getLabel(Artifact a) {
-        return getLabel(a.getAnnotation());
+
+    /** Generic accessor for annotable entities. */
+    public String getLabel(Annotable annotable) {
+        return getLabel(annotable.getAnnotation());
     }
-    public String getLabel(Agent ag) {
-        return getLabel(ag.getAnnotation());
+
+    /** Generic accessor for annotable entities. */
+    public String getType(Annotable annotable) {
+        return getType(annotable.getAnnotation());
     }
 
     public Type newType(String type) {
@@ -186,17 +213,8 @@ public class OPMFactory implements CommonURIs {
         return res;
     }
 
-    public void addAnnotation(Process process, EmbeddedAnnotation ann) {
-        process.getAnnotation().add(of.createAnnotation(ann));
-    }
-    public void addAnnotation(Artifact artifact, EmbeddedAnnotation ann) {
-        artifact.getAnnotation().add(of.createAnnotation(ann));
-    }
-    public void addAnnotation(Agent agent, EmbeddedAnnotation ann) {
-        agent.getAnnotation().add(of.createAnnotation(ann));
-    }
-    public void addAnnotation(Account account, EmbeddedAnnotation ann) {
-        account.getAnnotation().add(of.createAnnotation(ann));
+    public void addAnnotation(Annotable annotable, EmbeddedAnnotation ann) {
+        annotable.getAnnotation().add(of.createAnnotation(ann));
     }
 
     public void expandAnnotation(EmbeddedAnnotation ann) {
@@ -213,31 +231,14 @@ public class OPMFactory implements CommonURIs {
     }
 
 
-    public void addAnnotation(Process process, List<EmbeddedAnnotation> anns) {
-        List<JAXBElement<? extends EmbeddedAnnotation>> annotations=process.getAnnotation();
-        for (EmbeddedAnnotation ann: anns) {        
-            annotations.add(of.createAnnotation(ann));
-        }
-    }
-    public void addAnnotation(Artifact artifact, List<EmbeddedAnnotation> anns) {
-        List<JAXBElement<? extends EmbeddedAnnotation>> annotations=artifact.getAnnotation();
-        for (EmbeddedAnnotation ann: anns) {        
-            annotations.add(of.createAnnotation(ann));
-        }
-    }
-    public void addAnnotation(Agent agent, List<EmbeddedAnnotation> anns) {
-        List<JAXBElement<? extends EmbeddedAnnotation>> annotations=agent.getAnnotation();
+    public void addAnnotation(Annotable annotable, List<EmbeddedAnnotation> anns) {
+        List<JAXBElement<? extends EmbeddedAnnotation>> annotations=annotable.getAnnotation();
         for (EmbeddedAnnotation ann: anns) {        
             annotations.add(of.createAnnotation(ann));
         }
     }
 
-    public void addAnnotation(Account account, List<EmbeddedAnnotation> anns) {
-        List<JAXBElement<? extends EmbeddedAnnotation>> annotations=account.getAnnotation();
-        for (EmbeddedAnnotation ann: anns) {        
-            annotations.add(of.createAnnotation(ann));
-        }
-    }
+
 
     public Overlaps newOverlaps(Collection<Account> accounts) {
         Overlaps res=of.createOverlaps();
@@ -273,17 +274,6 @@ public class OPMFactory implements CommonURIs {
         return res;
     }
 
-//     public Artifact newArtifact_(String id,
-//                                 Collection<AccountRef> accounts,
-//                                 Object value) {
-//         Artifact res=of.createArtifact();
-//         res.setId(id);
-//         if ((accounts !=null) && (accounts.size()!=0)) {
-//             res.getAccount().addAll(accounts);
-//         }
-//         res.setValue(value);
-//         return res;
-//     }
     public Artifact newArtifact(String id,
                                 Collection<Account> accounts,
                                 String label) {

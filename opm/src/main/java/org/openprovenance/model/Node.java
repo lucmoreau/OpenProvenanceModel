@@ -1,4 +1,4 @@
 package org.openprovenance.model;
 
-public interface Node extends Id {
+public interface Node extends Annotable {
 } 
