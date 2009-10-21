@@ -12,51 +12,51 @@
     <processes>
         <process id="p1">
             <account ref="green"/>
-            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">http://process.org/add1ToAll</value>
+            <label value="add1ToAll"/>
         </process>
         <process id="p2">
             <account ref="orange"/>
-            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">http://process.org/split</value>
+            <label value="split"/>
         </process>
         <process id="p3">
             <account ref="orange"/>
-            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">http://process.org/plus1</value>
+            <label value="plus1"/>
         </process>
         <process id="p4">
             <account ref="orange"/>
-            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">http://process.org/plus1</value>
+            <label value="plus1"/>
         </process>
         <process id="p5">
             <account ref="orange"/>
-            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">http://process.org/cons</value>
+            <label value="cons"/>
         </process>
     </processes>
     <artifacts>
         <artifact id="a1">
-            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">(2,6)</value>
             <account ref="green"/>
             <account ref="orange"/>
+            <label value="(2,6)"/>
         </artifact>
         <artifact id="a2">
-            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">(3,7)</value>
             <account ref="green"/>
             <account ref="orange"/>
+            <label value="(3,7)"/>
         </artifact>
         <artifact id="a3">
-            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">2</value>
             <account ref="orange"/>
+            <label value="2"/>
         </artifact>
         <artifact id="a4">
-            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">6</value>
             <account ref="orange"/>
+            <label value="6"/>
         </artifact>
         <artifact id="a5">
-            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">3</value>
             <account ref="orange"/>
+            <label value="3"/>
         </artifact>
         <artifact id="a6">
-            <value xsi:type="xs:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema">7</value>
             <account ref="orange"/>
+            <label value="7"/>
         </artifact>
     </artifacts>
     <causalDependencies>
