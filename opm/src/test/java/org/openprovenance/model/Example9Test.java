@@ -10,10 +10,8 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.openprovenance.model.extension.OPMExtendedFactory;
-import org.openprovenance.model.extension.ExtOPMToDot;
 import org.openprovenance.model.collections.CollectionFactory;
-import org.openprovenance.model.extension.NamedWasDerivedFrom;
+
 
 /**
  * Unit test for simple App.
@@ -43,7 +41,7 @@ public class Example9Test
 
     public void testCollectionProposal2() throws Exception 
     {
-        OPMExtendedFactory oFactory=new OPMExtendedFactory();
+        OPMFactory oFactory=new OPMFactory();
         CollectionFactory cFactory=new CollectionFactory(oFactory);
 
         Collection<Account> black=Collections.singleton(oFactory.newAccount("black"));
@@ -122,19 +120,19 @@ public class Example9Test
         WasGeneratedBy wg1=oFactory.newWasGeneratedBy(c1,oFactory.newRole("product"),p1,black);
 
 
-        NamedWasDerivedFrom wd1=oFactory.newNamedWasDerivedFrom(c1,a1,"wasLeftProduct",black);
-        NamedWasDerivedFrom wd2=oFactory.newNamedWasDerivedFrom(c1,b1,"wasRightProduct",black);
+        WasDerivedFrom wd1=oFactory.newWasDerivedFrom("wd1",c1,a1,"wasLeftProduct",black);
+        WasDerivedFrom wd2=oFactory.newWasDerivedFrom("wd2",c1,b1,"wasRightProduct",black);
+        
+        WasDerivedFrom wd3=cFactory.newWasIdenticalTo("wd3",ai2,ai1,orange);
+        WasDerivedFrom wd4=cFactory.newWasIdenticalTo("wd4",bj2,bj1,orange);
 
-        NamedWasDerivedFrom wd3=cFactory.newWasIdenticalTo(ai2,ai1,orange);
-        NamedWasDerivedFrom wd4=cFactory.newWasIdenticalTo(bj2,bj1,orange);
+        WasDerivedFrom wd5=cFactory.newContained("wd5",a1,ai1,orange);
+        WasDerivedFrom wd6=cFactory.newContained("wd6",b1,bj1,orange);
 
-        NamedWasDerivedFrom wd5=cFactory.newContained(a1,ai1,orange);
-        NamedWasDerivedFrom wd6=cFactory.newContained(b1,bj1,orange);
+        WasDerivedFrom wd7=cFactory.newContained("wd7",cij,ai2,orange);
+        WasDerivedFrom wd8=cFactory.newContained("wd8",cij,bj2,orange);
 
-        NamedWasDerivedFrom wd7=cFactory.newContained(cij,ai2,orange);
-        NamedWasDerivedFrom wd8=cFactory.newContained(cij,bj2,orange);
-
-        NamedWasDerivedFrom wd9=cFactory.newContained(c1,cij,orange);
+        WasDerivedFrom wd9=cFactory.newContained("wd9",c1,cij,orange);
 
 
 
@@ -152,12 +150,12 @@ public class Example9Test
 
         WasGeneratedBy wg3=oFactory.newWasGeneratedBy(cij2,oFactory.newRole("result"),p3,orange);
 
-        NamedWasDerivedFrom wd10=cFactory.newContained(c2,cij2,orange);
+        WasDerivedFrom wd10=cFactory.newContained("wd10",c2,cij2,orange);
 
-        NamedWasDerivedFrom wd11=oFactory.newNamedWasDerivedFrom(cij2,cij,"wasApplied",orange);
-
-        NamedWasDerivedFrom wd12=oFactory.newNamedWasDerivedFrom(c2,c1,"wasMapped",black);
-
+        WasDerivedFrom wd11=oFactory.newWasDerivedFrom("wd11",cij2,cij,"wasApplied",orange);
+        
+        WasDerivedFrom wd12=oFactory.newWasDerivedFrom("wd12",c2,c1,"wasMapped",black);
+        
 
         OPMGraph graph=oFactory.newOPMGraph(black_orange,
                                             new Overlaps[] { },
@@ -182,7 +180,7 @@ public class Example9Test
         assertTrue( true );
 
 
-        OPMToDot toDot=new ExtOPMToDot();
+        OPMToDot toDot=new OPMToDot();
         
         toDot.convert(graph1,"target/collection2.dot", "target/collection2.pdf");
 

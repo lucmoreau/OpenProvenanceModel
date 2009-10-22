@@ -10,11 +10,8 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.openprovenance.model.extension.OPMExtendedFactory;
-import org.openprovenance.model.extension.ExtOPMToDot;
-import org.openprovenance.model.collections.CollectionFactory;
-import org.openprovenance.model.extension.NamedWasDerivedFrom;
-import org.openprovenance.model.extension.NamedWasControlledBy;
+
+
 
 /**
  * Unit test for simple App.
@@ -44,8 +41,7 @@ public class Example10Test
 
     public void testDCProposal() throws Exception 
     {
-        OPMExtendedFactory oFactory=new OPMExtendedFactory();
-        CollectionFactory cFactory=new CollectionFactory(oFactory);
+        OPMFactory oFactory=new OPMFactory();
 
         Collection<Account> black=Collections.singleton(oFactory.newAccount("black"));
         Collection<Account> orange=Collections.singleton(oFactory.newAccount("orange"));
@@ -81,12 +77,12 @@ public class Example10Test
         WasGeneratedBy wg1=oFactory.newWasGeneratedBy(a2,oFactory.newRole("r2"),p,black);
 
 
-        NamedWasDerivedFrom wd1=oFactory.newNamedWasDerivedFrom(a2,a1,"wasSameResourceAs",black);
-
-        NamedWasControlledBy wc1=oFactory.newNamedWasControlledBy(p,oFactory.newRole("contributor"),
-                                                                  ag,
-                                                                  "wasActionOf",
-                                                                  black);
+        WasDerivedFrom wd1=oFactory.newWasDerivedFrom("wd1",a2,a1,"wasSameResourceAs",black);
+        
+        WasControlledBy wc1=oFactory.newWasControlledBy("wc1",p,oFactory.newRole("contributor"),
+                                                        ag,
+                                                        "wasActionOf",
+                                                        black);
 
 
         OPMGraph graph=oFactory.newOPMGraph(black_orange,
@@ -113,7 +109,7 @@ public class Example10Test
         assertTrue( true );
 
 
-        OPMToDot toDot=new ExtOPMToDot();
+        OPMToDot toDot=new OPMToDot();
         
         toDot.convert(graph1,"target/dc1.dot", "target/dc1.pdf");
 

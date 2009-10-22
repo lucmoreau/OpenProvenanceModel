@@ -417,7 +417,6 @@ public class OPMToDot {
     /** TODO: rename as addEdgeType. */
     public void addEdgeName(Edge e, HashMap<String,String> properties) {
         String type=of.getType(e);
-        System.out.println("Foudn type " + type);
         if (type!=null) {
             properties.put("label",convertEdgeLabel(type));
             properties.put("labelfontsize","8");

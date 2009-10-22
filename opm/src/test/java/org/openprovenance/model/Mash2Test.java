@@ -10,8 +10,6 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.openprovenance.model.extension.OPMExtendedFactory;
-import org.openprovenance.model.extension.ExtOPMToDot;
 
 
 
@@ -313,15 +311,15 @@ public class Mash2Test
                                                                   black);
 
 
-//         NamedWasControlledBy wc2=oFactory.newNamedWasControlledBy(photos,oFactory.newRole("contributor"),
+//         WasControlledBy wc2=oFactory.newWasControlledBy("wc2",photos,oFactory.newRole("contributor"),
 //                                                                   pProvider,
 //                                                                   "wasHostedBy",
 //                                                                   black);
-//         NamedWasControlledBy wc3=oFactory.newNamedWasControlledBy(trails,oFactory.newRole("contributor"),
+//         WasControlledBy wc3=oFactory.newWasControlledBy("wc3",trails,oFactory.newRole("contributor"),
 //                                                                   tProvider,
 //                                                                   "wasHostedBy",
 //                                                                   black);
-//         NamedWasControlledBy wc4=oFactory.newNamedWasControlledBy(blogs,oFactory.newRole("contributor"),
+//         WasControlledBy wc4=oFactory.newWasControlledBy("wc4",blogs,oFactory.newRole("contributor"),
 //                                                                   bProvider,
 //                                                                   "wasHostedBy",
 //                                                                   black);
@@ -342,7 +340,7 @@ public class Mash2Test
 
 
         OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
-        serial.serialiseOPMGraph(new File("target/mash.xml"),graph,true);
+        serial.serialiseOPMGraph(new File("target/mash2.xml"),graph,true);
 
         
         //System.out.println(sw);
@@ -352,7 +350,7 @@ public class Mash2Test
         assertTrue( true );
 
 
-        OPMToDot toDot=new ExtOPMToDot();
+        OPMToDot toDot=new OPMToDot();
         
         toDot.convert(graph1,"target/mash2.dot", "target/mash2.pdf");
 

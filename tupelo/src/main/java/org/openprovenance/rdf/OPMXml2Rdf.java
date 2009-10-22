@@ -38,7 +38,6 @@ import org.openprovenance.model.OPMUtilities;
 import org.openprovenance.model.OPMFactory; 
 import org.openprovenance.model.OPMDeserialiser; 
 
-import org.openprovenance.model.extension.NamedWasDerivedFrom; 
 
 
 import org.tupeloproject.provenance.ProvenanceAccount;
@@ -140,12 +139,8 @@ public class OPMXml2Rdf {
             for (Process p: graph.getProcesses().getProcess()) {
                 Resource res=Resource.uriRef(urify(p.getId()));
                 ProvenanceProcess rdfProcess;
-                if (oFactory.getLabel(p) instanceof String) {
-                    rdfProcess = pcf.newProcess((String)oFactory.getLabel(p),res);
-                } else {
-                    logger.warn("how to serialise process value? " + oFactory.getLabel(p).toString());
-                    rdfProcess = pcf.newProcess(oFactory.getLabel(p).toString(),res);
-                }
+                rdfProcess = pcf.newProcess((String)oFactory.getLabel(p),res);
+
                 pcf.assertProcess(rdfProcess);
                 processTable.put(p.getId(),rdfProcess);
 
@@ -162,12 +157,8 @@ public class OPMXml2Rdf {
             for (Artifact a: graph.getArtifacts().getArtifact()) {
                 Resource res=Resource.uriRef(urify(a.getId()));
                 ProvenanceArtifact rdfArtifact;
-                if (oFactory.getLabel(a) instanceof String) {
-                    rdfArtifact = pcf.newArtifact((String)oFactory.getLabel(a),res);
-                } else {
-                    logger.warn("how to serialise artifact value? " + oFactory.getLabel(a).toString());
-                    rdfArtifact = pcf.newArtifact("hello",res);
-                }
+                rdfArtifact = pcf.newArtifact((String)oFactory.getLabel(a),res);
+
                 pcf.assertArtifact(rdfArtifact);
                 artifactTable.put(a.getId(),rdfArtifact);
 
@@ -184,12 +175,8 @@ public class OPMXml2Rdf {
             for (Agent a: graph.getAgents().getAgent()) {
                 Resource res=Resource.uriRef(urify(a.getId()));
                 ProvenanceAgent rdfAgent;
-                if (oFactory.getLabel(a) instanceof String) {
-                    rdfAgent = pcf.newAgent((String)oFactory.getLabel(a),res);
-                } else {
-                    logger.warn("how to serialise agent value?");
-                    rdfAgent = pcf.newAgent(oFactory.getLabel(a).toString(),res);
-                }
+                rdfAgent = pcf.newAgent((String)oFactory.getLabel(a),res);
+
                 pcf.assertAgent(rdfAgent);
                 agentTable.put(a.getId(),rdfAgent);
 
@@ -275,9 +262,9 @@ public class OPMXml2Rdf {
                                     pcf.assertDerivedFrom(effect, cause, account);
                                 }
                             }
-                            if (e instanceof NamedWasDerivedFrom) {
-                                NamedWasDerivedFrom nwdf=(NamedWasDerivedFrom) e;
-                                String type=nwdf.getType();
+                            String type=oFactory.getType(e);
+                            if (type!=null) {
+
                                 Collection<ProvenanceDerivedArc> derived=pcf.getDerivedFrom(effect);
                                 ProvenanceDerivedArc me=null;
                                 for (ProvenanceDerivedArc a: derived) {
@@ -289,7 +276,6 @@ public class OPMXml2Rdf {
                                         break;
                                     }
                                 }
-                                //System.out.println("triples " + mc.getTriples());
                             }
                         }
                         else {

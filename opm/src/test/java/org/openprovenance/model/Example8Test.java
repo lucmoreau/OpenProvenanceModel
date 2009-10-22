@@ -10,10 +10,8 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.openprovenance.model.extension.OPMExtendedFactory;
-import org.openprovenance.model.extension.ExtOPMToDot;
+
 import org.openprovenance.model.collections.CollectionFactory;
-import org.openprovenance.model.extension.NamedWasDerivedFrom;
 
 /**
  * Unit test for simple App.
@@ -43,7 +41,7 @@ public class Example8Test
 
     public void testCollectionProposal1() throws Exception
     {
-        OPMExtendedFactory oFactory=new OPMExtendedFactory();
+        OPMFactory oFactory=new OPMFactory();
         CollectionFactory cFactory=new CollectionFactory(oFactory);
 
         Collection<Account> black=Collections.singleton(oFactory.newAccount("black"));
@@ -127,32 +125,32 @@ public class Example8Test
         WasGeneratedBy wg1=oFactory.newWasGeneratedBy(a3,oFactory.newRole("updated"),p1,black);
 
 
-        NamedWasDerivedFrom wd1=oFactory.newNamedWasDerivedFrom(a3,a2,"wasUpdated",black);
-        NamedWasDerivedFrom wd2=cFactory.newWasIdenticalTo(a2,a1,black);
+        WasDerivedFrom wd1=oFactory.newWasDerivedFrom("wd1",a3,a2,"wasUpdated",black);
+        WasDerivedFrom wd2=cFactory.newWasIdenticalTo("wd2",a2,a1,black);
+        
+        WasDerivedFrom wd3=cFactory.newWasIdenticalTo("wd3",g2,g1,black);
+        WasDerivedFrom wd4=cFactory.newContained("wd4",a3,g2,black);
 
-        NamedWasDerivedFrom wd3=cFactory.newWasIdenticalTo(g2,g1,black);
-        NamedWasDerivedFrom wd4=cFactory.newContained(a3,g2,black);
-
-        NamedWasDerivedFrom wd5=cFactory.newWasIdenticalTo(f2,f1,orange);
-        NamedWasDerivedFrom wd6=cFactory.newWasIdenticalTo(f3,f2,orange);
-        NamedWasDerivedFrom wd7=cFactory.newContained(a2,f2,orange);
-        NamedWasDerivedFrom wd8=cFactory.newContained(a3,f3,orange);
-        NamedWasDerivedFrom wd9=cFactory.newContained(a1,f1,orange);
+        WasDerivedFrom wd5=cFactory.newWasIdenticalTo("wd5",f2,f1,orange);
+        WasDerivedFrom wd6=cFactory.newWasIdenticalTo("wd6",f3,f2,orange);
+        WasDerivedFrom wd7=cFactory.newContained("wd7",a2,f2,orange);
+        WasDerivedFrom wd8=cFactory.newContained("wd8",a3,f3,orange);
+        WasDerivedFrom wd9=cFactory.newContained("wd9",a1,f1,orange);
 
 
-        NamedWasDerivedFrom wd10=oFactory.newNamedWasDerivedFrom(b2,b1,"wasAppendedTo",black);
-        NamedWasDerivedFrom wd10b=oFactory.newNamedWasDerivedFrom(b2,a1,"wasAppendedTo",black);
-        NamedWasDerivedFrom wd11=oFactory.newNamedWasDerivedFrom(b3,b2,"updated",black);
+        WasDerivedFrom wd10=oFactory.newWasDerivedFrom("wd10",b2,b1,"wasAppendedTo",black);
+        WasDerivedFrom wd10b=oFactory.newWasDerivedFrom("wd10b",b2,a1,"wasAppendedTo",black);
+        WasDerivedFrom wd11=oFactory.newWasDerivedFrom("wd11",b3,b2,"updated",black);
+        
+        WasDerivedFrom wd12=cFactory.newContained("wd12",b2,a2,black);
+        WasDerivedFrom wd13=cFactory.newContained("wd13",b3,a3,black);
 
-        NamedWasDerivedFrom wd12=cFactory.newContained(b2,a2,black);
-        NamedWasDerivedFrom wd13=cFactory.newContained(b3,a3,black);
+        WasDerivedFrom wd14=cFactory.newContained("wd14",b1,c1,orange);
+        WasDerivedFrom wd15=cFactory.newContained("wd15",b2,c2,orange);
+        WasDerivedFrom wd16=cFactory.newContained("wd16",b3,c3,orange);
 
-        NamedWasDerivedFrom wd14=cFactory.newContained(b1,c1,orange);
-        NamedWasDerivedFrom wd15=cFactory.newContained(b2,c2,orange);
-        NamedWasDerivedFrom wd16=cFactory.newContained(b3,c3,orange);
-
-        NamedWasDerivedFrom wd17=cFactory.newWasIdenticalTo(c3,c2,orange);
-        NamedWasDerivedFrom wd18=cFactory.newWasIdenticalTo(c2,c1,orange);
+        WasDerivedFrom wd17=cFactory.newWasIdenticalTo("wd17",c3,c2,orange);
+        WasDerivedFrom wd18=cFactory.newWasIdenticalTo("wd18",c2,c1,orange);
 
 
 
@@ -189,7 +187,7 @@ public class Example8Test
 
 
 
-        OPMToDot toDot=new ExtOPMToDot();        
+        OPMToDot toDot=new OPMToDot();        
         toDot.convert(graph1,"target/collection1.dot", "target/collection1.pdf");
 
         

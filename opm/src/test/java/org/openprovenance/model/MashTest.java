@@ -10,11 +10,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.openprovenance.model.extension.OPMExtendedFactory;
-import org.openprovenance.model.extension.ExtOPMToDot;
-import org.openprovenance.model.collections.CollectionFactory;
-import org.openprovenance.model.extension.NamedWasDerivedFrom;
-import org.openprovenance.model.extension.NamedWasControlledBy;
+
 
 /**
  * Unit test for simple App.
@@ -44,8 +40,7 @@ public class MashTest
 
     public void testMash1() throws Exception 
     {
-        OPMExtendedFactory oFactory=new OPMExtendedFactory();
-        CollectionFactory cFactory=new CollectionFactory(oFactory);
+        OPMFactory oFactory=new OPMFactory();
 
         Collection<Account> black=Collections.singleton(oFactory.newAccount("black"));
         Collection<Account> orange=Collections.singleton(oFactory.newAccount("orange"));
@@ -279,53 +274,53 @@ public class MashTest
         WasGeneratedBy wg_9=oFactory.newWasGeneratedBy(bb3,oFactory.newRole("r3"),blogs2,black);
 
 
-        NamedWasDerivedFrom wd1=oFactory.newNamedWasDerivedFrom(ba1,b1,wasSameResourceAs,black);
-        NamedWasDerivedFrom wd2=oFactory.newNamedWasDerivedFrom(ba2,b2,wasSameResourceAs,black);
-        //NamedWasDerivedFrom wd3=oFactory.newNamedWasDerivedFrom(ba3,b3,wasSameResourceAs,black);
+        WasDerivedFrom wd1=oFactory.newWasDerivedFrom("wd1",ba1,b1,wasSameResourceAs,black);
+        WasDerivedFrom wd2=oFactory.newWasDerivedFrom("wd2",ba2,b2,wasSameResourceAs,black);
+        //WasDerivedFrom wd3=oFactory.newWasDerivedFrom("wd3",ba3,b3,wasSameResourceAs,black);
+        
+        WasDerivedFrom wd4=oFactory.newWasDerivedFrom("wd4",ta1,t1,wasSameResourceAs,black);
+        WasDerivedFrom wd5=oFactory.newWasDerivedFrom("wd5",ta2,t2,wasSameResourceAs,black);
+        WasDerivedFrom wd6=oFactory.newWasDerivedFrom("wd6",ta3,t3,wasSameResourceAs,black);
+        
+        WasDerivedFrom wd7=oFactory.newWasDerivedFrom("wd7",pha1,ph1,wasSameResourceAs,black);
+        WasDerivedFrom wd8=oFactory.newWasDerivedFrom("wd8",pha2,ph2,wasSameResourceAs,black);
+        WasDerivedFrom wd9=oFactory.newWasDerivedFrom("wd9",pha3,ph3,wasSameResourceAs,black);
+        
+        WasDerivedFrom wd_5=oFactory.newWasDerivedFrom("wd_5",tb2,ta2,wasSameResourceAs,black);
+        WasDerivedFrom wd_8=oFactory.newWasDerivedFrom("wd_8",phb3,pha3,wasSameResourceAs,black);
+        WasDerivedFrom wd_3=oFactory.newWasDerivedFrom("wd_3",bb3,ba2,wasSameResourceAs,black);
+        
+        WasDerivedFrom wdb_8=oFactory.newWasDerivedFrom("wdb_8",phb4,phb3,wasSameResourceAs,black);
+        WasDerivedFrom wdb_3=oFactory.newWasDerivedFrom("wdb_3",bb4,bb3,wasSameResourceAs,black);
+        
+        WasDerivedFrom wdb__8=oFactory.newWasDerivedFrom("wdb__8",phb4,q,"selectedBy",black);
+        WasDerivedFrom wdb__3=oFactory.newWasDerivedFrom("wdb__3",bb4,q,"selectedBy",black);
+        
 
-        NamedWasDerivedFrom wd4=oFactory.newNamedWasDerivedFrom(ta1,t1,wasSameResourceAs,black);
-        NamedWasDerivedFrom wd5=oFactory.newNamedWasDerivedFrom(ta2,t2,wasSameResourceAs,black);
-        NamedWasDerivedFrom wd6=oFactory.newNamedWasDerivedFrom(ta3,t3,wasSameResourceAs,black);
-
-        NamedWasDerivedFrom wd7=oFactory.newNamedWasDerivedFrom(pha1,ph1,wasSameResourceAs,black);
-        NamedWasDerivedFrom wd8=oFactory.newNamedWasDerivedFrom(pha2,ph2,wasSameResourceAs,black);
-        NamedWasDerivedFrom wd9=oFactory.newNamedWasDerivedFrom(pha3,ph3,wasSameResourceAs,black);
-
-        NamedWasDerivedFrom wd_5=oFactory.newNamedWasDerivedFrom(tb2,ta2,wasSameResourceAs,black);
-        NamedWasDerivedFrom wd_8=oFactory.newNamedWasDerivedFrom(phb3,pha3,wasSameResourceAs,black);
-        NamedWasDerivedFrom wd_3=oFactory.newNamedWasDerivedFrom(bb3,ba2,wasSameResourceAs,black);
-
-        NamedWasDerivedFrom wdb_8=oFactory.newNamedWasDerivedFrom(phb4,phb3,wasSameResourceAs,black);
-        NamedWasDerivedFrom wdb_3=oFactory.newNamedWasDerivedFrom(bb4,bb3,wasSameResourceAs,black);
-
-        NamedWasDerivedFrom wdb__8=oFactory.newNamedWasDerivedFrom(phb4,q,"selectedBy",black);
-        NamedWasDerivedFrom wdb__3=oFactory.newNamedWasDerivedFrom(bb4,q,"selectedBy",black);
+        WasDerivedFrom wd12=oFactory.newWasDerivedFrom("wd12",mashup,phb4,"contains",black);
+        WasDerivedFrom wd13=oFactory.newWasDerivedFrom("wd13",mashup,bb4,"contains",black);
+        WasDerivedFrom wd14=oFactory.newWasDerivedFrom("wd14",mashup,map,"contains",black);
+        
+        WasDerivedFrom wd15=oFactory.newWasDerivedFrom("wd15",q,tb2,"parameterizedBy",black);
+        
+        WasControlledBy wc1=oFactory.newWasControlledBy("wc1",select,oFactory.newRole("contributor"),
+                                                        ag,
+                                                        "wasActionOf",
+                                                        black);
 
 
-        NamedWasDerivedFrom wd12=oFactory.newNamedWasDerivedFrom(mashup,phb4,"contains",black);
-        NamedWasDerivedFrom wd13=oFactory.newNamedWasDerivedFrom(mashup,bb4,"contains",black);
-        NamedWasDerivedFrom wd14=oFactory.newNamedWasDerivedFrom(mashup,map,"contains",black);
-
-        NamedWasDerivedFrom wd15=oFactory.newNamedWasDerivedFrom(q,tb2,"parameterizedBy",black);
-
-        NamedWasControlledBy wc1=oFactory.newNamedWasControlledBy(select,oFactory.newRole("contributor"),
-                                                                  ag,
-                                                                  "wasActionOf",
-                                                                  black);
-
-
-        NamedWasControlledBy wc2=oFactory.newNamedWasControlledBy(photos,oFactory.newRole("contributor"),
-                                                                  pProvider,
-                                                                  "wasHostedBy",
-                                                                  black);
-        NamedWasControlledBy wc3=oFactory.newNamedWasControlledBy(trails,oFactory.newRole("contributor"),
-                                                                  tProvider,
-                                                                  "wasHostedBy",
-                                                                  black);
-        NamedWasControlledBy wc4=oFactory.newNamedWasControlledBy(blogs,oFactory.newRole("contributor"),
-                                                                  bProvider,
-                                                                  "wasHostedBy",
-                                                                  black);
+        WasControlledBy wc2=oFactory.newWasControlledBy("wc2",photos,oFactory.newRole("contributor"),
+                                                        pProvider,
+                                                        "wasHostedBy",
+                                                        black);
+        WasControlledBy wc3=oFactory.newWasControlledBy("wc3",trails,oFactory.newRole("contributor"),
+                                                        tProvider,
+                                                        "wasHostedBy",
+                                                        black);
+        WasControlledBy wc4=oFactory.newWasControlledBy("wc4",blogs,oFactory.newRole("contributor"),
+                                                        bProvider,
+                                                        "wasHostedBy",
+                                                        black);
 
 
         OPMGraph graph=oFactory.newOPMGraph(black_orange,
@@ -352,7 +347,7 @@ public class MashTest
         assertTrue( true );
 
 
-        OPMToDot toDot=new ExtOPMToDot();
+        OPMToDot toDot=new OPMToDot();
         
         toDot.convert(graph1,"target/mash.dot", "target/mash.pdf");
 
