@@ -11,8 +11,8 @@
 
 
   <scm>
-    <connection>scm:svn:https://provenance.ecs.soton.ac.uk/contrib-svn/opm/trunk</connection>
-    <developerConnection>scm:svn:https://provenance.ecs.soton.ac.uk/contrib-svn/opm/trunk</developerConnection>
+    <connection>scm:git:git@github.com:lucmoreau/OpenProvenanceModel.git</connection>
+    <developerConnection>scm:git:git@github.com:lucmoreau/OpenProvenanceModel.git</developerConnection>
   </scm>   
 
 
