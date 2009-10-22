@@ -414,8 +414,20 @@ public class OPMToDot {
         return properties;
     }
 
+    /** TODO: rename as addEdgeType. */
     public void addEdgeName(Edge e, HashMap<String,String> properties) {
+        String type=of.getType(e);
+        System.out.println("Foudn type " + type);
+        if (type!=null) {
+            properties.put("label",convertEdgeLabel(type));
+            properties.put("labelfontsize","8");
+        }
     }
+
+    public String convertEdgeLabel(String label) {
+        return label.substring(label.indexOf("#")+1, label.length());
+    }
+
 
     HashMap<String,String> accountColourMap=new HashMap<String,String>();
     public String convertAccount(String account) {
@@ -426,6 +438,7 @@ public class OPMToDot {
 
     String defaultEdgeStyle;
     HashMap<String,String> edgeStyleMap=new HashMap<String,String>();
+    
     public String getEdgeStyle(Edge edge) {
         String name=edge.getClass().getName();
         String style=edgeStyleMap.get(name);

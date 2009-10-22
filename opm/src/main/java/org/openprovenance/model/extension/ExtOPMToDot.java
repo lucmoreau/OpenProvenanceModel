@@ -14,6 +14,7 @@ import org.openprovenance.model.extension.NamedWasControlledBy;
 public class ExtOPMToDot extends OPMToDot {
 
     public void addEdgeName(Edge e, HashMap<String,String> properties) {
+        super.addEdgeName(e,properties);
         if (e instanceof NamedWasDerivedFrom) {
             NamedWasDerivedFrom edge=(NamedWasDerivedFrom) e;
             properties.put("label",convertEdgeLabel(edge.getType()));
