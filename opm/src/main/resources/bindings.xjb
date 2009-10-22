@@ -15,14 +15,6 @@
     </jaxb:bindings>
 
 
-    <jaxb:bindings schemaLocation="opm_extension.1_1.xsd" 
-                   node="/xs:schema">       
-        <jaxb:schemaBindings> <!-- later, we may want these to appear in a separate package -->
-            <jaxb:package name="org.openprovenance.model.extension"/>
-        </jaxb:schemaBindings>   
-    </jaxb:bindings>
-
-
     <jaxb:bindings schemaLocation="opm_printer_config.xsd" 
                    node="/xs:schema">       
         <jaxb:schemaBindings>

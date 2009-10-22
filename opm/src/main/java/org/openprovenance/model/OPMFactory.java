@@ -10,7 +10,7 @@ import javax.xml.bind.JAXBElement;
 public class OPMFactory implements CommonURIs {
 
     public static final String packageList=
-        "org.openprovenance.model:org.openprovenance.model.extension";
+        "org.openprovenance.model";
 
     public String getPackageList() {
         return packageList;

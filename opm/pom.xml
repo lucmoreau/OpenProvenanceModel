@@ -98,7 +98,6 @@
 		       </plugins>
                <schemaIncludes>
                  <schemaInclude>**/opm.1_1.xsd</schemaInclude>
-                 <schemaInclude>**/opm_extension.1_1.xsd</schemaInclude>
                  <schemaInclude>**/opm_printer_config.xsd</schemaInclude>
                  <schemaInclude>**/collections.xsd</schemaInclude>
                </schemaIncludes>
