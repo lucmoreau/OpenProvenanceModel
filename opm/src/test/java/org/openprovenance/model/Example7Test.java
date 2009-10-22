@@ -11,7 +11,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.openprovenance.model.extension.OPMExtendedFactory;
-import org.openprovenance.model.extension.NamedWasDerivedFrom;
+
 
 
 /**
@@ -42,7 +42,7 @@ public class Example7Test
 
     public void testIndexedGraph() throws JAXBException
     {
-        OPMExtendedFactory oFactory=new OPMExtendedFactory();
+        OPMFactory oFactory=new OPMFactory();
 
         Collection<Account> black=Collections.singleton(oFactory.newAccount("black"));
         Collection<Account> orange=Collections.singleton(oFactory.newAccount("orange"));
@@ -123,15 +123,15 @@ public class Example7Test
 
 
 
-        NamedWasDerivedFrom wd1=oFactory.newNamedWasDerivedFrom(a5,a1,"wasBakedFrom",orange);
-        NamedWasDerivedFrom wd2=oFactory.newNamedWasDerivedFrom(a5,a2,"wasBakedFrom",orange);
-        NamedWasDerivedFrom wd3=oFactory.newNamedWasDerivedFrom(a5,a3,"wasBakedFrom",orange);
-        NamedWasDerivedFrom wd4=oFactory.newNamedWasDerivedFrom(a5,a4,"wasBakedFrom",orange);
+        WasDerivedFrom wd1=oFactory.newWasDerivedFrom("wd1",a5,a1,"wasBakedFrom",orange);
+        WasDerivedFrom wd2=oFactory.newWasDerivedFrom("wd2",a5,a2,"wasBakedFrom",orange);
+        WasDerivedFrom wd3=oFactory.newWasDerivedFrom("wd3",a5,a3,"wasBakedFrom",orange);
+        WasDerivedFrom wd4=oFactory.newWasDerivedFrom("wd4",a5,a4,"wasBakedFrom",orange);
 
-        NamedWasDerivedFrom wd5=oFactory.newNamedWasDerivedFrom(a5,a1,"wasBakedFrom",black);
-        NamedWasDerivedFrom wd6=oFactory.newNamedWasDerivedFrom(a5,a6,"wasBakedFrom",black);
-        NamedWasDerivedFrom wd7=oFactory.newNamedWasDerivedFrom(a5,a3,"wasBakedFrom",black);
-        NamedWasDerivedFrom wd8=oFactory.newNamedWasDerivedFrom(a5,a4,"wasBakedFrom",black);
+        WasDerivedFrom wd5=oFactory.newWasDerivedFrom("wd5",a5,a1,"wasBakedFrom",black);
+        WasDerivedFrom wd6=oFactory.newWasDerivedFrom("wd6",a5,a6,"wasBakedFrom",black);
+        WasDerivedFrom wd7=oFactory.newWasDerivedFrom("wd7",a5,a3,"wasBakedFrom",black);
+        WasDerivedFrom wd8=oFactory.newWasDerivedFrom("wd8",a5,a4,"wasBakedFrom",black);
 
         WasDerivedFrom wd9=oFactory.newWasDerivedFrom(a6,a2,black);
         WasDerivedFrom wd10=oFactory.newWasDerivedFrom(a7,a2,black);

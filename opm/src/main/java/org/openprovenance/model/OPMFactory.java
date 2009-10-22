@@ -216,6 +216,9 @@ public class OPMFactory implements CommonURIs {
     public void addAnnotation(Annotable annotable, EmbeddedAnnotation ann) {
         annotable.getAnnotation().add(of.createAnnotation(ann));
     }
+    public void addAnnotation(Annotable annotable, JAXBElement<? extends EmbeddedAnnotation> ann) {
+        annotable.getAnnotation().add(ann);
+    }
 
     public void expandAnnotation(EmbeddedAnnotation ann) {
         if (ann instanceof Label) {
@@ -326,6 +329,16 @@ public class OPMFactory implements CommonURIs {
         res.setId(id);
         return res;
     }
+    public Used newUsed(String id,
+                        Process p,
+                        Role role,
+                        Artifact a,
+                        String type,
+                        Collection<Account> accounts) {
+        Used res=newUsed(id,p,role,a,accounts);
+        addAnnotation(res,of.createType(newType(type)));
+        return res;
+    }
 
     public Used newUsed(Used u) {
         return newUsed(u.getEffect(),
@@ -399,6 +412,16 @@ public class OPMFactory implements CommonURIs {
         return res;
     }
 
+    public WasGeneratedBy newWasGeneratedBy(String id,
+                                            Artifact a,
+                                            Role role,
+                                            Process p,
+                                            String type,
+                                            Collection<Account> accounts) {
+        WasGeneratedBy wgb=newWasGeneratedBy(id,a,role,p,accounts);
+        addAnnotation(wgb,of.createType(newType(type)));
+        return wgb;
+    }
 
 
     public WasControlledBy newWasControlledBy(ProcessRef pid,
@@ -429,6 +452,19 @@ public class OPMFactory implements CommonURIs {
         return  newWasControlledBy(pid,role,agid,ll);
     }
 
+    public WasControlledBy newWasControlledBy(String id,
+                                              Process p,
+                                              Role role,
+                                              Agent ag,
+                                              String type,
+                                              Collection<Account> accounts) {
+        WasControlledBy wcb=newWasControlledBy(p,role,ag,accounts);
+        wcb.setId(id);
+        addAnnotation(wcb,of.createType(newType(type)));
+        return wcb;
+    }
+
+
     public WasDerivedFrom newWasDerivedFrom(ArtifactRef aid1,
                                             ArtifactRef aid2,
                                             Collection<AccountRef> accounts) {
@@ -452,6 +488,18 @@ public class OPMFactory implements CommonURIs {
             ll.add(newAccountRef(acc));
         }
         return  newWasDerivedFrom(aid1,aid2,ll);
+    }
+
+
+    public WasDerivedFrom newWasDerivedFrom(String id,
+                                            Artifact a1,
+                                            Artifact a2,
+                                            String type,
+                                            Collection<Account> accounts) {
+        WasDerivedFrom wdf=newWasDerivedFrom(a1,a2,accounts);
+        wdf.setId(id);
+        addAnnotation(wdf,of.createType(newType(type)));
+        return wdf;
     }
 
 
@@ -480,6 +528,18 @@ public class OPMFactory implements CommonURIs {
         }
         return  newWasTriggeredBy(pid1,pid2,ll);
     }
+
+    public WasTriggeredBy newWasTriggeredBy(String id,
+                                            Process p1,
+                                            Process p2,
+                                            String type,
+                                            Collection<Account> accounts) {
+        WasTriggeredBy wtb=newWasTriggeredBy(p1,p2,accounts);
+        wtb.setId(id);
+        addAnnotation(wtb,of.createType(newType(type)));
+        return wtb;
+    }
+
 
     public EmbeddedAnnotation newEmbeddedAnnotation(String id,
                                                     String property,
