@@ -341,36 +341,51 @@ public class OPMFactory implements CommonURIs {
     }
 
     public Used newUsed(Used u) {
-        return newUsed(u.getEffect(),
-                       u.getRole(),
-                       u.getCause(),
-                       u.getAccount());
+        Used u1=newUsed(u.getEffect(),
+                        u.getRole(),
+                        u.getCause(),
+                        u.getAccount());
+        u1.setId(u.getId());
+        u1.getAnnotation().addAll(u.getAnnotation());
+        return u1;
     }
 
     public WasControlledBy newWasControlledBy(WasControlledBy c) {
-        return newWasControlledBy(c.getEffect(),
-                                  c.getRole(),
-                                  c.getCause(),
-                                  c.getAccount());
+        WasControlledBy wcb=newWasControlledBy(c.getEffect(),
+                                               c.getRole(),
+                                               c.getCause(),
+                                               c.getAccount());
+        wcb.setId(c.getId());
+        wcb.getAnnotation().addAll(c.getAnnotation());
+        return wcb;
     }
 
     public WasGeneratedBy newWasGeneratedBy(WasGeneratedBy g) {
-        return newWasGeneratedBy(g.getEffect(),
-                                 g.getRole(),
-                                 g.getCause(),
-                                 g.getAccount());
+        WasGeneratedBy wgb=newWasGeneratedBy(g.getEffect(),
+                                             g.getRole(),
+                                             g.getCause(),
+                                             g.getAccount());
+        wgb.setId(g.getId());
+        wgb.getAnnotation().addAll(g.getAnnotation());
+        return wgb;
     }
 
     public WasDerivedFrom newWasDerivedFrom(WasDerivedFrom d) {
-        return newWasDerivedFrom(d.getEffect(),
-                                 d.getCause(),
-                                 d.getAccount());
+        WasDerivedFrom wdf=newWasDerivedFrom(d.getEffect(),
+                                             d.getCause(),
+                                             d.getAccount());
+        wdf.setId(d.getId());
+        wdf.getAnnotation().addAll(d.getAnnotation());
+        return wdf;
     }
 
     public WasTriggeredBy newWasTriggeredBy(WasTriggeredBy d) {
-        return newWasTriggeredBy(d.getEffect(),
-                                 d.getCause(),
-                                 d.getAccount());
+        WasTriggeredBy wtb=newWasTriggeredBy(d.getEffect(),
+                                             d.getCause(),
+                                             d.getAccount());
+        wtb.setId(d.getId());
+        wtb.getAnnotation().addAll(d.getAnnotation());
+        return wtb;
     }
 
 
