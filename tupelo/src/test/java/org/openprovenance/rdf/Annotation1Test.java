@@ -126,11 +126,16 @@ public class Annotation1Test
         WasGeneratedBy wg2=oFactory.newWasGeneratedBy(a3,oFactory.newRole("left"),p2,orange);
         WasGeneratedBy wg3=oFactory.newWasGeneratedBy(a4,oFactory.newRole("right"),p2,orange);
         WasGeneratedBy wg4=oFactory.newWasGeneratedBy(a5,oFactory.newRole("out"),p3,orange);
-        WasGeneratedBy wg5=oFactory.newWasGeneratedBy(a6,oFactory.newRole("out"),p4,orange);
+        WasGeneratedBy wg5=oFactory.newWasGeneratedBy("wg5",a6,oFactory.newRole("out"),p4,"futGenere",orange);
         Role r1=oFactory.newRole("r1","pair");
         WasGeneratedBy wg6=oFactory.newWasGeneratedBy("wg6",a2,r1,p5,orange);
 
         Overlaps ov1=oFactory.newOverlaps(green_orange);
+
+
+        WasDerivedFrom wdf1=oFactory.newWasDerivedFrom(a6,a1,green);
+        WasDerivedFrom wdf2=oFactory.newWasDerivedFrom("wdf2",a5,a1,"uneDerivation",green);
+        WasDerivedFrom wdf3=oFactory.newWasDerivedFrom("wdf3",a4,a1,"uneAutreDerivation",green);
 
 
         Annotation an1=oFactory.newAnnotation("an1",a1,"http://property.org/hasQuality", "good", null);
@@ -159,13 +164,18 @@ public class Annotation1Test
 
         oFactory.addAnnotation(account1,oFactory.newEmbeddedAnnotation("an14","http://property.org/hasAlternativeName", "vert", null));
 
+
+        EmbeddedAnnotation ann15=oFactory.newEmbeddedAnnotation("an15","http://property.org/hasQuality", "average", green);
+        oFactory.addAnnotation(wdf3,ann15);
+
         OPMGraph graph=oFactory.newOPMGraph(green_orange,
                                             new Overlaps[] { ov1 },
                                             new Process[] {p1,p2,p3,p4,p5},
                                             new Artifact[] {a1,a2,a3,a4,a5,a6},
                                             null,
                                             new Object[] {u1,u2,u3,u4,u5,u6,
-                                                          wg1,wg2,wg3,wg4,wg5,wg6},
+                                                          wg1,wg2,wg3,wg4,wg5,wg6,
+                                                          wdf1,wdf2, wdf3},
                                             new Annotation[] {an1, an2, an3, an4, an5, an6, an7, an8, an9, an10} );
 
 

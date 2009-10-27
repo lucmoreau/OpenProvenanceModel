@@ -45,9 +45,13 @@ import org.tupeloproject.provenance.ProvenanceRole;
 import org.tupeloproject.provenance.ProvenanceAgent;
 import org.tupeloproject.provenance.ProvenanceProcess;
 import org.tupeloproject.provenance.ProvenanceArtifact;
+import org.tupeloproject.provenance.ProvenanceDerivedArc;
+import org.tupeloproject.provenance.ProvenanceUsedArc;
+import org.tupeloproject.provenance.ProvenanceGeneratedArc;
 import org.tupeloproject.provenance.impl.ProvenanceContextFacade;
 import org.tupeloproject.provenance.impl.RdfProvenanceArtifact;
 import org.tupeloproject.provenance.impl.RdfProvenanceProcess;
+import org.tupeloproject.provenance.impl.RdfProvenanceArc;
 import org.tupeloproject.provenance.impl.RdfProvenanceAgent;
 import org.tupeloproject.provenance.impl.RdfProvenanceAccount;
 
@@ -66,7 +70,7 @@ import org.tupeloproject.util.Xml;
 import org.tupeloproject.kernel.OperatorException; 
 import org.apache.log4j.Logger;
 
-import org.tupeloproject.provenance.ProvenanceDerivedArc;
+
 import org.tupeloproject.provenance.impl.RdfProvenanceArtifact;
 
 
@@ -213,6 +217,25 @@ public class OPMXml2Rdf {
                         pcf.assertUsed(effect, cause, role, account);
                     }
                 }
+
+
+                if (!(e.getAnnotation().isEmpty())) {
+                    
+                    Collection<ProvenanceUsedArc> used=pcf.getUsed(effect);
+                    for (ProvenanceUsedArc a: used) {
+                        if (a.getSink().equals(cause)
+                            && a.getSource().equals(effect)) {
+                            System.out.println("Found " + a);
+                            System.out.println("Found " + ((RdfProvenanceArtifact)cause).getSubject());
+                            System.out.println("Found " + ((RdfProvenanceProcess)effect).getSubject());
+                            RdfProvenanceArc rpa=(RdfProvenanceArc) a;
+                            Resource subject=rpa.getSubject();
+                            mc.addTriples(triplifyAnnotations(subject,e.getAnnotation()));
+                            break;
+                        }
+                    }
+                }
+
             }
             else {
                 if (e instanceof WasGeneratedBy) {
@@ -234,6 +257,23 @@ public class OPMXml2Rdf {
                             pcf.assertGeneratedBy(effect, cause, role, account);
                         }
                     }
+
+
+                    Collection<ProvenanceGeneratedArc> generatedBy=pcf.getGeneratedBy(effect);
+                    for (ProvenanceGeneratedArc a: generatedBy) {
+                        if (a.getSink().equals(cause)
+                            && a.getSource().equals(effect)) {
+                            System.out.println("Found " + a);
+                            System.out.println("Found " + ((RdfProvenanceProcess)cause).getSubject());
+                            System.out.println("Found " + ((RdfProvenanceArtifact)effect).getSubject());
+                            RdfProvenanceArc rpa=(RdfProvenanceArc) a;
+                            Resource subject=rpa.getSubject();
+                            mc.addTriples(triplifyAnnotations(subject,e.getAnnotation()));
+                            break;
+                        }
+                    }
+
+
                 }
                 else {
                     if (e instanceof WasTriggeredBy) {
@@ -253,6 +293,7 @@ public class OPMXml2Rdf {
                         if (e instanceof WasDerivedFrom) {
                             ProvenanceArtifact cause=artifactTable.get(causeId);
                             ProvenanceArtifact effect=artifactTable.get(effectId);
+                            RdfProvenanceArc arc;
                             if (accounts.isEmpty()) {
                                 ProvenanceAccount account=accountTable.get(NULL_ACCOUNT);
                                 pcf.assertDerivedFrom(effect, cause, account);
@@ -262,17 +303,19 @@ public class OPMXml2Rdf {
                                     pcf.assertDerivedFrom(effect, cause, account);
                                 }
                             }
-                            String type=oFactory.getType(e);
-                            if (type!=null) {
+
+                            if (!(e.getAnnotation().isEmpty())) {
 
                                 Collection<ProvenanceDerivedArc> derived=pcf.getDerivedFrom(effect);
-                                ProvenanceDerivedArc me=null;
                                 for (ProvenanceDerivedArc a: derived) {
                                     if (a.getAntecedent().equals(cause)
                                         && a.getConsequent().equals(effect)) {
-                                        System.out.println("Found " + a);
-                                        System.out.println("Found " + ((RdfProvenanceArtifact)cause).getSubject());
-                                        System.out.println("Found " + ((RdfProvenanceArtifact)effect).getSubject());
+                                        //System.out.println("Found " + a);
+                                        //System.out.println("Found " + ((RdfProvenanceArtifact)cause).getSubject());
+                                        //System.out.println("Found " + ((RdfProvenanceArtifact)effect).getSubject());
+                                        RdfProvenanceArc rpa=(RdfProvenanceArc) a;
+                                        Resource subject=rpa.getSubject();
+                                        mc.addTriples(triplifyAnnotations(subject,e.getAnnotation()));
                                         break;
                                     }
                                 }
