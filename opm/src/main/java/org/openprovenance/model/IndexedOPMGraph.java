@@ -142,7 +142,7 @@ public class IndexedOPMGraph extends OPMGraph {
 
     protected ObjectFactory of=new ObjectFactory();
 
-    Account addAccount(String name, Account account) {
+    public Account addAccount(String name, Account account) {
         Account existing=accountMap.get(name);
         if (existing!=null) {
             return existing;
@@ -157,14 +157,14 @@ public class IndexedOPMGraph extends OPMGraph {
             return account;
         }
     }
-    Account addAccount(Account account) {
+    public Account addAccount(Account account) {
         return addAccount(account.getId(),account);
     }
 
-    Artifact addArtifact(Artifact artifact) {
+    public Artifact addArtifact(Artifact artifact) {
         return addArtifact(artifact.getId(),artifact);
     }
-    Artifact addArtifact(String name, Artifact artifact) {
+    public Artifact addArtifact(String name, Artifact artifact) {
         Artifact existing=artifactMap.get(name);
         if (existing!=null) {
             return existing;
@@ -180,11 +180,11 @@ public class IndexedOPMGraph extends OPMGraph {
         }
     }
 
-    Process addProcess(Process process) {
+    public Process addProcess(Process process) {
         return addProcess(process.getId(),process);
     }
 
-    Process addProcess(String name, Process process) {
+    public Process addProcess(String name, Process process) {
         Process existing=processMap.get(name);
         if (existing!=null) {
             return existing;

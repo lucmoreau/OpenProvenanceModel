@@ -858,6 +858,16 @@ public class OPMFactory implements CommonURIs {
         return res;
     }
 
+    public OPMGraph newOPMGraph(OPMGraph graph) {
+        return newOPMGraph(graph.getAccounts(),
+                           graph.getProcesses(),
+                           graph.getArtifacts(),
+                           graph.getAgents(),
+                           graph.getCausalDependencies(),
+                           graph.getAnnotations());
+    }
+
+
     public Accounts newAccounts(Collection<Account> accs,
                                 Collection<Overlaps> ovlps) {
         Accounts res=of.createAccounts();
