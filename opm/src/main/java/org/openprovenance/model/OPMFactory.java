@@ -146,6 +146,18 @@ public class OPMFactory implements CommonURIs {
         res.setValue(label);
         return res;
     }
+
+    public Value newValue(Object value) {
+        Value res=of.createValue();
+        res.setContent(value);
+        return res;
+    }
+
+    public Encoding newEncoding(String encoding) {
+        Encoding res=of.createEncoding();
+        res.setValue(encoding);
+        return res;
+    }
     
     public String getLabel(EmbeddedAnnotation annotation) {
         if (annotation instanceof Label) {
@@ -154,6 +166,21 @@ public class OPMFactory implements CommonURIs {
         } else {
             for (Property prop: annotation.getProperty()) {
                 if (prop.equals(LABEL_PROPERTY)) {
+                    return (String) prop.getValue();
+                }
+            }
+            return null;
+        }
+    }
+
+
+    public String getEncoding(EmbeddedAnnotation annotation) {
+        if (annotation instanceof Encoding) {
+            Encoding encoding=(Encoding) annotation;
+            return encoding.getValue();
+        } else {
+            for (Property prop: annotation.getProperty()) {
+                if (prop.equals(ENCODING_PROPERTY)) {
                     return (String) prop.getValue();
                 }
             }
@@ -174,6 +201,33 @@ public class OPMFactory implements CommonURIs {
             return null;
         }
     }
+
+    public Object getValue(EmbeddedAnnotation annotation) {
+        if (annotation instanceof Value) {
+            Value value=(Value) annotation;
+            return value.getContent();
+        } else {
+            for (Property prop: annotation.getProperty()) {
+                if (prop.equals(VALUE_PROPERTY)) {
+                    return prop.getValue();
+                }
+            }
+            return null;
+        }
+    }
+
+    /** Return the value of the value property in the first annotation. */
+
+    public Object getValue(List<JAXBElement<? extends EmbeddedAnnotation>> annotations) {
+        for (JAXBElement<? extends EmbeddedAnnotation> jann: annotations) {
+            EmbeddedAnnotation ann=jann.getValue();
+            Object value=getValue(ann);
+            if (value!=null) return value;
+        }
+        return null;
+    }
+
+
 
     /** Return the value of the label property in the first annotation. */
     public String getLabel(List<JAXBElement<? extends EmbeddedAnnotation>> annotations) {
@@ -211,6 +265,16 @@ public class OPMFactory implements CommonURIs {
         Type res=of.createType();
         res.setValue(type);
         return res;
+    }
+
+    public void addValue(Artifact annotable, Object value, String encoding) {
+        annotable.getAnnotation().add(of.createEncoding(newEncoding(encoding)));
+        annotable.getAnnotation().add(of.createValue(newValue(value)));
+    }
+
+
+    public void addAnnotation(Annotable annotable, Value ann) {
+        annotable.getAnnotation().add(of.createValue(ann));
     }
 
     public void addAnnotation(Annotable annotable, EmbeddedAnnotation ann) {
