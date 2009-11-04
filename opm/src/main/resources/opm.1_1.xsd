@@ -264,6 +264,9 @@
 	</xs:sequence>
   </xs:complexType>
 
+
+ <!-- XML Serialisations of OPM Core Annotations. -->
+
   
   <xs:element name="label" type="opm:Label" substitutionGroup="opm:annotation"/>
 
@@ -293,13 +296,37 @@
         <xs:sequence>
           <xs:element name="content"   type="xs:anyType" minOccurs="0"/>
         </xs:sequence>
+        <xs:attribute name="encoding" type="xs:anyURI"/>
 	  </xs:extension>
 	</xs:complexContent>
   </xs:complexType>
 
+<!--
   <xs:element name="encoding" type="opm:Encoding" substitutionGroup="opm:annotation"/>
 
   <xs:complexType name="Encoding">
+	<xs:complexContent>
+	  <xs:extension base="opm:EmbeddedAnnotation">
+        <xs:attribute name="value" type="xs:anyURI"/>
+	  </xs:extension>
+	</xs:complexContent>
+  </xs:complexType>
+-->
+
+
+  <xs:element name="profile" type="opm:Profile" substitutionGroup="opm:annotation"/>
+
+  <xs:complexType name="Profile">
+	<xs:complexContent>
+	  <xs:extension base="opm:EmbeddedAnnotation">
+        <xs:attribute name="value" type="xs:anyURI"/>
+	  </xs:extension>
+	</xs:complexContent>
+  </xs:complexType>
+
+  <xs:element name="pname" type="opm:PName" substitutionGroup="opm:annotation"/>
+
+  <xs:complexType name="PName">
 	<xs:complexContent>
 	  <xs:extension base="opm:EmbeddedAnnotation">
         <xs:attribute name="value" type="xs:anyURI"/>

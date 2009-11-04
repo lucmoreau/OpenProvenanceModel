@@ -147,17 +147,28 @@ public class OPMFactory implements CommonURIs {
         return res;
     }
 
-    public Value newValue(Object value) {
+    public Value newValue(Object value, String encoding) {
         Value res=of.createValue();
         res.setContent(value);
+        res.setEncoding(encoding);
         return res;
     }
 
-    public Encoding newEncoding(String encoding) {
-        Encoding res=of.createEncoding();
-        res.setValue(encoding);
+
+    public Profile newProfile(String profile) {
+        Profile res=of.createProfile();
+        res.setValue(profile);
         return res;
     }
+
+
+    public PName newPName(String profile) {
+        PName res=of.createPName();
+        res.setValue(profile);
+        return res;
+    }
+
+
     
     public String getLabel(EmbeddedAnnotation annotation) {
         if (annotation instanceof Label) {
@@ -173,20 +184,6 @@ public class OPMFactory implements CommonURIs {
         }
     }
 
-
-    public String getEncoding(EmbeddedAnnotation annotation) {
-        if (annotation instanceof Encoding) {
-            Encoding encoding=(Encoding) annotation;
-            return encoding.getValue();
-        } else {
-            for (Property prop: annotation.getProperty()) {
-                if (prop.equals(ENCODING_PROPERTY)) {
-                    return (String) prop.getValue();
-                }
-            }
-            return null;
-        }
-    }
 
     public String getType(EmbeddedAnnotation annotation) {
         if (annotation instanceof Type) {
@@ -215,6 +212,36 @@ public class OPMFactory implements CommonURIs {
             return null;
         }
     }
+
+    public String getProfile(EmbeddedAnnotation annotation) {
+        if (annotation instanceof Profile) {
+            Profile profile=(Profile) annotation;
+            return profile.getValue();
+        } else {
+            for (Property prop: annotation.getProperty()) {
+                if (prop.equals(PROFILE_PROPERTY)) {
+                    return (String) prop.getValue();
+                }
+            }
+            return null;
+        }
+    }
+
+    public String getPname(EmbeddedAnnotation annotation) {
+        if (annotation instanceof PName) {
+            PName pname=(PName) annotation;
+            return pname.getValue();
+        } else {
+            for (Property prop: annotation.getProperty()) {
+                if (prop.equals(PNAME_PROPERTY)) {
+                    return (String) prop.getValue();
+                }
+            }
+            return null;
+        }
+    }
+
+
 
     /** Return the value of the value property in the first annotation. */
 
@@ -251,6 +278,28 @@ public class OPMFactory implements CommonURIs {
         return null;
     }
 
+
+    /** Return the value of the profile property in the first annotation. */
+    public String getProfile(List<JAXBElement<? extends EmbeddedAnnotation>> annotations) {
+        for (JAXBElement<? extends EmbeddedAnnotation> jann: annotations) {
+            EmbeddedAnnotation ann=jann.getValue();
+            String profile=getProfile(ann);
+            if (profile!=null) return profile;
+        }
+        return null;
+    }
+
+    /** Return the value of the pname property in the first annotation. */
+    public String getPname(List<JAXBElement<? extends EmbeddedAnnotation>> annotations) {
+        for (JAXBElement<? extends EmbeddedAnnotation> jann: annotations) {
+            EmbeddedAnnotation ann=jann.getValue();
+            String pname=getPname(ann);
+            if (pname!=null) return pname;
+        }
+        return null;
+    }
+
+
     /** Generic accessor for annotable entities. */
     public String getLabel(Annotable annotable) {
         return getLabel(annotable.getAnnotation());
@@ -261,6 +310,17 @@ public class OPMFactory implements CommonURIs {
         return getType(annotable.getAnnotation());
     }
 
+    /** Generic accessor for annotable entities. */
+    public String getProfile(Annotable annotable) {
+        return getProfile(annotable.getAnnotation());
+    }
+
+    /** Generic accessor for annotable entities. */
+    public String getPname(Annotable annotable) {
+        return getPname(annotable.getAnnotation());
+    }
+
+
     public Type newType(String type) {
         Type res=of.createType();
         res.setValue(type);
@@ -268,8 +328,7 @@ public class OPMFactory implements CommonURIs {
     }
 
     public void addValue(Artifact annotable, Object value, String encoding) {
-        annotable.getAnnotation().add(of.createEncoding(newEncoding(encoding)));
-        annotable.getAnnotation().add(of.createValue(newValue(value)));
+        annotable.getAnnotation().add(of.createValue(newValue(value,encoding)));
     }
 
 
@@ -277,9 +336,18 @@ public class OPMFactory implements CommonURIs {
         annotable.getAnnotation().add(of.createValue(ann));
     }
 
+    public void addAnnotation(Annotable annotable, Profile ann) {
+        annotable.getAnnotation().add(of.createProfile(ann));
+    }
+
+    public void addAnnotation(Annotable annotable, PName ann) {
+        annotable.getAnnotation().add(of.createPname(ann));
+    }
+
     public void addAnnotation(Annotable annotable, EmbeddedAnnotation ann) {
         annotable.getAnnotation().add(of.createAnnotation(ann));
     }
+
     public void addAnnotation(Annotable annotable, JAXBElement<? extends EmbeddedAnnotation> ann) {
         annotable.getAnnotation().add(ann);
     }
@@ -943,6 +1011,25 @@ public class OPMFactory implements CommonURIs {
         }
         return res;
     }
+
+//     public Encoding newEncoding(String encoding) {
+//         Encoding res=of.createEncoding();
+//         res.setValue(encoding);
+//         return res;
+//     }
+//     public String getEncoding(EmbeddedAnnotation annotation) {
+//         if (annotation instanceof Encoding) {
+//             Encoding encoding=(Encoding) annotation;
+//             return encoding.getValue();
+//         } else {
+//             for (Property prop: annotation.getProperty()) {
+//                 if (prop.equals(ENCODING_PROPERTY)) {
+//                     return (String) prop.getValue();
+//                 }
+//             }
+//             return null;
+//         }
+//     }
 
             
 }

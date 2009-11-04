@@ -149,6 +149,10 @@ public class Annotation1Test
                                             new Annotation[] {an1, an2, an3, an4, an5, an6, an7, an8, an9, an10} );
 
 
+        oFactory.addAnnotation(graph,
+                               oFactory.newProfile("http://profile.org/dummyProfile"));
+        oFactory.addAnnotation(graph,
+                               oFactory.newPName("http://name.org/myName"));
 
 
 
