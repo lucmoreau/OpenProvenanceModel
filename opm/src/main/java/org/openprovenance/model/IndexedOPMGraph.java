@@ -142,6 +142,10 @@ public class IndexedOPMGraph extends OPMGraph {
 
     protected ObjectFactory of=new ObjectFactory();
 
+    public Account getAccount(String name) {
+        return accountMap.get(name);
+    }
+
     public Account addAccount(String name, Account account) {
         Account existing=accountMap.get(name);
         if (existing!=null) {

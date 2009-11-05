@@ -98,6 +98,11 @@ public class OPMFactory implements CommonURIs {
 
 
     public Process newProcess(String pr,
+                              Collection<Account> accounts) {
+        return newProcess(pr,accounts,null);
+    }
+
+    public Process newProcess(String pr,
                               Collection<Account> accounts,
                               String label) {
         Process res=of.createProcess();
@@ -109,8 +114,15 @@ public class OPMFactory implements CommonURIs {
             }
             res.getAccount().addAll(ll);
         }
-        res.getAnnotation().add(of.createLabel(newLabel(label)));
+        if (label!=null) {
+            res.getAnnotation().add(of.createLabel(newLabel(label)));
+        }
         return res;
+    }
+
+    public Agent newAgent(String ag,
+                          Collection<Account> accounts) {
+        return newAgent(ag,accounts,null);
     }
 
     public Agent newAgent(String ag,
@@ -125,7 +137,7 @@ public class OPMFactory implements CommonURIs {
             }
             res.getAccount().addAll(ll);
         }
-        res.getAnnotation().add(of.createLabel(newLabel(label)));
+        if (label!=null) res.getAnnotation().add(of.createLabel(newLabel(label)));
         return res;
     }
 
@@ -176,7 +188,7 @@ public class OPMFactory implements CommonURIs {
             return label.getValue();
         } else {
             for (Property prop: annotation.getProperty()) {
-                if (prop.equals(LABEL_PROPERTY)) {
+                if (prop.getUri().equals(LABEL_PROPERTY)) {
                     return (String) prop.getValue();
                 }
             }
@@ -191,7 +203,7 @@ public class OPMFactory implements CommonURIs {
             return type.getValue();
         } else {
             for (Property prop: annotation.getProperty()) {
-                if (prop.equals(TYPE_PROPERTY)) {
+                if (prop.getUri().equals(TYPE_PROPERTY)) {
                     return (String) prop.getValue();
                 }
             }
@@ -205,7 +217,7 @@ public class OPMFactory implements CommonURIs {
             return value.getContent();
         } else {
             for (Property prop: annotation.getProperty()) {
-                if (prop.equals(VALUE_PROPERTY)) {
+                if (prop.getUri().equals(VALUE_PROPERTY)) {
                     return prop.getValue();
                 }
             }
@@ -219,7 +231,7 @@ public class OPMFactory implements CommonURIs {
             return profile.getValue();
         } else {
             for (Property prop: annotation.getProperty()) {
-                if (prop.equals(PROFILE_PROPERTY)) {
+                if (prop.getUri().equals(PROFILE_PROPERTY)) {
                     return (String) prop.getValue();
                 }
             }
@@ -233,7 +245,7 @@ public class OPMFactory implements CommonURIs {
             return pname.getValue();
         } else {
             for (Property prop: annotation.getProperty()) {
-                if (prop.equals(PNAME_PROPERTY)) {
+                if (prop.getUri().equals(PNAME_PROPERTY)) {
                     return (String) prop.getValue();
                 }
             }
@@ -366,10 +378,92 @@ public class OPMFactory implements CommonURIs {
     }
 
 
+    public JAXBElement<? extends EmbeddedAnnotation> compactAnnotation(EmbeddedAnnotation ann) {
+        if (ann instanceof Label) {
+            Label label=(Label) ann;
+            return of.createLabel(label);
+        }
+        if (ann instanceof Type) {
+            Type type=(Type) ann;
+            return of.createType(type);
+        }
+        if (ann instanceof Profile) {
+            Profile profile=(Profile) ann;
+            return of.createProfile(profile);
+        }
+        if (ann instanceof Value) {
+            Value value=(Value) ann;
+            return of.createValue(value);
+        }
+        if (ann instanceof PName) {
+            PName pname=(PName) ann;
+            return of.createPname(pname);
+        }
+        List<Property> properties=ann.getProperty();
+        if (properties.size()==1) {
+            Property prop=properties.get(0);
+            if (prop.getUri().equals(LABEL_PROPERTY)) {
+                Label label=newLabel((String)prop.getValue());
+                setIdForCompactAnnotation(label,ann.getId());
+                return  of.createLabel(label);
+            }
+            if (prop.getUri().equals(TYPE_PROPERTY)) {
+                Type type=newType((String)prop.getValue());
+                setIdForCompactAnnotation(type,ann.getId());
+                return  of.createType(type);
+            }
+            if (prop.getUri().equals(PROFILE_PROPERTY)) {
+                Profile profile=newProfile((String)prop.getValue());
+                setIdForCompactAnnotation(profile,ann.getId());
+                return  of.createProfile(profile);
+            }
+            if (prop.getUri().equals(PNAME_PROPERTY)) {
+                PName pname=newPName((String)prop.getValue());
+                setIdForCompactAnnotation(pname,ann.getId());
+                return  of.createPname(pname);
+            }
+        }
+        else if (properties.size()==2) {
+            if ((properties.get(0).getUri().equals(VALUE_PROPERTY))
+                &&
+                (properties.get(1).getUri().equals(ENCODING_PROPERTY))) {
+                Value value=newValue(properties.get(0).getValue(),
+                                     (String)properties.get(1).getValue());
+                setIdForCompactAnnotation(value,ann.getId());
+                return  of.createValue(value);
+            } else if ((properties.get(1).getUri().equals(VALUE_PROPERTY))
+                       &&
+                       (properties.get(0).getUri().equals(ENCODING_PROPERTY))) {
+                Value value=newValue(properties.get(1).getValue(),
+                                     (String)properties.get(0).getValue());
+                setIdForCompactAnnotation(value,ann.getId());
+                return  of.createValue(value);
+            }
+        }
+
+        return of.createAnnotation(ann);
+    }
+
+    public boolean compactId=false;
+    
+    public void setIdForCompactAnnotation(EmbeddedAnnotation ann, String id) {
+        if (compactId) ann.setId(id);
+    }
+
+
     public void addAnnotation(Annotable annotable, List<EmbeddedAnnotation> anns) {
         List<JAXBElement<? extends EmbeddedAnnotation>> annotations=annotable.getAnnotation();
         for (EmbeddedAnnotation ann: anns) {        
             annotations.add(of.createAnnotation(ann));
+        }
+    }
+
+
+
+    public void addCompactAnnotation(Annotable annotable, List<EmbeddedAnnotation> anns) {
+        List<JAXBElement<? extends EmbeddedAnnotation>> annotations=annotable.getAnnotation();
+        for (EmbeddedAnnotation ann: anns) {        
+            annotations.add(compactAnnotation(ann));
         }
     }
 
@@ -410,6 +504,11 @@ public class OPMFactory implements CommonURIs {
     }
 
     public Artifact newArtifact(String id,
+                                Collection<Account> accounts) {
+        return newArtifact(id,accounts,null);
+    }
+
+    public Artifact newArtifact(String id,
                                 Collection<Account> accounts,
                                 String label) {
         Artifact res=of.createArtifact();
@@ -421,7 +520,9 @@ public class OPMFactory implements CommonURIs {
             }
             res.getAccount().addAll(ll);
         }
-        res.getAnnotation().add(of.createLabel(newLabel(label)));
+        if (label!=null) {
+            res.getAnnotation().add(of.createLabel(newLabel(label)));
+        }
         return res;
     }
 
@@ -863,6 +964,20 @@ public class OPMFactory implements CommonURIs {
         EmbeddedAnnotation res=of.createEmbeddedAnnotation();
         res.setId(id);
         res.getProperty().add(newProperty(property,value));
+        if (accs!=null) {
+            res.getAccount().addAll(accs);
+        }
+        return res;
+    }
+    public EmbeddedAnnotation newEmbeddedAnnotation(String id,
+                                                    List<Property> properties,
+                                                    Collection<AccountRef> accs,
+                                                    Object dummyParameterForAvoidingSameErasure) {
+        EmbeddedAnnotation res=of.createEmbeddedAnnotation();
+        res.setId(id);
+        if (properties!=null) {
+            res.getProperty().addAll(properties);
+        }
         if (accs!=null) {
             res.getAccount().addAll(accs);
         }

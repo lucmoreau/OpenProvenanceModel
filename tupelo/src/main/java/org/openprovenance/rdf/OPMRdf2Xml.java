@@ -23,6 +23,7 @@ import org.openprovenance.model.Edge;
 import org.openprovenance.model.Overlaps; 
 import org.openprovenance.model.Account; 
 import org.openprovenance.model.AccountRef; 
+import org.openprovenance.model.Property; 
 import org.openprovenance.model.Processes; 
 import org.openprovenance.model.Node; 
 import org.openprovenance.model.Agent; 
@@ -53,6 +54,7 @@ import org.tupeloproject.provenance.ProvenanceControlledArc;
 import org.tupeloproject.provenance.impl.ProvenanceContextFacade;
 import org.tupeloproject.provenance.impl.RdfProvenanceElement;
 import org.tupeloproject.provenance.impl.RdfProvenanceAccount;
+import org.tupeloproject.provenance.impl.RdfProvenanceArc;
 import org.tupeloproject.rdf.Resource;
 import org.tupeloproject.rdf.Triple;
 import org.tupeloproject.rdf.xml.RdfXml;
@@ -65,6 +67,14 @@ import org.tupeloproject.kernel.impl.BasicLocalContext;
 import org.tupeloproject.util.Xml;
 import org.tupeloproject.kernel.OperatorException; 
 
+
+/**
+TODO:
+ annotations to roles
+ annotations of annotations
+
+ support for graph-level annotations 
+*/
 
 public class OPMRdf2Xml {
 
@@ -127,15 +137,19 @@ public class OPMRdf2Xml {
 
         ProvenanceContextFacade pcf = new ProvenanceContextFacade(mc);
 
-
+        Collection<Resource> done=new LinkedList();
 
         // Find all elements
         for (Triple triple: triples) {
 
             Resource subject=triple.getSubject();
+            if (done.contains(subject)) continue;
+            done.add(subject);
             RdfProvenanceElement element=pcf.getElement(subject);
             if (element!=null) {
                 //System.out.println("found element " + element);
+
+                System.out.println("Subject is " + subject);
 
                 if (element instanceof ProvenanceArtifact) {
                     Artifact a=getArtifact((ProvenanceArtifact) element);
@@ -155,7 +169,7 @@ public class OPMRdf2Xml {
                     
                     SubjectFacade sf=new SubjectFacade(subject, mc) ;
                     java.util.Set<Resource> annotations=sf.getObjects(hasAnnotation);
-                    pFactory.addAnnotation(a,convertAnnotations(annotations,pcf,mc));
+                    pFactory.addCompactAnnotation(a,convertAnnotations(annotations,pcf,mc));
 
                 }
 
@@ -169,7 +183,7 @@ public class OPMRdf2Xml {
 
                     SubjectFacade sf=new SubjectFacade(subject, mc) ;
                     java.util.Set<Resource> annotations=sf.getObjects(hasAnnotation);
-                    pFactory.addAnnotation(p,convertAnnotations(annotations,pcf,mc));
+                    pFactory.addCompactAnnotation(p,convertAnnotations(annotations,pcf,mc));
 
                 }
 
@@ -185,13 +199,24 @@ public class OPMRdf2Xml {
 
                     SubjectFacade sf=new SubjectFacade(subject, mc) ;
                     java.util.Set<Resource> annotations=sf.getObjects(hasAnnotation);
-                    pFactory.addAnnotation(ag,convertAnnotations(annotations,pcf,mc));
+                    pFactory.addCompactAnnotation(ag,convertAnnotations(annotations,pcf,mc));
                 }
 
+                if (element instanceof ProvenanceAccount) {
+                    Account acc=getAccount((ProvenanceAccount)element);
+
+                    SubjectFacade sf=new SubjectFacade(subject, mc) ;
+                    java.util.Set<Resource> annotations=sf.getObjects(hasAnnotation);
+                    pFactory.addCompactAnnotation(acc,convertAnnotations(annotations,pcf,mc));
+
+                }
+
+            } else {
+                
             }
         }
 
-        populateGraph(graph);
+        populateGraph(graph,pcf,mc);
 
         return graph;
     }
@@ -201,8 +226,6 @@ public class OPMRdf2Xml {
                                                        ProvenanceContextFacade pcf,
                                                        Context context)
         throws org.tupeloproject.kernel.OperatorException {
-
-        System.out.println("annotations " + annotations);
 
         List<EmbeddedAnnotation> embedded=new LinkedList();
         for (Resource annotation: annotations) {
@@ -220,9 +243,9 @@ public class OPMRdf2Xml {
 
             String id=deUrify(annotation.getUri().toString());
 
-            String property=null;
-            Object value=null;
+
             Set<Triple> triples=af.getTriples();
+            List<Property> properties=new LinkedList();
             for (Triple t: triples) {
                 Resource predicate=t.getPredicate();
                 String predicateUri=predicate.getUri().toString();
@@ -230,21 +253,24 @@ public class OPMRdf2Xml {
                 if ((!(predicateUri.equals(OPMXml2Rdf.OPM_HAS_ACCOUNT)))
                     &&
                     (!(predicateUri.equals("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")))) {
-                    property=predicateUri;
+
                     Resource object=t.getObject();
                     Object o=object.asObject();
-                    value=o;
+                    properties.add(pFactory.newProperty(predicateUri,o));
                 }
             }
 
-            EmbeddedAnnotation e=pFactory.newEmbeddedAnnotation(id, property, value, accRefs,null);
+            EmbeddedAnnotation e=pFactory.newEmbeddedAnnotation(id, properties, accRefs, null);
             embedded.add(e);
         }
+
 
         return embedded;
     }
 
-    void populateGraph(OPMGraph graph) {
+    void populateGraph(OPMGraph graph,
+                       ProvenanceContextFacade pcf,
+                       MemoryContext mc) throws org.tupeloproject.kernel.OperatorException {
         Set<String> artifactUris=artifactTable.keySet();
         for (String uri: artifactUris) {
             graph.getArtifacts().getArtifact().add(artifactTable.get(uri));
@@ -272,6 +298,13 @@ public class OPMRdf2Xml {
 
             Used u2=pFactory.newUsed(process,role,artifact,Collections.singleton(account));
             graph.getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy().add(u2);
+
+            RdfProvenanceArc rpa=(RdfProvenanceArc) used;
+            Resource subject=rpa.getSubject();
+            SubjectFacade sf=new SubjectFacade(subject, mc) ;
+            java.util.Set<Resource> annotations=sf.getObjects(hasAnnotation);
+            pFactory.addCompactAnnotation(u2,convertAnnotations(annotations,pcf,mc));
+
             
         }
 
@@ -288,6 +321,14 @@ public class OPMRdf2Xml {
 
             WasGeneratedBy g2=pFactory.newWasGeneratedBy(artifact,role,process,Collections.singleton(account));
             graph.getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy().add(g2);
+
+            RdfProvenanceArc rpa=(RdfProvenanceArc) generated;
+            Resource subject=rpa.getSubject();
+            SubjectFacade sf=new SubjectFacade(subject, mc) ;
+            java.util.Set<Resource> annotations=sf.getObjects(hasAnnotation);
+            pFactory.addCompactAnnotation(g2,convertAnnotations(annotations,pcf,mc));
+
+
             
         }
 
@@ -318,6 +359,13 @@ public class OPMRdf2Xml {
 
             WasDerivedFrom d2=pFactory.newWasDerivedFrom(artifact2,artifact1,Collections.singleton(account));
             graph.getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy().add(d2);
+
+            RdfProvenanceArc rpa=(RdfProvenanceArc) derived;
+            Resource subject=rpa.getSubject();
+            SubjectFacade sf=new SubjectFacade(subject, mc) ;
+            java.util.Set<Resource> annotations=sf.getObjects(hasAnnotation);
+            pFactory.addCompactAnnotation(d2,convertAnnotations(annotations,pcf,mc));
+
         }
 
 
@@ -331,6 +379,15 @@ public class OPMRdf2Xml {
 
             WasTriggeredBy t2=pFactory.newWasTriggeredBy(process2,process1,Collections.singleton(account));
             graph.getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy().add(t2);
+
+
+            RdfProvenanceArc rpa=(RdfProvenanceArc) triggered;
+            Resource subject=rpa.getSubject();
+            SubjectFacade sf=new SubjectFacade(subject, mc) ;
+            java.util.Set<Resource> annotations=sf.getObjects(hasAnnotation);
+            pFactory.addCompactAnnotation(t2,convertAnnotations(annotations,pcf,mc));
+
+
         }
 
         Set<String> accountNames=accountTable.keySet();
@@ -362,7 +419,7 @@ public class OPMRdf2Xml {
 
         Agent ag=agentTable.get(uri);
         if (ag==null) {
-            Agent a=pFactory.newAgent(id, null, name);
+            Agent a=pFactory.newAgent(id, null);
             agentTable.put(uri,a);
             return a;
         } else {
@@ -377,7 +434,7 @@ public class OPMRdf2Xml {
 
         Artifact a=artifactTable.get(uri);
         if (a==null) {
-            Artifact a2=pFactory.newArtifact(id, null, name);
+            Artifact a2=pFactory.newArtifact(id, null);
             artifactTable.put(uri,a2);
             return a2;
         } else {
@@ -393,13 +450,14 @@ public class OPMRdf2Xml {
 
         Process p=processTable.get(uri);
         if (p==null) {
-            Process a=pFactory.newProcess(id, null, name);
+            Process a=pFactory.newProcess(id, null);
             processTable.put(uri,a);
             return a;
         } else {
             return p;
         }
     }
+        
         
 
 
