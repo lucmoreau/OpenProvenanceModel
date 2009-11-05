@@ -217,10 +217,12 @@
     </plugin>
 
 
+<!-- not supported by git
     <plugin>
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-changelog-plugin</artifactId>
     </plugin>
+-->
 
     <plugin>
       <groupId>org.codehaus.mojo</groupId>
