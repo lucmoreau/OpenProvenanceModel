@@ -77,8 +77,7 @@ public class OPMDeserialiser {
         throws JAXBException,SAXException, IOException {
         SchemaFactory sf = SchemaFactory.newInstance(javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI);
         Source [] sources=new Source[2+schemaFiles.length];
-        sources[0]=new StreamSource(this.getClass().getResourceAsStream("/"+"opm.1_01.xsd"));
-        sources[1]=new StreamSource(this.getClass().getResourceAsStream("/"+"opm_extension.1_01.xsd"));
+        sources[0]=new StreamSource(this.getClass().getResourceAsStream("/"+"opm.1_1.xsd"));
         int i=0;
         for (String schemaFile: schemaFiles) {
             sources[2+i]=new StreamSource(new File(schemaFile));

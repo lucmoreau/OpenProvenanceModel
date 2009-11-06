@@ -363,6 +363,9 @@ public class OPMFactory implements CommonURIs {
     public void addAnnotation(Annotable annotable, JAXBElement<? extends EmbeddedAnnotation> ann) {
         annotable.getAnnotation().add(ann);
     }
+    public void addAnnotations(Annotable annotable, List<JAXBElement<? extends EmbeddedAnnotation>> anns) {
+        annotable.getAnnotation().addAll(anns);
+    }
 
     public void expandAnnotation(EmbeddedAnnotation ann) {
         if (ann instanceof Label) {

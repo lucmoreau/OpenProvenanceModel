@@ -238,7 +238,7 @@
                 <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
   	              <arg value="-e s/implements Equals, HashCode, ToString/implements Annotable, Equals, HashCode, ToString/" />
   	              <arg value="-iBAK" />
-  	              <arg value="Annotation.java" />
+  	              <arg value="EmbeddedAnnotation.java" />
                 </exec>
 
                 <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">

@@ -99,9 +99,6 @@ public class AnnotationReadTest
 
         assertTrue( "self graph2  differ", graph2.equals(graph2) );
 
-        System.out.println("overlaps " + graph2.getAccounts().getOverlaps());
-        System.out.println("overlaps " + graph.getAccounts().getOverlaps());
-
         assertTrue( "accounts differ", graph.getAccounts().getAccount().equals(graph2.getAccounts().getAccount()) );
 
         assertTrue( "account overalps differ", graph.getAccounts().getOverlaps().equals(graph2.getAccounts().getOverlaps()) );

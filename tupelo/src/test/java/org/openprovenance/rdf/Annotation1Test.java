@@ -168,6 +168,12 @@ public class Annotation1Test
         EmbeddedAnnotation ann15=oFactory.newEmbeddedAnnotation("an15","http://property.org/hasQuality", "average", green);
         oFactory.addAnnotation(wdf3,ann15);
 
+
+        oFactory.addAnnotation(ann15,oFactory.newEmbeddedAnnotation("an16",
+                                                                    "http://property.org/comment",
+                                                                    "strange",
+                                                                    green));
+
         OPMGraph graph=oFactory.newOPMGraph(green_orange,
                                             new Overlaps[] { ov1 },
                                             new Process[] {p1,p2,p3,p4,p5},

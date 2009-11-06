@@ -405,6 +405,10 @@ public class OPMXml2Rdf {
                 triples.add(t);
             }
 
+            List<Triple> moreTriples=triplifyAnnotations(annotationInRdf,
+                                                         ann.getAnnotation());
+            triples.addAll(moreTriples);
+
         }
         return triples;
     }

@@ -53,9 +53,6 @@ public class NamespacePrefixMapper extends com.sun.xml.bind.marshaller.Namespace
         if (namespaceUri.equals("http://openprovenance.org/model/v1.1.a")) {
             return "opm";
         }
-        if (namespaceUri.equals("http://openprovenance.org/model/extension/v1.1.a")) {
-            return "opmext";
-        }
         if (namespaceUri.equals("http://openprovenance.org/model/opmPrinterConfig")) {
             return "prn";
         }

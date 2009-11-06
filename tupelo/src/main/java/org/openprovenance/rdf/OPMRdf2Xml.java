@@ -1,6 +1,7 @@
 package org.openprovenance.rdf;
 
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.JAXBElement;
 
 import java.io.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
@@ -71,7 +72,6 @@ import org.tupeloproject.kernel.OperatorException;
 /**
 TODO:
  annotations to roles
- annotations of annotations
 
  support for graph-level annotations 
 */
@@ -246,21 +246,39 @@ public class OPMRdf2Xml {
 
             Set<Triple> triples=af.getTriples();
             List<Property> properties=new LinkedList();
+
+            List<JAXBElement<? extends EmbeddedAnnotation>> subAnnotations=new LinkedList();
             for (Triple t: triples) {
                 Resource predicate=t.getPredicate();
                 String predicateUri=predicate.getUri().toString();
                 // search for the property!!
                 if ((!(predicateUri.equals(OPMXml2Rdf.OPM_HAS_ACCOUNT)))
                     &&
-                    (!(predicateUri.equals("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")))) {
+                    (!(predicateUri.equals("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")))
+                    &&
+                    (!(predicateUri.equals(OPMXml2Rdf.OPM_HAS_ANNOTATION)))
+                    ) {
 
                     Resource object=t.getObject();
                     Object o=object.asObject();
                     properties.add(pFactory.newProperty(predicateUri,o));
+                } else if (predicateUri.equals(OPMXml2Rdf.OPM_HAS_ANNOTATION)) {
+                    System.out.println("*********************** Found annotation of annotation !");
+                    Resource annotationOfAnnotation=t.getObject();
+                    //SubjectFacade sf=new SubjectFacade(annotationOfAnnotation,context) ;
+                    //java.util.Set<Resource> subAnnotationsResources=sf.getObjects(hasAnnotation);
+                    //System.out.println("*********************** Found annotation of annotation !"  + " " + subAnnotationsResources);
+                    Set<Resource> rl=new HashSet();
+                    rl.add(annotationOfAnnotation);
+                    for (EmbeddedAnnotation ann: convertAnnotations(rl,pcf,context)) {
+                        subAnnotations.add(pFactory.compactAnnotation(ann));
+                        System.out.println("*********************** " + ann);
+                    };
                 }
             }
 
             EmbeddedAnnotation e=pFactory.newEmbeddedAnnotation(id, properties, accRefs, null);
+            pFactory.addAnnotations(e,subAnnotations);
             embedded.add(e);
         }
 
