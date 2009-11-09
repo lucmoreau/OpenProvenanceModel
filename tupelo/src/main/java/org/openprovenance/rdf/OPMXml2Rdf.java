@@ -247,144 +247,137 @@ public class OPMXml2Rdf {
 
 
             }
-            else {
-                if (e instanceof WasGeneratedBy) {
-                    ProvenanceProcess cause=processTable.get(causeId);
-                    ProvenanceArtifact effect=artifactTable.get(effectId);
-                    Role thisRole=((WasGeneratedBy)e).getRole();
-                    ProvenanceRole role;
-                    if (thisRole!=null) {
-                        role=pcf.newRole(thisRole.getValue());
-                    } else {
-                        role=pcf.newRole(UNKNOWN_ROLE);
-                    }
-                    if (accounts.isEmpty()) {
-                        ProvenanceAccount account=accountTable.get(NULL_ACCOUNT);
+            else if (e instanceof WasGeneratedBy) {
+                ProvenanceProcess cause=processTable.get(causeId);
+                ProvenanceArtifact effect=artifactTable.get(effectId);
+                Role thisRole=((WasGeneratedBy)e).getRole();
+                ProvenanceRole role;
+                if (thisRole!=null) {
+                    role=pcf.newRole(thisRole.getValue());
+                } else {
+                    role=pcf.newRole(UNKNOWN_ROLE);
+                }
+                if (accounts.isEmpty()) {
+                    ProvenanceAccount account=accountTable.get(NULL_ACCOUNT);
+                    pcf.assertGeneratedBy(effect, cause, role, account);
+                } else {
+                    for (AccountRef aid: accounts) {
+                        ProvenanceAccount account=accountTable.get(((Account)aid.getRef()).getId());
                         pcf.assertGeneratedBy(effect, cause, role, account);
-                    } else {
-                        for (AccountRef aid: accounts) {
-                            ProvenanceAccount account=accountTable.get(((Account)aid.getRef()).getId());
-                            pcf.assertGeneratedBy(effect, cause, role, account);
-                        }
                     }
+                }
 
 
-                    Collection<ProvenanceGeneratedArc> generatedBy=pcf.getGeneratedBy(effect);
-                    for (ProvenanceGeneratedArc a: generatedBy) {
+                Collection<ProvenanceGeneratedArc> generatedBy=pcf.getGeneratedBy(effect);
+                for (ProvenanceGeneratedArc a: generatedBy) {
+                    if (a.getSink().equals(cause)
+                        && a.getSource().equals(effect)) {
+                        System.out.println("Found " + a);
+                        System.out.println("Found " + ((RdfProvenanceProcess)cause).getSubject());
+                        System.out.println("Found " + ((RdfProvenanceArtifact)effect).getSubject());
+                        RdfProvenanceArc rpa=(RdfProvenanceArc) a;
+                        Resource subject=rpa.getSubject();
+                        mc.addTriples(triplifyAnnotations(subject,e.getAnnotation()));
+                        break;
+                    }
+                }
+
+                if (!(thisRole.getAnnotation().isEmpty())) {
+                    RdfProvenanceRole rdfRole=(RdfProvenanceRole) role;
+                    Resource roleSubject=rdfRole.getSubject();
+                    mc.addTriples(triplifyAnnotations(roleSubject,thisRole.getAnnotation()));
+                }
+
+
+            }
+            else if (e instanceof WasTriggeredBy) {
+                ProvenanceProcess cause=processTable.get(causeId);
+                ProvenanceProcess effect=processTable.get(effectId);
+                if (accounts.isEmpty()) {
+                    ProvenanceAccount account=accountTable.get(NULL_ACCOUNT);
+                    pcf.assertTriggeredBy(effect, cause, account);
+                } else {
+                    for (AccountRef aid: accounts) {
+                        ProvenanceAccount account=accountTable.get(((Account)aid.getRef()).getId());
+                        pcf.assertTriggeredBy(effect, cause, account);
+                    }
+                }
+
+
+                if (!(e.getAnnotation().isEmpty())) {
+                    Collection<ProvenanceTriggeredArc> triggered=pcf.getTriggeredBy(effect);
+                    for (ProvenanceTriggeredArc a: triggered) {
                         if (a.getSink().equals(cause)
                             && a.getSource().equals(effect)) {
-                            System.out.println("Found " + a);
-                            System.out.println("Found " + ((RdfProvenanceProcess)cause).getSubject());
-                            System.out.println("Found " + ((RdfProvenanceArtifact)effect).getSubject());
                             RdfProvenanceArc rpa=(RdfProvenanceArc) a;
                             Resource subject=rpa.getSubject();
                             mc.addTriples(triplifyAnnotations(subject,e.getAnnotation()));
                             break;
                         }
                     }
-
-                    if (!(thisRole.getAnnotation().isEmpty())) {
-                        RdfProvenanceRole rdfRole=(RdfProvenanceRole) role;
-                        Resource roleSubject=rdfRole.getSubject();
-                        mc.addTriples(triplifyAnnotations(roleSubject,thisRole.getAnnotation()));
-                    }
-
-
                 }
-                else {
-                    if (e instanceof WasTriggeredBy) {
-                        ProvenanceProcess cause=processTable.get(causeId);
-                        ProvenanceProcess effect=processTable.get(effectId);
-                        if (accounts.isEmpty()) {
-                            ProvenanceAccount account=accountTable.get(NULL_ACCOUNT);
-                            pcf.assertTriggeredBy(effect, cause, account);
-                        } else {
-                            for (AccountRef aid: accounts) {
-                                ProvenanceAccount account=accountTable.get(((Account)aid.getRef()).getId());
-                                pcf.assertTriggeredBy(effect, cause, account);
-                            }
-                        }
 
-
-                        if (!(e.getAnnotation().isEmpty())) {
-                            Collection<ProvenanceTriggeredArc> triggered=pcf.getTriggeredBy(effect);
-                            for (ProvenanceTriggeredArc a: triggered) {
-                                if (a.getSink().equals(cause)
-                                    && a.getSource().equals(effect)) {
-                                    RdfProvenanceArc rpa=(RdfProvenanceArc) a;
-                                    Resource subject=rpa.getSubject();
-                                    mc.addTriples(triplifyAnnotations(subject,e.getAnnotation()));
-                                    break;
-                                }
-                            }
-                        }
-
+            }
+            else if (e instanceof WasDerivedFrom) {
+                ProvenanceArtifact cause=artifactTable.get(causeId);
+                ProvenanceArtifact effect=artifactTable.get(effectId);
+                RdfProvenanceArc arc;
+                if (accounts.isEmpty()) {
+                    ProvenanceAccount account=accountTable.get(NULL_ACCOUNT);
+                    pcf.assertDerivedFrom(effect, cause, account);
+                } else {
+                    for (AccountRef aid: accounts) {
+                        ProvenanceAccount account=accountTable.get(((Account)aid.getRef()).getId());
+                        pcf.assertDerivedFrom(effect, cause, account);
                     }
-                    else {
-                        if (e instanceof WasDerivedFrom) {
-                            ProvenanceArtifact cause=artifactTable.get(causeId);
-                            ProvenanceArtifact effect=artifactTable.get(effectId);
-                            RdfProvenanceArc arc;
-                            if (accounts.isEmpty()) {
-                                ProvenanceAccount account=accountTable.get(NULL_ACCOUNT);
-                                pcf.assertDerivedFrom(effect, cause, account);
-                            } else {
-                                for (AccountRef aid: accounts) {
-                                    ProvenanceAccount account=accountTable.get(((Account)aid.getRef()).getId());
-                                    pcf.assertDerivedFrom(effect, cause, account);
-                                }
-                            }
+                }
 
-                            if (!(e.getAnnotation().isEmpty())) {
-                                Collection<ProvenanceDerivedArc> derived=pcf.getDerivedFrom(effect);
-                                for (ProvenanceDerivedArc a: derived) {
-                                    if (a.getAntecedent().equals(cause)
-                                        && a.getConsequent().equals(effect)) {
-                                        RdfProvenanceArc rpa=(RdfProvenanceArc) a;
-                                        Resource subject=rpa.getSubject();
-                                        mc.addTriples(triplifyAnnotations(subject,e.getAnnotation()));
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        else {
-                            if (e instanceof WasControlledBy) {
-                                ProvenanceAgent cause=agentTable.get(causeId);
-                                ProvenanceProcess effect=processTable.get(effectId);
-                                ProvenanceRole role = pcf.newRole(((WasControlledBy)e).getRole().getValue());
-                                if (accounts.isEmpty()) {
-                                    ProvenanceAccount account=accountTable.get(NULL_ACCOUNT);
-                                    pcf.assertControlledBy(effect, cause, role, account);
-                                } else {
-                                    for (AccountRef aid: accounts) {
-                                        ProvenanceAccount account=accountTable.get(((Account)aid.getRef()).getId());
-                                        pcf.assertControlledBy(effect, cause, role, account);
-                                    }
-                                }
-
-                                if (!(e.getAnnotation().isEmpty())) {
-                                    Collection<ProvenanceControlledArc> controlled=pcf.getControlledBy(effect);
-                                    for (ProvenanceControlledArc a: controlled) {
-                                        if (a.getSink().equals(cause)
-                                            && a.getSource().equals(effect)) {
-                                            RdfProvenanceArc rpa=(RdfProvenanceArc) a;
-                                            Resource subject=rpa.getSubject();
-                                            mc.addTriples(triplifyAnnotations(subject,e.getAnnotation()));
-                                            break;
-                                        }
-                                    }
-                                }
-
-                                Role thisRole=((WasControlledBy)e).getRole();
-                                if (!(thisRole.getAnnotation().isEmpty())) {
-                                    RdfProvenanceRole rdfRole=(RdfProvenanceRole) role;
-                                    Resource roleSubject=rdfRole.getSubject();
-                                    mc.addTriples(triplifyAnnotations(roleSubject,thisRole.getAnnotation()));
-                                }
-                            }
+                if (!(e.getAnnotation().isEmpty())) {
+                    Collection<ProvenanceDerivedArc> derived=pcf.getDerivedFrom(effect);
+                    for (ProvenanceDerivedArc a: derived) {
+                        if (a.getAntecedent().equals(cause)
+                            && a.getConsequent().equals(effect)) {
+                            RdfProvenanceArc rpa=(RdfProvenanceArc) a;
+                            Resource subject=rpa.getSubject();
+                            mc.addTriples(triplifyAnnotations(subject,e.getAnnotation()));
+                            break;
                         }
                     }
+                }
+            }
+
+            else if (e instanceof WasControlledBy) {
+                ProvenanceAgent cause=agentTable.get(causeId);
+                ProvenanceProcess effect=processTable.get(effectId);
+                ProvenanceRole role = pcf.newRole(((WasControlledBy)e).getRole().getValue());
+                if (accounts.isEmpty()) {
+                    ProvenanceAccount account=accountTable.get(NULL_ACCOUNT);
+                    pcf.assertControlledBy(effect, cause, role, account);
+                } else {
+                    for (AccountRef aid: accounts) {
+                        ProvenanceAccount account=accountTable.get(((Account)aid.getRef()).getId());
+                        pcf.assertControlledBy(effect, cause, role, account);
+                    }
+                }
+
+                if (!(e.getAnnotation().isEmpty())) {
+                    Collection<ProvenanceControlledArc> controlled=pcf.getControlledBy(effect);
+                    for (ProvenanceControlledArc a: controlled) {
+                        if (a.getSink().equals(cause)
+                            && a.getSource().equals(effect)) {
+                            RdfProvenanceArc rpa=(RdfProvenanceArc) a;
+                            Resource subject=rpa.getSubject();
+                            mc.addTriples(triplifyAnnotations(subject,e.getAnnotation()));
+                            break;
+                        }
+                    }
+                }
+
+                Role thisRole=((WasControlledBy)e).getRole();
+                if (!(thisRole.getAnnotation().isEmpty())) {
+                    RdfProvenanceRole rdfRole=(RdfProvenanceRole) role;
+                    Resource roleSubject=rdfRole.getSubject();
+                    mc.addTriples(triplifyAnnotations(roleSubject,thisRole.getAnnotation()));
                 }
             }
         }
