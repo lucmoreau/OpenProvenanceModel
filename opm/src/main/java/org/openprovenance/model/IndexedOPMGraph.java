@@ -12,7 +12,11 @@ import java.util.HashMap;
  * maintained, one cannot access, say the list of edges, and mutate
  * it. Instead, one has to use the add methods provided.
  *<p>
- * Note that code is not thread-safe. */
+ * Note that code is not thread-safe.
+
+ TODO: index annotation, index edges
+
+ */
 
 public class IndexedOPMGraph extends OPMGraph {
 
@@ -22,6 +26,7 @@ public class IndexedOPMGraph extends OPMGraph {
     private HashMap<String,Account>  accountMap=new HashMap();
     private HashMap<String,Artifact> artifactMap=new HashMap();
     private HashMap<String,Process>  processMap=new HashMap();
+    private HashMap<String,Agent>    agentMap=new HashMap();
 
     /* Collection of Used edges that have a given process as an
      * effect. */
@@ -184,6 +189,27 @@ public class IndexedOPMGraph extends OPMGraph {
         }
     }
 
+
+
+    public Agent addAgent(Agent agent) {
+        return addAgent(agent.getId(),agent);
+    }
+    public Agent addAgent(String name, Agent agent) {
+        Agent existing=agentMap.get(name);
+        if (existing!=null) {
+            return existing;
+        } else {
+            agentMap.put(name,agent);
+            Agents agents=getAgents();
+            if (agents==null) {
+                agents=of.createAgents();
+                setAgents(agents);
+            }
+            agents.getAgent().add(agent);
+            return agent;
+        }
+    }
+
     public Process addProcess(Process process) {
         return addProcess(process.getId(),process);
     }
@@ -203,6 +229,16 @@ public class IndexedOPMGraph extends OPMGraph {
             return process;
         }
     }
+
+    public Process getProcess(String name) {
+        return processMap.get(name);
+    }
+    public Artifact getArtifact(String name) {
+        return artifactMap.get(name);
+    }
+    public Agent getAgent(String name) {
+        return agentMap.get(name);
+    }
             
     public IndexedOPMGraph(OPMFactory oFactory, OPMGraph graph) {
         this.oFactory=oFactory;
@@ -215,6 +251,12 @@ public class IndexedOPMGraph extends OPMGraph {
         if (graph.getArtifacts()!=null) {
             for (Artifact acc: graph.getArtifacts().getArtifact()) {
                 addArtifact(acc);
+            }
+        }
+
+        if (graph.getAgents()!=null) {
+            for (Agent acc: graph.getAgents().getAgent()) {
+                addAgent(acc);
             }
         }
 

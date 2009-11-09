@@ -194,18 +194,35 @@ public class AnnotationReadTest
         }
     }
 
+    //TODO: write a normalisation class in opm package
 
     void updateGraph(OPMGraph graph) {
 
         IndexedOPMGraph igraph=new IndexedOPMGraph(oFactory,graph);
 
-
+        // embed external annotations
         
         if (graph.getAnnotations()!=null) {
-//             List<Annotation> anns=graph.getAnnotations().getAnnotation();
-//             for (int i=anns.size()-1; i>=0; i--) {
-//                 anns.remove(anns.get(i));
-//             }
+            List<Annotation> anns=graph.getAnnotations().getAnnotation();
+            for (Annotation ann: anns) {
+                String id=(((Identifiable)ann.getLocalSubject()).getId());
+                EmbeddedAnnotation embedded=oFactory.newEmbeddedAnnotation(ann.getId(),
+                                                                           ann.getProperty(),
+                                                                           ann.getAccount(),
+                                                                           null);
+                Process p=igraph.getProcess(id);
+                if (p!=null) {
+                    p.getAnnotation().add(oFactory.compactAnnotation(embedded));
+                } else {
+                    Artifact a=igraph.getArtifact(id);
+                    if (a!=null) {
+                        a.getAnnotation().add(oFactory.compactAnnotation(embedded));
+                    } else {
+                        
+                    }
+                }
+            }
+
             graph.setAnnotations(null);
         }
 
