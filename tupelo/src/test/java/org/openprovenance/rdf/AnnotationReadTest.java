@@ -156,7 +156,7 @@ public class AnnotationReadTest
 
 
 
-
+        //TODO: this should be moved to a graph normalisation procedure.
 
         if (graph.getProcesses()!=null && graph.getProcesses().getProcess()!=null) {
             sortById((List)graph.getProcesses().getProcess());

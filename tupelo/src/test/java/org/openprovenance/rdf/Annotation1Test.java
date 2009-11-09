@@ -174,6 +174,11 @@ public class Annotation1Test
                                                                     "strange",
                                                                     green));
 
+        oFactory.addAnnotation(r1,oFactory.newEmbeddedAnnotation("an17",
+                                                                 "http://property.org/aka",
+                                                                 "pair constructor",
+                                                                 green));
+
         OPMGraph graph=oFactory.newOPMGraph(green_orange,
                                             new Overlaps[] { ov1 },
                                             new Process[] {p1,p2,p3,p4,p5},

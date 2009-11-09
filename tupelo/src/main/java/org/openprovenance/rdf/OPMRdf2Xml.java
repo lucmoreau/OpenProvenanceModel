@@ -55,6 +55,7 @@ import org.tupeloproject.provenance.ProvenanceControlledArc;
 import org.tupeloproject.provenance.impl.ProvenanceContextFacade;
 import org.tupeloproject.provenance.impl.RdfProvenanceElement;
 import org.tupeloproject.provenance.impl.RdfProvenanceAccount;
+import org.tupeloproject.provenance.impl.RdfProvenanceRole;
 import org.tupeloproject.provenance.impl.RdfProvenanceArc;
 import org.tupeloproject.rdf.Resource;
 import org.tupeloproject.rdf.Triple;
@@ -70,10 +71,7 @@ import org.tupeloproject.kernel.OperatorException;
 
 
 /**
-TODO:
- annotations to roles
-
- support for graph-level annotations 
+TODO: support for graph-level annotations 
 */
 
 public class OPMRdf2Xml {
@@ -323,6 +321,13 @@ public class OPMRdf2Xml {
             java.util.Set<Resource> annotations=sf.getObjects(hasAnnotation);
             pFactory.addCompactAnnotation(u2,convertAnnotations(annotations,pcf,mc));
 
+            RdfProvenanceRole rdfRole=(RdfProvenanceRole) pRole;
+            Resource roleSubject=rdfRole.getSubject();
+            SubjectFacade roleSf=new SubjectFacade(roleSubject, mc) ;
+            java.util.Set<Resource> roleAnnotations=roleSf.getObjects(hasAnnotation);
+            pFactory.addCompactAnnotation(role,convertAnnotations(roleAnnotations,pcf,mc));
+
+
             
         }
 
@@ -347,6 +352,14 @@ public class OPMRdf2Xml {
             pFactory.addCompactAnnotation(g2,convertAnnotations(annotations,pcf,mc));
 
 
+
+            RdfProvenanceRole rdfRole=(RdfProvenanceRole) pRole;
+            Resource roleSubject=rdfRole.getSubject();
+            SubjectFacade roleSf=new SubjectFacade(roleSubject, mc) ;
+            java.util.Set<Resource> roleAnnotations=roleSf.getObjects(hasAnnotation);
+            pFactory.addCompactAnnotation(role,convertAnnotations(roleAnnotations,pcf,mc));
+
+
             
         }
 
@@ -363,6 +376,13 @@ public class OPMRdf2Xml {
 
             WasControlledBy g2=pFactory.newWasControlledBy(process,role,agent,Collections.singleton(account));
             graph.getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy().add(g2);
+
+            RdfProvenanceRole rdfRole=(RdfProvenanceRole) pRole;
+            Resource roleSubject=rdfRole.getSubject();
+            SubjectFacade roleSf=new SubjectFacade(roleSubject, mc) ;
+            java.util.Set<Resource> roleAnnotations=roleSf.getObjects(hasAnnotation);
+            pFactory.addCompactAnnotation(role,convertAnnotations(roleAnnotations,pcf,mc));
+
             
         }
 
