@@ -13,27 +13,27 @@
     </file>
     
     <file>
-      <source>${project.build.directory}/classes/README-opm2dot.txt</source>
+      <source>target/classes/README-opm2dot.txt</source>
       <outputDirectory>/opmToolbox</outputDirectory>
       <fileMode>644</fileMode>
     </file>
     <file>
-      <source>${project.build.directory}/classes/README-opmxml2rdf.txt</source>
+      <source>target/classes/README-opmxml2rdf.txt</source>
       <outputDirectory>/opmToolbox</outputDirectory>
       <fileMode>644</fileMode>
     </file>
     <file>
-      <source>${project.build.directory}/classes/README-opmrdf2xml.txt</source>
+      <source>target/classes/README-opmrdf2xml.txt</source>
       <outputDirectory>/opmToolbox</outputDirectory>
       <fileMode>644</fileMode>
     </file>
     <file>
-      <source>${project.build.directory}/classes/README-opmxml-validate.txt</source>
+      <source>target/classes/README-opmxml-validate.txt</source>
       <outputDirectory>/opmToolbox</outputDirectory>
       <fileMode>644</fileMode>
     </file>
     <file>
-      <source>${project.build.directory}/classes/README-licenses.txt</source>
+      <source>target/classes/README-licenses.txt</source>
       <outputDirectory>/opmToolbox</outputDirectory>
       <fileMode>644</fileMode>
     </file>
