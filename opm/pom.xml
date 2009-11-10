@@ -82,10 +82,10 @@
 	    <artifactId>maven-jaxb2-plugin</artifactId>
         <executions>
           <execution>
+            <id>go1</id>
+            <phase>generate-sources</phase>
             <goals>
-              <id>go1</id>
               <goal>generate</goal>
-              <phase>generate-sources</phase>
             </goals>
             <configuration>
                <schemaDirectory>src/main/resources</schemaDirectory>

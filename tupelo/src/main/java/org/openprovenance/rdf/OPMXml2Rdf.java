@@ -292,9 +292,6 @@ public class OPMXml2Rdf {
                 for (ProvenanceGeneratedArc a: generatedBy) {
                     if (a.getSink().equals(cause)
                         && a.getSource().equals(effect)) {
-                        //System.out.println("Found " + a);
-                        //System.out.println("Found " + ((RdfProvenanceProcess)cause).getSubject());
-                        //System.out.println("Found " + ((RdfProvenanceArtifact)effect).getSubject());
                         RdfProvenanceArc rpa=(RdfProvenanceArc) a;
                         Resource subject=rpa.getSubject();
                         mc.addTriples(triplifyAnnotations(subject,e.getAnnotation()));
@@ -420,12 +417,11 @@ public class OPMXml2Rdf {
     public List<Triple> triplifyAnnotation(Annotation annotation) {
         String id=(((Identifiable)annotation.getLocalSubject()).getId());
         Resource subject=idTable.get(id);
-        System.out.println("$$$$$$$$$$$$$$$ " + id + " " + subject);
         List<Triple> triples=new LinkedList();
         if (subject!=null) {
             addTriplesForAnnotation(subject,annotation,triples);
         } else {
-            System.out.println("$$$$$$$$$$$$$$$ " + id + ": no rdf subject!");
+            logger.warn("$$$$$$$$$$$$$$$ " + id + ": no rdf subject!");
         }
         return triples;
     }
