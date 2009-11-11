@@ -11,8 +11,8 @@
 
 
   <scm>
-    <connection>scm:git:git@github.com:lucmoreau/OpenProvenanceModel.git</connection>
-    <developerConnection>scm:git:git://github.com/lucmoreau/OpenProvenanceModel.git</developerConnection>
+    <connection>scm:git:git://github.com/lucmoreau/OpenProvenanceModel.git</connection>
+    <developerConnection>scm:git:git@github.com:lucmoreau/OpenProvenanceModel.git</developerConnection>
   </scm>   
 
 
