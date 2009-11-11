@@ -173,6 +173,19 @@
    </pluginManagement>
   </build>
 
+  <properties>
+
+    <!-- jaxb -->
+    <jaxb.impl.version>2.1.12</jaxb.impl.version>
+    <jaxb.api.version>2.1</jaxb.api.version>
+    <jaxb.xjc.version>2.1.12</jaxb.xjc.version>
+    <jaxb.common.version>0.4.1.5</jaxb.common.version>
+    <hyperjaxb.version>0.5.0</hyperjaxb.version>
+    <maven.jaxb.plugin.version>0.6.0</maven.jaxb.plugin.version>
+
+    
+  </properties>
+
 
   <reporting>
     <plugins>
