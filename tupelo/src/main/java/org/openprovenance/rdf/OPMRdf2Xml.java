@@ -147,7 +147,7 @@ public class OPMRdf2Xml {
             if (element!=null) {
                 //System.out.println("found element " + element);
 
-                System.out.println("Subject is " + subject);
+                //System.out.println("Subject is " + subject);
 
                 if (element instanceof ProvenanceArtifact) {
                     Artifact a=getArtifact((ProvenanceArtifact) element);
@@ -263,14 +263,10 @@ public class OPMRdf2Xml {
                 } else if (predicateUri.equals(OPMXml2Rdf.OPM_HAS_ANNOTATION)) {
                     System.out.println("*********************** Found annotation of annotation !");
                     Resource annotationOfAnnotation=t.getObject();
-                    //SubjectFacade sf=new SubjectFacade(annotationOfAnnotation,context) ;
-                    //java.util.Set<Resource> subAnnotationsResources=sf.getObjects(hasAnnotation);
-                    //System.out.println("*********************** Found annotation of annotation !"  + " " + subAnnotationsResources);
                     Set<Resource> rl=new HashSet();
                     rl.add(annotationOfAnnotation);
                     for (EmbeddedAnnotation ann: convertAnnotations(rl,pcf,context)) {
                         subAnnotations.add(pFactory.compactAnnotation(ann));
-                        System.out.println("*********************** " + ann);
                     };
                 }
             }
