@@ -49,6 +49,7 @@ public class List1Test
 
         Collection<Account> summary=Collections.singleton(oFactory.newAccount("summary"));
         Collection<Account> detailed=Collections.singleton(oFactory.newAccount("detailed"));
+        Collection<Account> superdetailed=Collections.singleton(oFactory.newAccount("superdetailed"));
         
         Process p1=oFactory.newProcess("p1",
                                        summary,
@@ -66,10 +67,32 @@ public class List1Test
                                        detailed,
                                        "http://process.org/constructor");
 
+        Process p6=oFactory.newProcess("p6",
+                                       superdetailed,
+                                       "plus2");
+
+        Process p7=oFactory.newProcess("p7",
+                                       superdetailed,
+                                       "minus1");
+
+        Process p8=oFactory.newProcess("p8",
+                                       superdetailed,
+                                       "minus1");
+
+        Process p9=oFactory.newProcess("p9",
+                                       superdetailed,
+                                       "plus2");
+
 
         List<Account> summary_detailed=new LinkedList();
         summary_detailed.addAll(summary);
         summary_detailed.addAll(detailed);
+
+
+        List<Account> summary_super_detailed=new LinkedList();
+        summary_super_detailed.addAll(summary);
+        summary_super_detailed.addAll(detailed);
+        summary_super_detailed.addAll(superdetailed);
 
         Artifact a1=oFactory.newArtifact("a1",
                                          summary_detailed,
@@ -97,6 +120,9 @@ public class List1Test
         Used u5=oFactory.newUsed(p5,oFactory.newRole("left"),a5,detailed);
         Used u6=oFactory.newUsed(p5,oFactory.newRole("right"),a6,detailed);
 
+        Used u7=oFactory.newUsed(p6,oFactory.newRole("in"),a3,superdetailed);
+        Used u8=oFactory.newUsed(p8,oFactory.newRole("in"),a4,superdetailed);
+
 
 
 
@@ -106,6 +132,8 @@ public class List1Test
         WasGeneratedBy wg4=oFactory.newWasGeneratedBy(a5,oFactory.newRole("out"),p3,detailed);
         WasGeneratedBy wg5=oFactory.newWasGeneratedBy(a6,oFactory.newRole("out"),p4,detailed);
         WasGeneratedBy wg6=oFactory.newWasGeneratedBy(a2,oFactory.newRole("pair"),p5,detailed);
+        WasGeneratedBy wg7=oFactory.newWasGeneratedBy(a5,oFactory.newRole("out"),p7,superdetailed);
+        WasGeneratedBy wg8=oFactory.newWasGeneratedBy(a6,oFactory.newRole("out"),p9,superdetailed);
 
         Overlaps ov1=oFactory.newOverlaps(summary_detailed);
 
@@ -118,15 +146,19 @@ public class List1Test
         WasDerivedFrom wdf5=cFactory.newContained("wdf5",a2,a5,detailed);
         WasDerivedFrom wdf6=cFactory.newContained("wdf6",a2,a6,detailed);
 
+        WasTriggeredBy wtb1=oFactory.newWasTriggeredBy(p7,p6,superdetailed);
+        WasTriggeredBy wtb2=oFactory.newWasTriggeredBy(p9,p8,superdetailed);
+
 
         OPMGraph graph=oFactory.newOPMGraph(summary_detailed,
                                             new Overlaps[] { ov1 },
-                                            new Process[] {p1,p2,p3,p4,p5},
+                                            new Process[] {p1,p2,p3,p4,p5, p6, p7, p8, p9},
                                             new Artifact[] {a1,a2,a3,a4,a5,a6},
                                             null,
-                                            new Object[] {u1,u2,u3,u4,u5,u6,
-                                                          wg1,wg2,wg3,wg4,wg5,wg6,
-                                                          wdf0, wdf1, wdf2, wdf3, wdf4, wdf5, wdf6 } );
+                                            new Object[] {u1,u2,u3,u4,u5,u6,u7,u8,
+                                                          wg1,wg2,wg3,wg4,wg5,wg6,wg7,wg8,
+                                                          wdf0, wdf1, wdf2, wdf3, wdf4, wdf5, wdf6,
+                                                          wtb1, wtb2} );
 
 
 
@@ -152,6 +184,10 @@ public class List1Test
         toDot=new OPMToDot("src/test/resources/collectionConfig2.xml");
         
         toDot.convert(graph1,"target/list3.dot", "target/list3.pdf");
+
+        toDot=new OPMToDot("src/test/resources/collectionConfig3.xml");
+        
+        toDot.convert(graph1,"target/list4.dot", "target/list4.pdf");
 
 
 

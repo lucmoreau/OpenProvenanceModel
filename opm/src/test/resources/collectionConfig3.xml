@@ -32,9 +32,9 @@
 
 
   <accounts defaultAccount="black" defaultColor="black">
-    <account name="summary"      color="black"/>
-    <account name="detailed"       color="transparent"/>
-    <account name="superdetailed"       color="transparent"/>
+    <account name="summary"      color="red"/>
+    <account name="detailed"       color="black"/>
+    <account name="superdetailed"       color="blue"/>
   </accounts>
 
 

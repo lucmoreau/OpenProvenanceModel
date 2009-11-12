@@ -26,6 +26,7 @@
     <edge type="org.openprovenance.model.Used"            style="dotted"/>
     <edge type="org.openprovenance.model.WasGeneratedBy"  style="dotted"/>
     <edge type="org.openprovenance.model.WasControlledBy" style="dotted"/>
+    <edge type="org.openprovenance.model.WasTriggeredBy"  style="dotted"/>
     <edge type="org.openprovenance.model.WasDerivedFrom"  style="bold"/>
   </edges>
 
@@ -33,6 +34,7 @@
   <accounts defaultAccount="black" defaultColor="black">
     <account name="summary"      color="red"/>
     <account name="detailed"       color="black"/>
+    <account name="superdetailed"       color="transparent"/>
   </accounts>
 
 
