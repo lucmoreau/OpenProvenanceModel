@@ -40,7 +40,7 @@ public class Example1Test
 
     /** Creates and serialises an OPM graph. */
 
-    public void testOPM1() throws JAXBException
+    public void testOPM1() throws JAXBException,  java.io.FileNotFoundException,  java.io.IOException
     {
         OPMFactory oFactory=new OPMFactory();
 
@@ -128,6 +128,9 @@ public class Example1Test
         graph1=graph;
 
         assertTrue( true );
+
+
+
     }
 
 
