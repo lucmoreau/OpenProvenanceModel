@@ -68,7 +68,7 @@ public class Cake1Test
                                          "100g flour");
         Artifact a5=oFactory.newArtifact("a5",
                                          black,
-                                         "1 cake");
+                                         "cake");
 
         Used u1=oFactory.newUsed(p1,oFactory.newRole("in"),a1,black);
         Used u2=oFactory.newUsed(p1,oFactory.newRole("in"),a2,black);
