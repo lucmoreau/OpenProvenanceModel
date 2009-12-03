@@ -181,6 +181,18 @@ public class OPMFactory implements CommonURIs {
     }
 
 
+    public Role getRole(Edge e) {
+        if (e instanceof Used) {
+            return ((Used) e).getRole();
+        } 
+        if (e instanceof WasGeneratedBy) {
+            return ((WasGeneratedBy) e).getRole();
+        } 
+        if (e instanceof WasControlledBy) {
+            return ((WasControlledBy) e).getRole();
+        }
+        return null;
+    }
     
     public String getLabel(EmbeddedAnnotation annotation) {
         if (annotation instanceof Label) {
