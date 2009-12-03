@@ -527,14 +527,21 @@ public class OPMToDot {
             label=type;
         } else if (getEdgePrintRole(e)) {
             Role role=of.getRole(e);
-            if (role!=null) {
-                label=role.getValue();
+            if (role!=null && role.getValue()!=null) {
+                label=displayRole(role.getValue());
+                properties.put("fontsize","8");
             }
         }
         if (label!=null) {
             properties.put("label",convertEdgeLabel(label));
-            properties.put("labelfontsize","8");
+            if (properties.get("fontsize")==null) {
+                properties.put("fontsize","10");
+            }
         }
+    }
+
+    public String displayRole(String role) {
+        return "(" + role + ")";
     }
 
     public String convertEdgeLabel(String label) {

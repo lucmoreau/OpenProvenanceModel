@@ -145,7 +145,7 @@
 
   <xs:complexType name="Used">
 	<xs:sequence>
-	  <xs:element name="effect"  type="opm:ProcessRef"/>  <!-- or should it be named process? -->
+	  <xs:element name="effect"  type="opm:ProcessRef"/>
 	  <xs:element name="role"    type="opm:Role"/>
 	  <xs:element name="cause"   type="opm:ArtifactRef"/>
 	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountRef"/>
@@ -203,6 +203,46 @@
   </xs:complexType>
 
 
+  <xs:complexType name="UsedStar">
+	<xs:sequence>
+	  <xs:element name="effect"  type="opm:ProcessRef"/>
+	  <xs:element name="cause"   type="opm:ArtifactRef"/>
+	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountRef"/>
+	  <xs:element ref="opm:annotation"  minOccurs="0" maxOccurs="unbounded"/>
+	</xs:sequence>
+    <xs:attribute name="id" type="xs:ID"/>
+  </xs:complexType>
+
+  <xs:complexType name="WasGeneratedByStar">
+	<xs:sequence>
+	  <xs:element name="effect"  type="opm:ArtifactRef"/>
+	  <xs:element name="cause"   type="opm:ProcessRef"/>
+	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountRef"/>
+	  <xs:element ref="opm:annotation"  minOccurs="0" maxOccurs="unbounded"/>
+	</xs:sequence>
+    <xs:attribute name="id" type="xs:ID"/>
+  </xs:complexType>
+
+  <xs:complexType name="WasDerivedFromStar">
+	<xs:sequence>
+	  <xs:element name="effect"  type="opm:ArtifactRef"/>
+	  <xs:element name="cause"   type="opm:ArtifactRef"/>
+	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountRef"/>
+	  <xs:element ref="opm:annotation"  minOccurs="0" maxOccurs="unbounded"/>
+	</xs:sequence>
+	<xs:attribute name="id" type="xs:ID"/>
+  </xs:complexType>
+
+  <xs:complexType name="WasTriggeredByStar">
+	<xs:sequence>
+	  <xs:element name="effect"  type="opm:ProcessRef"/>
+	  <xs:element name="cause"   type="opm:ProcessRef"/>
+	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountRef"/>
+	  <xs:element ref="opm:annotation"  minOccurs="0" maxOccurs="unbounded"/>
+	</xs:sequence>
+	<xs:attribute name="id" type="xs:ID"/>
+  </xs:complexType>
+
   <xs:complexType name="CausalDependencies">
 	<xs:sequence>
 	  <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -211,6 +251,10 @@
 		<xs:element name="wasTriggeredBy"  type="opm:WasTriggeredBy"/>
 		<xs:element name="wasDerivedFrom"  type="opm:WasDerivedFrom"/>
 		<xs:element name="wasControlledBy" type="opm:WasControlledBy"/>
+		<xs:element name="used_"           type="opm:UsedStar"/>
+		<xs:element name="wasGeneratedBy_" type="opm:WasGeneratedByStar"/>
+		<xs:element name="wasTriggeredBy_" type="opm:WasTriggeredByStar"/>
+		<xs:element name="wasDerivedFrom_"  type="opm:WasDerivedFromStar"/>
 	  </xs:choice>
 	</xs:sequence>
   </xs:complexType>
