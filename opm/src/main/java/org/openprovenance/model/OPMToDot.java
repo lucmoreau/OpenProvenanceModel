@@ -330,7 +330,7 @@ public class OPMToDot {
 
     public HashMap<String,String> addAgentShape(Agent p, HashMap<String,String> properties) {
         properties.put("shape","polygon");
-        properties.put("sides","5");
+        properties.put("sides","8");
         return properties;
     }
 
