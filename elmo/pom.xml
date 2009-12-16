@@ -146,6 +146,9 @@ imported before converting.
                   <arg value="org.openprovenance.rdf=http://www.ipaw.info/2007/opm#" />
                   <arg value="-j" />
                   <arg value="target/opmconcepts.jar" />
+                  <arg value="-p" />
+                  <arg value="" />
+
                   <arg value="src/main/resources/opm.owl" />
                 </java>
                 
