@@ -40,7 +40,7 @@ public class Annotation1Test
 
     /** Creates and serialises an OPM graph. */
 
-    public void testOPM1() throws JAXBException
+    public void testAnnotation1() throws JAXBException
     {
         OPMFactory oFactory=new OPMFactory();
 
@@ -167,6 +167,15 @@ public class Annotation1Test
         assertTrue( true );
     }
 
+
+
+    /** Produces a dot representation
+     * of created graph. */
+    public void testAnnotation11Conversion() throws java.io.FileNotFoundException,  java.io.IOException   {
+        OPMToDot toDot=new OPMToDot(true); // with roles
+        
+        toDot.convert(graph1,"target/annotation-example1.dot", "target/annotation-example1.pdf");
+    }
 
     
 

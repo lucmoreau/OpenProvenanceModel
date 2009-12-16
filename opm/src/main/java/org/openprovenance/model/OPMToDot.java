@@ -24,6 +24,7 @@ import org.openprovenance.model.printer.OPMPrinterConfigDeserialiser;
 /** Serialisation of  OPM Graphs to DOT format. */
 public class OPMToDot {
     public final static String DEFAULT_CONFIGURATION_FILE="defaultConfig.xml";
+    public final static String DEFAULT_CONFIGURATION_FILE_WITH_ROLE="defaultConfigWithRole.xml";
     public final static String USAGE="opm2dot opmFile.xml out.dot out.pdf [configuration.xml]";
 
     OPMUtilities u=new OPMUtilities();
@@ -50,6 +51,15 @@ public class OPMToDot {
 
     public OPMToDot() {
         InputStream is=this.getClass().getClassLoader().getResourceAsStream(DEFAULT_CONFIGURATION_FILE);
+        init(is);
+    }
+    public OPMToDot(boolean withRoleFlag) {
+        InputStream is;
+        if (withRoleFlag) {
+            is=this.getClass().getClassLoader().getResourceAsStream(DEFAULT_CONFIGURATION_FILE_WITH_ROLE);
+        } else {
+            is=this.getClass().getClassLoader().getResourceAsStream(DEFAULT_CONFIGURATION_FILE);
+        }
         init(is);
     }
 
@@ -91,7 +101,7 @@ public class OPMToDot {
             }
             
             for (EdgeStyleMapEntry edge: configuration.getEdges().getEdge()) {
-                edgeStyleMap.put(edge.getType(),edge.getStyle());
+                edgeStyleMap.put(edge.getType(),edge);
             }
         }
 
@@ -210,6 +220,13 @@ public class OPMToDot {
         emitNode(p.getId(),
                  addProcessShape(p,addProcessLabel(p, addProcessColor(p,properties))),
                  out);
+
+        for (JAXBElement<? extends EmbeddedAnnotation> ann: p.getAnnotation()) {
+            EmbeddedAnnotation emb=ann.getValue();
+            of.expandAnnotation(emb);
+            if (filterAnnotation(emb)) emitAnnotation(p.getId(), emb,out);
+        }
+
     }
 
     public void emitArtifact(Artifact a, PrintStream out) {
@@ -218,6 +235,11 @@ public class OPMToDot {
         emitNode(a.getId(),
                  addArtifactShape(a,addArtifactLabel(a, addArtifactColor(a,properties))),
                  out);
+        for (JAXBElement<? extends EmbeddedAnnotation> ann: a.getAnnotation()) {
+            EmbeddedAnnotation emb=ann.getValue();
+            of.expandAnnotation(emb);
+            if (filterAnnotation(emb)) emitAnnotation(a.getId(), emb,out);
+        }
     }
 
     public void emitAgent(Agent ag, PrintStream out) {
@@ -226,10 +248,49 @@ public class OPMToDot {
         emitNode(ag.getId(),
                  addAgentShape(ag,addAgentLabel(ag, addAgentColor(ag,properties))),
                  out);
+
+        for (JAXBElement<? extends EmbeddedAnnotation> ann: ag.getAnnotation()) {
+            EmbeddedAnnotation emb=ann.getValue();
+            of.expandAnnotation(emb);
+            if (filterAnnotation(emb)) emitAnnotation(ag.getId(), emb,out);
+        }
+
     }
 
-    
+    public void emitAnnotation(String id, EmbeddedAnnotation ann, PrintStream out) {
+        HashMap<String,String> properties=new HashMap();
+        String newId=annotationId(ann.getId(),id);
+        emitNode(newId,
+                 addAnnotationShape(ann,addAnnotationColor(ann,addAnnotationLabel(ann,properties))),
+                 out);
+        HashMap<String,String> linkProperties=new HashMap();
+        emitEdge(newId,id,addAnnotationLinkProperties(ann,linkProperties),out,true);
+    }
 
+    public boolean filterAnnotation(EmbeddedAnnotation ann) {
+        if (ann instanceof Label) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    int annotationCount=0;
+    public String annotationId(String id,String node) {
+        if (id==null) {
+            return "ann" + node + (annotationCount++);
+        } else {
+            return id;
+        }
+    }
+
+    public HashMap<String,String> addAnnotationLinkProperties(EmbeddedAnnotation ann, HashMap<String,String> properties) {
+        properties.put("arrowhead","none");
+        properties.put("style","dashed");
+        properties.put("color","gray");
+        return properties;
+    }
+    
     public HashMap<String,String> addProcessShape(Process p, HashMap<String,String> properties) {
         properties.put("shape","polygon");
         properties.put("sides","4");
@@ -269,7 +330,7 @@ public class OPMToDot {
 
     public HashMap<String,String> addAgentShape(Agent p, HashMap<String,String> properties) {
         properties.put("shape","polygon");
-        properties.put("sides","5");
+        properties.put("sides","8");
         return properties;
     }
 
@@ -286,6 +347,40 @@ public class OPMToDot {
         return properties;
     }
 
+    public HashMap<String,String> addAnnotationShape(EmbeddedAnnotation ann, HashMap<String,String> properties) {
+        properties.put("shape","note");
+        return properties;
+    }
+    public HashMap<String,String> addAnnotationLabel(EmbeddedAnnotation ann, HashMap<String,String> properties) {
+        String label="";
+        label=label+"<<TABLE cellpadding=\"0\" border=\"0\">\n";
+        for (Property prop: ann.getProperty()) {
+            label=label+"	<TR>\n";
+            label=label+"	    <TD align=\"left\">" + convertProperty(prop.getUri()) + ":</TD>\n";
+            label=label+"	    <TD align=\"left\">" + prop.getValue() + "</TD>\n";
+            label=label+"	</TR>\n";
+        }
+        label=label+"    </TABLE>>\n";
+        properties.put("label",label);
+        return properties;
+    }
+
+    public String convertProperty(String label) {
+        int i=label.lastIndexOf("#");
+        int j=label.lastIndexOf("/");
+        return label.substring(Math.max(i,j)+1, label.length());
+    }
+
+
+    public HashMap<String,String> addAnnotationColor(EmbeddedAnnotation ann, HashMap<String,String> properties) {
+        if (displayAnnotationColor) {
+            properties.put("color",annotationColor(ann));
+            properties.put("fontcolor","black");
+            //properties.put("style","filled");
+        }
+        return properties;
+    }
+
 
     boolean displayProcessValue=false;
     boolean displayProcessColor=false;
@@ -293,6 +388,7 @@ public class OPMToDot {
     boolean displayArtifactColor=false;
     boolean displayAgentColor=false;
     boolean displayAgentValue=false;
+    boolean displayAnnotationColor=true;
 
     public String processLabel(Process p) {
         if (displayProcessValue) {
@@ -350,6 +446,13 @@ public class OPMToDot {
         return selectColor(colors);
     }
 
+
+    public String annotationColor(EmbeddedAnnotation ann) {
+        List<String> colors=new LinkedList();
+        colors.add("gray");
+        return selectColor(colors);
+    }
+
     public String agentLabel(Agent p) {
         if (displayAgentValue) {
             return convertAgentName(""+of.getLabel(p));
@@ -399,7 +502,8 @@ public class OPMToDot {
             emitEdge( ((Node)e.getEffect().getRef()).getId(),
                       ((Node)e.getCause().getRef()).getId(),
                       properties,
-                      out);
+                      out,
+                      true);
         }
     }
 
@@ -410,17 +514,34 @@ public class OPMToDot {
         properties.put("color",colour);
         properties.put("fontcolor",colour);
         properties.put("style",getEdgeStyle(e));
-        addEdgeName(e,properties);
+        addEdgeLabel(e,properties);
         return properties;
     }
 
-    /** TODO: rename as addEdgeType. */
-    public void addEdgeName(Edge e, HashMap<String,String> properties) {
+
+    /* Displays type if any, role otherwise. */
+    public void addEdgeLabel(Edge e, HashMap<String,String> properties) {
+        String label=null;
         String type=of.getType(e);
         if (type!=null) {
-            properties.put("label",convertEdgeLabel(type));
-            properties.put("labelfontsize","8");
+            label=type;
+        } else if (getEdgePrintRole(e)) {
+            Role role=of.getRole(e);
+            if (role!=null && role.getValue()!=null) {
+                label=displayRole(role.getValue());
+                properties.put("fontsize","8");
+            }
         }
+        if (label!=null) {
+            properties.put("label",convertEdgeLabel(label));
+            if (properties.get("fontsize")==null) {
+                properties.put("fontsize","10");
+            }
+        }
+    }
+
+    public String displayRole(String role) {
+        return "(" + role + ")";
     }
 
     public String convertEdgeLabel(String label) {
@@ -436,13 +557,25 @@ public class OPMToDot {
     }
 
     String defaultEdgeStyle;
-    HashMap<String,String> edgeStyleMap=new HashMap<String,String>();
+    HashMap<String,EdgeStyleMapEntry> edgeStyleMap=new HashMap<String,EdgeStyleMapEntry>();
     
     public String getEdgeStyle(Edge edge) {
         String name=edge.getClass().getName();
-        String style=edgeStyleMap.get(name);
-        if (style!=null) return style;
+        EdgeStyleMapEntry style=edgeStyleMap.get(name);
+        if (style!=null) return style.getStyle();
         return defaultEdgeStyle;
+    }
+
+    public boolean getEdgePrintRole(Edge edge) {
+        String name=edge.getClass().getName();
+        EdgeStyleMapEntry style=edgeStyleMap.get(name);
+        if (style!=null) {
+            Boolean flag=style.isPrintRole();
+            if (flag==null) return false;
+            return flag;
+        } else {
+            return false;
+        }
     }
 
     
@@ -466,10 +599,14 @@ public class OPMToDot {
     }
 
 
-    public void emitEdge(String src, String dest, HashMap<String,String> properties, PrintStream out) {
+    public void emitEdge(String src, String dest, HashMap<String,String> properties, PrintStream out, boolean directional) {
         StringBuffer sb=new StringBuffer();
         sb.append(src);
-        sb.append(" -> ");
+        if (directional) {
+            sb.append(" -> ");
+        } else {
+            sb.append(" -- ");
+        }
         sb.append(dest);
         emitProperties(sb,properties);
         out.println(sb.toString());
@@ -486,9 +623,16 @@ public class OPMToDot {
             }
             String value=properties.get(key);
             sb.append(key);
-            sb.append("=\"");
-            sb.append(value);
-            sb.append("\"");
+            if (value.startsWith("<")) {
+                sb.append("=");
+                sb.append(value);
+            } else {
+                sb.append("=\"");
+                sb.append(value);
+                sb.append("\"");
+            }
+
+
         }
         sb.append("]");
     }

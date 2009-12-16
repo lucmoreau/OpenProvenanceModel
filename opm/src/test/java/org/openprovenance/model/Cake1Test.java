@@ -70,13 +70,13 @@ public class Cake1Test
                                          black,
                                          "cake");
 
-        Used u1=oFactory.newUsed(p1,oFactory.newRole("in"),a1,black);
-        Used u2=oFactory.newUsed(p1,oFactory.newRole("in"),a2,black);
-        Used u3=oFactory.newUsed(p1,oFactory.newRole("in"),a3,black);
-        Used u4=oFactory.newUsed(p1,oFactory.newRole("in"),a4,black);
+        Used u1=oFactory.newUsed(p1,oFactory.newRole("butter"),a1,black);
+        Used u2=oFactory.newUsed(p1,oFactory.newRole("egg"),a2,black);
+        Used u3=oFactory.newUsed(p1,oFactory.newRole("sugar"),a3,black);
+        Used u4=oFactory.newUsed(p1,oFactory.newRole("flour"),a4,black);
 
 
-        WasGeneratedBy wg1=oFactory.newWasGeneratedBy(a5,oFactory.newRole("out"),p1,black);
+        WasGeneratedBy wg1=oFactory.newWasGeneratedBy(a5,oFactory.newRole("cake"),p1,black);
 
 
         WasDerivedFrom wd1=oFactory.newWasDerivedFrom(a5,a1,black);
@@ -123,7 +123,7 @@ public class Cake1Test
     /** Produces a dot representation
      * of created graph. */
     public void testCake1Conversion() throws java.io.FileNotFoundException,  java.io.IOException   {
-        OPMToDot toDot=new OPMToDot();
+        OPMToDot toDot=new OPMToDot(true); // with roles
         
         toDot.convert(graph1,"target/cake1.dot", "target/cake1.pdf");
     }

@@ -181,6 +181,18 @@ public class OPMFactory implements CommonURIs {
     }
 
 
+    public Role getRole(Edge e) {
+        if (e instanceof Used) {
+            return ((Used) e).getRole();
+        } 
+        if (e instanceof WasGeneratedBy) {
+            return ((WasGeneratedBy) e).getRole();
+        } 
+        if (e instanceof WasControlledBy) {
+            return ((WasControlledBy) e).getRole();
+        }
+        return null;
+    }
     
     public String getLabel(EmbeddedAnnotation annotation) {
         if (annotation instanceof Label) {
@@ -543,6 +555,18 @@ public class OPMFactory implements CommonURIs {
         return res;
     }
 
+    public UsedStar newUsedStar(ProcessRef pid,
+                                ArtifactRef aid,
+                                Collection<AccountRef> accounts) {
+        UsedStar res=of.createUsedStar();
+        res.setEffect(pid);
+        res.setCause(aid);
+        if ((accounts !=null) && (accounts.size()!=0)) {
+            res.getAccount().addAll(accounts);
+        }
+        return res;
+    }
+
     public Used newUsed(Process p,
                         Role role,
                         Artifact a,
@@ -555,6 +579,17 @@ public class OPMFactory implements CommonURIs {
         }
         return newUsed(pid,role,aid,ll);
     }
+    public UsedStar newUsedStar(Process p,
+                                Artifact a,
+                                Collection<Account> accounts) {
+        ProcessRef pid=newProcessRef(p);
+        ArtifactRef aid=newArtifactRef(a);
+        LinkedList ll=new LinkedList();
+        for (Account acc: accounts) {
+            ll.add(newAccountRef(acc));
+        }
+        return newUsedStar(pid,aid,ll);
+    }
 
     public Used newUsed(String id,
                         Process p,
@@ -565,6 +600,7 @@ public class OPMFactory implements CommonURIs {
         res.setId(id);
         return res;
     }
+
     public Used newUsed(String id,
                         Process p,
                         Role role,
@@ -639,6 +675,18 @@ public class OPMFactory implements CommonURIs {
         }
         return res;
     }
+
+    public WasGeneratedByStar newWasGeneratedByStar(ArtifactRef aid,
+                                                    ProcessRef pid,
+                                                    Collection<AccountRef> accounts) {
+        WasGeneratedByStar res=of.createWasGeneratedByStar();
+        res.setCause(pid);
+        res.setEffect(aid);
+        if ((accounts !=null) && (accounts.size()!=0)) {
+            res.getAccount().addAll(accounts);
+        }
+        return res;
+    }
     public WasGeneratedBy newWasGeneratedBy(Artifact a,
                                             Role role,
                                             Process p,
@@ -650,6 +698,19 @@ public class OPMFactory implements CommonURIs {
             ll.add(newAccountRef(acc));
         }
         return  newWasGeneratedBy(aid,role,pid,ll);
+    }
+
+
+    public WasGeneratedByStar newWasGeneratedByStar(Artifact a,
+                                                    Process p,
+                                                    Collection<Account> accounts) {
+        ArtifactRef aid=newArtifactRef(a);
+        ProcessRef pid=newProcessRef(p);
+        LinkedList ll=new LinkedList();
+        for (Account acc: accounts) {
+            ll.add(newAccountRef(acc));
+        }
+        return  newWasGeneratedByStar(aid,pid,ll);
     }
 
 
@@ -729,6 +790,19 @@ public class OPMFactory implements CommonURIs {
         return res;
     }
 
+    public WasDerivedFromStar newWasDerivedFromStar(ArtifactRef aid1,
+                                                    ArtifactRef aid2,
+                                                    Collection<AccountRef> accounts) {
+        WasDerivedFromStar res=of.createWasDerivedFromStar();
+        res.setCause(aid2);
+        res.setEffect(aid1);
+        if ((accounts !=null) && (accounts.size()!=0)) {
+            res.getAccount().addAll(accounts);
+        }
+
+        return res;
+    }
+
     public WasDerivedFrom newWasDerivedFrom(Artifact a1,
                                             Artifact a2,
                                             Collection<Account> accounts) {
@@ -739,6 +813,18 @@ public class OPMFactory implements CommonURIs {
             ll.add(newAccountRef(acc));
         }
         return  newWasDerivedFrom(aid1,aid2,ll);
+    }
+
+    public WasDerivedFromStar newWasDerivedFromStar(Artifact a1,
+                                                    Artifact a2,
+                                                    Collection<Account> accounts) {
+        ArtifactRef aid1=newArtifactRef(a1);
+        ArtifactRef aid2=newArtifactRef(a2);
+        LinkedList ll=new LinkedList();
+        for (Account acc: accounts) {
+            ll.add(newAccountRef(acc));
+        }
+        return  newWasDerivedFromStar(aid1,aid2,ll);
     }
 
 
@@ -768,6 +854,19 @@ public class OPMFactory implements CommonURIs {
         return res;
     }
 
+    public WasTriggeredByStar newWasTriggeredByStar(ProcessRef pid1,
+                                                    ProcessRef pid2,
+                                                    Collection<AccountRef> accounts) {
+        WasTriggeredByStar res=of.createWasTriggeredByStar();
+        res.setEffect(pid1);
+        res.setCause(pid2);
+        if ((accounts !=null) && (accounts.size()!=0)) {
+            res.getAccount().addAll(accounts);
+        }
+
+        return res;
+    }
+
     public WasTriggeredBy newWasTriggeredBy(Process p1,
                                             Process p2,
                                             Collection<Account> accounts) {
@@ -778,6 +877,18 @@ public class OPMFactory implements CommonURIs {
             ll.add(newAccountRef(acc));
         }
         return  newWasTriggeredBy(pid1,pid2,ll);
+    }
+
+    public WasTriggeredByStar newWasTriggeredByStar(Process p1,
+                                                    Process p2,
+                                                    Collection<Account> accounts) {
+        ProcessRef pid1=newProcessRef(p1);
+        ProcessRef pid2=newProcessRef(p2);
+        LinkedList<AccountRef> ll=new LinkedList();
+        for (Account acc: accounts) {
+            ll.add(newAccountRef(acc));
+        }
+        return  newWasTriggeredByStar(pid1,pid2,ll);
     }
 
     public WasTriggeredBy newWasTriggeredBy(String id,

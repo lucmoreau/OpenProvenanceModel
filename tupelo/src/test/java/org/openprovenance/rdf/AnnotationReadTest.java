@@ -79,8 +79,9 @@ public class AnnotationReadTest
         System.out.println("testRDFReadAnnotation (AnnotationReadTest.java): asserting True");
         assertTrue( true );
 
-        OPMToDot toDot=new OPMToDot();
-        toDot.convert(graph2,"target/annotation1-rdf.dot", "target/annotation1-rdf.pdf");
+        // dont call todot, since exands annotations
+        //OPMToDot toDot=new OPMToDot();
+        //toDot.convert(graph2,"target/annotation1-rdf.dot", "target/annotation1-rdf.pdf");
 
 
         OPMDeserialiser deserial=OPMDeserialiser.getThreadOPMDeserialiser();

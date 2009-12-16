@@ -12,7 +12,7 @@ import junit.framework.TestSuite;
 
 
 /**
- * Unit test for simple App.
+ * Unit test for simple Provenance Challenge 1 like workflow.
  */
 public class PC1Test 
     extends TestCase
@@ -51,7 +51,8 @@ public class PC1Test
 
         Agent ag1=oFactory.newAgent("ag1",
                                     black,
-                                    "Mike");
+                                    "John Doe");
+
 
 
         Artifact a1=oFactory.newArtifact("a1",
@@ -69,12 +70,6 @@ public class PC1Test
         Artifact a5=oFactory.newArtifact("a5",
                                          black,
                                          "Atlas X Graphic");
-        Artifact a6=oFactory.newArtifact("a6",
-                                         black,
-                                         "Atlas Y Graphic");
-        Artifact a7=oFactory.newArtifact("a7",
-                                         black,
-                                         "Atlas Z Graphic");
 
         Used u1=oFactory.newUsed(p1,oFactory.newRole("img1"),a1,black);
         Used u2=oFactory.newUsed(p1,oFactory.newRole("hdr1"),a2,black);
@@ -83,43 +78,26 @@ public class PC1Test
 
 
         WasGeneratedBy wg1=oFactory.newWasGeneratedBy(a5,oFactory.newRole("x"),p1,black);
-        WasGeneratedBy wg2=oFactory.newWasGeneratedBy(a6,oFactory.newRole("y"),p1,black);
-        WasGeneratedBy wg3=oFactory.newWasGeneratedBy(a7,oFactory.newRole("z"),p1,black);
 
 
-        WasDerivedFrom wd1x=oFactory.newWasDerivedFrom(a5,a1,black);
-        WasDerivedFrom wd2x=oFactory.newWasDerivedFrom(a5,a2,black);
-        WasDerivedFrom wd3x=oFactory.newWasDerivedFrom(a5,a3,black);
-        WasDerivedFrom wd4x=oFactory.newWasDerivedFrom(a5,a4,black);
-
-        WasDerivedFrom wd1y=oFactory.newWasDerivedFrom(a6,a1,black);
-        WasDerivedFrom wd2y=oFactory.newWasDerivedFrom(a6,a2,black);
-        WasDerivedFrom wd3y=oFactory.newWasDerivedFrom(a6,a3,black);
-        WasDerivedFrom wd4y=oFactory.newWasDerivedFrom(a6,a4,black);
-
-        WasDerivedFrom wd1z=oFactory.newWasDerivedFrom(a7,a1,black);
-        WasDerivedFrom wd2z=oFactory.newWasDerivedFrom(a7,a2,black);
-        WasDerivedFrom wd3z=oFactory.newWasDerivedFrom(a7,a3,black);
-        WasDerivedFrom wd4z=oFactory.newWasDerivedFrom(a7,a4,black);
-
-
+        WasDerivedFrom wd1=oFactory.newWasDerivedFrom(a5,a1,black);
+        WasDerivedFrom wd2=oFactory.newWasDerivedFrom(a5,a2,black);
+        WasDerivedFrom wd3=oFactory.newWasDerivedFrom(a5,a3,black);
+        WasDerivedFrom wd4=oFactory.newWasDerivedFrom(a5,a4,black);
 
         WasControlledBy wc1=oFactory.newWasControlledBy(p1,oFactory.newRole("user"),ag1,black);
-
-
 
 
 
         OPMGraph graph=oFactory.newOPMGraph(black,
                                             new Overlaps[] { },
                                             new Process[] {p1},
-                                            new Artifact[] {a1,a2,a3,a4,a5//,a6,a7
-                                                           },
+                                            new Artifact[] {a1,a2,a3,a4,a5},
                                             new Agent[] { ag1 },
-                                            new Object[] {wc1,u1,u2,u3,u4,
-                                                          wg1,//wg2,wg3,
-                                                          wd1x,wd2x,wd3x,wd4x,//wd1y,wd2y,wd3y,wd4y,wd1z,wd2z,wd3z,wd4z,
-                                                          } );
+                                            new Object[] {u1,u2,u3,u4,
+                                                          wg1,
+                                                          wd1,wd2,wd3,wd4,
+                                                          wc1} );
 
 
 
@@ -132,10 +110,8 @@ public class PC1Test
         //System.out.println(sw);
 
         graph1=graph;
-        System.out.println("test PC1 asserting True");
+        System.out.println("PC1 Test asserting True");
         assertTrue( true );
-
-
         
     }
     
@@ -143,7 +119,7 @@ public class PC1Test
     /** Produces a dot representation
      * of created graph. */
     public void testPC1Conversion() throws java.io.FileNotFoundException,  java.io.IOException   {
-        OPMToDot toDot=new OPMToDot();
+        OPMToDot toDot=new OPMToDot(true); // with roles
         
         toDot.convert(graph1,"target/pc1.dot", "target/pc1.pdf");
     }
