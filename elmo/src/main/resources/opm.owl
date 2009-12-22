@@ -58,6 +58,21 @@
     <rdfs:subClassOf rdf:resource="#Entity"/>
   </owl:Class>
 
+  <owl:ObjectProperty rdf:ID="cause">
+    <rdfs:domain rdf:resource="#Edge"/>
+    <rdfs:range rdf:resource="#Node"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the cause of an Edge</rdfs:comment>
+  </owl:ObjectProperty>
+
+
+
+<!--
+  <owl:ObjectProperty rdf:ID="edgeArtifact">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">an association between an event and an artifact</rdfs:comment>
+    <rdfs:domain rdf:resource="#Edge"/>
+    <rdfs:range rdf:resource="#Artifact"/>
+  </owl:ObjectProperty>
+
 
 
   <owl:ObjectProperty rdf:ID="usedArtifact">
@@ -66,14 +81,16 @@
     <rdfs:range rdf:resource="#Artifact"/>
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the artifact that was used</rdfs:comment>
   </owl:ObjectProperty>
+
+-->
+
+<!--
   <owl:ObjectProperty rdf:ID="derivedFromArtifact">
     <rdfs:subPropertyOf rdf:resource="#edgeArtifact"/>
     <rdfs:domain rdf:resource="#WasDerivedFrom"/>
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the artifact from which the derived artifact was derived</rdfs:comment>
     <rdfs:range rdf:resource="#Artifact"/>
   </owl:ObjectProperty>
-
-
 
 
   <owl:ObjectProperty rdf:ID="derivedArtifact">
@@ -83,12 +100,8 @@
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the artifact that was derived</rdfs:comment>
   </owl:ObjectProperty>
 
-  <owl:ObjectProperty rdf:ID="edgeArtifact">
-    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">an association between an event and an artifact</rdfs:comment>
-    <rdfs:domain rdf:resource="#Edge"/>
-    <rdfs:range rdf:resource="#Artifact"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:ID="usedByProcess">
+
+   <owl:ObjectProperty rdf:ID="usedByProcess">
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the process that used the artifact</rdfs:comment>
     <rdfs:domain rdf:resource="#Used"/>
     <rdfs:range rdf:resource="#Process"/>
@@ -96,6 +109,7 @@
       <owl:ObjectProperty rdf:about="#edgeProcess"/>
     </rdfs:subPropertyOf>
   </owl:ObjectProperty>
+
 
   <owl:ObjectProperty rdf:ID="controlledByAgent">
     <rdfs:range rdf:resource="#Agent"/>
@@ -110,9 +124,11 @@
     <rdfs:domain rdf:resource="#WasGeneratedBy"/>
   </owl:ObjectProperty>
 
+-->
+
   <!-- ROLE -->
 
-  <owl:ObjectProperty rdf:ID="eventRole">
+  <owl:ObjectProperty rdf:ID="edgeRole">
     <rdfs:domain rdf:resource="#Edge"/>
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the role associated with an event, e.g., for what was an artifact used?</rdfs:comment>
     <rdfs:range rdf:resource="#Role"/>
@@ -120,24 +136,24 @@
 
   <owl:ObjectProperty rdf:ID="generatedRole">
     <rdfs:domain rdf:resource="#WasGeneratedBy"/>
-    <rdfs:subPropertyOf rdf:resource="#eventRole"/>
+    <rdfs:subPropertyOf rdf:resource="#edgeRole"/>
     <rdfs:range rdf:resource="#Role"/>
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the role the generated artifact serves with respect to the process</rdfs:comment>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="usedRole">
-    <rdfs:subPropertyOf rdf:resource="#eventRole"/>
+    <rdfs:subPropertyOf rdf:resource="#edgeRole"/>
     <rdfs:domain rdf:resource="#Used"/>
     <rdfs:range rdf:resource="#Role"/>
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the role the artifact played as input into the process</rdfs:comment>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="controlledRole">
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the role the agent played in controlling the process</rdfs:comment>
-    <rdfs:subPropertyOf rdf:resource="#eventRole"/>
+    <rdfs:subPropertyOf rdf:resource="#edgeRole"/>
     <rdfs:domain rdf:resource="#WasControlledBy"/>
     <rdfs:range rdf:resource="#Role"/>
   </owl:ObjectProperty>
 
- <!-- PROCESS -->
+ <!-- PROCESS 
   <owl:ObjectProperty rdf:about="#edgeProcess">
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">an association between an event and a process</rdfs:comment>
     <rdfs:domain rdf:resource="#Edge"/>
@@ -171,7 +187,17 @@
     </rdfs:subPropertyOf>
   </owl:ObjectProperty>
 
+  <owl:ObjectProperty rdf:ID="triggeredByProcess">
+    <rdfs:subPropertyOf>
+      <owl:ObjectProperty rdf:about="#edgeProcess"/>
+    </rdfs:subPropertyOf>
+    <rdfs:domain rdf:resource="#WasTriggeredBy"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the process that triggered the process</rdfs:comment>
+    <rdfs:range rdf:resource="#Process"/>
+  </owl:ObjectProperty>
 
+
+-->
   <owl:DatatypeProperty rdf:ID="name">
     <rdfs:domain>
       <owl:Class>
@@ -208,14 +234,6 @@
 
 
 
-  <owl:ObjectProperty rdf:ID="triggeredByProcess">
-    <rdfs:subPropertyOf>
-      <owl:ObjectProperty rdf:about="#edgeProcess"/>
-    </rdfs:subPropertyOf>
-    <rdfs:domain rdf:resource="#WasTriggeredBy"/>
-    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the process that triggered the process</rdfs:comment>
-    <rdfs:range rdf:resource="#Process"/>
-  </owl:ObjectProperty>
 
 
 <!--  TIME  -->

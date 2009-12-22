@@ -28,6 +28,10 @@ public class OPMFactory implements CommonURIs {
         of=new ObjectFactory();
     }
 
+    public OPMFactory(ObjectFactory of) {
+        this.of=of;
+    }
+
     public ProcessRef newProcessRef(Process p) {
         ProcessRef res=of.createProcessRef();
         res.setRef(p);
@@ -574,8 +578,10 @@ public class OPMFactory implements CommonURIs {
         ProcessRef pid=newProcessRef(p);
         ArtifactRef aid=newArtifactRef(a);
         LinkedList ll=new LinkedList();
-        for (Account acc: accounts) {
-            ll.add(newAccountRef(acc));
+        if (accounts!=null) {
+            for (Account acc: accounts) {
+                ll.add(newAccountRef(acc));
+            }
         }
         return newUsed(pid,role,aid,ll);
     }
@@ -585,8 +591,10 @@ public class OPMFactory implements CommonURIs {
         ProcessRef pid=newProcessRef(p);
         ArtifactRef aid=newArtifactRef(a);
         LinkedList ll=new LinkedList();
-        for (Account acc: accounts) {
-            ll.add(newAccountRef(acc));
+        if (accounts!=null) {
+            for (Account acc: accounts) {
+                ll.add(newAccountRef(acc));
+            }
         }
         return newUsedStar(pid,aid,ll);
     }
