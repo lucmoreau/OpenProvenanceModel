@@ -3,9 +3,28 @@ import java.util.Set;
 import org.openprovenance.rdf.Account;
 import org.openprovenance.rdf.Node;
 
+import javax.xml.namespace.QName;
+import org.openrdf.elmo.ElmoManager;
+
 public class RdfArtifact extends org.openprovenance.model.Artifact implements org.openprovenance.rdf.Artifact {
 
-    public RdfArtifact() {
+    ElmoManager manager;
+    String prefix;
+    QName qname;
+
+    public RdfArtifact(ElmoManager manager, String prefix) {
+        this.manager=manager;
+        this.prefix=prefix;
+    }
+
+    public void setId(String value) {
+        super.setId(value);
+        qname = new QName(prefix, value);
+        org.openprovenance.rdf.Artifact a0_ = (org.openprovenance.rdf.Artifact) manager.designate(qname, org.openprovenance.rdf.Artifact.class);
+    }
+
+    public QName getQName() {
+        return qname;
     }
 
     public void setNodeAccount(Set<? extends Account> accs) {

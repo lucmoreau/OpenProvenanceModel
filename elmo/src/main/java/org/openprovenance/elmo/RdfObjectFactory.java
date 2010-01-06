@@ -6,23 +6,31 @@ import org.openprovenance.model.Process;
 import org.openprovenance.model.Artifact;
 import org.openprovenance.model.Used;
 
+import org.openrdf.elmo.ElmoManager;
+
 
 @rdf("http://www.ipaw.info/2007/opm#Artifact")
 public class RdfObjectFactory extends org.openprovenance.model.ObjectFactory {
 
-    public RdfObjectFactory() {
+    final ElmoManager manager;
+    final String prefix;
+    
+
+    public RdfObjectFactory(ElmoManager manager, String prefix) {
+        this.manager=manager;
+        this.prefix=prefix;
     }
 
     public Artifact createArtifact() {
-        return new RdfArtifact();
+        return new RdfArtifact(manager,prefix);
     }
 
     public Process createProcess() {
-        return new RdfProcess();
+        return new RdfProcess(manager,prefix);
     }
 
     public Used createUsed() {
-        return new RdfUsed();
+        return new RdfUsed(manager,prefix);
     }
 
     /** Don't understand how this is used! */

@@ -61,7 +61,15 @@
   <owl:ObjectProperty rdf:ID="cause">
     <rdfs:domain rdf:resource="#Edge"/>
     <rdfs:range rdf:resource="#Node"/>
+    <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the cause of an Edge</rdfs:comment>
+  </owl:ObjectProperty>
+
+
+  <owl:ObjectProperty rdf:ID="effect">
+    <rdfs:domain rdf:resource="#Edge"/>
+    <rdfs:range rdf:resource="#Node"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the effect of an Edge</rdfs:comment>
   </owl:ObjectProperty>
 
 
