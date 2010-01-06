@@ -31,6 +31,7 @@
   <owl:Class rdf:ID="WasTriggeredBy">
     <rdfs:subClassOf rdf:resource="#Edge"/>
   </owl:Class>
+
   <owl:Class rdf:ID="WasDerivedFrom">
     <rdfs:subClassOf rdf:resource="#Edge"/>
   </owl:Class>

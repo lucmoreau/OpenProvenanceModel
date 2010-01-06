@@ -8,12 +8,12 @@ import javax.xml.namespace.QName;
 
 import org.openrdf.elmo.ElmoManager;
 
-public class RdfUsed extends org.openprovenance.model.Used implements org.openprovenance.rdf.Used {
+public class RdfWasDerivedFrom extends org.openprovenance.model.WasDerivedFrom implements org.openprovenance.rdf.WasDerivedFrom {
     String prefix;
     ElmoManager manager;
     QName qname;
 
-    public RdfUsed(ElmoManager manager, String prefix) {
+    public RdfWasDerivedFrom(ElmoManager manager, String prefix) {
         this.manager=manager;
         this.prefix=prefix;
     }
@@ -21,27 +21,27 @@ public class RdfUsed extends org.openprovenance.model.Used implements org.openpr
     public void setId(String value) {
         super.setId(value);
         qname = new QName(prefix, value);
-        manager.designate(qname, org.openprovenance.rdf.Used.class);
+        manager.designate(qname, org.openprovenance.rdf.WasDerivedFrom.class);
     }
 
     public QName getQName() {
         return qname;
     }
 
-    public void setEffect(org.openprovenance.model.ProcessRef value) {
+    public void setEffect(org.openprovenance.model.ArtifactRef value) {
         super.setEffect(value);
-        QName q=((RdfProcess)(value.getRef())).getQName();
-        org.openprovenance.rdf.Process p=(org.openprovenance.rdf.Process)manager.find(q);
-        org.openprovenance.rdf.Used u=(org.openprovenance.rdf.Used)manager.find(getQName());
-        u.getEffects().add(p);
+        QName q=((RdfArtifact)(value.getRef())).getQName();
+        org.openprovenance.rdf.Artifact a=(org.openprovenance.rdf.Artifact)manager.find(q);
+        org.openprovenance.rdf.WasDerivedFrom g=(org.openprovenance.rdf.WasDerivedFrom)manager.find(getQName());
+        g.getEffects().add(a);
     }
 
     public void setCause(org.openprovenance.model.ArtifactRef value) {
         super.setCause(value);
         QName q=((RdfArtifact)(value.getRef())).getQName();
         org.openprovenance.rdf.Artifact a=(org.openprovenance.rdf.Artifact)manager.find(q);
-        org.openprovenance.rdf.Used u=(org.openprovenance.rdf.Used)manager.find(getQName());
-        u.getCauses().add(a);
+        org.openprovenance.rdf.WasDerivedFrom g=(org.openprovenance.rdf.WasDerivedFrom)manager.find(getQName());
+        g.getCauses().add(a);
     }
 
 
@@ -73,14 +73,13 @@ public class RdfUsed extends org.openprovenance.model.Used implements org.openpr
         throw new UnsupportedOperationException();
     }
         
-    public void setUsedRole(Set<? extends Role> accs) {
+    public void setGeneratedRole(Set<? extends Role> accs) {
         for (Role acc: accs) {
-            //getRole().add(acc.getRef());
             throw new UnsupportedOperationException();
         }
     }
 
-    public Set<Role> getUsedRole() {
+    public Set<Role> getGeneratedRole() {
         throw new UnsupportedOperationException();
     }
 

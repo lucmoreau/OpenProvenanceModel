@@ -26,12 +26,17 @@ import org.openrdf.elmo.ElmoManager;
 import org.openrdf.elmo.sesame.SesameManagerFactory;
 import org.openrdf.elmo.sesame.SesameManager;
 import org.openrdf.rio.rdfxml.RDFXMLWriter;
+import org.openrdf.rio.n3.N3Writer;
 
 import org.openprovenance.model.OPMFactory;
 import org.openprovenance.model.Artifact;
+import org.openprovenance.model.Agent;
 import org.openprovenance.model.Process;
 import org.openprovenance.model.Used;
-
+import org.openprovenance.model.WasGeneratedBy;
+import org.openprovenance.model.WasDerivedFrom;
+import org.openprovenance.model.WasTriggeredBy;
+import org.openprovenance.model.WasControlledBy;
 
 /**
  * Unit test for Elmo.
@@ -63,9 +68,14 @@ public class ElmoTest
         module.addConcept(Edge.class);
         module.addConcept(Node.class);
         module.addConcept(org.openprovenance.rdf.Artifact.class);
-                module.addConcept(org.openprovenance.elmo.RdfArtifact.class);
+        module.addConcept(org.openprovenance.elmo.RdfArtifact.class);
         module.addConcept(org.openprovenance.rdf.Process.class);
+        module.addConcept(org.openprovenance.rdf.Agent.class);
         module.addConcept(org.openprovenance.rdf.Used.class);
+        module.addConcept(org.openprovenance.rdf.WasGeneratedBy.class);
+        module.addConcept(org.openprovenance.rdf.WasDerivedFrom.class);
+        module.addConcept(org.openprovenance.rdf.WasTriggeredBy.class);
+        module.addConcept(org.openprovenance.rdf.WasControlledBy.class);
 
         //module.addBehaviour(RdfArtifact.class);
 
@@ -83,49 +93,66 @@ public class ElmoTest
         assert (a1 instanceof RdfArtifact);
         assert (a1 instanceof Node);
 
+        Artifact a2=oFactory.newArtifact("a2",null, "a2");
+        assert (a2 instanceof RdfArtifact);
+        assert (a2 instanceof Node);
+
+
+        Agent ag1=oFactory.newAgent("ag1",null, "ag1");
+        assert (ag1 instanceof RdfAgent);
+        assert (ag1 instanceof Node);
+
         Process p1=oFactory.newProcess("p1",null, "p1");
         assert (p1 instanceof RdfProcess);
         assert (p1 instanceof Node);
+
+        Process p2=oFactory.newProcess("p2",null, "p2");
+        assert (p2 instanceof RdfProcess);
+        assert (p2 instanceof Node);
 
         Used u1=oFactory.newUsed("u1",p1,null,a1,new LinkedList());
         assert (u1 instanceof RdfUsed);
         assert (u1 instanceof Edge);
 
 
-        QName id0 = new QName("http://example.com/", "a0");
-        org.openprovenance.rdf.Artifact a0_ = (org.openprovenance.rdf.Artifact) manager.designate(id0, org.openprovenance.rdf.Artifact.class);
-        System.out.println("===> a0_ " + a0_);
-
-        QName id00 = new QName("http://example.com/", "a00");
-        org.openprovenance.rdf.Artifact a00_ = (org.openprovenance.rdf.Artifact) manager.designate(id00, org.openprovenance.rdf.Artifact.class);
-        System.out.println("===> a00_ " + a00_);
-
-        QName id1 = new QName("http://example.com/", "p0");
-        org.openprovenance.rdf.Process p0_ = (org.openprovenance.rdf.Process) manager.designate(id1, org.openprovenance.rdf.Process.class);
-        System.out.println("===> p0_ " + p0_);
+        WasGeneratedBy g1=oFactory.newWasGeneratedBy("g1",a1,null,p1,new LinkedList());
+        assert (g1 instanceof RdfWasGeneratedBy);
+        assert (g1 instanceof Edge);
 
 
-        QName id2 = new QName("http://example.com/", "u0");
-        org.openprovenance.rdf.Used u0_ = (org.openprovenance.rdf.Used) manager.designate(id2, org.openprovenance.rdf.Used.class);
+        WasDerivedFrom d1=oFactory.newWasDerivedFrom("d1",a2,a1,new LinkedList());
+        assert (d1 instanceof RdfWasDerivedFrom);
+        assert (d1 instanceof Edge);
 
 
-        u0_.getCauses().add(a0_);
-        u0_.getCauses().add(a00_);
+        WasTriggeredBy t1=oFactory.newWasTriggeredBy("t1",p2,p1,new LinkedList());
+        assert (t1 instanceof RdfWasTriggeredBy);
+        assert (t1 instanceof Edge);
 
-        u0_.getEffects().add(p0_);
-
-        
-        System.out.println("===> u0_ " + u0_);
-
-        //Question: how can i serialise my beans into rdf?
+        WasControlledBy c1=oFactory.newWasControlledBy("c1",p1,null,ag1,new LinkedList());
+        assert (c1 instanceof RdfWasControlledBy);
+        assert (c1 instanceof Edge);
 
     }
 
-    public void testElmo2() throws Exception {
+    public void testDumptoRDFXML() throws Exception {
         File file = new File("target/repository.rdf");
         Writer writer = new FileWriter(file);
         assert manager!=null;
-        ((SesameManager)manager).getConnection().export(new RDFXMLWriter(writer));
+        RDFXMLWriter serialiser=new RDFXMLWriter(writer);
+        serialiser.handleNamespace("opm","http://www.ipaw.info/2007/opm#");
+        ((SesameManager)manager).getConnection().export(serialiser);
+        
+    }
+
+
+    public void testDumpToN3() throws Exception {
+        File file = new File("target/repository.n3");
+        Writer writer = new FileWriter(file);
+        assert manager!=null;
+        N3Writer serialiser=new N3Writer(writer);
+        serialiser.handleNamespace("opm","http://www.ipaw.info/2007/opm#");
+        ((SesameManager)manager).getConnection().export(serialiser);
         writer.close();
     }
 

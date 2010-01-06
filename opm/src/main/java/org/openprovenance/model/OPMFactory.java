@@ -545,11 +545,13 @@ public class OPMFactory implements CommonURIs {
         return res;
     }
 
-    public Used newUsed(ProcessRef pid,
+    public Used newUsed(String id,
+                        ProcessRef pid,
                         Role role,
                         ArtifactRef aid,
                         Collection<AccountRef> accounts) {
         Used res=of.createUsed();
+        res.setId(id);
         res.setEffect(pid);
         res.setRole(role);
         res.setCause(aid);
@@ -558,6 +560,8 @@ public class OPMFactory implements CommonURIs {
         }
         return res;
     }
+
+
 
     public UsedStar newUsedStar(ProcessRef pid,
                                 ArtifactRef aid,
@@ -575,6 +579,15 @@ public class OPMFactory implements CommonURIs {
                         Role role,
                         Artifact a,
                         Collection<Account> accounts) {
+        Used res=newUsed(null,p,role,a,accounts);
+        return res;
+    }
+
+    public Used newUsed(String id,
+                        Process p,
+                        Role role,
+                        Artifact a,
+                        Collection<Account> accounts) {
         ProcessRef pid=newProcessRef(p);
         ArtifactRef aid=newArtifactRef(a);
         LinkedList ll=new LinkedList();
@@ -583,7 +596,7 @@ public class OPMFactory implements CommonURIs {
                 ll.add(newAccountRef(acc));
             }
         }
-        return newUsed(pid,role,aid,ll);
+        return newUsed(id,pid,role,aid,ll);
     }
     public UsedStar newUsedStar(Process p,
                                 Artifact a,
@@ -599,15 +612,6 @@ public class OPMFactory implements CommonURIs {
         return newUsedStar(pid,aid,ll);
     }
 
-    public Used newUsed(String id,
-                        Process p,
-                        Role role,
-                        Artifact a,
-                        Collection<Account> accounts) {
-        Used res=newUsed(p,role,a,accounts);
-        res.setId(id);
-        return res;
-    }
 
     public Used newUsed(String id,
                         Process p,
@@ -621,7 +625,8 @@ public class OPMFactory implements CommonURIs {
     }
 
     public Used newUsed(Used u) {
-        Used u1=newUsed(u.getEffect(),
+        Used u1=newUsed(u.getId(),
+                        u.getEffect(),
                         u.getRole(),
                         u.getCause(),
                         u.getAccount());
@@ -641,7 +646,8 @@ public class OPMFactory implements CommonURIs {
     }
 
     public WasGeneratedBy newWasGeneratedBy(WasGeneratedBy g) {
-        WasGeneratedBy wgb=newWasGeneratedBy(g.getEffect(),
+        WasGeneratedBy wgb=newWasGeneratedBy(g.getId(),
+                                             g.getEffect(),
                                              g.getRole(),
                                              g.getCause(),
                                              g.getAccount());
@@ -651,7 +657,8 @@ public class OPMFactory implements CommonURIs {
     }
 
     public WasDerivedFrom newWasDerivedFrom(WasDerivedFrom d) {
-        WasDerivedFrom wdf=newWasDerivedFrom(d.getEffect(),
+        WasDerivedFrom wdf=newWasDerivedFrom(d.getId(),
+                                             d.getEffect(),
                                              d.getCause(),
                                              d.getAccount());
         wdf.setId(d.getId());
@@ -660,7 +667,8 @@ public class OPMFactory implements CommonURIs {
     }
 
     public WasTriggeredBy newWasTriggeredBy(WasTriggeredBy d) {
-        WasTriggeredBy wtb=newWasTriggeredBy(d.getEffect(),
+        WasTriggeredBy wtb=newWasTriggeredBy(d.getId(),
+                                             d.getEffect(),
                                              d.getCause(),
                                              d.getAccount());
         wtb.setId(d.getId());
@@ -670,11 +678,13 @@ public class OPMFactory implements CommonURIs {
 
 
 
-    public WasGeneratedBy newWasGeneratedBy(ArtifactRef aid,
+    public WasGeneratedBy newWasGeneratedBy(String id,
+                                            ArtifactRef aid,
                                             Role role,
                                             ProcessRef pid,
                                             Collection<AccountRef> accounts) {
         WasGeneratedBy res=of.createWasGeneratedBy();
+        res.setId(id);
         res.setCause(pid);
         res.setRole(role);
         res.setEffect(aid);
@@ -699,13 +709,21 @@ public class OPMFactory implements CommonURIs {
                                             Role role,
                                             Process p,
                                             Collection<Account> accounts) {
+        return newWasGeneratedBy(null,a,role,p,accounts);
+    }
+
+    public WasGeneratedBy newWasGeneratedBy(String id,
+                                            Artifact a,
+                                            Role role,
+                                            Process p,
+                                            Collection<Account> accounts) {
         ArtifactRef aid=newArtifactRef(a);
         ProcessRef pid=newProcessRef(p);
         LinkedList ll=new LinkedList();
         for (Account acc: accounts) {
             ll.add(newAccountRef(acc));
         }
-        return  newWasGeneratedBy(aid,role,pid,ll);
+        return  newWasGeneratedBy(id,aid,role,pid,ll);
     }
 
 
@@ -722,15 +740,6 @@ public class OPMFactory implements CommonURIs {
     }
 
 
-    public WasGeneratedBy newWasGeneratedBy(String id,
-                                            Artifact a,
-                                            Role role,
-                                            Process p,
-                                            Collection<Account> accounts) {
-        WasGeneratedBy res= newWasGeneratedBy(a,role,p,accounts);
-        res.setId(id);
-        return res;
-    }
 
     public WasGeneratedBy newWasGeneratedBy(String id,
                                             Artifact a,
@@ -743,12 +752,20 @@ public class OPMFactory implements CommonURIs {
         return wgb;
     }
 
-
     public WasControlledBy newWasControlledBy(ProcessRef pid,
                                               Role role,
                                               AgentRef agid,
                                               Collection<AccountRef> accounts) {
+        return newWasControlledBy(null,pid,role,agid,accounts);
+    }
+    
+    public WasControlledBy newWasControlledBy(String id,
+                                              ProcessRef pid,
+                                              Role role,
+                                              AgentRef agid,
+                                              Collection<AccountRef> accounts) {
         WasControlledBy res=of.createWasControlledBy();
+        res.setId(id);
         res.setEffect(pid);
         res.setRole(role);
         res.setCause(agid);
@@ -763,13 +780,21 @@ public class OPMFactory implements CommonURIs {
                                               Role role,
                                               Agent ag,
                                               Collection<Account> accounts) {
+        return newWasControlledBy(null,p,role,ag,accounts);
+    }
+
+    public WasControlledBy newWasControlledBy(String id,
+                                              Process p,
+                                              Role role,
+                                              Agent ag,
+                                              Collection<Account> accounts) {
         AgentRef agid=newAgentRef(ag);
         ProcessRef pid=newProcessRef(p);
         LinkedList ll=new LinkedList();
         for (Account acc: accounts) {
             ll.add(newAccountRef(acc));
         }
-        return  newWasControlledBy(pid,role,agid,ll);
+        return  newWasControlledBy(id,pid,role,agid,ll);
     }
 
     public WasControlledBy newWasControlledBy(String id,
@@ -778,23 +803,23 @@ public class OPMFactory implements CommonURIs {
                                               Agent ag,
                                               String type,
                                               Collection<Account> accounts) {
-        WasControlledBy wcb=newWasControlledBy(p,role,ag,accounts);
-        wcb.setId(id);
+        WasControlledBy wcb=newWasControlledBy(id,p,role,ag,accounts);
         addAnnotation(wcb,of.createType(newType(type)));
         return wcb;
     }
 
 
-    public WasDerivedFrom newWasDerivedFrom(ArtifactRef aid1,
+    public WasDerivedFrom newWasDerivedFrom(String id,
+                                            ArtifactRef aid1,
                                             ArtifactRef aid2,
                                             Collection<AccountRef> accounts) {
         WasDerivedFrom res=of.createWasDerivedFrom();
+        res.setId(id);
         res.setCause(aid2);
         res.setEffect(aid1);
         if ((accounts !=null) && (accounts.size()!=0)) {
             res.getAccount().addAll(accounts);
         }
-
         return res;
     }
 
@@ -814,13 +839,20 @@ public class OPMFactory implements CommonURIs {
     public WasDerivedFrom newWasDerivedFrom(Artifact a1,
                                             Artifact a2,
                                             Collection<Account> accounts) {
+        return newWasDerivedFrom(null,a1,a2,accounts);
+    }
+
+    public WasDerivedFrom newWasDerivedFrom(String id,
+                                            Artifact a1,
+                                            Artifact a2,
+                                            Collection<Account> accounts) {
         ArtifactRef aid1=newArtifactRef(a1);
         ArtifactRef aid2=newArtifactRef(a2);
         LinkedList ll=new LinkedList();
         for (Account acc: accounts) {
             ll.add(newAccountRef(acc));
         }
-        return  newWasDerivedFrom(aid1,aid2,ll);
+        return  newWasDerivedFrom(id,aid1,aid2,ll);
     }
 
     public WasDerivedFromStar newWasDerivedFromStar(Artifact a1,
@@ -841,18 +873,19 @@ public class OPMFactory implements CommonURIs {
                                             Artifact a2,
                                             String type,
                                             Collection<Account> accounts) {
-        WasDerivedFrom wdf=newWasDerivedFrom(a1,a2,accounts);
-        wdf.setId(id);
+        WasDerivedFrom wdf=newWasDerivedFrom(id,a1,a2,accounts);
         addAnnotation(wdf,of.createType(newType(type)));
         return wdf;
     }
 
 
 
-    public WasTriggeredBy newWasTriggeredBy(ProcessRef pid1,
+    public WasTriggeredBy newWasTriggeredBy(String id,
+                                            ProcessRef pid1,
                                             ProcessRef pid2,
                                             Collection<AccountRef> accounts) {
         WasTriggeredBy res=of.createWasTriggeredBy();
+        res.setId(id);
         res.setEffect(pid1);
         res.setCause(pid2);
         if ((accounts !=null) && (accounts.size()!=0)) {
@@ -878,13 +911,20 @@ public class OPMFactory implements CommonURIs {
     public WasTriggeredBy newWasTriggeredBy(Process p1,
                                             Process p2,
                                             Collection<Account> accounts) {
+        return newWasTriggeredBy(null,p1,p2,accounts);
+    }
+
+    public WasTriggeredBy newWasTriggeredBy(String id,
+                                            Process p1,
+                                            Process p2,
+                                            Collection<Account> accounts) {
         ProcessRef pid1=newProcessRef(p1);
         ProcessRef pid2=newProcessRef(p2);
         LinkedList<AccountRef> ll=new LinkedList();
         for (Account acc: accounts) {
             ll.add(newAccountRef(acc));
         }
-        return  newWasTriggeredBy(pid1,pid2,ll);
+        return  newWasTriggeredBy(id,pid1,pid2,ll);
     }
 
     public WasTriggeredByStar newWasTriggeredByStar(Process p1,
