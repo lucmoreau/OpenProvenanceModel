@@ -35,6 +35,7 @@ import org.openprovenance.model.Agent;
 import org.openprovenance.model.Process;
 import org.openprovenance.model.Used;
 import org.openprovenance.model.Overlaps;
+import org.openprovenance.model.Annotation;
 import org.openprovenance.model.Account;
 import org.openprovenance.model.OPMGraph;
 import org.openprovenance.model.WasGeneratedBy;
@@ -83,6 +84,7 @@ public class ElmoTest
         module.addConcept(org.openprovenance.rdf.WasDerivedFrom.class);
         module.addConcept(org.openprovenance.rdf.WasTriggeredBy.class);
         module.addConcept(org.openprovenance.rdf.WasControlledBy.class);
+        module.addConcept(org.openprovenance.rdf.Annotation.class);
 
         //module.addBehaviour(RdfArtifact.class);
 
@@ -151,6 +153,9 @@ public class ElmoTest
         assert (wc1 instanceof RdfWasControlledBy);
         assert (wc1 instanceof Edge);
 
+        Annotation an1=oFactory.newAnnotation("an1",a1,"prop1","val1",accl1);
+        //
+
 
         OPMGraph graph=oFactory.newOPMGraph("gr1",
                                             accl12,
@@ -163,7 +168,7 @@ public class ElmoTest
                                                           wd1,
                                                           wc1,
                                                           wt1},
-                                            null);
+                                            new Annotation[] {an1} );
 
         assert (graph instanceof RdfOPMGraph);
 

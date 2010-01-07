@@ -50,6 +50,10 @@ public class RdfObjectFactory extends org.openprovenance.model.ObjectFactory {
         return new RdfAccount(manager,prefix);
     }
 
+    public Account createAnnotation() {
+        return new RdfAnnotation(manager,prefix);
+    }
+
     public Used createUsed() {
         return new RdfUsed(manager,prefix);
     }
