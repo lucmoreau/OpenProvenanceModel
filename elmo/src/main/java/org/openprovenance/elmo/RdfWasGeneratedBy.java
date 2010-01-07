@@ -57,20 +57,20 @@ public class RdfWasGeneratedBy extends org.openprovenance.model.WasGeneratedBy i
             QName q=((RdfRole)value).getQName();
             org.openprovenance.rdf.Role r=(org.openprovenance.rdf.Role)manager.find(q);
             org.openprovenance.rdf.WasGeneratedBy g=findMyFacade();
-            g.getHasRole().add(r);
+            g.getRoles().add(r);
         }
     }
 
 
 
-    public void setHasAccount(Set<? extends Account> accs) {
+    public void setAccounts(Set<? extends Account> accs) {
         for (Account acc: accs) {
             //getAccount().add(acc.getRef());
             throw new UnsupportedOperationException();
         }
     }
 
-    public Set<Account> getHasAccount() {
+    public Set<Account> getAccounts() {
         throw new UnsupportedOperationException();
     }
 
@@ -91,13 +91,13 @@ public class RdfWasGeneratedBy extends org.openprovenance.model.WasGeneratedBy i
         throw new UnsupportedOperationException();
     }
         
-    public void setHasRole(Set<? extends Role> accs) {
+    public void setRoles(Set<? extends Role> accs) {
         for (Role acc: accs) {
             throw new UnsupportedOperationException();
         }
     }
 
-    public Set<Role> getHasRole() {
+    public Set<Role> getRoles() {
         throw new UnsupportedOperationException();
     }
 

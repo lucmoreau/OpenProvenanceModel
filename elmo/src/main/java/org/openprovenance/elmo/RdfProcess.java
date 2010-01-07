@@ -32,14 +32,14 @@ public class RdfProcess extends org.openprovenance.model.Process implements org.
         return p;
     }
 
-    public void setHasAccount(Set<? extends Account> accs) {
+    public void setAccounts(Set<? extends Account> accs) {
         for (Account acc: accs) {
             //getAccount().add(acc.getRef());
             throw new UnsupportedOperationException();
         }
     }
 
-    public Set<Account> getHasAccount() {
+    public Set<Account> getAccounts() {
         throw new UnsupportedOperationException();
     }
         

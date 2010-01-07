@@ -55,19 +55,19 @@ public class RdfUsed extends org.openprovenance.model.Used implements org.openpr
             QName q=((RdfRole)value).getQName();
             org.openprovenance.rdf.Role r=(org.openprovenance.rdf.Role)manager.find(q);
             org.openprovenance.rdf.Used u=findMyFacade();
-            u.getHasRole().add(r);
+            u.getRoles().add(r);
         }
     }
 
 
-    public void setHasAccount(Set<? extends Account> accs) {
+    public void setAccounts(Set<? extends Account> accs) {
         for (Account acc: accs) {
             //getAccount().add(acc.getRef());
             throw new UnsupportedOperationException();
         }
     }
 
-    public Set<Account> getHasAccount() {
+    public Set<Account> getAccounts() {
         throw new UnsupportedOperationException();
     }
 
@@ -88,14 +88,14 @@ public class RdfUsed extends org.openprovenance.model.Used implements org.openpr
         throw new UnsupportedOperationException();
     }
         
-    public void setHasRole(Set<? extends Role> accs) {
+    public void setRoles(Set<? extends Role> accs) {
         for (Role acc: accs) {
             //getRole().add(acc.getRef());
             throw new UnsupportedOperationException();
         }
     }
 
-    public Set<Role> getHasRole() {
+    public Set<Role> getRoles() {
         throw new UnsupportedOperationException();
     }
 

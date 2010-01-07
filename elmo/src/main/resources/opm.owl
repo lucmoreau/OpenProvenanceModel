@@ -85,7 +85,7 @@
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the effect of an Edge</rdfs:comment>
   </owl:ObjectProperty>
 
-  <owl:ObjectProperty rdf:ID="hasRole">
+  <owl:ObjectProperty rdf:ID="role">
     <rdfs:domain>
       <owl:Class>
         <owl:unionOf rdf:parseType="Collection">
@@ -114,13 +114,12 @@
   </owl:DatatypeProperty>
 
 <!-- ACCOUNT  -->
-  <owl:ObjectProperty rdf:ID="hasAccount">
+  <owl:ObjectProperty rdf:ID="account">
     <rdfs:domain>
       <owl:Class>
         <owl:unionOf rdf:parseType="Collection">
           <owl:Class rdf:about="#Edge"/>
           <owl:Class rdf:about="#Node"/>
-          <owl:Class rdf:about="#OPMGraph"/>
           <!-- add here other classes that have accounts: e.g.annotation -->
         </owl:unionOf>
       </owl:Class>
@@ -131,6 +130,14 @@
   <!-- note the difference of meaning for OPMGraphs: this relation
   gives the accounts known by this graph, as opposed to denote account
   membership. -->
+
+  <owl:ObjectProperty rdf:ID="hasAccount">
+    <rdfs:domain>
+      <owl:Class rdf:about="#OPMGraph"/>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="#Account"/>
+  </owl:ObjectProperty>
+
 
 
   <owl:ObjectProperty rdf:ID="hasDependency">

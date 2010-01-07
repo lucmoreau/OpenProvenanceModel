@@ -33,14 +33,14 @@ public class RdfAgent extends org.openprovenance.model.Agent implements org.open
     }
 
 
-    public void setHasAccount(Set<? extends Account> accs) {
+    public void setAccounts(Set<? extends Account> accs) {
         for (Account acc: accs) {
             //getAccount().add(acc.getRef());
             throw new UnsupportedOperationException();
         }
     }
 
-    public Set<Account> getHasAccount() {
+    public Set<Account> getAccounts() {
         throw new UnsupportedOperationException();
     }
         

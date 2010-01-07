@@ -8,7 +8,7 @@ import org.openprovenance.model.HasAccounts;
 import org.openprovenance.model.AccountRef;
 import org.openprovenance.model.OPMGraph;
 
-import org.openprovenance.rdf.EdgeOrNodeOrOPMGraph;
+import org.openprovenance.rdf.EdgeOrNode;
 
 public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
 
@@ -19,17 +19,17 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
 
     public void addAccounts(HasAccounts element, Collection<AccountRef> accounts) {
         System.out.println("add accounts to ");
-        if (element instanceof EdgeOrNodeOrOPMGraph) {
+        if (element instanceof EdgeOrNode) {
             HasFacade facade=(HasFacade) element;
             Object o=facade.findMyFacade();
-            EdgeOrNodeOrOPMGraph el=(EdgeOrNodeOrOPMGraph) o;
+            EdgeOrNode el=(EdgeOrNode) o;
 
             Set set=new HashSet();
             for (AccountRef accr: accounts) {
                 set.add((org.openprovenance.rdf.Account)accr.getRef());
             }
             //el.getHasAccount().addAll(set);
-            el.setHasAccount(set);
+            el.setAccounts(set);
         }
     }
 
