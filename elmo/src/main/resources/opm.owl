@@ -65,6 +65,11 @@
     <rdfs:subClassOf rdf:resource="#Entity"/>
   </owl:Class>
 
+  <owl:Class rdf:ID="Annotation">
+    <rdfs:subClassOf rdf:resource="#Entity"/>
+  </owl:Class>
+
+
   <owl:ObjectProperty rdf:ID="cause">
     <rdfs:domain rdf:resource="#Edge"/>
     <rdfs:range rdf:resource="#Node"/>
