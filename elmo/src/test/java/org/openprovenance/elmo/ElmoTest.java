@@ -33,6 +33,7 @@ import org.openprovenance.model.Artifact;
 import org.openprovenance.model.Agent;
 import org.openprovenance.model.Process;
 import org.openprovenance.model.Used;
+import org.openprovenance.model.Account;
 import org.openprovenance.model.WasGeneratedBy;
 import org.openprovenance.model.WasDerivedFrom;
 import org.openprovenance.model.WasTriggeredBy;
@@ -67,6 +68,7 @@ public class ElmoTest
         ElmoModule module = new ElmoModule();
         module.addConcept(Edge.class);
         module.addConcept(Node.class);
+        module.addConcept(org.openprovenance.rdf.Account.class);
         module.addConcept(org.openprovenance.rdf.Artifact.class);
         module.addConcept(org.openprovenance.elmo.RdfArtifact.class);
         module.addConcept(org.openprovenance.rdf.Process.class);
@@ -87,50 +89,61 @@ public class ElmoTest
         manager = factory.createElmoManager();
 
 
-        OPMFactory oFactory=new OPMFactory(new RdfObjectFactory(manager,"http://newexample.com/"));
+        OPMFactory oFactory=new RdfOPMFactory(new RdfObjectFactory(manager,"http://newexample.com/"));
 
+        Account acc1=oFactory.newAccount("acc1");
+        assert (acc1 instanceof RdfAccount);
+
+        Account acc2=oFactory.newAccount("acc2");
+        assert (acc2 instanceof RdfAccount);
+
+        Collection<Account> accl1=Collections.singleton(acc1);
+        Collection<Account> accl2=Collections.singleton(acc2);
+        Collection<Account> accl12=new LinkedList();
+        accl12.add(acc1);
+        accl12.add(acc2);
         
-        Artifact a1=oFactory.newArtifact("a1",null, "a1");
+        Artifact a1=oFactory.newArtifact("a1",accl1, "a1");
         assert (a1 instanceof RdfArtifact);
         assert (a1 instanceof Node);
 
-        Artifact a2=oFactory.newArtifact("a2",null, "a2");
+        Artifact a2=oFactory.newArtifact("a2",accl1, "a2");
         assert (a2 instanceof RdfArtifact);
         assert (a2 instanceof Node);
 
 
-        Agent ag1=oFactory.newAgent("ag1",null, "ag1");
+        Agent ag1=oFactory.newAgent("ag1",accl2, "ag1");
         assert (ag1 instanceof RdfAgent);
         assert (ag1 instanceof Node);
 
-        Process p1=oFactory.newProcess("p1",null, "p1");
+        Process p1=oFactory.newProcess("p1",accl2, "p1");
         assert (p1 instanceof RdfProcess);
         assert (p1 instanceof Node);
 
-        Process p2=oFactory.newProcess("p2",null, "p2");
+        Process p2=oFactory.newProcess("p2",accl2, "p2");
         assert (p2 instanceof RdfProcess);
         assert (p2 instanceof Node);
 
-        Used u1=oFactory.newUsed("u1",p1,oFactory.newRole("r1","r1"),a1,new LinkedList());
+        Used u1=oFactory.newUsed("u1",p1,oFactory.newRole("r1","r1"),a1,accl2);
         assert (u1 instanceof RdfUsed);
         assert (u1 instanceof Edge);
 
 
-        WasGeneratedBy g1=oFactory.newWasGeneratedBy("g1",a1,null,p1,new LinkedList());
+        WasGeneratedBy g1=oFactory.newWasGeneratedBy("g1",a1,oFactory.newRole("r2","r2"),p1,accl12);
         assert (g1 instanceof RdfWasGeneratedBy);
         assert (g1 instanceof Edge);
 
 
-        WasDerivedFrom d1=oFactory.newWasDerivedFrom("d1",a2,a1,new LinkedList());
+        WasDerivedFrom d1=oFactory.newWasDerivedFrom("d1",a2,a1,accl2);
         assert (d1 instanceof RdfWasDerivedFrom);
         assert (d1 instanceof Edge);
 
 
-        WasTriggeredBy t1=oFactory.newWasTriggeredBy("t1",p2,p1,new LinkedList());
+        WasTriggeredBy t1=oFactory.newWasTriggeredBy("t1",p2,p1,accl12);
         assert (t1 instanceof RdfWasTriggeredBy);
         assert (t1 instanceof Edge);
 
-        WasControlledBy c1=oFactory.newWasControlledBy("c1",p1,null,ag1,new LinkedList());
+        WasControlledBy c1=oFactory.newWasControlledBy("c1",p1,oFactory.newRole("r3","r3"),ag1,accl2);
         assert (c1 instanceof RdfWasControlledBy);
         assert (c1 instanceof Edge);
 

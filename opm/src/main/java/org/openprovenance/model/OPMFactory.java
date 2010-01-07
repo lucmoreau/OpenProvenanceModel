@@ -111,13 +111,7 @@ public class OPMFactory implements CommonURIs {
                               String label) {
         Process res=of.createProcess();
         res.setId(pr);
-        if ((accounts !=null) && (accounts.size()!=0)) {
-            LinkedList ll=new LinkedList();
-            for (Account acc: accounts) {
-                ll.add(newAccountRef(acc));
-            }
-            res.getAccount().addAll(ll);
-        }
+        addAccounts(res,accounts,null);
         if (label!=null) {
             res.getAnnotation().add(of.createLabel(newLabel(label)));
         }
@@ -134,13 +128,7 @@ public class OPMFactory implements CommonURIs {
                           String label) {
         Agent res=of.createAgent();
         res.setId(ag);
-        if ((accounts !=null) && (accounts.size()!=0)) {
-            LinkedList ll=new LinkedList();
-            for (Account acc: accounts) {
-                ll.add(newAccountRef(acc));
-            }
-            res.getAccount().addAll(ll);
-        }
+        addAccounts(res,accounts,null);
         if (label!=null) res.getAnnotation().add(of.createLabel(newLabel(label)));
         return res;
     }
@@ -532,18 +520,28 @@ public class OPMFactory implements CommonURIs {
                                 String label) {
         Artifact res=of.createArtifact();
         res.setId(id);
-        if ((accounts !=null) && (accounts.size()!=0)) {
-            LinkedList ll=new LinkedList();
-            for (Account acc: accounts) {
-                ll.add(newAccountRef(acc));
-            }
-            res.getAccount().addAll(ll);
-        }
+        addAccounts(res,accounts,null);
         if (label!=null) {
             res.getAnnotation().add(of.createLabel(newLabel(label)));
         }
         return res;
     }
+
+    public void addAccounts(HasAccounts element, Collection<Account> accounts, Object ignoreForErasure) {
+        if ((accounts !=null) && (accounts.size()!=0)) {
+            LinkedList ll=new LinkedList();
+            for (Account acc: accounts) {
+                ll.add(newAccountRef(acc));
+            }
+            addAccounts(element,ll);
+        }
+    }
+    public void addAccounts(HasAccounts element, Collection<AccountRef> accounts) {
+        if ((accounts !=null) && (accounts.size()!=0)) {
+            element.getAccount().addAll(accounts);
+        }
+    }
+
 
     public Used newUsed(String id,
                         ProcessRef pid,
@@ -555,9 +553,7 @@ public class OPMFactory implements CommonURIs {
         res.setEffect(pid);
         res.setRole(role);
         res.setCause(aid);
-        if ((accounts !=null) && (accounts.size()!=0)) {
-            res.getAccount().addAll(accounts);
-        }
+        addAccounts(res,accounts);
         return res;
     }
 
@@ -569,9 +565,7 @@ public class OPMFactory implements CommonURIs {
         UsedStar res=of.createUsedStar();
         res.setEffect(pid);
         res.setCause(aid);
-        if ((accounts !=null) && (accounts.size()!=0)) {
-            res.getAccount().addAll(accounts);
-        }
+        addAccounts(res,accounts);
         return res;
     }
 
@@ -688,9 +682,7 @@ public class OPMFactory implements CommonURIs {
         res.setCause(pid);
         res.setRole(role);
         res.setEffect(aid);
-        if ((accounts !=null) && (accounts.size()!=0)) {
-            res.getAccount().addAll(accounts);
-        }
+        addAccounts(res,accounts);
         return res;
     }
 
@@ -700,9 +692,7 @@ public class OPMFactory implements CommonURIs {
         WasGeneratedByStar res=of.createWasGeneratedByStar();
         res.setCause(pid);
         res.setEffect(aid);
-        if ((accounts !=null) && (accounts.size()!=0)) {
-            res.getAccount().addAll(accounts);
-        }
+        addAccounts(res,accounts);
         return res;
     }
     public WasGeneratedBy newWasGeneratedBy(Artifact a,
@@ -769,9 +759,7 @@ public class OPMFactory implements CommonURIs {
         res.setEffect(pid);
         res.setRole(role);
         res.setCause(agid);
-        if ((accounts !=null) && (accounts.size()!=0)) {
-            res.getAccount().addAll(accounts);
-        }
+        addAccounts(res,accounts);
         return res;
     }
 
@@ -817,9 +805,7 @@ public class OPMFactory implements CommonURIs {
         res.setId(id);
         res.setCause(aid2);
         res.setEffect(aid1);
-        if ((accounts !=null) && (accounts.size()!=0)) {
-            res.getAccount().addAll(accounts);
-        }
+        addAccounts(res,accounts);
         return res;
     }
 
@@ -829,10 +815,7 @@ public class OPMFactory implements CommonURIs {
         WasDerivedFromStar res=of.createWasDerivedFromStar();
         res.setCause(aid2);
         res.setEffect(aid1);
-        if ((accounts !=null) && (accounts.size()!=0)) {
-            res.getAccount().addAll(accounts);
-        }
-
+        addAccounts(res,accounts);
         return res;
     }
 
@@ -888,10 +871,7 @@ public class OPMFactory implements CommonURIs {
         res.setId(id);
         res.setEffect(pid1);
         res.setCause(pid2);
-        if ((accounts !=null) && (accounts.size()!=0)) {
-            res.getAccount().addAll(accounts);
-        }
-
+        addAccounts(res,accounts);
         return res;
     }
 
@@ -901,10 +881,7 @@ public class OPMFactory implements CommonURIs {
         WasTriggeredByStar res=of.createWasTriggeredByStar();
         res.setEffect(pid1);
         res.setCause(pid2);
-        if ((accounts !=null) && (accounts.size()!=0)) {
-            res.getAccount().addAll(accounts);
-        }
-
+        addAccounts(res,accounts);
         return res;
     }
 
@@ -1112,9 +1089,7 @@ public class OPMFactory implements CommonURIs {
         res.setId(id);
         res.setLocalSubject(ref.getRef());
         res.getProperty().add(newProperty(property,value));
-        if (accs!=null) {
-            res.getAccount().addAll(accs);
-        }
+        addAccounts(res,accs);
         return res;
     }
 
@@ -1126,9 +1101,7 @@ public class OPMFactory implements CommonURIs {
         EmbeddedAnnotation res=of.createEmbeddedAnnotation();
         res.setId(id);
         res.getProperty().add(newProperty(property,value));
-        if (accs!=null) {
-            res.getAccount().addAll(accs);
-        }
+        addAccounts(res,accs);
         return res;
     }
     public EmbeddedAnnotation newEmbeddedAnnotation(String id,
@@ -1140,9 +1113,7 @@ public class OPMFactory implements CommonURIs {
         if (properties!=null) {
             res.getProperty().addAll(properties);
         }
-        if (accs!=null) {
-            res.getAccount().addAll(accs);
-        }
+        addAccounts(res,accs);
         return res;
     }
 

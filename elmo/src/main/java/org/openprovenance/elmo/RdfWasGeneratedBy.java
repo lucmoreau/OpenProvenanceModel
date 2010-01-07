@@ -8,7 +8,7 @@ import javax.xml.namespace.QName;
 
 import org.openrdf.elmo.ElmoManager;
 
-public class RdfWasGeneratedBy extends org.openprovenance.model.WasGeneratedBy implements org.openprovenance.rdf.WasGeneratedBy {
+public class RdfWasGeneratedBy extends org.openprovenance.model.WasGeneratedBy implements org.openprovenance.rdf.WasGeneratedBy, HasFacade {
     String prefix;
     ElmoManager manager;
     QName qname;
@@ -32,8 +32,13 @@ public class RdfWasGeneratedBy extends org.openprovenance.model.WasGeneratedBy i
         super.setEffect(value);
         QName q=((RdfArtifact)(value.getRef())).getQName();
         org.openprovenance.rdf.Artifact a=(org.openprovenance.rdf.Artifact)manager.find(q);
-        org.openprovenance.rdf.WasGeneratedBy g=(org.openprovenance.rdf.WasGeneratedBy)manager.find(getQName());
+        org.openprovenance.rdf.WasGeneratedBy g=findMyFacade();
         g.getEffects().add(a);
+    }
+
+    public org.openprovenance.rdf.WasGeneratedBy findMyFacade() {
+        org.openprovenance.rdf.WasGeneratedBy g=(org.openprovenance.rdf.WasGeneratedBy)manager.find(getQName());
+        return g;
     }
 
     public void setCause(org.openprovenance.model.ProcessRef value) {
@@ -42,19 +47,30 @@ public class RdfWasGeneratedBy extends org.openprovenance.model.WasGeneratedBy i
         org.openprovenance.rdf.Process p=(org.openprovenance.rdf.Process)manager.find(q);
         System.out.println("=============> " + getQName());
         System.out.println("=============>p " + q);
-        org.openprovenance.rdf.WasGeneratedBy g=(org.openprovenance.rdf.WasGeneratedBy)manager.find(getQName());
+        org.openprovenance.rdf.WasGeneratedBy g=findMyFacade();
         g.getCauses().add(p);
     }
 
+    public void setRole(org.openprovenance.model.Role value) {
+        super.setRole(value);
+        if (value!=null) {
+            QName q=((RdfRole)value).getQName();
+            org.openprovenance.rdf.Role r=(org.openprovenance.rdf.Role)manager.find(q);
+            org.openprovenance.rdf.WasGeneratedBy g=findMyFacade();
+            g.getHasRole().add(r);
+        }
+    }
 
-    public void setEdgeAccount(Set<? extends Account> accs) {
+
+
+    public void setHasAccount(Set<? extends Account> accs) {
         for (Account acc: accs) {
             //getAccount().add(acc.getRef());
             throw new UnsupportedOperationException();
         }
     }
 
-    public Set<Account> getEdgeAccount() {
+    public Set<Account> getHasAccount() {
         throw new UnsupportedOperationException();
     }
 

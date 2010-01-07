@@ -8,7 +8,7 @@ import javax.xml.namespace.QName;
 
 import org.openrdf.elmo.ElmoManager;
 
-public class RdfUsed extends org.openprovenance.model.Used implements org.openprovenance.rdf.Used {
+public class RdfUsed extends org.openprovenance.model.Used implements org.openprovenance.rdf.Used, HasFacade {
     String prefix;
     ElmoManager manager;
     QName qname;
@@ -60,14 +60,14 @@ public class RdfUsed extends org.openprovenance.model.Used implements org.openpr
     }
 
 
-    public void setEdgeAccount(Set<? extends Account> accs) {
+    public void setHasAccount(Set<? extends Account> accs) {
         for (Account acc: accs) {
             //getAccount().add(acc.getRef());
             throw new UnsupportedOperationException();
         }
     }
 
-    public Set<Account> getEdgeAccount() {
+    public Set<Account> getHasAccount() {
         throw new UnsupportedOperationException();
     }
 

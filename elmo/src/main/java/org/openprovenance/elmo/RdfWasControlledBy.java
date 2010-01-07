@@ -8,7 +8,7 @@ import javax.xml.namespace.QName;
 
 import org.openrdf.elmo.ElmoManager;
 
-public class RdfWasControlledBy extends org.openprovenance.model.WasControlledBy implements org.openprovenance.rdf.WasControlledBy {
+public class RdfWasControlledBy extends org.openprovenance.model.WasControlledBy implements org.openprovenance.rdf.WasControlledBy, HasFacade {
     String prefix;
     ElmoManager manager;
     QName qname;
@@ -32,7 +32,7 @@ public class RdfWasControlledBy extends org.openprovenance.model.WasControlledBy
         super.setEffect(value);
         QName q=((RdfProcess)(value.getRef())).getQName();
         org.openprovenance.rdf.Process p=(org.openprovenance.rdf.Process)manager.find(q);
-        org.openprovenance.rdf.WasControlledBy c=(org.openprovenance.rdf.WasControlledBy)manager.find(getQName());
+        org.openprovenance.rdf.WasControlledBy c=findMyFacade();
         c.getEffects().add(p);
     }
 
@@ -40,19 +40,36 @@ public class RdfWasControlledBy extends org.openprovenance.model.WasControlledBy
         super.setCause(value);
         QName q=((RdfAgent)(value.getRef())).getQName();
         org.openprovenance.rdf.Agent ag=(org.openprovenance.rdf.Agent)manager.find(q);
-        org.openprovenance.rdf.WasControlledBy c=(org.openprovenance.rdf.WasControlledBy)manager.find(getQName());
+        org.openprovenance.rdf.WasControlledBy c=findMyFacade();
         c.getCauses().add(ag);
     }
 
+    public org.openprovenance.rdf.WasControlledBy findMyFacade() {
+        org.openprovenance.rdf.WasControlledBy c=(org.openprovenance.rdf.WasControlledBy)manager.find(getQName());
+        return c;
+    }
 
-    public void setEdgeAccount(Set<? extends Account> accs) {
+
+    public void setRole(org.openprovenance.model.Role value) {
+        super.setRole(value);
+        if (value!=null) {
+            QName q=((RdfRole)value).getQName();
+            org.openprovenance.rdf.Role r=(org.openprovenance.rdf.Role)manager.find(q);
+            org.openprovenance.rdf.WasControlledBy c=findMyFacade();
+            c.getHasRole().add(r);
+        }
+    }
+
+
+
+    public void setHasAccount(Set<? extends Account> accs) {
         for (Account acc: accs) {
             //getAccount().add(acc.getRef());
             throw new UnsupportedOperationException();
         }
     }
 
-    public Set<Account> getEdgeAccount() {
+    public Set<Account> getHasAccount() {
         throw new UnsupportedOperationException();
     }
 

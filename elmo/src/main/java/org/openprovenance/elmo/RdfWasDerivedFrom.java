@@ -8,7 +8,7 @@ import javax.xml.namespace.QName;
 
 import org.openrdf.elmo.ElmoManager;
 
-public class RdfWasDerivedFrom extends org.openprovenance.model.WasDerivedFrom implements org.openprovenance.rdf.WasDerivedFrom {
+public class RdfWasDerivedFrom extends org.openprovenance.model.WasDerivedFrom implements org.openprovenance.rdf.WasDerivedFrom, HasFacade {
     String prefix;
     ElmoManager manager;
     QName qname;
@@ -28,31 +28,37 @@ public class RdfWasDerivedFrom extends org.openprovenance.model.WasDerivedFrom i
         return qname;
     }
 
+    public org.openprovenance.rdf.WasDerivedFrom findMyFacade() {
+        org.openprovenance.rdf.WasDerivedFrom c=(org.openprovenance.rdf.WasDerivedFrom)manager.find(getQName());
+        return c;
+    }
+
+
     public void setEffect(org.openprovenance.model.ArtifactRef value) {
         super.setEffect(value);
         QName q=((RdfArtifact)(value.getRef())).getQName();
         org.openprovenance.rdf.Artifact a=(org.openprovenance.rdf.Artifact)manager.find(q);
-        org.openprovenance.rdf.WasDerivedFrom g=(org.openprovenance.rdf.WasDerivedFrom)manager.find(getQName());
-        g.getEffects().add(a);
+        org.openprovenance.rdf.WasDerivedFrom d=findMyFacade();
+        d.getEffects().add(a);
     }
 
     public void setCause(org.openprovenance.model.ArtifactRef value) {
         super.setCause(value);
         QName q=((RdfArtifact)(value.getRef())).getQName();
         org.openprovenance.rdf.Artifact a=(org.openprovenance.rdf.Artifact)manager.find(q);
-        org.openprovenance.rdf.WasDerivedFrom g=(org.openprovenance.rdf.WasDerivedFrom)manager.find(getQName());
-        g.getCauses().add(a);
+        org.openprovenance.rdf.WasDerivedFrom d=findMyFacade();
+        d.getCauses().add(a);
     }
 
 
-    public void setEdgeAccount(Set<? extends Account> accs) {
+    public void setHasAccount(Set<? extends Account> accs) {
         for (Account acc: accs) {
             //getAccount().add(acc.getRef());
             throw new UnsupportedOperationException();
         }
     }
 
-    public Set<Account> getEdgeAccount() {
+    public Set<Account> getHasAccount() {
         throw new UnsupportedOperationException();
     }
 
@@ -79,7 +85,7 @@ public class RdfWasDerivedFrom extends org.openprovenance.model.WasDerivedFrom i
         }
     }
 
-    public Set<Role> getGeneratedRole() {
+    public Set<Role> getGenerateRole() {
         throw new UnsupportedOperationException();
     }
 

@@ -1,4 +1,6 @@
 package org.openprovenance.model;
 
-public interface Node extends Annotable {
+import java.util.List;
+
+public interface Node extends Annotable, HasAccounts {
 } 

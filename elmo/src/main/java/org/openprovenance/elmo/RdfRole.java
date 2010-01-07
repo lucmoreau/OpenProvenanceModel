@@ -23,10 +23,29 @@ public class RdfRole extends org.openprovenance.model.Role implements org.openpr
         manager.designate(qname, org.openprovenance.rdf.Role.class);
     }
 
+    public void setValue(String value) {
+        super.setValue(value);
+        org.openprovenance.rdf.Role r=findMyFacade();
+        r.getValues().add(value);
+    }
+
     public QName getQName() {
         return qname;
     }
 
+    public org.openprovenance.rdf.Role findMyFacade() {
+        org.openprovenance.rdf.Role r=(org.openprovenance.rdf.Role)manager.find(getQName());
+        return r;
+    }
+
+
+    public void setValues(Set<? extends java.lang.String> values) {
+        throw new UnsupportedOperationException();
+    }
+
+    public Set<String> getValues() {
+        throw new UnsupportedOperationException();
+    }
 
 	public Set<String> getNames() {
         throw new UnsupportedOperationException();

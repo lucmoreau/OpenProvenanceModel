@@ -6,7 +6,7 @@ import org.openprovenance.rdf.Node;
 import javax.xml.namespace.QName;
 import org.openrdf.elmo.ElmoManager;
 
-public class RdfAgent extends org.openprovenance.model.Agent implements org.openprovenance.rdf.Agent {
+public class RdfAgent extends org.openprovenance.model.Agent implements org.openprovenance.rdf.Agent, HasFacade {
 
     ElmoManager manager;
     String prefix;
@@ -27,14 +27,20 @@ public class RdfAgent extends org.openprovenance.model.Agent implements org.open
         return qname;
     }
 
-    public void setNodeAccount(Set<? extends Account> accs) {
+    public org.openprovenance.rdf.Agent findMyFacade() {
+        org.openprovenance.rdf.Agent ag=(org.openprovenance.rdf.Agent)manager.find(getQName());
+        return ag;
+    }
+
+
+    public void setHasAccount(Set<? extends Account> accs) {
         for (Account acc: accs) {
             //getAccount().add(acc.getRef());
             throw new UnsupportedOperationException();
         }
     }
 
-    public Set<Account> getNodeAccount() {
+    public Set<Account> getHasAccount() {
         throw new UnsupportedOperationException();
     }
         

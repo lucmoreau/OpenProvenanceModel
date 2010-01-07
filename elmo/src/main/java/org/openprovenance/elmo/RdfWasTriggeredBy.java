@@ -8,7 +8,7 @@ import javax.xml.namespace.QName;
 
 import org.openrdf.elmo.ElmoManager;
 
-public class RdfWasTriggeredBy extends org.openprovenance.model.WasTriggeredBy implements org.openprovenance.rdf.WasTriggeredBy {
+public class RdfWasTriggeredBy extends org.openprovenance.model.WasTriggeredBy implements org.openprovenance.rdf.WasTriggeredBy, HasFacade {
     String prefix;
     ElmoManager manager;
     QName qname;
@@ -28,31 +28,37 @@ public class RdfWasTriggeredBy extends org.openprovenance.model.WasTriggeredBy i
         return qname;
     }
 
+    public org.openprovenance.rdf.WasTriggeredBy findMyFacade() {
+        org.openprovenance.rdf.WasTriggeredBy c=(org.openprovenance.rdf.WasTriggeredBy)manager.find(getQName());
+        return c;
+    }
+
+
     public void setEffect(org.openprovenance.model.ProcessRef value) {
         super.setEffect(value);
         QName q=((RdfProcess)(value.getRef())).getQName();
         org.openprovenance.rdf.Process p=(org.openprovenance.rdf.Process)manager.find(q);
-        org.openprovenance.rdf.WasTriggeredBy g=(org.openprovenance.rdf.WasTriggeredBy)manager.find(getQName());
-        g.getEffects().add(p);
+        org.openprovenance.rdf.WasTriggeredBy t=findMyFacade();
+        t.getEffects().add(p);
     }
 
     public void setCause(org.openprovenance.model.ProcessRef value) {
         super.setCause(value);
         QName q=((RdfProcess)(value.getRef())).getQName();
         org.openprovenance.rdf.Process p=(org.openprovenance.rdf.Process)manager.find(q);
-        org.openprovenance.rdf.WasTriggeredBy g=(org.openprovenance.rdf.WasTriggeredBy)manager.find(getQName());
-        g.getCauses().add(p);
+        org.openprovenance.rdf.WasTriggeredBy t=findMyFacade();
+        t.getCauses().add(p);
     }
 
 
-    public void setEdgeAccount(Set<? extends Account> accs) {
+    public void setHasAccount(Set<? extends Account> accs) {
         for (Account acc: accs) {
             //getAccount().add(acc.getRef());
             throw new UnsupportedOperationException();
         }
     }
 
-    public Set<Account> getEdgeAccount() {
+    public Set<Account> getHasAccount() {
         throw new UnsupportedOperationException();
     }
 
