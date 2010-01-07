@@ -28,12 +28,15 @@ import org.openrdf.elmo.sesame.SesameManager;
 import org.openrdf.rio.rdfxml.RDFXMLWriter;
 import org.openrdf.rio.n3.N3Writer;
 
+import org.openprovenance.model.OPMSerialiser;
 import org.openprovenance.model.OPMFactory;
 import org.openprovenance.model.Artifact;
 import org.openprovenance.model.Agent;
 import org.openprovenance.model.Process;
 import org.openprovenance.model.Used;
+import org.openprovenance.model.Overlaps;
 import org.openprovenance.model.Account;
+import org.openprovenance.model.OPMGraph;
 import org.openprovenance.model.WasGeneratedBy;
 import org.openprovenance.model.WasDerivedFrom;
 import org.openprovenance.model.WasTriggeredBy;
@@ -68,6 +71,7 @@ public class ElmoTest
         ElmoModule module = new ElmoModule();
         module.addConcept(Edge.class);
         module.addConcept(Node.class);
+        module.addConcept(org.openprovenance.rdf.OPMGraph.class);
         module.addConcept(org.openprovenance.rdf.Account.class);
         module.addConcept(org.openprovenance.rdf.Artifact.class);
         module.addConcept(org.openprovenance.elmo.RdfArtifact.class);
@@ -129,23 +133,44 @@ public class ElmoTest
         assert (u1 instanceof Edge);
 
 
-        WasGeneratedBy g1=oFactory.newWasGeneratedBy("g1",a1,oFactory.newRole("r2","r2"),p1,accl12);
-        assert (g1 instanceof RdfWasGeneratedBy);
-        assert (g1 instanceof Edge);
+        WasGeneratedBy wg1=oFactory.newWasGeneratedBy("g1",a1,oFactory.newRole("r2","r2"),p1,accl12);
+        assert (wg1 instanceof RdfWasGeneratedBy);
+        assert (wg1 instanceof Edge);
 
 
-        WasDerivedFrom d1=oFactory.newWasDerivedFrom("d1",a2,a1,accl2);
-        assert (d1 instanceof RdfWasDerivedFrom);
-        assert (d1 instanceof Edge);
+        WasDerivedFrom wd1=oFactory.newWasDerivedFrom("d1",a2,a1,accl2);
+        assert (wd1 instanceof RdfWasDerivedFrom);
+        assert (wd1 instanceof Edge);
 
 
-        WasTriggeredBy t1=oFactory.newWasTriggeredBy("t1",p2,p1,accl12);
-        assert (t1 instanceof RdfWasTriggeredBy);
-        assert (t1 instanceof Edge);
+        WasTriggeredBy wt1=oFactory.newWasTriggeredBy("t1",p2,p1,accl12);
+        assert (wt1 instanceof RdfWasTriggeredBy);
+        assert (wt1 instanceof Edge);
 
-        WasControlledBy c1=oFactory.newWasControlledBy("c1",p1,oFactory.newRole("r3","r3"),ag1,accl2);
-        assert (c1 instanceof RdfWasControlledBy);
-        assert (c1 instanceof Edge);
+        WasControlledBy wc1=oFactory.newWasControlledBy("c1",p1,oFactory.newRole("r3","r3"),ag1,accl2);
+        assert (wc1 instanceof RdfWasControlledBy);
+        assert (wc1 instanceof Edge);
+
+
+        OPMGraph graph=oFactory.newOPMGraph("gr1",
+                                            accl12,
+                                            new Overlaps[] { },
+                                            new Process[] {p1,p2},
+                                            new Artifact[] {a1,a2},
+                                            new Agent[] { ag1 },
+                                            new Object[] {u1,
+                                                          wg1,
+                                                          wd1,
+                                                          wc1,
+                                                          wt1},
+                                            null);
+
+        assert (graph instanceof RdfOPMGraph);
+
+
+
+        OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
+        serial.serialiseOPMGraph(new File("target/repository.xml"),graph,true);
 
     }
 

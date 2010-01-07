@@ -1124,7 +1124,7 @@ public class OPMFactory implements CommonURIs {
                                 Collection<Artifact> as,
                                 Collection<Agent> ags,
                                 Collection<Object> lks) {
-        return newOPMGraph(accs,ops,ps,as,ags,lks,null);
+        return newOPMGraph(null,accs,ops,ps,as,ags,lks,null);
     }
 
     public OPMGraph newOPMGraph(Collection<Account> accs,
@@ -1133,9 +1133,21 @@ public class OPMFactory implements CommonURIs {
                                 Collection<Artifact> as,
                                 Collection<Agent> ags,
                                 Collection<Object> lks,
+                                Collection<Annotation> anns) {
+        return newOPMGraph(null,accs,ops,ps,as,ags,lks,anns);
+    }
+
+    public OPMGraph newOPMGraph(String id,
+                                Collection<Account> accs,
+                                Collection<Overlaps> ops,
+                                Collection<Process> ps,
+                                Collection<Artifact> as,
+                                Collection<Agent> ags,
+                                Collection<Object> lks,
                                 Collection<Annotation> anns)
     {
         OPMGraph res=of.createOPMGraph();
+        res.setId(id);
         if (accs!=null) {
             Accounts aaccs=of.createAccounts();
             aaccs.getAccount().addAll(accs);
@@ -1194,10 +1206,22 @@ public class OPMFactory implements CommonURIs {
                                 Artifact [] as,
                                 Agent [] ags,
                                 Object [] lks,
+                                Annotation [] anns) {
+        return newOPMGraph(null,accs,ovs,ps,as,ags,lks,anns);
+    }
+
+    public OPMGraph newOPMGraph(String id,
+                                Collection<Account> accs,
+                                Overlaps [] ovs,
+                                Process [] ps,
+                                Artifact [] as,
+                                Agent [] ags,
+                                Object [] lks,
                                 Annotation [] anns) 
     {
 
-        return newOPMGraph(accs,
+        return newOPMGraph(id,
+                           accs,
                            ((ovs==null) ? null : Arrays.asList(ovs)),
                            ((ps==null) ? null : Arrays.asList(ps)),
                            ((as==null) ? null : Arrays.asList(as)),

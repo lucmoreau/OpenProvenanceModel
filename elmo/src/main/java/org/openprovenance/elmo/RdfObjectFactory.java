@@ -70,6 +70,10 @@ public class RdfObjectFactory extends org.openprovenance.model.ObjectFactory {
         return new RdfWasControlledBy(manager,prefix);
     }
 
+    public OPMGraph createOPMGraph() {
+        return new RdfOPMGraph(manager,prefix);
+    }
+
     /** Don't understand how this is used! */
 
     @factory
