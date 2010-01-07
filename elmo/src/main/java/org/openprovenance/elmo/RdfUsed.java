@@ -8,7 +8,7 @@ import javax.xml.namespace.QName;
 
 import org.openrdf.elmo.ElmoManager;
 
-public class RdfUsed extends org.openprovenance.model.Used implements org.openprovenance.rdf.Used, HasFacade {
+public class RdfUsed extends org.openprovenance.model.Used implements HasFacade {
     String prefix;
     ElmoManager manager;
     QName qname;

@@ -43,25 +43,13 @@ public class RdfProcess extends org.openprovenance.model.Process implements org.
         throw new UnsupportedOperationException();
     }
         
-
-	public Set<String> getNames() {
-        throw new UnsupportedOperationException();
-    }
-
-	public void setNames(Set<? extends String> names) {
-        throw new UnsupportedOperationException();
-    }
-
     public void setAnnotations(java.util.Set<? extends org.openprovenance.rdf.Annotation> ann) {
         throw new UnsupportedOperationException();
     }
 
-
-
     public java.util.Set<org.openprovenance.rdf.Annotation> getAnnotations() {
         throw new UnsupportedOperationException();
     }
-
 
 
 }

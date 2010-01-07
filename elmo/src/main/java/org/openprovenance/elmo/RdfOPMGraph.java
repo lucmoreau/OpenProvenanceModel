@@ -10,7 +10,7 @@ import org.openprovenance.rdf.Artifact;
 import javax.xml.namespace.QName;
 import org.openrdf.elmo.ElmoManager;
 
-public class RdfOPMGraph extends org.openprovenance.model.OPMGraph implements org.openprovenance.rdf.OPMGraph, HasFacade {
+public class RdfOPMGraph extends org.openprovenance.model.OPMGraph implements HasFacade {
 
     ElmoManager manager;
     String prefix;
@@ -78,6 +78,14 @@ public class RdfOPMGraph extends org.openprovenance.model.OPMGraph implements or
     public Set<Account> getHasAccount()  {
         throw new UnsupportedOperationException();
     }
+
+//     public void setAnnotations(java.util.Set<? extends org.openprovenance.rdf.Annotation> ann) {
+//         throw new UnsupportedOperationException();
+//     }
+
+//     public java.util.Set<org.openprovenance.rdf.Annotation> getAnnotations() {
+//         throw new UnsupportedOperationException();
+//     }
 
 
 }

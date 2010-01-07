@@ -13,6 +13,7 @@ import org.openprovenance.model.Annotation;
 import org.openprovenance.model.EmbeddedAnnotation;
 import org.openprovenance.model.Property;
 
+import org.openprovenance.rdf.AnnotationOrEdgeOrNodeOrOPMGraphOrRole;
 import org.openprovenance.rdf.AnnotationOrEdgeOrNode;
 
 public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
@@ -31,7 +32,7 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
     }
 
     public void addAccounts(HasAccounts element, Collection<AccountRef> accounts) {
-        if (element instanceof AnnotationOrEdgeOrNode) {
+        if (element instanceof AnnotationOrEdgeOrNodeOrOPMGraphOrRole) {
             HasFacade facade=(HasFacade) element;
             Object o=facade.findMyFacade();
             AnnotationOrEdgeOrNode el=(AnnotationOrEdgeOrNode) o;
@@ -58,7 +59,7 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
 
         HasFacade facade=(HasFacade) annotable;
         Object o=facade.findMyFacade();
-        AnnotationOrEdgeOrNode annotable2=(AnnotationOrEdgeOrNode) o;
+        AnnotationOrEdgeOrNodeOrOPMGraphOrRole annotable2=(AnnotationOrEdgeOrNodeOrOPMGraphOrRole) o;
         org.openprovenance.rdf.Annotation ann2=(org.openprovenance.rdf.Annotation) ((HasFacade)ann).findMyFacade();
         annotable2.getAnnotations().add(ann2);
 

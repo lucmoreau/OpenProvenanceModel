@@ -1084,6 +1084,18 @@ public class OPMFactory implements CommonURIs {
         ann.getProperty().add(p);
     }
 
+    public void addProperty(Annotation ann, List<Property> p) {
+        ann.getProperty().addAll(p);
+    }
+
+    public void addProperty(EmbeddedAnnotation ann, Property p) {
+        ann.getProperty().add(p);
+    }
+
+    public void addProperty(EmbeddedAnnotation ann, List<Property> p) {
+        ann.getProperty().addAll(p);
+    }
+
     public Annotation newAnnotation(String id,
                                     Ref ref,
                                     String property,

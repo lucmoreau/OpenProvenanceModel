@@ -47,12 +47,13 @@ public class RdfRole extends org.openprovenance.model.Role implements org.openpr
         throw new UnsupportedOperationException();
     }
 
-	public Set<String> getNames() {
+    public void setAnnotations(java.util.Set<? extends org.openprovenance.rdf.Annotation> ann) {
         throw new UnsupportedOperationException();
     }
 
-	public void setNames(Set<? extends String> names) {
+    public java.util.Set<org.openprovenance.rdf.Annotation> getAnnotations() {
         throw new UnsupportedOperationException();
     }
+
 
 }

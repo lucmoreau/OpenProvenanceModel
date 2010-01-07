@@ -34,12 +34,4 @@ public class RdfAccount extends org.openprovenance.model.Account implements org.
     }
 
     
-	public Set<String> getNames() {
-        return null;
-    }
-
-	public void setNames(Set<? extends String> names) {
-        throw new UnsupportedOperationException();
-    }
-
 }

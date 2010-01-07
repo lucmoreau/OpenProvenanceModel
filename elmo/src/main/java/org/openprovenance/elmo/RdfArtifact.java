@@ -6,7 +6,7 @@ import org.openprovenance.rdf.Node;
 import javax.xml.namespace.QName;
 import org.openrdf.elmo.ElmoManager;
 
-public class RdfArtifact extends org.openprovenance.model.Artifact implements org.openprovenance.rdf.Artifact, HasFacade {
+public class RdfArtifact extends org.openprovenance.model.Artifact implements  HasFacade {
 
     ElmoManager manager;
     String prefix;
@@ -44,14 +44,6 @@ public class RdfArtifact extends org.openprovenance.model.Artifact implements or
         throw new UnsupportedOperationException();
     }
         
-
-	public Set<String> getNames() {
-        throw new UnsupportedOperationException();
-    }
-
-	public void setNames(Set<? extends String> names) {
-        throw new UnsupportedOperationException();
-    }
 
     public void setAnnotations(java.util.Set<? extends org.openprovenance.rdf.Annotation> ann) {
         throw new UnsupportedOperationException();

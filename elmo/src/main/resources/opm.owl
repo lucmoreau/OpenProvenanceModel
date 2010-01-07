@@ -115,6 +115,7 @@
   </owl:ObjectProperty>
 
  
+<!--
   <owl:DatatypeProperty rdf:ID="name">
     <rdfs:domain>
       <owl:Class>
@@ -128,6 +129,7 @@
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a name given to this OPM entity</rdfs:comment>
   </owl:DatatypeProperty>
+-->
 
 <!-- ACCOUNT  -->
   <owl:ObjectProperty rdf:ID="account">
@@ -203,6 +205,8 @@
           <owl:Class rdf:about="#Edge"/>
           <owl:Class rdf:about="#Node"/>
           <owl:Class rdf:about="#Annotation"/>
+          <owl:Class rdf:about="#Role"/>
+          <owl:Class rdf:about="#OPMGraph"/>
           <!-- add here other classes that have accounts: e.g.Role, OPMGraph -->
         </owl:unionOf>
       </owl:Class>

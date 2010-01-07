@@ -75,7 +75,7 @@ public class ElmoTest
         module.addConcept(org.openprovenance.rdf.OPMGraph.class);
         module.addConcept(org.openprovenance.rdf.Account.class);
         module.addConcept(org.openprovenance.rdf.Artifact.class);
-        module.addConcept(org.openprovenance.elmo.RdfArtifact.class);
+        //module.addConcept(org.openprovenance.elmo.RdfArtifact.class);
         module.addConcept(org.openprovenance.rdf.Process.class);
         module.addConcept(org.openprovenance.rdf.Agent.class);
         module.addConcept(org.openprovenance.rdf.Role.class);
@@ -111,12 +111,13 @@ public class ElmoTest
         accl12.add(acc2);
         
         Artifact a1=oFactory.newArtifact("a1",accl1, "a1");
+        assert (a1 instanceof Artifact);
         assert (a1 instanceof RdfArtifact);
-        assert (a1 instanceof Node);
+        //assert (a1 instanceof Node);
 
         Artifact a2=oFactory.newArtifact("a2",accl1, "a2");
-        assert (a2 instanceof RdfArtifact);
-        assert (a2 instanceof Node);
+        assert (a2 instanceof Artifact);
+        //assert (a2 instanceof Node);
 
 
         Agent ag1=oFactory.newAgent("ag1",accl2, "ag1");
@@ -132,8 +133,9 @@ public class ElmoTest
         assert (p2 instanceof Node);
 
         Used u1=oFactory.newUsed("u1",p1,oFactory.newRole("r1","r1"),a1,accl2);
+        assert (u1 instanceof Used);
         assert (u1 instanceof RdfUsed);
-        assert (u1 instanceof Edge);
+        //assert (u1 instanceof Edge);
 
 
         WasGeneratedBy wg1=oFactory.newWasGeneratedBy("g1",a1,oFactory.newRole("r2","r2"),p1,accl12);
@@ -175,6 +177,10 @@ public class ElmoTest
                                                           wc1,
                                                           wt1},
                                             new Annotation[] {an1} );
+
+
+        oFactory.addAnnotation(graph,
+                               oFactory.newEmbeddedAnnotation("an12","http://property.org/graphKind", "joli", null));
 
         assert (graph instanceof RdfOPMGraph);
 
