@@ -75,27 +75,15 @@ public class RdfWasGeneratedBy extends org.openprovenance.model.WasGeneratedBy i
         throw new UnsupportedOperationException();
     }
         
-    public void setGeneratedRole(Set<? extends Role> accs) {
+    public void setHasRole(Set<? extends Role> accs) {
         for (Role acc: accs) {
             throw new UnsupportedOperationException();
         }
     }
 
-    public Set<Role> getGeneratedRole() {
+    public Set<Role> getHasRole() {
         throw new UnsupportedOperationException();
     }
-
-    public void setEdgeRole(Set<? extends Role> accs) {
-        for (Role acc: accs) {
-            //getRole().add(acc.getRef());
-            throw new UnsupportedOperationException();
-        }
-    }
-
-    public Set<Role> getEdgeRole() {
-        throw new UnsupportedOperationException();
-    }
-        
 
 
 }

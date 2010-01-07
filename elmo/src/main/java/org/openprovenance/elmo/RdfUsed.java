@@ -36,12 +36,27 @@ public class RdfUsed extends org.openprovenance.model.Used implements org.openpr
         u.getEffects().add(p);
     }
 
+    public org.openprovenance.rdf.Used findMyFacade() {
+        org.openprovenance.rdf.Used u=(org.openprovenance.rdf.Used)manager.find(getQName());
+        return u;
+    }
+
     public void setCause(org.openprovenance.model.ArtifactRef value) {
         super.setCause(value);
         QName q=((RdfArtifact)(value.getRef())).getQName();
         org.openprovenance.rdf.Artifact a=(org.openprovenance.rdf.Artifact)manager.find(q);
-        org.openprovenance.rdf.Used u=(org.openprovenance.rdf.Used)manager.find(getQName());
+        org.openprovenance.rdf.Used u=findMyFacade();
         u.getCauses().add(a);
+    }
+
+    public void setRole(org.openprovenance.model.Role value) {
+        super.setRole(value);
+        if (value!=null) {
+            QName q=((RdfRole)value).getQName();
+            org.openprovenance.rdf.Role r=(org.openprovenance.rdf.Role)manager.find(q);
+            org.openprovenance.rdf.Used u=findMyFacade();
+            u.getHasRole().add(r);
+        }
     }
 
 
@@ -73,27 +88,17 @@ public class RdfUsed extends org.openprovenance.model.Used implements org.openpr
         throw new UnsupportedOperationException();
     }
         
-    public void setUsedRole(Set<? extends Role> accs) {
+    public void setHasRole(Set<? extends Role> accs) {
         for (Role acc: accs) {
             //getRole().add(acc.getRef());
             throw new UnsupportedOperationException();
         }
     }
 
-    public Set<Role> getUsedRole() {
+    public Set<Role> getHasRole() {
         throw new UnsupportedOperationException();
     }
 
-    public void setEdgeRole(Set<? extends Role> accs) {
-        for (Role acc: accs) {
-            //getRole().add(acc.getRef());
-            throw new UnsupportedOperationException();
-        }
-    }
-
-    public Set<Role> getEdgeRole() {
-        throw new UnsupportedOperationException();
-    }
         
 
 

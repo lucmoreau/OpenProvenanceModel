@@ -73,28 +73,17 @@ public class RdfWasControlledBy extends org.openprovenance.model.WasControlledBy
         throw new UnsupportedOperationException();
     }
         
-    public void setControlledRole(Set<? extends Role> accs) {
+
+    public Set<Role> getHasRole() {
+        throw new UnsupportedOperationException();
+    }
+
+    public void setHasRole(Set<? extends Role> accs) {
         for (Role acc: accs) {
             //getRole().add(acc.getRef());
             throw new UnsupportedOperationException();
         }
     }
-
-    public Set<Role> getControlledRole() {
-        throw new UnsupportedOperationException();
-    }
-
-    public void setEdgeRole(Set<? extends Role> accs) {
-        for (Role acc: accs) {
-            //getRole().add(acc.getRef());
-            throw new UnsupportedOperationException();
-        }
-    }
-
-    public Set<Role> getEdgeRole() {
-        throw new UnsupportedOperationException();
-    }
-        
 
 
 }

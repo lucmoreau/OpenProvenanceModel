@@ -71,6 +71,7 @@ public class ElmoTest
         module.addConcept(org.openprovenance.elmo.RdfArtifact.class);
         module.addConcept(org.openprovenance.rdf.Process.class);
         module.addConcept(org.openprovenance.rdf.Agent.class);
+        module.addConcept(org.openprovenance.rdf.Role.class);
         module.addConcept(org.openprovenance.rdf.Used.class);
         module.addConcept(org.openprovenance.rdf.WasGeneratedBy.class);
         module.addConcept(org.openprovenance.rdf.WasDerivedFrom.class);
@@ -110,7 +111,7 @@ public class ElmoTest
         assert (p2 instanceof RdfProcess);
         assert (p2 instanceof Node);
 
-        Used u1=oFactory.newUsed("u1",p1,null,a1,new LinkedList());
+        Used u1=oFactory.newUsed("u1",p1,oFactory.newRole("r1","r1"),a1,new LinkedList());
         assert (u1 instanceof RdfUsed);
         assert (u1 instanceof Edge);
 

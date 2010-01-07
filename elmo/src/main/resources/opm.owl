@@ -73,7 +73,18 @@
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the effect of an Edge</rdfs:comment>
   </owl:ObjectProperty>
 
-
+  <owl:ObjectProperty rdf:ID="hasRole">
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#Used"/>
+          <owl:Class rdf:about="#WasGeneratedBy"/>
+          <owl:Class rdf:about="#WasControlledBy"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="#Role"/>
+  </owl:ObjectProperty>
 
 <!--
   <owl:ObjectProperty rdf:ID="edgeArtifact">
@@ -135,8 +146,7 @@
 
 -->
 
-  <!-- ROLE -->
-
+  <!-- ROLE 
   <owl:ObjectProperty rdf:ID="edgeRole">
     <rdfs:domain rdf:resource="#Edge"/>
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the role associated with an event, e.g., for what was an artifact used?</rdfs:comment>
@@ -149,18 +159,21 @@
     <rdfs:range rdf:resource="#Role"/>
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the role the generated artifact serves with respect to the process</rdfs:comment>
   </owl:ObjectProperty>
+
   <owl:ObjectProperty rdf:ID="usedRole">
     <rdfs:subPropertyOf rdf:resource="#edgeRole"/>
     <rdfs:domain rdf:resource="#Used"/>
     <rdfs:range rdf:resource="#Role"/>
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the role the artifact played as input into the process</rdfs:comment>
   </owl:ObjectProperty>
+
   <owl:ObjectProperty rdf:ID="controlledRole">
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the role the agent played in controlling the process</rdfs:comment>
     <rdfs:subPropertyOf rdf:resource="#edgeRole"/>
     <rdfs:domain rdf:resource="#WasControlledBy"/>
     <rdfs:range rdf:resource="#Role"/>
   </owl:ObjectProperty>
+-->
 
  <!-- PROCESS 
   <owl:ObjectProperty rdf:about="#edgeProcess">

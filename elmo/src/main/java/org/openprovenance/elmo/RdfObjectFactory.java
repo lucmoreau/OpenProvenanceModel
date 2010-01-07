@@ -6,6 +6,7 @@ import org.openprovenance.model.Process;
 import org.openprovenance.model.Artifact;
 import org.openprovenance.model.Agent;
 import org.openprovenance.model.Used;
+import org.openprovenance.model.Role;
 import org.openprovenance.model.WasGeneratedBy;
 import org.openprovenance.model.WasDerivedFrom;
 import org.openprovenance.model.WasTriggeredBy;
@@ -37,6 +38,10 @@ public class RdfObjectFactory extends org.openprovenance.model.ObjectFactory {
 
     public Agent createAgent() {
         return new RdfAgent(manager,prefix);
+    }
+
+    public Role createRole() {
+        return new RdfRole(manager,prefix);
     }
 
     public Used createUsed() {
