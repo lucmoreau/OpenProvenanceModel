@@ -53,4 +53,14 @@ public class RdfAgent extends org.openprovenance.model.Agent implements org.open
         throw new UnsupportedOperationException();
     }
 
+    public void setAnnotations(java.util.Set<? extends org.openprovenance.rdf.Annotation> ann) {
+        throw new UnsupportedOperationException();
+    }
+
+
+
+    public java.util.Set<org.openprovenance.rdf.Annotation> getAnnotations() {
+        throw new UnsupportedOperationException();
+    }
+
 }

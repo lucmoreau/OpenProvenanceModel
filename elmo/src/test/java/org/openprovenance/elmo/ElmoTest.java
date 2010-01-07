@@ -85,6 +85,7 @@ public class ElmoTest
         module.addConcept(org.openprovenance.rdf.WasTriggeredBy.class);
         module.addConcept(org.openprovenance.rdf.WasControlledBy.class);
         module.addConcept(org.openprovenance.rdf.Annotation.class);
+        module.addConcept(org.openprovenance.rdf.Property.class);
 
         //module.addBehaviour(RdfArtifact.class);
 
@@ -154,6 +155,8 @@ public class ElmoTest
         assert (wc1 instanceof Edge);
 
         Annotation an1=oFactory.newAnnotation("an1",a1,"prop1","val1",accl1);
+
+        Annotation an2=oFactory.newAnnotation("an2",a1,"prop2","val2",accl1);
         //
 
 

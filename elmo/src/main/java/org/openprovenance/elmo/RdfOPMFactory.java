@@ -7,8 +7,10 @@ import javax.xml.namespace.QName;
 import org.openprovenance.model.HasAccounts;
 import org.openprovenance.model.AccountRef;
 import org.openprovenance.model.OPMGraph;
+import org.openprovenance.model.Annotation;
+import org.openprovenance.model.Property;
 
-import org.openprovenance.rdf.EdgeOrNode;
+import org.openprovenance.rdf.AnnotationOrEdgeOrNode;
 
 public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
 
@@ -17,19 +19,26 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
         super(o);
     }
 
+    public void addProperty(Annotation ann, Property p) {
+       HasFacade facade=(HasFacade) ann;
+       Object o=facade.findMyFacade();
+       org.openprovenance.rdf.Annotation ann2=(org.openprovenance.rdf.Annotation) o;
+       org.openprovenance.rdf.Property p2=(org.openprovenance.rdf.Property) ((HasFacade)p).findMyFacade();
+       ann2.getProperties().add(p2);
+    }
+
     public void addAccounts(HasAccounts element, Collection<AccountRef> accounts) {
-        System.out.println("add accounts to ");
-        if (element instanceof EdgeOrNode) {
+        if (element instanceof AnnotationOrEdgeOrNode) {
             HasFacade facade=(HasFacade) element;
             Object o=facade.findMyFacade();
-            EdgeOrNode el=(EdgeOrNode) o;
+            AnnotationOrEdgeOrNode el=(AnnotationOrEdgeOrNode) o;
 
             Set set=new HashSet();
             for (AccountRef accr: accounts) {
                 set.add((org.openprovenance.rdf.Account)accr.getRef());
             }
-            //el.getHasAccount().addAll(set);
-            el.setAccounts(set);
+            el.getAccounts().addAll(set);
+            //el.setAccounts(set);
         }
     }
 

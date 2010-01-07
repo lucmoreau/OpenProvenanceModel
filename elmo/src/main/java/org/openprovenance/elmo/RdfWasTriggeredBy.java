@@ -99,6 +99,17 @@ public class RdfWasTriggeredBy extends org.openprovenance.model.WasTriggeredBy i
     public Set<Role> getEdgeRole() {
         throw new UnsupportedOperationException();
     }
+
+    public void setAnnotations(java.util.Set<? extends org.openprovenance.rdf.Annotation> ann) {
+        throw new UnsupportedOperationException();
+    }
+
+
+
+    public java.util.Set<org.openprovenance.rdf.Annotation> getAnnotations() {
+        throw new UnsupportedOperationException();
+    }
+
         
 
 

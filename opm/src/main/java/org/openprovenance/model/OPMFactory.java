@@ -1080,6 +1080,10 @@ public class OPMFactory implements CommonURIs {
     }
 
 
+    public void addProperty(Annotation ann, Property p) {
+        ann.getProperty().add(p);
+    }
+
     public Annotation newAnnotation(String id,
                                     Ref ref,
                                     String property,
@@ -1088,7 +1092,7 @@ public class OPMFactory implements CommonURIs {
         Annotation res=of.createAnnotation();
         res.setId(id);
         res.setLocalSubject(ref.getRef());
-        res.getProperty().add(newProperty(property,value));
+        addProperty(res,newProperty(property,value));
         addAccounts(res,accs);
         return res;
     }

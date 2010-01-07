@@ -79,27 +79,16 @@ public class RdfWasDerivedFrom extends org.openprovenance.model.WasDerivedFrom i
         throw new UnsupportedOperationException();
     }
         
-    public void setGeneratedRole(Set<? extends Role> accs) {
-        for (Role acc: accs) {
-            throw new UnsupportedOperationException();
-        }
-    }
-
-    public Set<Role> getGenerateRole() {
+    public void setAnnotations(java.util.Set<? extends org.openprovenance.rdf.Annotation> ann) {
         throw new UnsupportedOperationException();
     }
 
-    public void setEdgeRole(Set<? extends Role> accs) {
-        for (Role acc: accs) {
-            //getRole().add(acc.getRef());
-            throw new UnsupportedOperationException();
-        }
-    }
 
-    public Set<Role> getEdgeRole() {
+
+    public java.util.Set<org.openprovenance.rdf.Annotation> getAnnotations() {
         throw new UnsupportedOperationException();
     }
-        
+
 
 
 }

@@ -53,4 +53,16 @@ public class RdfArtifact extends org.openprovenance.model.Artifact implements or
         throw new UnsupportedOperationException();
     }
 
+    public void setAnnotations(java.util.Set<? extends org.openprovenance.rdf.Annotation> ann) {
+        throw new UnsupportedOperationException();
+    }
+
+
+
+    public java.util.Set<org.openprovenance.rdf.Annotation> getAnnotations() {
+        throw new UnsupportedOperationException();
+    }
+
+
+
 }

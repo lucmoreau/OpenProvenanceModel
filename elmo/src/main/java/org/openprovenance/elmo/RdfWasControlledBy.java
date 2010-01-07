@@ -102,5 +102,15 @@ public class RdfWasControlledBy extends org.openprovenance.model.WasControlledBy
         }
     }
 
+    public void setAnnotations(java.util.Set<? extends org.openprovenance.rdf.Annotation> ann) {
+        throw new UnsupportedOperationException();
+    }
+
+
+
+    public java.util.Set<org.openprovenance.rdf.Annotation> getAnnotations() {
+        throw new UnsupportedOperationException();
+    }
+
 
 }

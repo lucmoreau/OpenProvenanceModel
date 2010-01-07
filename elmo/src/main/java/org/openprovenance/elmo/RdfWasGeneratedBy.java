@@ -45,8 +45,6 @@ public class RdfWasGeneratedBy extends org.openprovenance.model.WasGeneratedBy i
         super.setCause(value);
         QName q=((RdfProcess)(value.getRef())).getQName();
         org.openprovenance.rdf.Process p=(org.openprovenance.rdf.Process)manager.find(q);
-        System.out.println("=============> " + getQName());
-        System.out.println("=============>p " + q);
         org.openprovenance.rdf.WasGeneratedBy g=findMyFacade();
         g.getCauses().add(p);
     }
@@ -98,6 +96,16 @@ public class RdfWasGeneratedBy extends org.openprovenance.model.WasGeneratedBy i
     }
 
     public Set<Role> getRoles() {
+        throw new UnsupportedOperationException();
+    }
+
+    public void setAnnotations(java.util.Set<? extends org.openprovenance.rdf.Annotation> ann) {
+        throw new UnsupportedOperationException();
+    }
+
+
+
+    public java.util.Set<org.openprovenance.rdf.Annotation> getAnnotations() {
         throw new UnsupportedOperationException();
     }
 
