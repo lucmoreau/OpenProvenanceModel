@@ -1,13 +1,16 @@
 package org.openprovenance.elmo;
 import java.util.Collection;
 import java.util.Set;
+import java.util.List;
 import java.util.HashSet;
+import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
 import org.openprovenance.model.HasAccounts;
 import org.openprovenance.model.AccountRef;
 import org.openprovenance.model.OPMGraph;
 import org.openprovenance.model.Annotation;
+import org.openprovenance.model.EmbeddedAnnotation;
 import org.openprovenance.model.Property;
 
 import org.openprovenance.rdf.AnnotationOrEdgeOrNode;
@@ -40,6 +43,25 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
             el.getAccounts().addAll(set);
             //el.setAccounts(set);
         }
+    }
+
+    public void addAnnotation(org.openprovenance.model.Annotable annotable,
+                               JAXBElement<? extends org.openprovenance.model.EmbeddedAnnotation> ann) {
+        super.addAnnotation(annotable,ann);
+        System.out.println("Annotations  !!");
+    }
+
+    public void addAnnotation(org.openprovenance.model.Annotable annotable,
+                              org.openprovenance.model.EmbeddedAnnotation ann) {
+        super.addAnnotation(annotable,ann);
+        System.out.println("Annotations  !!!");
+
+        HasFacade facade=(HasFacade) annotable;
+        Object o=facade.findMyFacade();
+        AnnotationOrEdgeOrNode annotable2=(AnnotationOrEdgeOrNode) o;
+        org.openprovenance.rdf.Annotation ann2=(org.openprovenance.rdf.Annotation) ((HasFacade)ann).findMyFacade();
+        annotable2.getAnnotations().add(ann2);
+
     }
 
     public OPMGraph newOPMGraph(String id,

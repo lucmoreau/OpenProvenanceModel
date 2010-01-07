@@ -159,6 +159,9 @@ public class ElmoTest
         Annotation an2=oFactory.newAnnotation("an2",a1,"prop2","val2",accl1);
         //
 
+        oFactory.addAnnotation(a2,
+                               oFactory.newEmbeddedAnnotation("an11","http://property.org/hasQuality", "bad", accl1));
+
 
         OPMGraph graph=oFactory.newOPMGraph("gr1",
                                             accl12,

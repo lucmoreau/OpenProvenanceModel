@@ -1104,7 +1104,7 @@ public class OPMFactory implements CommonURIs {
                                                     Object dummyParameterForAvoidingSameErasure) {
         EmbeddedAnnotation res=of.createEmbeddedAnnotation();
         res.setId(id);
-        res.getProperty().add(newProperty(property,value));
+        addProperty(res,newProperty(property,value));
         addAccounts(res,accs);
         return res;
     }
@@ -1115,7 +1115,7 @@ public class OPMFactory implements CommonURIs {
         EmbeddedAnnotation res=of.createEmbeddedAnnotation();
         res.setId(id);
         if (properties!=null) {
-            res.getProperty().addAll(properties);
+            addProperty(res,properties);
         }
         addAccounts(res,accs);
         return res;
