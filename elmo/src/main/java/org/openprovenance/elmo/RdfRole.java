@@ -12,6 +12,22 @@ public class RdfRole extends org.openprovenance.model.Role implements org.openpr
     String prefix;
     QName qname;
 
+    public RdfRole(ElmoManager manager, QName qname) {
+        this.manager=manager;
+        this.qname=qname;
+        this.prefix=qname.getNamespaceURI();
+        super.setId(qname.getLocalPart());
+        //super.setValue((manager.find(qname));
+    }
+
+    public RdfRole(ElmoManager manager, QName qname, String value) {
+        this.manager=manager;
+        this.qname=qname;
+        this.prefix=qname.getNamespaceURI();
+        super.setId(qname.getLocalPart());
+        super.setValue(value);
+    }
+
     public RdfRole(ElmoManager manager, String prefix) {
         this.manager=manager;
         this.prefix=prefix;

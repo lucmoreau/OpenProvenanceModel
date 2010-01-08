@@ -3,6 +3,8 @@ import java.io.File;
 import java.io.StringWriter;
 import java.io.FileWriter;
 import java.io.Writer;
+import java.io.Reader;
+import java.io.FileReader;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -25,8 +27,11 @@ import org.openrdf.elmo.ElmoManagerFactory;
 import org.openrdf.elmo.ElmoManager;
 import org.openrdf.elmo.sesame.SesameManagerFactory;
 import org.openrdf.elmo.sesame.SesameManager;
+import org.openrdf.rio.RDFHandler;
 import org.openrdf.rio.rdfxml.RDFXMLWriter;
 import org.openrdf.rio.n3.N3Writer;
+import org.openrdf.rio.ntriples.NTriplesWriter;
+import org.openrdf.rio.RDFFormat;
 
 import org.openprovenance.model.OPMSerialiser;
 import org.openprovenance.model.OPMFactory;
@@ -49,6 +54,8 @@ import org.openprovenance.model.WasControlledBy;
 public class ElmoTest 
     extends TestCase
 {
+
+    static String TEST_NS="http://newexample.com/";
     /**
      * Create the test case
      *
@@ -64,12 +71,9 @@ public class ElmoTest
      */
 
     static ElmoManager manager;
+    static ElmoManagerFactory factory;
 
-    public void testElmo1() throws Exception {
-        assert Edge.class.isInterface();
-        assert Node.class.isInterface();
-
-        ElmoModule module = new ElmoModule();
+    public void registerConcepts(ElmoModule module) {
         module.addConcept(Edge.class);
         module.addConcept(Node.class);
         module.addConcept(org.openprovenance.rdf.OPMGraph.class);
@@ -86,17 +90,26 @@ public class ElmoTest
         module.addConcept(org.openprovenance.rdf.WasControlledBy.class);
         module.addConcept(org.openprovenance.rdf.Annotation.class);
         module.addConcept(org.openprovenance.rdf.Property.class);
+    }
+
+    public void testElmo1() throws Exception {
+        assert Edge.class.isInterface();
+        assert Node.class.isInterface();
+
+        ElmoModule module = new ElmoModule();
+
+        registerConcepts(module);
 
         //module.addBehaviour(RdfArtifact.class);
 
         // what is this?
         //module.addFactory(RdfObjectFactory.class);
 
-        ElmoManagerFactory factory = new SesameManagerFactory(module);
+        factory = new SesameManagerFactory(module);
         manager = factory.createElmoManager();
 
 
-        OPMFactory oFactory=new RdfOPMFactory(new RdfObjectFactory(manager,"http://newexample.com/"));
+        OPMFactory oFactory=new RdfOPMFactory(new RdfObjectFactory(manager,TEST_NS));
 
         Account acc1=oFactory.newAccount("acc1");
         assert (acc1 instanceof RdfAccount);
@@ -191,28 +204,122 @@ public class ElmoTest
 
     }
 
+    public void setPrefixes(RDFHandler serialiser) throws org.openrdf.rio.RDFHandlerException {
+            serialiser.handleNamespace("opm","http://www.ipaw.info/2007/opm#");
+    }
+
+    public void dumpToRDF(File file, SesameManager manager, RDFFormat format) throws Exception {
+        Writer writer = new FileWriter(file);
+        RDFHandler serialiser=null;
+        if (format.equals(RDFFormat.N3)) {
+            serialiser=new N3Writer(writer);
+        } else if (format.equals(RDFFormat.RDFXML)) {
+            serialiser=new RDFXMLWriter(writer);
+        } else if  (format.equals(RDFFormat.NTRIPLES)) {
+            serialiser=new NTriplesWriter (writer);
+        }
+        setPrefixes(serialiser);
+        manager.getConnection().export(serialiser);
+        writer.close();
+    }
+
+
     public void testDumptoRDFXML() throws Exception {
         File file = new File("target/repository.rdf");
-        Writer writer = new FileWriter(file);
         assert manager!=null;
-        RDFXMLWriter serialiser=new RDFXMLWriter(writer);
-        serialiser.handleNamespace("opm","http://www.ipaw.info/2007/opm#");
-        ((SesameManager)manager).getConnection().export(serialiser);
-        
+        dumpToRDF(file,(SesameManager)manager,RDFFormat.RDFXML);
     }
 
 
     public void testDumpToN3() throws Exception {
         File file = new File("target/repository.n3");
-        Writer writer = new FileWriter(file);
         assert manager!=null;
-        N3Writer serialiser=new N3Writer(writer);
-        serialiser.handleNamespace("opm","http://www.ipaw.info/2007/opm#");
-        ((SesameManager)manager).getConnection().export(serialiser);
-        writer.close();
+        dumpToRDF(file,(SesameManager)manager,RDFFormat.N3);
     }
 
 
+    public void testDumpToNTRIPLES() throws Exception {
+        File file = new File("target/repository.ntriples");
+        assert manager!=null;
+        dumpToRDF(file,(SesameManager)manager,RDFFormat.NTRIPLES);
+    }
+
+    public void readFromRDF(File file, String uri, SesameManager manager, RDFFormat format) throws Exception {
+        manager.getConnection().add(file,uri,format);
+    }
+
+    
+    public void testRead() throws Exception {
+        File file = new File("target/repository.rdf");
+        assert manager!=null;
+
+        ElmoManager manager = factory.createElmoManager();
+        RdfOPMFactory oFactory=new RdfOPMFactory(new RdfObjectFactory(manager,TEST_NS),
+                                              manager);
+
+        readFromRDF(file,null,(SesameManager)manager,RDFFormat.RDFXML);
+        QName qname = new QName(TEST_NS, "gr1");
+
+        OPMGraph oGraph=readOPMGraph(manager,
+                                     oFactory,
+                                     qname);
+
+        OPMSerialiser.getThreadOPMSerialiser().serialiseOPMGraph(new File("target/foo.txt"),oGraph,true);
+    }
+
+    public OPMGraph readOPMGraph(ElmoManager manager,
+                                 RdfOPMFactory oFactory,
+                                 QName qname) {
+        Object o=manager.find(qname);
+        org.openprovenance.rdf.OPMGraph gr=(org.openprovenance.rdf.OPMGraph)o;
+
+        List<Account> accs=new LinkedList();
+        for (org.openprovenance.rdf.Account acc: gr.getHasAccount()) {
+            accs.add(oFactory.newAccount(acc));
+        }
+
+
+        List<Artifact> as=new LinkedList();
+        for (org.openprovenance.rdf.Artifact a: gr.getHasArtifact()) {
+            as.add(oFactory.newArtifact(a));
+        }
+
+        List<Process> ps=new LinkedList();
+        for (org.openprovenance.rdf.Process p: gr.getHasProcess()) {
+            ps.add(oFactory.newProcess(p));
+        }
+
+        List<Agent> ags=new LinkedList();
+        for (org.openprovenance.rdf.Agent ag: gr.getHasAgent()) {
+            ags.add(oFactory.newAgent(ag));
+        }
+
+        List<Object> lks=new LinkedList();
+        for (org.openprovenance.rdf.Edge edge: gr.getHasDependency()) {
+             if (edge instanceof org.openprovenance.rdf.Used) {
+                lks.add(oFactory.newUsed((org.openprovenance.rdf.Used) edge));
+            } else if (edge instanceof org.openprovenance.rdf.WasGeneratedBy) {
+                lks.add(oFactory.newWasGeneratedBy((org.openprovenance.rdf.WasGeneratedBy) edge));
+            } else if (edge instanceof org.openprovenance.rdf.WasDerivedFrom) {
+                lks.add(oFactory.newWasDerivedFrom((org.openprovenance.rdf.WasDerivedFrom) edge));
+            } else if (edge instanceof org.openprovenance.rdf.WasControlledBy) {
+                lks.add(oFactory.newWasControlledBy((org.openprovenance.rdf.WasControlledBy) edge));
+            } else if (edge instanceof org.openprovenance.rdf.WasTriggeredBy) {
+                lks.add(oFactory.newWasTriggeredBy((org.openprovenance.rdf.WasTriggeredBy) edge));
+            }
+        }
+
+        //System.out.println("Artifacts " + as);
+
+        return oFactory.newOPMGraph(qname.getLocalPart(),
+                                    accs,
+                                    new LinkedList(),
+                                    ps,
+                                    as,
+                                    ags,
+                                    lks,
+                                    new LinkedList());
+    }
 
     
 }

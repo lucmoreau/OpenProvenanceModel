@@ -2,3 +2,12 @@
 
 
 schema opm_v1.01 hardcoded in validator
+
+----------------------------------------------------------------------
+
+elmo:
+ 
+
+ - labels not serialised to rdf
+
+ 

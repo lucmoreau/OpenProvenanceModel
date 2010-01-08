@@ -17,6 +17,13 @@ public class RdfAgent extends org.openprovenance.model.Agent implements org.open
         this.prefix=prefix;
     }
 
+    public RdfAgent(ElmoManager manager, QName qname) {
+        this.manager=manager;
+        this.qname=qname;
+        this.prefix=qname.getNamespaceURI();
+        super.setId(qname.getLocalPart());
+    }
+
     public void setId(String value) {
         super.setId(value);
         qname = new QName(prefix, value);

@@ -13,6 +13,14 @@ public class RdfWasControlledBy extends org.openprovenance.model.WasControlledBy
     ElmoManager manager;
     QName qname;
 
+    public RdfWasControlledBy(ElmoManager manager, QName qname) {
+        this.manager=manager;
+        this.qname=qname;
+        this.prefix=qname.getNamespaceURI();
+        super.setId(qname.getLocalPart());
+    }
+
+
     public RdfWasControlledBy(ElmoManager manager, String prefix) {
         this.manager=manager;
         this.prefix=prefix;
@@ -60,6 +68,14 @@ public class RdfWasControlledBy extends org.openprovenance.model.WasControlledBy
         }
     }
 
+
+    public void setFields(org.openprovenance.model.AgentRef cause,
+                          org.openprovenance.model.ProcessRef effect,
+                          org.openprovenance.model.Role role) {
+        super.setCause(cause);
+        super.setEffect(effect);
+        super.setRole(role);
+    }
 
 
     public void setAccounts(Set<? extends Account> accs) {

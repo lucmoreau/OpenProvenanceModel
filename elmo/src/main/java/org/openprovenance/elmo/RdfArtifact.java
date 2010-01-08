@@ -17,6 +17,13 @@ public class RdfArtifact extends org.openprovenance.model.Artifact implements  H
         this.prefix=prefix;
     }
 
+    public RdfArtifact(ElmoManager manager, QName qname) {
+        this.manager=manager;
+        this.qname=qname;
+        this.prefix=qname.getNamespaceURI();
+        super.setId(qname.getLocalPart());
+    }
+    
     public void setId(String value) {
         super.setId(value);
         qname = new QName(prefix, value);
@@ -29,6 +36,9 @@ public class RdfArtifact extends org.openprovenance.model.Artifact implements  H
 
     public org.openprovenance.rdf.Artifact findMyFacade() {
         org.openprovenance.rdf.Artifact a=(org.openprovenance.rdf.Artifact)manager.find(getQName());
+        for (org.openprovenance.rdf.Account acc: ((org.openprovenance.rdf.AnnotationOrEdgeOrNode) a).getAccounts()) {
+            System.out.println("Foudn " +         acc);
+        }
         return a;
     }
 

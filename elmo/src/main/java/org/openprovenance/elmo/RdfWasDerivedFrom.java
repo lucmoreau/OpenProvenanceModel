@@ -13,6 +13,14 @@ public class RdfWasDerivedFrom extends org.openprovenance.model.WasDerivedFrom i
     ElmoManager manager;
     QName qname;
 
+    public RdfWasDerivedFrom(ElmoManager manager, QName qname) {
+        this.manager=manager;
+        this.qname=qname;
+        this.prefix=qname.getNamespaceURI();
+        super.setId(qname.getLocalPart());
+    }
+
+
     public RdfWasDerivedFrom(ElmoManager manager, String prefix) {
         this.manager=manager;
         this.prefix=prefix;
@@ -50,6 +58,11 @@ public class RdfWasDerivedFrom extends org.openprovenance.model.WasDerivedFrom i
         d.getCauses().add(a);
     }
 
+    public void setNodes(org.openprovenance.model.ArtifactRef cause,
+                         org.openprovenance.model.ArtifactRef effect) {
+        super.setCause(cause);
+        super.setEffect(effect);
+    }
 
     public void setAccounts(Set<? extends Account> accs) {
         for (Account acc: accs) {

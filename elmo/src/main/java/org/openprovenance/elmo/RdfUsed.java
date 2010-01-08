@@ -13,6 +13,14 @@ public class RdfUsed extends org.openprovenance.model.Used implements HasFacade 
     ElmoManager manager;
     QName qname;
 
+    public RdfUsed(ElmoManager manager, QName qname) {
+        this.manager=manager;
+        this.qname=qname;
+        this.prefix=qname.getNamespaceURI();
+        super.setId(qname.getLocalPart());
+    }
+
+
     public RdfUsed(ElmoManager manager, String prefix) {
         this.manager=manager;
         this.prefix=prefix;
@@ -57,6 +65,14 @@ public class RdfUsed extends org.openprovenance.model.Used implements HasFacade 
             org.openprovenance.rdf.Used u=findMyFacade();
             u.getRoles().add(r);
         }
+    }
+
+    public void setFields(org.openprovenance.model.ArtifactRef cause,
+                          org.openprovenance.model.ProcessRef effect,
+                          org.openprovenance.model.Role role) {
+        super.setCause(cause);
+        super.setEffect(effect);
+        super.setRole(role);
     }
 
 

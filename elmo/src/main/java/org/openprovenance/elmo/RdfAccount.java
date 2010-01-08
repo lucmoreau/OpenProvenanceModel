@@ -12,6 +12,13 @@ public class RdfAccount extends org.openprovenance.model.Account implements org.
     String prefix;
     QName qname;
 
+    public RdfAccount(ElmoManager manager, QName qname) {
+        this.manager=manager;
+        this.qname=qname;
+        this.prefix=qname.getNamespaceURI();
+        super.setId(qname.getLocalPart());
+    }
+
     public RdfAccount(ElmoManager manager, String prefix) {
         this.manager=manager;
         this.prefix=prefix;

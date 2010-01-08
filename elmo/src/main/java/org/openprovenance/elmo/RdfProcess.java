@@ -17,6 +17,15 @@ public class RdfProcess extends org.openprovenance.model.Process implements org.
         this.prefix=prefix;
     }
 
+    public RdfProcess(ElmoManager manager, QName qname) {
+        this.manager=manager;
+        this.qname=qname;
+        this.prefix=qname.getNamespaceURI();
+        super.setId(qname.getLocalPart());
+    }
+    
+
+
     public void setId(String value) {
         super.setId(value);
         qname = new QName(prefix, value);

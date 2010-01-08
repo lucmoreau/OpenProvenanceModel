@@ -13,6 +13,13 @@ public class RdfWasTriggeredBy extends org.openprovenance.model.WasTriggeredBy i
     ElmoManager manager;
     QName qname;
 
+    public RdfWasTriggeredBy(ElmoManager manager, QName qname) {
+        this.manager=manager;
+        this.qname=qname;
+        this.prefix=qname.getNamespaceURI();
+        super.setId(qname.getLocalPart());
+    }
+
     public RdfWasTriggeredBy(ElmoManager manager, String prefix) {
         this.manager=manager;
         this.prefix=prefix;
@@ -48,6 +55,13 @@ public class RdfWasTriggeredBy extends org.openprovenance.model.WasTriggeredBy i
         org.openprovenance.rdf.Process p=(org.openprovenance.rdf.Process)manager.find(q);
         org.openprovenance.rdf.WasTriggeredBy t=findMyFacade();
         t.getCauses().add(p);
+    }
+
+
+    public void setNodes(org.openprovenance.model.ProcessRef cause,
+                         org.openprovenance.model.ProcessRef effect) {
+        super.setCause(cause);
+        super.setEffect(effect);
     }
 
 
