@@ -112,9 +112,7 @@ public class OPMFactory implements CommonURIs {
         Process res=of.createProcess();
         res.setId(pr);
         addAccounts(res,accounts,null);
-        if (label!=null) {
-            res.getAnnotation().add(of.createLabel(newLabel(label)));
-        }
+        if (label!=null) addAnnotation(res,newLabel(label));
         return res;
     }
 
@@ -129,7 +127,7 @@ public class OPMFactory implements CommonURIs {
         Agent res=of.createAgent();
         res.setId(ag);
         addAccounts(res,accounts,null);
-        if (label!=null) res.getAnnotation().add(of.createLabel(newLabel(label)));
+        if (label!=null) addAnnotation(res,newLabel(label));
         return res;
     }
 
@@ -347,6 +345,11 @@ public class OPMFactory implements CommonURIs {
         annotable.getAnnotation().add(of.createValue(newValue(value,encoding)));
     }
 
+    public void addAnnotation(Annotable annotable, Label ann) {
+        if (ann!=null) {
+            annotable.getAnnotation().add(of.createLabel(ann));
+        }
+    }
 
     public void addAnnotation(Annotable annotable, Value ann) {
         annotable.getAnnotation().add(of.createValue(ann));
@@ -521,9 +524,7 @@ public class OPMFactory implements CommonURIs {
         Artifact res=of.createArtifact();
         res.setId(id);
         addAccounts(res,accounts,null);
-        if (label!=null) {
-            res.getAnnotation().add(of.createLabel(newLabel(label)));
-        }
+        if (label!=null) addAnnotation(res,newLabel(label));
         return res;
     }
 

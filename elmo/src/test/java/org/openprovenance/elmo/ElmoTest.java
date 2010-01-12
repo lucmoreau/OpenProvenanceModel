@@ -136,7 +136,7 @@ public class ElmoTest
 
         Agent ag1=oFactory.newAgent("ag1",accl2, "ag1");
         assert (ag1 instanceof RdfAgent);
-        assert (ag1 instanceof Node);
+        //assert (ag1 instanceof Node);
 
         Process p1=oFactory.newProcess("p1",accl2, "p1");
         assert (p1 instanceof RdfProcess);
@@ -190,7 +190,7 @@ public class ElmoTest
                                                           wd1,
                                                           wc1,
                                                           wt1},
-                                            new Annotation[] {an1} );
+                                            new Annotation[] {an1,an2} );
 
 
         oFactory.addAnnotation(graph,
@@ -206,7 +206,7 @@ public class ElmoTest
     }
 
     public void setPrefixes(RDFHandler serialiser) throws org.openrdf.rio.RDFHandlerException {
-            serialiser.handleNamespace("opm","http://www.ipaw.info/2007/opm#");
+            serialiser.handleNamespace("opm","http://openprovenance.org/ontology#");
     }
 
     public void dumpToRDF(File file, SesameManager manager, RDFFormat format) throws Exception {

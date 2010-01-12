@@ -14,8 +14,9 @@ import org.openprovenance.model.OPMGraph;
 import org.openprovenance.model.Annotation;
 import org.openprovenance.model.EmbeddedAnnotation;
 import org.openprovenance.model.Property;
+import org.openprovenance.model.Annotable;
+import org.openprovenance.model.Label;
 
-import org.openprovenance.rdf.AccountOrAnnotationOrEdgeOrNodeOrOPMGraphOrRole;
 import org.openprovenance.rdf.AnnotationOrEdgeOrNode;
 import org.openrdf.elmo.Entity;
 
@@ -33,7 +34,7 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
         this.manager=manager;
     }
 
-    public void addProperty(Annotation ann, Property p) {
+    public void addProperty(EmbeddedAnnotation ann, Property p) {
        HasFacade facade=(HasFacade) ann;
        Object o=facade.findMyFacade();
        org.openprovenance.rdf.Annotation ann2=(org.openprovenance.rdf.Annotation) o;
@@ -43,7 +44,7 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
 
     public void addAccounts(HasAccounts element, Collection<AccountRef> accounts) {
         super.addAccounts(element,accounts);
-        if (element instanceof HasAccounts) { //AccountOrAnnotationOrEdgeOrNodeOrOPMGraphOrRole
+        if (element instanceof HasAccounts) { //Annotable
             HasFacade facade=(HasFacade) element;
             Object o=facade.findMyFacade();
             AnnotationOrEdgeOrNode el=(AnnotationOrEdgeOrNode) o;
@@ -57,11 +58,25 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
         }
     }
 
-    public void addAnnotation(org.openprovenance.model.Annotable annotable,
+    public void addAnnotation(Annotable annotable,
                                JAXBElement<? extends org.openprovenance.model.EmbeddedAnnotation> ann) {
         super.addAnnotation(annotable,ann);
-        System.out.println("Annotations  !!");
+
+        System.out.println("Annotations  !! (Jaxb Embedded)");
     }
+
+    public void addAnnotation(Annotable annotable, Label ann) {
+        System.out.println("*********** adding an annotation Label! ");
+        if (ann!=null) {
+            super.addAnnotation(annotable,ann);
+            try {
+                ((RdfLabel)ann).toRdf(annotable);
+            } catch (org.openrdf.repository.RepositoryException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     public void addAnnotation(org.openprovenance.model.Annotable annotable,
                               org.openprovenance.model.Annotation ann) {
@@ -69,15 +84,15 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
         annotable.getAnnotation().add(of.createAnnotation(ann));
     }
 
+    /** Add annotation to an annotable JAXB Bean and its corresponding RDF facade. */
 
     public void addAnnotation(org.openprovenance.model.Annotable annotable,
                               org.openprovenance.model.EmbeddedAnnotation ann) {
         super.addAnnotation(annotable,ann);
-        System.out.println("Annotations  !!!");
 
         HasFacade facade=(HasFacade) annotable;
         Object o=facade.findMyFacade();
-        AccountOrAnnotationOrEdgeOrNodeOrOPMGraphOrRole annotable2=(AccountOrAnnotationOrEdgeOrNodeOrOPMGraphOrRole) o;
+        org.openprovenance.rdf.Annotable annotable2=(org.openprovenance.rdf.Annotable) o;
         org.openprovenance.rdf.Annotation ann2=(org.openprovenance.rdf.Annotation) ((HasFacade)ann).findMyFacade();
         annotable2.getAnnotations().add(ann2);
 

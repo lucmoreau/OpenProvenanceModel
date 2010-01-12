@@ -2,7 +2,7 @@ package org.openprovenance.elmo;
 import java.util.Set;
 import org.openprovenance.rdf.Account;
 import org.openprovenance.rdf.Node;
-import org.openprovenance.rdf.AccountOrAnnotationOrEdgeOrNodeOrOPMGraphOrRole;
+import org.openprovenance.rdf.Annotable;
 
 import javax.xml.namespace.QName;
 import org.openrdf.elmo.ElmoManager;
@@ -35,7 +35,7 @@ public class RdfAnnotation extends org.openprovenance.model.Annotation implement
 
     public void setLocalSubject(Object value) {
         super.setLocalSubject(value);
-        AccountOrAnnotationOrEdgeOrNodeOrOPMGraphOrRole ann=(AccountOrAnnotationOrEdgeOrNodeOrOPMGraphOrRole) ((HasFacade)value).findMyFacade();
+        Annotable ann=(Annotable) ((HasFacade)value).findMyFacade();
         ann.getAnnotations().add(findMyFacade());
     }
 

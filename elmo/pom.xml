@@ -148,7 +148,7 @@ imported before converting.
                     <pathelement path="." />   <!-- add this path element to pick up log4.properties in the classpath -->
                   </classpath>
                   <arg value="-b" />
-                  <arg value="org.openprovenance.rdf=http://www.ipaw.info/2007/opm#" />
+                  <arg value="org.openprovenance.rdf=http://openprovenance.org/ontology#" />
                   <arg value="-j" />
                   <arg value="target/opmconcepts.jar" />
                   <arg value="-p" />

@@ -25,7 +25,7 @@ public class RdfProperty extends org.openprovenance.model.Property implements Ha
     public RdfProperty(ElmoManager manager, String prefix) {
         this.manager=manager;
         this.prefix=prefix;
-        setId("p" + (count++));
+        setId("pr_" + (count++));
     }
 
     public void setId(String value) {

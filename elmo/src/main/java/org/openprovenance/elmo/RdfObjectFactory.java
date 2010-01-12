@@ -16,11 +16,16 @@ import org.openprovenance.model.WasGeneratedBy;
 import org.openprovenance.model.WasDerivedFrom;
 import org.openprovenance.model.WasTriggeredBy;
 import org.openprovenance.model.WasControlledBy;
+import org.openprovenance.model.Label;
+import org.openprovenance.model.Type;
+import org.openprovenance.model.PName;
+import org.openprovenance.model.Profile;
+import org.openprovenance.model.Value;
 
 import org.openrdf.elmo.ElmoManager;
 
 
-@rdf("http://www.ipaw.info/2007/opm#Artifact")
+
 public class RdfObjectFactory extends org.openprovenance.model.ObjectFactory {
 
     final ElmoManager manager;
@@ -89,6 +94,28 @@ public class RdfObjectFactory extends org.openprovenance.model.ObjectFactory {
     public OPMGraph createOPMGraph() {
         return new RdfOPMGraph(manager,prefix);
     }
+
+    public Label createLabel() {
+        return new RdfLabel(manager,prefix);
+    }
+
+
+    public Type createType() {
+        return new RdfType(manager,prefix);
+    }
+
+    public PName createPName() {
+        return new RdfPName(manager,prefix);
+    }
+
+    public Profile createProfile() {
+        return new RdfProfile(manager,prefix);
+    }
+
+    public Value createValue() {
+        return new RdfValue(manager,prefix);
+    }
+
 
     /** Don't understand how this is used! */
 

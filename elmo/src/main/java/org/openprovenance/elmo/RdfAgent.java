@@ -6,7 +6,7 @@ import org.openprovenance.rdf.Node;
 import javax.xml.namespace.QName;
 import org.openrdf.elmo.ElmoManager;
 
-public class RdfAgent extends org.openprovenance.model.Agent implements org.openprovenance.rdf.Agent, HasFacade {
+public class RdfAgent extends org.openprovenance.model.Agent implements HasFacade {
 
     ElmoManager manager;
     String prefix;
