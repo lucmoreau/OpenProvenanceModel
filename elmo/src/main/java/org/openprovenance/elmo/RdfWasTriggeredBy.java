@@ -8,7 +8,7 @@ import javax.xml.namespace.QName;
 
 import org.openrdf.elmo.ElmoManager;
 
-public class RdfWasTriggeredBy extends org.openprovenance.model.WasTriggeredBy implements org.openprovenance.rdf.WasTriggeredBy, HasFacade {
+public class RdfWasTriggeredBy extends org.openprovenance.model.WasTriggeredBy implements HasFacade {
     String prefix;
     ElmoManager manager;
     QName qname;
@@ -46,7 +46,7 @@ public class RdfWasTriggeredBy extends org.openprovenance.model.WasTriggeredBy i
         QName q=((RdfProcess)(value.getRef())).getQName();
         org.openprovenance.rdf.Process p=(org.openprovenance.rdf.Process)manager.find(q);
         org.openprovenance.rdf.WasTriggeredBy t=findMyFacade();
-        t.getEffects().add(p);
+        t.setEffect(p);
     }
 
     public void setCause(org.openprovenance.model.ProcessRef value) {
@@ -54,7 +54,7 @@ public class RdfWasTriggeredBy extends org.openprovenance.model.WasTriggeredBy i
         QName q=((RdfProcess)(value.getRef())).getQName();
         org.openprovenance.rdf.Process p=(org.openprovenance.rdf.Process)manager.find(q);
         org.openprovenance.rdf.WasTriggeredBy t=findMyFacade();
-        t.getCauses().add(p);
+        t.setCause(p);
     }
 
 
@@ -77,22 +77,6 @@ public class RdfWasTriggeredBy extends org.openprovenance.model.WasTriggeredBy i
     }
 
 
-    public void setCauses(Set<? extends Node> accs) {
-        throw new UnsupportedOperationException();
-    }
-
-    public Set<Node> getCauses() {
-        throw new UnsupportedOperationException();
-    }
-
-	public Set<Node> getEffects() {
-        throw new UnsupportedOperationException();
-    }
-
-	public void setEffects(Set<? extends Node> effects) {
-        throw new UnsupportedOperationException();
-    }
-        
     public void setGeneratedRole(Set<? extends Role> accs) {
         for (Role acc: accs) {
             throw new UnsupportedOperationException();

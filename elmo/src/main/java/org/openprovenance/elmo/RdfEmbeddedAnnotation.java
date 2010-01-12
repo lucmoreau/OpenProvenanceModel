@@ -9,6 +9,10 @@ import org.openrdf.elmo.ElmoManager;
 
 public class RdfEmbeddedAnnotation extends RdfAnnotation {
 
+    public RdfEmbeddedAnnotation(ElmoManager manager, QName qname) {
+        super(manager,qname);
+    }
+    
     public RdfEmbeddedAnnotation(ElmoManager manager, String prefix) {
         super(manager,prefix);
     }

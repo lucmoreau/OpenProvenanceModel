@@ -41,7 +41,7 @@ public class RdfUsed extends org.openprovenance.model.Used implements HasFacade 
         QName q=((RdfProcess)(value.getRef())).getQName();
         org.openprovenance.rdf.Process p=(org.openprovenance.rdf.Process)manager.find(q);
         org.openprovenance.rdf.Used u=(org.openprovenance.rdf.Used)manager.find(getQName());
-        u.getEffects().add(p);
+        u.setEffect(p);
     }
 
     public org.openprovenance.rdf.Used findMyFacade() {
@@ -54,7 +54,7 @@ public class RdfUsed extends org.openprovenance.model.Used implements HasFacade 
         QName q=((RdfArtifact)(value.getRef())).getQName();
         org.openprovenance.rdf.Artifact a=(org.openprovenance.rdf.Artifact)manager.find(q);
         org.openprovenance.rdf.Used u=findMyFacade();
-        u.getCauses().add(a);
+        u.setCause(a);
     }
 
     public void setRole(org.openprovenance.model.Role value) {
@@ -63,7 +63,7 @@ public class RdfUsed extends org.openprovenance.model.Used implements HasFacade 
             QName q=((RdfRole)value).getQName();
             org.openprovenance.rdf.Role r=(org.openprovenance.rdf.Role)manager.find(q);
             org.openprovenance.rdf.Used u=findMyFacade();
-            u.getRoles().add(r);
+            u.setRole(r);
         }
     }
 
@@ -87,33 +87,6 @@ public class RdfUsed extends org.openprovenance.model.Used implements HasFacade 
         throw new UnsupportedOperationException();
     }
 
-
-    public void setCauses(Set<? extends Node> accs) {
-        throw new UnsupportedOperationException();
-    }
-
-    public Set<Node> getCauses() {
-        throw new UnsupportedOperationException();
-    }
-
-	public Set<Node> getEffects() {
-        throw new UnsupportedOperationException();
-    }
-
-	public void setEffects(Set<? extends Node> effects) {
-        throw new UnsupportedOperationException();
-    }
-        
-    public void setRoles(Set<? extends Role> accs) {
-        for (Role acc: accs) {
-            //getRole().add(acc.getRef());
-            throw new UnsupportedOperationException();
-        }
-    }
-
-    public Set<Role> getRoles() {
-        throw new UnsupportedOperationException();
-    }
 
     public void setAnnotations(java.util.Set<? extends org.openprovenance.rdf.Annotation> ann) {
         throw new UnsupportedOperationException();

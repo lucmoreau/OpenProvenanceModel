@@ -15,7 +15,7 @@ import org.openprovenance.model.Annotation;
 import org.openprovenance.model.EmbeddedAnnotation;
 import org.openprovenance.model.Property;
 
-import org.openprovenance.rdf.AnnotationOrEdgeOrNodeOrOPMGraphOrRole;
+import org.openprovenance.rdf.AccountOrAnnotationOrEdgeOrNodeOrOPMGraphOrRole;
 import org.openprovenance.rdf.AnnotationOrEdgeOrNode;
 import org.openrdf.elmo.Entity;
 
@@ -43,14 +43,14 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
 
     public void addAccounts(HasAccounts element, Collection<AccountRef> accounts) {
         super.addAccounts(element,accounts);
-        if (element instanceof HasAccounts) { //AnnotationOrEdgeOrNodeOrOPMGraphOrRole
+        if (element instanceof HasAccounts) { //AccountOrAnnotationOrEdgeOrNodeOrOPMGraphOrRole
             HasFacade facade=(HasFacade) element;
             Object o=facade.findMyFacade();
             AnnotationOrEdgeOrNode el=(AnnotationOrEdgeOrNode) o;
 
             Set set=new HashSet();
             for (AccountRef accr: accounts) {
-                set.add((org.openprovenance.rdf.Account)accr.getRef());
+                set.add(((HasFacade)accr.getRef()).findMyFacade());
             }
             el.getAccounts().addAll(set);
             //el.setAccounts(set);
@@ -64,13 +64,20 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
     }
 
     public void addAnnotation(org.openprovenance.model.Annotable annotable,
+                              org.openprovenance.model.Annotation ann) {
+        System.out.println("*********** adding a annotations ");
+        annotable.getAnnotation().add(of.createAnnotation(ann));
+    }
+
+
+    public void addAnnotation(org.openprovenance.model.Annotable annotable,
                               org.openprovenance.model.EmbeddedAnnotation ann) {
         super.addAnnotation(annotable,ann);
         System.out.println("Annotations  !!!");
 
         HasFacade facade=(HasFacade) annotable;
         Object o=facade.findMyFacade();
-        AnnotationOrEdgeOrNodeOrOPMGraphOrRole annotable2=(AnnotationOrEdgeOrNodeOrOPMGraphOrRole) o;
+        AccountOrAnnotationOrEdgeOrNodeOrOPMGraphOrRole annotable2=(AccountOrAnnotationOrEdgeOrNodeOrOPMGraphOrRole) o;
         org.openprovenance.rdf.Annotation ann2=(org.openprovenance.rdf.Annotation) ((HasFacade)ann).findMyFacade();
         annotable2.getAnnotations().add(ann2);
 
@@ -138,6 +145,9 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
         QName qname=((Entity)a).getQName();
         RdfArtifact res=register(qname,new RdfArtifact(manager,qname));
         addAccounts((org.openprovenance.rdf.AnnotationOrEdgeOrNode)a,res.getAccount());
+        for (org.openprovenance.rdf.Annotation ann: a.getAnnotations()) {
+            addAnnotation(res,newAnnotation(ann));
+        }
         return res;
     }
 
@@ -150,6 +160,9 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
         QName qname=((Entity)a).getQName();
         RdfProcess res=register(qname, new RdfProcess(manager,qname));
         addAccounts((org.openprovenance.rdf.AnnotationOrEdgeOrNode)a,res.getAccount());
+        for (org.openprovenance.rdf.Annotation ann: a.getAnnotations()) {
+            addAnnotation(res,newAnnotation(ann));
+        }
         return res;
     }
 
@@ -161,6 +174,9 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
         QName qname=((Entity)a).getQName();
         RdfAgent res=register(qname,new RdfAgent(manager,qname));
         addAccounts((org.openprovenance.rdf.AnnotationOrEdgeOrNode)a,res.getAccount());
+        for (org.openprovenance.rdf.Annotation ann: a.getAnnotations()) {
+            addAnnotation(res,newAnnotation(ann));
+        }
         return res;
     }
 
@@ -184,9 +200,34 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
 
     public RdfRole newRole(org.openprovenance.rdf.Role r) {
         QName qname=((Entity)r).getQName();
-        String value=(String)r.getValues().iterator().next();
+        String value=(String)r.getValue();
         return new RdfRole(manager,qname,value);
     }
+
+    public RdfProperty newProperty(org.openprovenance.rdf.Property a) {
+        QName qname=((Entity)a).getQName();
+        RdfProperty res=new RdfProperty(manager,qname);
+        res.setFields(a.getUri(), a.getValue());
+        return res;
+    }
+
+    public RdfAnnotation newAnnotation(org.openprovenance.rdf.Annotation a) {
+        QName qname=((Entity)a).getQName();
+        RdfAnnotation res=new RdfAnnotation(manager,qname);
+        addAccounts((org.openprovenance.rdf.AnnotationOrEdgeOrNode)a,res.getAccount());
+        for (org.openprovenance.rdf.Property prop: a.getProperties()) {
+            res.getProperty().add(newProperty(prop));
+        }
+        return res;
+    }
+
+    public RdfEmbeddedAnnotation newEmbeddedAnnotation(org.openprovenance.rdf.Annotation a) {
+        QName qname=((Entity)a).getQName();
+        RdfEmbeddedAnnotation res=new RdfEmbeddedAnnotation(manager,qname);
+        addAccounts((org.openprovenance.rdf.AnnotationOrEdgeOrNode)a,res.getAccount());
+        return res;
+    }
+
 
     private Hashtable<QName, RdfAgent>    agentRegister    =new Hashtable();
     private Hashtable<QName, RdfProcess>  processRegister  =new Hashtable();
@@ -221,50 +262,62 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
     public RdfWasDerivedFrom newWasDerivedFrom(org.openprovenance.rdf.WasDerivedFrom a) {
         QName qname=((Entity)a).getQName();
         RdfWasDerivedFrom wdf=new RdfWasDerivedFrom(manager,qname);
-        Object cause=a.getCauses().iterator().next();
-        Object effect=a.getEffects().iterator().next();
+        org.openprovenance.rdf.Node cause=a.getCause();
+        org.openprovenance.rdf.Node effect=a.getEffect();
         wdf.setNodes(newArtifactRef(artifactRegister.get(((Entity)cause).getQName())),
                      newArtifactRef(artifactRegister.get(((Entity)effect).getQName())));
         addAccounts((org.openprovenance.rdf.AnnotationOrEdgeOrNode)a,wdf.getAccount());
+        for (org.openprovenance.rdf.Annotation ann: a.getAnnotations()) {
+            addAnnotation(wdf,newAnnotation(ann));
+        }
         return wdf;
     }
 
     public RdfWasGeneratedBy newWasGeneratedBy(org.openprovenance.rdf.WasGeneratedBy a) {
         QName qname=((Entity)a).getQName();
         RdfWasGeneratedBy wgb=new RdfWasGeneratedBy(manager,qname);
-        Object cause=a.getCauses().iterator().next();
-        Object effect=a.getEffects().iterator().next();
-        org.openprovenance.rdf.Role role=(org.openprovenance.rdf.Role)a.getRoles().iterator().next();
+        org.openprovenance.rdf.Node cause=a.getCause();
+        org.openprovenance.rdf.Node effect=a.getEffect();
+        org.openprovenance.rdf.Role role=a.getRole();
         wgb.setFields(newProcessRef(processRegister.get(((Entity)cause).getQName())),
                       newArtifactRef(artifactRegister.get(((Entity)effect).getQName())),
                       newRole(role));
         addAccounts((org.openprovenance.rdf.AnnotationOrEdgeOrNode)a,wgb.getAccount());
+        for (org.openprovenance.rdf.Annotation ann: a.getAnnotations()) {
+            addAnnotation(wgb,newAnnotation(ann));
+        }
         return wgb;
     }
 
     public RdfUsed newUsed(org.openprovenance.rdf.Used a) {
         QName qname=((Entity)a).getQName();
         RdfUsed u=new RdfUsed(manager,qname);
-        Object cause=a.getCauses().iterator().next();
-        Object effect=a.getEffects().iterator().next();
-        org.openprovenance.rdf.Role role=(org.openprovenance.rdf.Role)a.getRoles().iterator().next();
+        org.openprovenance.rdf.Node cause=a.getCause();
+        org.openprovenance.rdf.Node effect=a.getEffect();
+        org.openprovenance.rdf.Role role=a.getRole();
         u.setFields(newArtifactRef(artifactRegister.get(((Entity)cause).getQName())),
                     newProcessRef(processRegister.get(((Entity)effect).getQName())),
                     newRole(role));
         addAccounts((org.openprovenance.rdf.AnnotationOrEdgeOrNode)a,u.getAccount());
+        for (org.openprovenance.rdf.Annotation ann: a.getAnnotations()) {
+            addAnnotation(u,newAnnotation(ann));
+        }
         return u;
     }
 
     public RdfWasControlledBy newWasControlledBy(org.openprovenance.rdf.WasControlledBy a) {
         QName qname=((Entity)a).getQName();
         RdfWasControlledBy wcb=new RdfWasControlledBy(manager,qname);
-        Object cause=a.getCauses().iterator().next();
-        Object effect=a.getEffects().iterator().next();
-        org.openprovenance.rdf.Role role=(org.openprovenance.rdf.Role)a.getRoles().iterator().next();
+        org.openprovenance.rdf.Node cause=a.getCause();
+        org.openprovenance.rdf.Node effect=a.getEffect();
+        org.openprovenance.rdf.Role role=a.getRole();
         wcb.setFields(newAgentRef(agentRegister.get(((Entity)cause).getQName())),
                       newProcessRef(processRegister.get(((Entity)effect).getQName())),
                       newRole(role));
         addAccounts((org.openprovenance.rdf.AnnotationOrEdgeOrNode)a,wcb.getAccount());
+        for (org.openprovenance.rdf.Annotation ann: a.getAnnotations()) {
+            addAnnotation(wcb,newAnnotation(ann));
+        }
         return wcb;
     }
 
@@ -272,11 +325,14 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
     public RdfWasTriggeredBy newWasTriggeredBy(org.openprovenance.rdf.WasTriggeredBy a) {
         QName qname=((Entity)a).getQName();
         RdfWasTriggeredBy wtb=new RdfWasTriggeredBy(manager,qname);
-        Object cause=a.getCauses().iterator().next();
-        Object effect=a.getEffects().iterator().next();
+        org.openprovenance.rdf.Node cause=a.getCause();
+        org.openprovenance.rdf.Node effect=a.getEffect();
         wtb.setNodes(newProcessRef(processRegister.get(((Entity)cause).getQName())),
                      newProcessRef(processRegister.get(((Entity)effect).getQName())));
         addAccounts((org.openprovenance.rdf.AnnotationOrEdgeOrNode)a,wtb.getAccount());
+        for (org.openprovenance.rdf.Annotation ann: a.getAnnotations()) {
+            addAnnotation(wtb,newAnnotation(ann));
+        }
         return wtb;
     }
 

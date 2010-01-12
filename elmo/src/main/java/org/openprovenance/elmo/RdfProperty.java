@@ -6,7 +6,7 @@ import org.openprovenance.rdf.Node;
 import javax.xml.namespace.QName;
 import org.openrdf.elmo.ElmoManager;
 
-public class RdfProperty extends org.openprovenance.model.Property implements org.openprovenance.rdf.Property, HasFacade {
+public class RdfProperty extends org.openprovenance.model.Property implements HasFacade {
 
     ElmoManager manager;
     String prefix;
@@ -14,6 +14,14 @@ public class RdfProperty extends org.openprovenance.model.Property implements or
 
     static int count=0;
     
+    public RdfProperty(ElmoManager manager, QName qname) {
+        this.manager=manager;
+        this.qname=qname;
+        this.prefix=qname.getNamespaceURI();
+        setId(qname.getLocalPart());
+    }
+    
+
     public RdfProperty(ElmoManager manager, String prefix) {
         this.manager=manager;
         this.prefix=prefix;
@@ -30,15 +38,14 @@ public class RdfProperty extends org.openprovenance.model.Property implements or
     public void setUri(String value) {
         super.setUri(value);
         org.openprovenance.rdf.Property r=findMyFacade();
-        r.getUris().add(value);
+        r.setUri(value);
     }
 
 
     public void setValue(Object value) {
         super.setValue(value);
         org.openprovenance.rdf.Property r=findMyFacade();
-        //TODO: currently, only strings supported
-        r.getValues().add((String)value);
+        r.setValue(value);
     }
 
     public QName getQName() {
@@ -50,21 +57,12 @@ public class RdfProperty extends org.openprovenance.model.Property implements or
         return r;
     }
 
-
-    public void setValues(Set<? extends String> values) {
-        throw new UnsupportedOperationException();
-    }
-
-    public Set<String> getValues() {
-        throw new UnsupportedOperationException();
-    }
-
- 	public Set<String> getUris() {
-        throw new UnsupportedOperationException();
-    }
-
- 	public void setUris(Set<? extends String> uris) {
-        throw new UnsupportedOperationException();
+    public void setFields(String uri, Object value) {
+        super.setUri(uri);
+        super.setValue(value);
     }
 
 }
+
+
+

@@ -6,7 +6,7 @@ import javax.xml.namespace.QName;
 
 import org.openrdf.elmo.ElmoManager;
 
-public class RdfProcess extends org.openprovenance.model.Process implements org.openprovenance.rdf.Process, HasFacade {
+public class RdfProcess extends org.openprovenance.model.Process implements HasFacade {
 
     ElmoManager manager;
     String prefix;
@@ -40,25 +40,5 @@ public class RdfProcess extends org.openprovenance.model.Process implements org.
         org.openprovenance.rdf.Process p=(org.openprovenance.rdf.Process)manager.find(getQName());
         return p;
     }
-
-    public void setAccounts(Set<? extends Account> accs) {
-        for (Account acc: accs) {
-            //getAccount().add(acc.getRef());
-            throw new UnsupportedOperationException();
-        }
-    }
-
-    public Set<Account> getAccounts() {
-        throw new UnsupportedOperationException();
-    }
-        
-    public void setAnnotations(java.util.Set<? extends org.openprovenance.rdf.Annotation> ann) {
-        throw new UnsupportedOperationException();
-    }
-
-    public java.util.Set<org.openprovenance.rdf.Annotation> getAnnotations() {
-        throw new UnsupportedOperationException();
-    }
-
 
 }

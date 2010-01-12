@@ -2,16 +2,25 @@ package org.openprovenance.elmo;
 import java.util.Set;
 import org.openprovenance.rdf.Account;
 import org.openprovenance.rdf.Node;
-import org.openprovenance.rdf.AnnotationOrEdgeOrNodeOrOPMGraphOrRole;
+import org.openprovenance.rdf.AccountOrAnnotationOrEdgeOrNodeOrOPMGraphOrRole;
 
 import javax.xml.namespace.QName;
 import org.openrdf.elmo.ElmoManager;
 
-public class RdfAnnotation extends org.openprovenance.model.Annotation implements org.openprovenance.rdf.Annotation, HasFacade {
+public class RdfAnnotation extends org.openprovenance.model.Annotation implements HasFacade {
 
     ElmoManager manager;
     String prefix;
     QName qname;
+
+    public RdfAnnotation(ElmoManager manager, QName qname) {
+        this.manager=manager;
+        this.qname=qname;
+        this.prefix=qname.getNamespaceURI();
+        super.setId(qname.getLocalPart());
+    }
+    
+
 
     public RdfAnnotation(ElmoManager manager, String prefix) {
         this.manager=manager;
@@ -26,7 +35,7 @@ public class RdfAnnotation extends org.openprovenance.model.Annotation implement
 
     public void setLocalSubject(Object value) {
         super.setLocalSubject(value);
-        AnnotationOrEdgeOrNodeOrOPMGraphOrRole ann=(AnnotationOrEdgeOrNodeOrOPMGraphOrRole) ((HasFacade)value).findMyFacade();
+        AccountOrAnnotationOrEdgeOrNodeOrOPMGraphOrRole ann=(AccountOrAnnotationOrEdgeOrNodeOrOPMGraphOrRole) ((HasFacade)value).findMyFacade();
         ann.getAnnotations().add(findMyFacade());
     }
 
@@ -40,24 +49,6 @@ public class RdfAnnotation extends org.openprovenance.model.Annotation implement
     }
 
 
-    public void setProperties(Set<? extends org.openprovenance.rdf.Property> values) {
-         throw new UnsupportedOperationException();
-     }
-
-     public Set<org.openprovenance.rdf.Property> getProperties() {
-         throw new UnsupportedOperationException();
-     }
-
-    public void setAccounts(Set<? extends Account> accs) {
-        for (Account acc: accs) {
-            //getAccount().add(acc.getRef());
-            throw new UnsupportedOperationException();
-        }
-    }
-
-    public Set<Account> getAccounts() {
-        throw new UnsupportedOperationException();
-    }
         
     public void setAnnotations(java.util.Set<? extends org.openprovenance.rdf.Annotation> ann) {
         throw new UnsupportedOperationException();

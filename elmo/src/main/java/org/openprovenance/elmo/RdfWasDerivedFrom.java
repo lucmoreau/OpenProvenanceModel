@@ -8,7 +8,7 @@ import javax.xml.namespace.QName;
 
 import org.openrdf.elmo.ElmoManager;
 
-public class RdfWasDerivedFrom extends org.openprovenance.model.WasDerivedFrom implements org.openprovenance.rdf.WasDerivedFrom, HasFacade {
+public class RdfWasDerivedFrom extends org.openprovenance.model.WasDerivedFrom implements HasFacade {
     String prefix;
     ElmoManager manager;
     QName qname;
@@ -47,7 +47,7 @@ public class RdfWasDerivedFrom extends org.openprovenance.model.WasDerivedFrom i
         QName q=((RdfArtifact)(value.getRef())).getQName();
         org.openprovenance.rdf.Artifact a=(org.openprovenance.rdf.Artifact)manager.find(q);
         org.openprovenance.rdf.WasDerivedFrom d=findMyFacade();
-        d.getEffects().add(a);
+        d.setEffect(a);
     }
 
     public void setCause(org.openprovenance.model.ArtifactRef value) {
@@ -55,7 +55,7 @@ public class RdfWasDerivedFrom extends org.openprovenance.model.WasDerivedFrom i
         QName q=((RdfArtifact)(value.getRef())).getQName();
         org.openprovenance.rdf.Artifact a=(org.openprovenance.rdf.Artifact)manager.find(q);
         org.openprovenance.rdf.WasDerivedFrom d=findMyFacade();
-        d.getCauses().add(a);
+        d.setCause(a);
     }
 
     public void setNodes(org.openprovenance.model.ArtifactRef cause,
@@ -76,22 +76,6 @@ public class RdfWasDerivedFrom extends org.openprovenance.model.WasDerivedFrom i
     }
 
 
-    public void setCauses(Set<? extends Node> accs) {
-        throw new UnsupportedOperationException();
-    }
-
-    public Set<Node> getCauses() {
-        throw new UnsupportedOperationException();
-    }
-
-	public Set<Node> getEffects() {
-        throw new UnsupportedOperationException();
-    }
-
-	public void setEffects(Set<? extends Node> effects) {
-        throw new UnsupportedOperationException();
-    }
-        
     public void setAnnotations(java.util.Set<? extends org.openprovenance.rdf.Annotation> ann) {
         throw new UnsupportedOperationException();
     }

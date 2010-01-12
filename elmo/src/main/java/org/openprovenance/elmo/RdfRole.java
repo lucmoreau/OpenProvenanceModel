@@ -6,7 +6,7 @@ import org.openprovenance.rdf.Node;
 import javax.xml.namespace.QName;
 import org.openrdf.elmo.ElmoManager;
 
-public class RdfRole extends org.openprovenance.model.Role implements org.openprovenance.rdf.Role {
+public class RdfRole extends org.openprovenance.model.Role implements HasFacade {
 
     ElmoManager manager;
     String prefix;
@@ -42,7 +42,7 @@ public class RdfRole extends org.openprovenance.model.Role implements org.openpr
     public void setValue(String value) {
         super.setValue(value);
         org.openprovenance.rdf.Role r=findMyFacade();
-        r.getValues().add(value);
+        r.setValue(value);
     }
 
     public QName getQName() {
@@ -55,13 +55,6 @@ public class RdfRole extends org.openprovenance.model.Role implements org.openpr
     }
 
 
-    public void setValues(Set<? extends java.lang.String> values) {
-        throw new UnsupportedOperationException();
-    }
-
-    public Set<String> getValues() {
-        throw new UnsupportedOperationException();
-    }
 
     public void setAnnotations(java.util.Set<? extends org.openprovenance.rdf.Annotation> ann) {
         throw new UnsupportedOperationException();
