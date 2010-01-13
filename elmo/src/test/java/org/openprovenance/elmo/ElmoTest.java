@@ -34,7 +34,9 @@ import org.openrdf.rio.ntriples.NTriplesWriter;
 import org.openrdf.rio.RDFFormat;
 
 import org.openprovenance.model.OPMSerialiser;
+import org.openprovenance.model.OPMDeserialiser;
 import org.openprovenance.model.OPMFactory;
+import org.openprovenance.model.Normalise;
 import org.openprovenance.model.Artifact;
 import org.openprovenance.model.Agent;
 import org.openprovenance.model.Process;
@@ -56,7 +58,7 @@ public class ElmoTest
     extends TestCase
 {
 
-    static String TEST_NS="http://newexample.com/";
+    static String TEST_NS="http://example.com/";
     /**
      * Create the test case
      *
@@ -73,25 +75,10 @@ public class ElmoTest
 
     static ElmoManager manager;
     static ElmoManagerFactory factory;
+    static RepositoryHelper rHelper;
 
-    public void registerConcepts(ElmoModule module) {
-        module.addConcept(Edge.class);
-        module.addConcept(Node.class);
-        module.addConcept(org.openprovenance.rdf.OPMGraph.class);
-        module.addConcept(org.openprovenance.rdf.Account.class);
-        module.addConcept(org.openprovenance.rdf.Artifact.class);
-        //module.addConcept(org.openprovenance.elmo.RdfArtifact.class);
-        module.addConcept(org.openprovenance.rdf.Process.class);
-        module.addConcept(org.openprovenance.rdf.Agent.class);
-        module.addConcept(org.openprovenance.rdf.Role.class);
-        module.addConcept(org.openprovenance.rdf.Used.class);
-        module.addConcept(org.openprovenance.rdf.WasGeneratedBy.class);
-        module.addConcept(org.openprovenance.rdf.WasDerivedFrom.class);
-        module.addConcept(org.openprovenance.rdf.WasTriggeredBy.class);
-        module.addConcept(org.openprovenance.rdf.WasControlledBy.class);
-        module.addConcept(org.openprovenance.rdf.Annotation.class);
-        module.addConcept(org.openprovenance.rdf.Property.class);
-    }
+    static OPMGraph graph1;
+    static OPMGraph graph2;
 
     public void testElmo1() throws Exception {
         assert Edge.class.isInterface();
@@ -99,7 +86,8 @@ public class ElmoTest
 
         ElmoModule module = new ElmoModule();
 
-        registerConcepts(module);
+        rHelper=new RepositoryHelper();
+        rHelper.registerConcepts(module);
 
         //module.addBehaviour(RdfArtifact.class);
 
@@ -198,56 +186,39 @@ public class ElmoTest
 
         assert (graph instanceof RdfOPMGraph);
 
-
-
         OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
         serial.serialiseOPMGraph(new File("target/repository.xml"),graph,true);
 
+        OPMDeserialiser deserial=OPMDeserialiser.getThreadOPMDeserialiser();
+        graph1=deserial.deserialiseOPMGraph(new File("target/repository.xml"));
     }
 
     public void setPrefixes(RDFHandler serialiser) throws org.openrdf.rio.RDFHandlerException {
-            serialiser.handleNamespace("opm","http://openprovenance.org/ontology#");
+            serialiser.handleNamespace("ex",TEST_NS);
     }
 
-    public void dumpToRDF(File file, SesameManager manager, RDFFormat format) throws Exception {
-        Writer writer = new FileWriter(file);
-        RDFHandler serialiser=null;
-        if (format.equals(RDFFormat.N3)) {
-            serialiser=new N3Writer(writer);
-        } else if (format.equals(RDFFormat.RDFXML)) {
-            serialiser=new RDFXMLWriter(writer);
-        } else if  (format.equals(RDFFormat.NTRIPLES)) {
-            serialiser=new NTriplesWriter (writer);
-        }
-        setPrefixes(serialiser);
-        manager.getConnection().export(serialiser);
-        writer.close();
-    }
-
+    Collection<String[]> prefixes=Collections.singleton(new String[]{"ex",TEST_NS});
 
     public void testDumptoRDFXML() throws Exception {
         File file = new File("target/repository.rdf");
         assert manager!=null;
-        dumpToRDF(file,(SesameManager)manager,RDFFormat.RDFXML);
+        rHelper.dumpToRDF(file,(SesameManager)manager,RDFFormat.RDFXML,prefixes);
     }
 
 
     public void testDumpToN3() throws Exception {
         File file = new File("target/repository.n3");
         assert manager!=null;
-        dumpToRDF(file,(SesameManager)manager,RDFFormat.N3);
+        rHelper.dumpToRDF(file,(SesameManager)manager,RDFFormat.N3,prefixes);
     }
 
 
     public void testDumpToNTRIPLES() throws Exception {
         File file = new File("target/repository.ntriples");
         assert manager!=null;
-        dumpToRDF(file,(SesameManager)manager,RDFFormat.NTRIPLES);
+        rHelper.dumpToRDF(file,(SesameManager)manager,RDFFormat.NTRIPLES,prefixes);
     }
 
-    public void readFromRDF(File file, String uri, SesameManager manager, RDFFormat format) throws Exception {
-        manager.getConnection().add(file,uri,format);
-    }
 
     
     public void testRead() throws Exception {
@@ -258,7 +229,7 @@ public class ElmoTest
         RdfOPMFactory oFactory=new RdfOPMFactory(new RdfObjectFactory(manager,TEST_NS),
                                               manager);
 
-        readFromRDF(file,null,(SesameManager)manager,RDFFormat.RDFXML);
+        rHelper.readFromRDF(file,null,(SesameManager)manager,RDFFormat.RDFXML);
         QName qname = new QName(TEST_NS, "gr1");
 
         OPMGraph oGraph=readOPMGraph(manager,
@@ -266,6 +237,7 @@ public class ElmoTest
                                      qname);
 
         OPMSerialiser.getThreadOPMSerialiser().serialiseOPMGraph(new File("target/foo.txt"),oGraph,true);
+        graph2=oGraph;
     }
 
     public OPMGraph readOPMGraph(ElmoManager manager,
@@ -273,64 +245,55 @@ public class ElmoTest
                                  QName qname) {
         Object o=manager.find(qname);
         org.openprovenance.rdf.OPMGraph gr=(org.openprovenance.rdf.OPMGraph)o;
+        return oFactory.newOPMGraph(gr);
 
-        List<Account> accs=new LinkedList();
-        for (org.openprovenance.rdf.Account acc: gr.getHasAccount()) {
-            accs.add(oFactory.newAccount(acc));
-        }
+    }
+
+    public void testCompareGraphs() throws Exception {
+        Normalise normaliser=new Normalise(null);
+        normaliser.noAnnotation(graph1);
+        normaliser.noAnnotation(graph2);
+        normaliser.sortGraph(graph1);
+        normaliser.sortGraph(graph2);
 
 
-        List<Artifact> as=new LinkedList();
-        for (org.openprovenance.rdf.Artifact a: gr.getHasArtifact()) {
-            as.add(oFactory.newArtifact(a));
-        }
+        OPMSerialiser.getThreadOPMSerialiser().serialiseOPMGraph(new File("target/normalised-xml.xml"),graph1,true);
+        OPMSerialiser.getThreadOPMSerialiser().serialiseOPMGraph(new File("target/normalised-rdf.xml"),graph2,true);
 
-        List<Process> ps=new LinkedList();
-        for (org.openprovenance.rdf.Process p: gr.getHasProcess()) {
-            ps.add(oFactory.newProcess(p));
-        }
 
-        List<Agent> ags=new LinkedList();
-        for (org.openprovenance.rdf.Agent ag: gr.getHasAgent()) {
-            ags.add(oFactory.newAgent(ag));
-        }
 
-        List<Object> lks=new LinkedList();
-        for (org.openprovenance.rdf.Edge edge: gr.getHasDependency()) {
-             if (edge instanceof org.openprovenance.rdf.Used) {
-                lks.add(oFactory.newUsed((org.openprovenance.rdf.Used) edge));
-            } else if (edge instanceof org.openprovenance.rdf.WasGeneratedBy) {
-                lks.add(oFactory.newWasGeneratedBy((org.openprovenance.rdf.WasGeneratedBy) edge));
-            } else if (edge instanceof org.openprovenance.rdf.WasDerivedFrom) {
-                lks.add(oFactory.newWasDerivedFrom((org.openprovenance.rdf.WasDerivedFrom) edge));
-            } else if (edge instanceof org.openprovenance.rdf.WasControlledBy) {
-                lks.add(oFactory.newWasControlledBy((org.openprovenance.rdf.WasControlledBy) edge));
-            } else if (edge instanceof org.openprovenance.rdf.WasTriggeredBy) {
-                lks.add(oFactory.newWasTriggeredBy((org.openprovenance.rdf.WasTriggeredBy) edge));
+        assertTrue( "self graph differ", graph1.equals(graph1) );
+
+        assertTrue( "self graph2  differ", graph2.equals(graph2) );
+
+        assertTrue( "accounts differ", graph1.getAccounts().getAccount().equals(graph2.getAccounts().getAccount()) );
+
+        assertTrue( "account overalps differ", graph1.getAccounts().getOverlaps().equals(graph2.getAccounts().getOverlaps()) );
+
+        assertTrue( "accounts elements differ", graph1.getAccounts().equals(graph2.getAccounts()) );
+
+        assertTrue( "processes elements differ", graph1.getProcesses().equals(graph2.getProcesses()) );
+
+        assertTrue( "artifacts elements differ", graph1.getArtifacts().equals(graph2.getArtifacts()) );
+
+        assertTrue( "edges elements differ", graph1.getCausalDependencies().equals(graph2.getCausalDependencies()) );
+
+        if (graph1.getAgents()!=null && graph2.getAgents()!=null) {
+            assertTrue( "agents elements differ", graph1.getAgents().equals(graph2.getAgents()) );
+        } else {
+            if (graph1.getAgents()!=null) {
+                assertTrue( "agents elements differ, graph not null",  graph1.getAgents().getAgent().isEmpty());
+                graph1.setAgents(null);
+            } else if (graph2.getAgents()!=null) {
+                assertTrue( "agents elements differ, graph not null",  graph2.getAgents().getAgent().isEmpty());
+                graph2.setAgents(null);
             }
         }
 
+        assertTrue( "graph differ", graph1.equals(graph2) );
 
-        List<Annotation> anns=new LinkedList();
 
-        for (org.openprovenance.rdf.Annotation ann: gr.getAnnotations()) {
-            RdfAnnotation ann2=oFactory.newAnnotation(ann);
-            anns.add(ann2);
-        }
-
-        //System.out.println("Artifacts " + as);
-
-        return oFactory.newOPMGraph(qname.getLocalPart(),
-                                    accs,
-                                    new LinkedList(),
-                                    ps,
-                                    as,
-                                    ags,
-                                    lks,
-                                    anns);
     }
-
-    
 }
 
 

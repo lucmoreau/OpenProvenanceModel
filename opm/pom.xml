@@ -297,6 +297,12 @@
                 <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
   	              <arg value="-e s/implements Equals, HashCode, ToString/implements Ref, Equals, HashCode, ToString/" />
   	              <arg value="-iBAK" />
+  	              <arg value="AccountRef.java" />
+                </exec>
+
+                <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
+  	              <arg value="-e s/implements Equals, HashCode, ToString/implements Ref, Equals, HashCode, ToString/" />
+  	              <arg value="-iBAK" />
   	              <arg value="ArtifactRef.java" />
                 </exec>
 

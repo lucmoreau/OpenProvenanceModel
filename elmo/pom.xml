@@ -42,11 +42,17 @@
       <version>2.3.0</version>
     </dependency>
 
-      <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-log4j12</artifactId>
-        <version>1.5.2</version>  <!-- note old version required for elmo! -->
-      </dependency>
+    <dependency>
+		<groupId>org.openrdf.sesame</groupId>
+		<artifactId>sesame-rio-n3</artifactId>
+		<version>2.3.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.5.2</version>  <!-- note old version required for elmo! -->
+    </dependency>
 
 
     <dependency>
@@ -54,6 +60,13 @@
       <artifactId>opm</artifactId>
       <version>1.2-SNAPSHOT</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.jvnet.jaxb2_commons</groupId>
+	  <artifactId>runtime</artifactId>
+   	  <version>${jaxb.common.version}</version>
+    </dependency>
+
  </dependencies>
 
   <build>

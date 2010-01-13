@@ -21,6 +21,7 @@
   <modules>
     <module>opm</module>    
     <module>tupelo</module>    
+    <module>elmo</module>    
     <module>toolbox</module>    
   </modules>
 

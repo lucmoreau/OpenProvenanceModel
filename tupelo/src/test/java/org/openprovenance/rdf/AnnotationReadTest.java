@@ -35,6 +35,7 @@ import org.openprovenance.model.Process;
 import org.openprovenance.model.OPMToDot; 
 import org.openprovenance.model.OPMUtilities; 
 import org.openprovenance.model.IndexedOPMGraph; 
+import org.openprovenance.model.Normalise; 
 
 
 /**
@@ -89,8 +90,14 @@ public class AnnotationReadTest
         
         assertTrue( graph!=null );
 
-        updateGraph2(graph2);
-        updateGraph(graph);
+        Normalise normaliser=new Normalise(oFactory);
+
+        normaliser.updateOriginalGraph(graph);
+        normaliser.updateFromRdfGraph(graph2);
+
+        normaliser.sortGraph(graph);
+        normaliser.sortGraph(graph2);
+
 
         serial.serialiseOPMGraph(new File("target/annotation-example1-from-rdf-updated.xml"),graph2,true);
 
@@ -129,245 +136,7 @@ public class AnnotationReadTest
     }
 
 
-    void updateGraph2(OPMGraph graph) {
 
-
-
-        IndexedOPMGraph igraph=new IndexedOPMGraph(oFactory,graph);
-        List<Account> accs=graph.getAccounts().getAccount();
-        for (Account acc: accs) {
-            if (acc.getId().equals("_null")) {
-                accs.remove(acc);
-                break;
-            }
-        }
-
-
-
-        Collection<Account> green=Collections.singleton(igraph.getAccount("green"));
-        Collection<Account> orange=Collections.singleton(igraph.getAccount("orange"));
-
-        List<Account> green_orange=new LinkedList();
-        green_orange.addAll(green);
-        green_orange.addAll(orange);
-
-
-        Overlaps ov1=oFactory.newOverlaps(green_orange);
-        graph.getAccounts().getOverlaps().add(ov1);
-
-
-
-        //TODO: this should be moved to a graph normalisation procedure.
-
-        if (graph.getProcesses()!=null && graph.getProcesses().getProcess()!=null) {
-            sortById((List)graph.getProcesses().getProcess());
-            for (Process p: graph.getProcesses().getProcess()) {
-                sortAnnotations(p.getAnnotation());
-            }
-        }
-
-        if (graph.getArtifacts()!=null && graph.getArtifacts().getArtifact()!=null) {
-            sortById((List)graph.getArtifacts().getArtifact());
-            for (Artifact a: graph.getArtifacts().getArtifact()) {
-                sortAnnotations(a.getAnnotation());
-            }
-        }
-
-        if (graph.getAgents()!=null && graph.getAgents().getAgent()!=null) {
-            sortById((List)graph.getAgents().getAgent());
-            for (Agent a: graph.getAgents().getAgent()) {
-                sortAnnotations(a.getAnnotation());
-            }
-        }
-
-        for (Object e: graph.getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy()) {
-            sortAnnotations(((Edge)e).getAnnotation());
-        }
-
-        sortEdges(graph.getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy());
-
-
-    }
-
-    void destroy(List ll) {
-        for (int i=ll.size()-1; i>=0; i--) {
-            ll.remove(ll.get(i));
-        }
-    }
-
-    //TODO: write a normalisation class in opm package
-
-    void updateGraph(OPMGraph graph) {
-
-        IndexedOPMGraph igraph=new IndexedOPMGraph(oFactory,graph);
-
-        // embed external annotations
-        
-        if (graph.getAnnotations()!=null) {
-            List<Annotation> anns=graph.getAnnotations().getAnnotation();
-            for (Annotation ann: anns) {
-                String id=(((Identifiable)ann.getLocalSubject()).getId());
-                EmbeddedAnnotation embedded=oFactory.newEmbeddedAnnotation(ann.getId(),
-                                                                           ann.getProperty(),
-                                                                           ann.getAccount(),
-                                                                           null);
-                Process p=igraph.getProcess(id);
-                if (p!=null) {
-                    p.getAnnotation().add(oFactory.compactAnnotation(embedded));
-                } else {
-                    Artifact a=igraph.getArtifact(id);
-                    if (a!=null) {
-                        a.getAnnotation().add(oFactory.compactAnnotation(embedded));
-                    } else {
-                        
-                    }
-                }
-            }
-
-            graph.setAnnotations(null);
-        }
-
-
-        if (graph.getProcesses()!=null && graph.getProcesses().getProcess()!=null) {
-            sortById((List)graph.getProcesses().getProcess());
-            for (Process p: graph.getProcesses().getProcess()) {
-                List<AccountRef> accRefs=p.getAccount();
-                destroy(accRefs);  //rdf does not have accounts in nodes
-                sortAnnotations(p.getAnnotation());
-            }
-        }
-
-        if (graph.getArtifacts()!=null && graph.getArtifacts().getArtifact()!=null) {
-            sortById((List)graph.getArtifacts().getArtifact());
-            for (Artifact a: graph.getArtifacts().getArtifact()) {
-                List<AccountRef> accRefs=a.getAccount();
-                destroy(accRefs); //rdf does not have accounts in nodes
-                sortAnnotations(a.getAnnotation());
-            }
-        }
-
-        if (graph.getAgents()!=null && graph.getAgents().getAgent()!=null) {
-            sortById((List)graph.getAgents().getAgent());
-            for (Agent a: graph.getAgents().getAgent()) {
-                List<AccountRef> accRefs=a.getAccount();
-                destroy(accRefs); //rdf does not have accounts in nodes
-                sortAnnotations(a.getAnnotation());
-            }
-        }
-
-        for (Object e: graph.getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy()) {
-            sortAnnotations(((Edge)e).getAnnotation());
-            ((Identifiable)e).setId(null);  // tupelo rdf does not allow ids in edges
-        }
-
-        for (Object e: graph.getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy()) {
-            ((Identifiable)e).setId(null);  // tupelo rdf does not allow ids in edges
-
-
-            // my translation does not support annotations on roles
-            if (e instanceof WasGeneratedBy) {
-                WasGeneratedBy wgb=(WasGeneratedBy) e;
-                wgb.getRole().setId(null);
-            }
-            if (e instanceof Used) {
-                Used u=(Used) e;
-                u.getRole().setId(null);
-            }
-            if (e instanceof WasControlledBy) {
-                WasControlledBy wcb=(WasControlledBy) e;
-                wcb.getRole().setId(null);
-            }
-            sortAnnotations(((Edge)e).getAnnotation());
-        }
-        sortEdges(graph.getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy());
-    }
-
-    public void sortById(List ll) {
-        Collections.sort(ll,
-                         new Comparator() {
-                             public int compare(Object o1, Object o2) {
-                                 Identifiable i1=(Identifiable) o1;
-                                 Identifiable i2=(Identifiable) o2;
-                                 return i1.getId().compareTo(i2.getId());
-                             }
-                             public boolean equals_IGNORE(Object o1, Object o2) {
-                                 Identifiable i1=(Identifiable) o1;
-                                 Identifiable i2=(Identifiable) o2;
-                                 return (i1.getId().equals(i2.getId()));
-                             }
-                         });
-    }
-
-    public void sortAnnotationsIGNORE(List<EmbeddedAnnotation> ll) {
-        Collections.sort(ll,
-                         new Comparator() {
-                             public int compare(Object o1, Object o2) {
-                                 EmbeddedAnnotation a1=(EmbeddedAnnotation) o1;
-                                 EmbeddedAnnotation a2=(EmbeddedAnnotation) o2;
-
-                                 if (a1.getId()==null) {
-                                     if (a2.getId()==null) {
-                                         return a1.getClass().getName().compareTo(a2.getClass().getName());
-                                     } else {
-                                         return -1;
-                                     }
-                                 } else {
-                                     if (a2.getId()==null) {
-                                         return +1;
-                                     } else {
-                                         return a1.getId().compareTo(a2.getId());                                         
-                                     }
-                                 }
-
-
-                             }});
-    }
-
-    public void sortAnnotations(List<JAXBElement<? extends EmbeddedAnnotation>> ll) {
-        Collections.sort(ll,
-                         new Comparator() {
-                             public int compare(Object o1, Object o2) {
-                                 JAXBElement j1=(JAXBElement) o1;
-                                 JAXBElement j2=(JAXBElement) o2;
-                                 EmbeddedAnnotation a1=(EmbeddedAnnotation) j1.getValue();
-                                 EmbeddedAnnotation a2=(EmbeddedAnnotation) j2.getValue();
-
-                                 if (a1.getId()==null) {
-                                     if (a2.getId()==null) {
-                                         return a1.getClass().getName().compareTo(a2.getClass().getName());
-                                     } else {
-                                         return -1;
-                                     }
-                                 } else {
-                                     if (a2.getId()==null) {
-                                         return +1;
-                                     } else {
-                                         return a1.getId().compareTo(a2.getId());                                         
-                                     }
-                                 }
-
-
-                             }});
-    }
-
-    public void sortEdges(List ll) {
-        Collections.sort(ll,
-                         new Comparator() {
-                             public int compare(Object o1, Object o2) {
-                                 Edge e1=(Edge) o1;
-                                 Edge e2=(Edge) o2;
-                                 String id1_1=((Identifiable)(e1.getCause().getRef())).getId();
-                                 String id1_2=((Identifiable)(e1.getEffect().getRef())).getId();
-                                 String s1=id1_1+id1_2;
-                                 String id2_1=((Identifiable)(e2.getCause().getRef())).getId();
-                                 String id2_2=((Identifiable)(e2.getEffect().getRef())).getId();
-                                 String s2=id2_1+id2_2;
-                                 
-                                 return s1.compareTo(s2);
-                             }
-
-                         });
-    }
 
 
 }

@@ -2,6 +2,7 @@ package org.openprovenance.elmo;
 import java.util.Collection;
 import java.util.Set;
 import java.util.List;
+import java.util.LinkedList;
 import java.util.HashSet;
 import java.util.Hashtable;
 import javax.xml.bind.JAXBElement;
@@ -16,6 +17,10 @@ import org.openprovenance.model.EmbeddedAnnotation;
 import org.openprovenance.model.Property;
 import org.openprovenance.model.Annotable;
 import org.openprovenance.model.Label;
+import org.openprovenance.model.Agent;
+import org.openprovenance.model.Artifact;
+import org.openprovenance.model.Process;
+import org.openprovenance.model.Account;
 
 import org.openprovenance.rdf.AnnotationOrEdgeOrNode;
 import org.openrdf.elmo.Entity;
@@ -35,11 +40,12 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
     }
 
     public void addProperty(EmbeddedAnnotation ann, Property p) {
-       HasFacade facade=(HasFacade) ann;
-       Object o=facade.findMyFacade();
-       org.openprovenance.rdf.Annotation ann2=(org.openprovenance.rdf.Annotation) o;
-       org.openprovenance.rdf.Property p2=(org.openprovenance.rdf.Property) ((HasFacade)p).findMyFacade();
-       ann2.getProperties().add(p2);
+        super.addProperty(ann,p);
+        HasFacade facade=(HasFacade) ann;
+        Object o=facade.findMyFacade();
+        org.openprovenance.rdf.Annotation ann2=(org.openprovenance.rdf.Annotation) o;
+        org.openprovenance.rdf.Property p2=(org.openprovenance.rdf.Property) ((HasFacade)p).findMyFacade();
+        ann2.getProperties().add(p2);
     }
 
     public void addAccounts(HasAccounts element, Collection<AccountRef> accounts) {
@@ -66,7 +72,6 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
     }
 
     public void addAnnotation(Annotable annotable, Label ann) {
-        System.out.println("*********** adding an annotation Label! ");
         if (ann!=null) {
             super.addAnnotation(annotable,ann);
             try {
@@ -353,13 +358,65 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
         }
     }
 
+    public OPMGraph newOPMGraph(org.openprovenance.rdf.OPMGraph gr) {
+
+        QName qname=((Entity)gr).getQName();
+        
+        List<Account> accs=new LinkedList();
+        for (org.openprovenance.rdf.Account acc: gr.getHasAccount()) {
+            accs.add(newAccount(acc));
+        }
 
 
+        List<Artifact> as=new LinkedList();
+        for (org.openprovenance.rdf.Artifact a: gr.getHasArtifact()) {
+            as.add(newArtifact(a));
+        }
 
-//     public RdfWasDerivedFrom newWasDerivedFrom(QName qname) {
-//         return new RdfWasDerivedFrom(manager,qname);
-//     }
+        List<Process> ps=new LinkedList();
+        for (org.openprovenance.rdf.Process p: gr.getHasProcess()) {
+            ps.add(newProcess(p));
+        }
 
+        List<Agent> ags=new LinkedList();
+        for (org.openprovenance.rdf.Agent ag: gr.getHasAgent()) {
+            ags.add(newAgent(ag));
+        }
+
+        List<Object> lks=new LinkedList();
+        for (org.openprovenance.rdf.Edge edge: gr.getHasDependency()) {
+             if (edge instanceof org.openprovenance.rdf.Used) {
+                lks.add(newUsed((org.openprovenance.rdf.Used) edge));
+            } else if (edge instanceof org.openprovenance.rdf.WasGeneratedBy) {
+                lks.add(newWasGeneratedBy((org.openprovenance.rdf.WasGeneratedBy) edge));
+            } else if (edge instanceof org.openprovenance.rdf.WasDerivedFrom) {
+                lks.add(newWasDerivedFrom((org.openprovenance.rdf.WasDerivedFrom) edge));
+            } else if (edge instanceof org.openprovenance.rdf.WasControlledBy) {
+                lks.add(newWasControlledBy((org.openprovenance.rdf.WasControlledBy) edge));
+            } else if (edge instanceof org.openprovenance.rdf.WasTriggeredBy) {
+                lks.add(newWasTriggeredBy((org.openprovenance.rdf.WasTriggeredBy) edge));
+            }
+        }
+
+
+        List<Annotation> anns=new LinkedList();
+
+        for (org.openprovenance.rdf.Annotation ann: gr.getAnnotations()) {
+            RdfAnnotation ann2=newAnnotation(ann);
+            anns.add(ann2);
+        }
+
+        //System.out.println("Artifacts " + as);
+
+        return super.newOPMGraph(qname.getLocalPart(),
+                                 accs,
+                                 new LinkedList(),
+                                 ps,
+                                 as,
+                                 ags,
+                                 lks,
+                                 anns);
+    }
 
 
 }

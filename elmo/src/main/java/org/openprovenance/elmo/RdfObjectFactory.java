@@ -116,13 +116,4 @@ public class RdfObjectFactory extends org.openprovenance.model.ObjectFactory {
         return new RdfValue(manager,prefix);
     }
 
-
-    /** Don't understand how this is used! */
-
-    @factory
-    public org.openprovenance.rdf.Artifact createArtifact2(org.openprovenance.rdf.Artifact a) {
-        System.out.println("*************************** " + a);
-        return a;
-    }
-
 }
