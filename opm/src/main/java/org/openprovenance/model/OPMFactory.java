@@ -32,6 +32,10 @@ public class OPMFactory implements CommonURIs {
         this.of=of;
     }
 
+    public ObjectFactory getObjectFactory() {
+        return of;
+    }
+
     public ProcessRef newProcessRef(Process p) {
         ProcessRef res=of.createProcessRef();
         res.setRef(p);

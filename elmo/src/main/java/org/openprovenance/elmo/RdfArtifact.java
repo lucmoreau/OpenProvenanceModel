@@ -36,35 +36,8 @@ public class RdfArtifact extends org.openprovenance.model.Artifact implements  H
 
     public org.openprovenance.rdf.Artifact findMyFacade() {
         org.openprovenance.rdf.Artifact a=(org.openprovenance.rdf.Artifact)manager.find(getQName());
-        for (org.openprovenance.rdf.Account acc: ((org.openprovenance.rdf.AnnotationOrEdgeOrNode) a).getAccounts()) {
-            System.out.println("Foudn " +         acc);
-        }
         return a;
     }
-
-
-    public void setAccounts(Set<? extends Account> accs) {
-        for (Account acc: accs) {
-            //getAccount().add(acc.getRef());
-            throw new UnsupportedOperationException();
-        }
-    }
-
-    public Set<Account> getAccounts() {
-        throw new UnsupportedOperationException();
-    }
-        
-
-    public void setAnnotations(java.util.Set<? extends org.openprovenance.rdf.Annotation> ann) {
-        throw new UnsupportedOperationException();
-    }
-
-
-
-    public java.util.Set<org.openprovenance.rdf.Annotation> getAnnotations() {
-        throw new UnsupportedOperationException();
-    }
-
 
 
 }

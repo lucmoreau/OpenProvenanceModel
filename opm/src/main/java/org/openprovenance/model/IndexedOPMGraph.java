@@ -145,7 +145,7 @@ public class IndexedOPMGraph extends OPMGraph {
 }
 
 
-    protected ObjectFactory of=new ObjectFactory();
+    final protected ObjectFactory of;
 
     public Account getAccount(String name) {
         return accountMap.get(name);
@@ -242,6 +242,7 @@ public class IndexedOPMGraph extends OPMGraph {
             
     public IndexedOPMGraph(OPMFactory oFactory, OPMGraph graph) {
         this.oFactory=oFactory;
+        this.of=oFactory.getObjectFactory();
         if (graph.getAccounts()!=null) {
             for (Account acc: graph.getAccounts().getAccount()) {
                 addAccount(acc);

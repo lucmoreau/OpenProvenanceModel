@@ -41,8 +41,15 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
 
     public void addProperty(EmbeddedAnnotation ann, Property p) {
         super.addProperty(ann,p);
-        HasFacade facade=(HasFacade) ann;
-        Object o=facade.findMyFacade();
+        Object o=((HasFacade) ann).findMyFacade();
+        org.openprovenance.rdf.Annotation ann2=(org.openprovenance.rdf.Annotation) o;
+        org.openprovenance.rdf.Property p2=(org.openprovenance.rdf.Property) ((HasFacade)p).findMyFacade();
+        ann2.getProperties().add(p2);
+    }
+
+    public void addProperty(Annotation ann, Property p) {
+        super.addProperty(ann,p);
+        Object o=((HasFacade) ann).findMyFacade();
         org.openprovenance.rdf.Annotation ann2=(org.openprovenance.rdf.Annotation) o;
         org.openprovenance.rdf.Property p2=(org.openprovenance.rdf.Property) ((HasFacade)p).findMyFacade();
         ann2.getProperties().add(p2);
@@ -227,6 +234,7 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
 
     public RdfAnnotation newAnnotation(org.openprovenance.rdf.Annotation a) {
         QName qname=((Entity)a).getQName();
+
         RdfAnnotation res=new RdfAnnotation(manager,qname);
         addAccounts((org.openprovenance.rdf.AnnotationOrEdgeOrNode)a,res.getAccount());
         for (org.openprovenance.rdf.Property prop: a.getProperties()) {
@@ -239,6 +247,9 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
         QName qname=((Entity)a).getQName();
         RdfEmbeddedAnnotation res=new RdfEmbeddedAnnotation(manager,qname);
         addAccounts((org.openprovenance.rdf.AnnotationOrEdgeOrNode)a,res.getAccount());
+        for (org.openprovenance.rdf.Property prop: a.getProperties()) {
+            res.getProperty().add(newProperty(prop));
+        }
         return res;
     }
 
@@ -342,7 +353,7 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
 
     public void processAnnotations(org.openprovenance.rdf.Annotable a, Annotable res) {
         for (org.openprovenance.rdf.Annotation ann: a.getAnnotations()) {
-            addAnnotation(res,newAnnotation(ann));
+            addAnnotation(res,newEmbeddedAnnotation(ann));
         }
         for (String label: a.getLabels()) {
             super.addAnnotation(res,newLabel(label));
@@ -399,23 +410,24 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
         }
 
 
-        List<Annotation> anns=new LinkedList();
+        List<Annotation> anns=null;
+
+        OPMGraph res=super.newOPMGraph(qname.getLocalPart(),
+                                       accs,
+                                       new LinkedList(),
+                                       ps,
+                                       as,
+                                       ags,
+                                       lks,
+                                       anns);
 
         for (org.openprovenance.rdf.Annotation ann: gr.getAnnotations()) {
-            RdfAnnotation ann2=newAnnotation(ann);
-            anns.add(ann2);
+            //RdfAnnotation ann2=newAnnotation(ann);
+            RdfEmbeddedAnnotation ann2=newEmbeddedAnnotation(ann);
+            super.addAnnotation(res,ann2);
         }
 
-        //System.out.println("Artifacts " + as);
-
-        return super.newOPMGraph(qname.getLocalPart(),
-                                 accs,
-                                 new LinkedList(),
-                                 ps,
-                                 as,
-                                 ags,
-                                 lks,
-                                 anns);
+        return res;
     }
 
 

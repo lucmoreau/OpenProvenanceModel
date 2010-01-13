@@ -108,9 +108,8 @@ public class Normalise  {
     }
 
 
-    //TODO: write a normalisation class in opm package
 
-    public void updateOriginalGraph(OPMGraph graph) {
+    public void embedExternalAnnotations(OPMGraph graph) {
 
         IndexedOPMGraph igraph=new IndexedOPMGraph(oFactory,graph);
 
@@ -132,13 +131,20 @@ public class Normalise  {
                     if (a!=null) {
                         a.getAnnotation().add(oFactory.compactAnnotation(embedded));
                     } else {
-                        
+                        Agent ag=igraph.getAgent(id);
+                        if (ag!=null) {
+                            ag.getAnnotation().add(oFactory.compactAnnotation(embedded));
+                        }
                     }
                 }
             }
-
             graph.setAnnotations(null);
         }
+    }
+
+    public void updateOriginalGraph(OPMGraph graph) {
+
+        embedExternalAnnotations(graph);
 
         if (graph.getProcesses()!=null && graph.getProcesses().getProcess()!=null) {
             for (Process p: graph.getProcesses().getProcess()) {

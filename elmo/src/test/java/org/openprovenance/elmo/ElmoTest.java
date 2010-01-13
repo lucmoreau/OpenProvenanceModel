@@ -250,9 +250,18 @@ public class ElmoTest
     }
 
     public void testCompareGraphs() throws Exception {
-        Normalise normaliser=new Normalise(null);
-        normaliser.noAnnotation(graph1);
-        normaliser.noAnnotation(graph2);
+        OPMFactory oFactory=new OPMFactory();  // use a regular factory, not an rdf one
+        
+        Normalise normaliser=new Normalise(oFactory);
+
+        // graph1: xml graph
+        // graph2, from rdf graph
+        normaliser.embedExternalAnnotations(graph1);
+
+
+        //no need, since by nature, they are embedded in rdf
+        //normaliser.embedExternalAnnotations(graph2);
+
         normaliser.sortGraph(graph1);
         normaliser.sortGraph(graph2);
 
