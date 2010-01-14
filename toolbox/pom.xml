@@ -25,7 +25,13 @@
 
     <dependency>
       <groupId>org.openprovenance</groupId>
-      <artifactId>tupelo</artifactId>
+      <artifactId>opm-tupelo</artifactId>
+      <version>1.2-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.openprovenance</groupId>
+      <artifactId>opm-elmo</artifactId>
       <version>1.2-SNAPSHOT</version>
     </dependency>
  </dependencies>
@@ -66,6 +72,10 @@
             <program>
               <mainClass>org.openprovenance.model.OPMDeserialiser</mainClass>
               <name>opmxml-validate</name>
+            </program>
+            <program>
+              <mainClass>org.openprovenance.elmo.RepositoryHelper</mainClass>
+              <name>opmconvert</name>
             </program>
           </programs>
           <repositoryLayout>default</repositoryLayout>

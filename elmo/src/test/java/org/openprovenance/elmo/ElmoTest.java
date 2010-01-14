@@ -227,7 +227,7 @@ public class ElmoTest
 
         ElmoManager manager = factory.createElmoManager();
         RdfOPMFactory oFactory=new RdfOPMFactory(new RdfObjectFactory(manager,TEST_NS),
-                                              manager);
+                                                 manager);
 
         rHelper.readFromRDF(file,null,(SesameManager)manager,RDFFormat.RDFXML);
         QName qname = new QName(TEST_NS, "gr1");

@@ -7,7 +7,7 @@
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.openprovenance</groupId>
-  <artifactId>tupelo</artifactId>
+  <artifactId>opm-tupelo</artifactId>
   <name>Open Provenance Model RDF binding with Tupelo</name>
   <version>1.2-SNAPSHOT</version>
   <packaging>jar</packaging>
