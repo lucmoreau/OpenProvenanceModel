@@ -276,6 +276,12 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
         return account;
     }
     
+    public RdfOTime newOTime(org.openprovenance.rdf.OTime a) {
+        QName qname=((Entity)a).getQName();
+        RdfOTime res=new RdfOTime(manager,qname);
+        res.setFields(a.getNoEarlierThan(), a.getNoEarlierThan());
+        return res;
+    }
 
     public void addAccounts(org.openprovenance.rdf.AnnotationOrEdgeOrNode hasAccounts,
                             List<AccountRef> accounts) {
@@ -307,6 +313,7 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
                       newRole(role));
         addAccounts((org.openprovenance.rdf.AnnotationOrEdgeOrNode)a,wgb.getAccount());
         processAnnotations(a,wgb);
+        wgb.setTime(newOTime(a.getTime()));
         return wgb;
     }
 
@@ -321,6 +328,7 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
                     newRole(role));
         addAccounts((org.openprovenance.rdf.AnnotationOrEdgeOrNode)a,u.getAccount());
         processAnnotations(a,u);
+        u.setTime(newOTime(a.getTime()));
         return u;
     }
 
@@ -335,6 +343,8 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
                       newRole(role));
         addAccounts((org.openprovenance.rdf.AnnotationOrEdgeOrNode)a,wcb.getAccount());
         processAnnotations(a,wcb);
+        wcb.setStartTime(newOTime(a.getStartTime()));
+        wcb.setEndTime(newOTime(a.getEndTime()));
         return wcb;
     }
 
@@ -368,6 +378,8 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
             super.addAnnotation(res,newType(type));
         }
     }
+
+
 
     public OPMGraph newOPMGraph(org.openprovenance.rdf.OPMGraph gr) {
 

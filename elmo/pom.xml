@@ -194,26 +194,6 @@ imported before converting.
       </plugin>
 
 
-<!--
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <descriptors>
-          <descriptor>${project.build.directory}/classes/opm2dot-assembly.xml</descriptor>
-         </descriptors>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <id>make-assembly</id>
-              <goals>
-               <goal>single</goal>
-              </goals>
-          </execution>
-        </executions>
-      </plugin>
-
--->
 
     </plugins>
 

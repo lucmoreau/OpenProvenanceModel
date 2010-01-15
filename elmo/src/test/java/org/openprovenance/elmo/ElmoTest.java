@@ -139,6 +139,8 @@ public class ElmoTest
         assert (u1 instanceof RdfUsed);
         //assert (u1 instanceof Edge);
 
+        u1.setTime(oFactory.newInstantaneousTimeNow());
+
 
         WasGeneratedBy wg1=oFactory.newWasGeneratedBy("g1",a1,oFactory.newRole("r2","r2"),p1,accl12);
         assert (wg1 instanceof RdfWasGeneratedBy);
@@ -158,6 +160,9 @@ public class ElmoTest
         WasControlledBy wc1=oFactory.newWasControlledBy("c1",p1,oFactory.newRole("r3","r3"),ag1,accl2);
         assert (wc1 instanceof RdfWasControlledBy);
         //assert (wc1 instanceof Edge);
+
+        wc1.setStartTime(oFactory.newInstantaneousTimeNow());
+        wc1.setEndTime(oFactory.newInstantaneousTimeNow());
 
         Annotation an1=oFactory.newAnnotation("an1",a1,"prop1","val1",accl1);
 

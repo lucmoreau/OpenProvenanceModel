@@ -76,28 +76,14 @@ public class RdfWasGeneratedBy extends org.openprovenance.model.WasGeneratedBy i
         super.setRole(role);
     }
 
-
-    public void setAccounts(Set<? extends Account> accs) {
-        for (Account acc: accs) {
-            //getAccount().add(acc.getRef());
-            throw new UnsupportedOperationException();
-        }
+    public void setTime(org.openprovenance.model.OTime otime) {
+        super.setTime(otime);
+        QName q=((HasFacade)(otime)).getQName();
+        org.openprovenance.rdf.OTime time=(org.openprovenance.rdf.OTime)manager.find(q);
+        org.openprovenance.rdf.EventEdge u=(org.openprovenance.rdf.WasGeneratedBy)manager.find(getQName());
+        u.setTime(time);
     }
 
-    public Set<Account> getAccounts() {
-        throw new UnsupportedOperationException();
-    }
-
-
-    public void setAnnotations(java.util.Set<? extends org.openprovenance.rdf.Annotation> ann) {
-        throw new UnsupportedOperationException();
-    }
-
-
-
-    public java.util.Set<org.openprovenance.rdf.Annotation> getAnnotations() {
-        throw new UnsupportedOperationException();
-    }
 
 
 }

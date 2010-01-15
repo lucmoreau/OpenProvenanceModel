@@ -8,6 +8,10 @@ schema opm_v1.01 hardcoded in validator
 elmo:
  
 
- - labels not serialised to rdf
 
- 
+- opmconvert to finish
+   - namespace TEST_NS
+   - graph id (specify it, or find a graph)
+   - convert opm graph into rdf opm graph
+    
+

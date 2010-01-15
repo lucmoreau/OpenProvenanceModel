@@ -169,12 +169,12 @@
 
   <xs:complexType name="WasControlledBy">
 	<xs:sequence>
-	  <xs:element name="effect"  type="opm:ProcessRef"/>
-	  <xs:element name="role"    type="opm:Role"/>
-	  <xs:element name="cause"   type="opm:AgentRef"/>
-	  <xs:element name="account" minOccurs="0"    maxOccurs="unbounded" type="opm:AccountRef"/>
-      <xs:element name="start"   type="opm:OTime" minOccurs="0"/>
-      <xs:element name="end"     type="opm:OTime" minOccurs="0"/>
+	  <xs:element name="effect"      type="opm:ProcessRef"/>
+	  <xs:element name="role"        type="opm:Role"/>
+	  <xs:element name="cause"       type="opm:AgentRef"/>
+	  <xs:element name="account"     minOccurs="0"    maxOccurs="unbounded" type="opm:AccountRef"/>
+      <xs:element name="startTime"   type="opm:OTime" minOccurs="0"/>
+      <xs:element name="endTime"     type="opm:OTime" minOccurs="0"/>
 	  <xs:element ref="opm:annotation"  minOccurs="0" maxOccurs="unbounded"/>
 	</xs:sequence>
     <xs:attribute name="id" type="xs:ID"/>
@@ -302,9 +302,9 @@
  <!-- Observed Time allow for interval of observation. -->
   <xs:complexType name="OTime">
 	<xs:sequence>
-	  <xs:element name="noLaterThan"   type="xs:dateTime" minOccurs="0"  maxOccurs="1" />
-	  <xs:element name="noEarlierThan" type="xs:dateTime" minOccurs="0"  maxOccurs="1" />
 	</xs:sequence>
+	  <xs:attribute name="noEarlierThan" type="xs:dateTime" />
+	  <xs:attribute name="noLaterThan"   type="xs:dateTime" />
   </xs:complexType>
 
 

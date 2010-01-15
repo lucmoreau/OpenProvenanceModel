@@ -78,28 +78,25 @@ public class RdfWasControlledBy extends org.openprovenance.model.WasControlledBy
     }
 
 
-    public void setAccounts(Set<? extends Account> accs) {
-        for (Account acc: accs) {
-            //getAccount().add(acc.getRef());
-            throw new UnsupportedOperationException();
-        }
-    }
-
-    public Set<Account> getAccounts() {
-        throw new UnsupportedOperationException();
+    public void setStartTime(org.openprovenance.model.OTime otime) {
+        super.setStartTime(otime);
+        QName q=((HasFacade)(otime)).getQName();
+        org.openprovenance.rdf.OTime time=(org.openprovenance.rdf.OTime)manager.find(q);
+        org.openprovenance.rdf.WasControlledBy wcb=(org.openprovenance.rdf.WasControlledBy)manager.find(getQName());
+        wcb.setStartTime(time);
     }
 
 
 
-    public void setAnnotations(java.util.Set<? extends org.openprovenance.rdf.Annotation> ann) {
-        throw new UnsupportedOperationException();
+    public void setEndTime(org.openprovenance.model.OTime otime) {
+        super.setEndTime(otime);
+        QName q=((HasFacade)(otime)).getQName();
+        org.openprovenance.rdf.OTime time=(org.openprovenance.rdf.OTime)manager.find(q);
+        org.openprovenance.rdf.WasControlledBy wcb=(org.openprovenance.rdf.WasControlledBy)manager.find(getQName());
+        wcb.setEndTime(time);
     }
 
 
-
-    public java.util.Set<org.openprovenance.rdf.Annotation> getAnnotations() {
-        throw new UnsupportedOperationException();
-    }
 
 
 }
