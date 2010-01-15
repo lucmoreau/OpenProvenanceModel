@@ -124,4 +124,20 @@ public class PC1Test
         toDot.convert(graph1,"target/pc1.dot", "target/pc1.pdf");
     }
 
+
+
+
+    public void testCopy() throws java.io.FileNotFoundException,  java.io.IOException   {
+        OPMFactory oFactory=new OPMFactory();
+
+        OPMGraph graph2=oFactory.newOPMGraph(graph1);
+
+        assertTrue( "self graph1 differ", graph1.equals(graph1) );        
+
+        assertTrue( "self graph2 differ", graph2.equals(graph2) );        
+
+        assertTrue( "graph1 graph2 differ", graph1.equals(graph2) );        
+        
+    }
+
 }
