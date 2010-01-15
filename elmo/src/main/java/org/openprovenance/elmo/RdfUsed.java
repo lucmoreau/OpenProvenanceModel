@@ -75,30 +75,15 @@ public class RdfUsed extends org.openprovenance.model.Used implements HasFacade 
         super.setRole(role);
     }
 
+    public void setTime(org.openprovenance.model.OTime otime) {
+        super.setTime(otime);
+        org.openprovenance.rdf.EventEdge u=(org.openprovenance.rdf.Used)manager.find(getQName());
 
-    public void setAccounts(Set<? extends Account> accs) {
-        for (Account acc: accs) {
-            //getAccount().add(acc.getRef());
-            throw new UnsupportedOperationException();
-        }
+
+
+        //u.setTime(otime.toRdf())
     }
 
-    public Set<Account> getAccounts() {
-        throw new UnsupportedOperationException();
-    }
-
-
-    public void setAnnotations(java.util.Set<? extends org.openprovenance.rdf.Annotation> ann) {
-        throw new UnsupportedOperationException();
-    }
-
-
-
-    public java.util.Set<org.openprovenance.rdf.Annotation> getAnnotations() {
-        throw new UnsupportedOperationException();
-    }
-
-        
 
 
 }

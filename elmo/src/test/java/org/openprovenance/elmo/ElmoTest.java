@@ -144,6 +144,7 @@ public class ElmoTest
         assert (wg1 instanceof RdfWasGeneratedBy);
         //assert (wg1 instanceof Edge);
 
+        wg1.setTime(oFactory.newInstantaneousTimeNow());
 
         WasDerivedFrom wd1=oFactory.newWasDerivedFrom("d1",a2,a1,accl2);
         assert (wd1 instanceof RdfWasDerivedFrom);

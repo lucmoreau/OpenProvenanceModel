@@ -21,6 +21,7 @@ import org.openprovenance.model.Type;
 import org.openprovenance.model.PName;
 import org.openprovenance.model.Profile;
 import org.openprovenance.model.Value;
+import org.openprovenance.model.OTime;
 
 import org.openrdf.elmo.ElmoManager;
 
@@ -115,5 +116,10 @@ public class RdfObjectFactory extends org.openprovenance.model.ObjectFactory {
     public Value createValue() {
         return new RdfValue(manager,prefix);
     }
+
+    public OTime createOTime() {
+        return new RdfOTime(manager,prefix);
+    }
+
 
 }

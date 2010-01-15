@@ -41,6 +41,7 @@ public class RepositoryHelper {
         module.addConcept(org.openprovenance.rdf.WasControlledBy.class);
         module.addConcept(org.openprovenance.rdf.Annotation.class);
         module.addConcept(org.openprovenance.rdf.Property.class);
+        module.addConcept(org.openprovenance.rdf.TimeInterval.class);
     }
 
     public void setPrefixes(RDFHandler serialiser,
