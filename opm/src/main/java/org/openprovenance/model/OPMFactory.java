@@ -517,7 +517,7 @@ public class OPMFactory implements CommonURIs {
 
 	public OTime newInstantaneousTime (String value) {
         XMLGregorianCalendar point = dataFactory.newXMLGregorianCalendar (value);
-        return newOTime(point);
+        return newOTime(point,point);
     }
 
 
