@@ -338,6 +338,67 @@ public class OPMFactory implements CommonURIs {
     }
 
 
+    /** Return the value of the value property. */
+
+    public List<Object> getValues(List<JAXBElement<? extends EmbeddedAnnotation>> annotations) {
+        List<Object> res=new LinkedList();
+        for (JAXBElement<? extends EmbeddedAnnotation> jann: annotations) {
+            EmbeddedAnnotation ann=jann.getValue();
+            Object value=getValue(ann);
+            if (value!=null) res.add(value);
+        }
+        return res;
+    }
+
+
+
+    /** Return the value of the label property. */
+    public List<String> getLabels(List<JAXBElement<? extends EmbeddedAnnotation>> annotations) {
+        List<String> res=new LinkedList();
+        for (JAXBElement<? extends EmbeddedAnnotation> jann: annotations) {
+            EmbeddedAnnotation ann=jann.getValue();
+            String label=getLabel(ann);
+            if (label!=null) res.add(label);
+        }
+        return res;
+    }
+
+
+    /** Return the value of the type property. */
+
+    public List<String> getTypes(List<JAXBElement<? extends EmbeddedAnnotation>> annotations) {
+        List<String> res=new LinkedList();
+        for (JAXBElement<? extends EmbeddedAnnotation> jann: annotations) {
+            EmbeddedAnnotation ann=jann.getValue();
+            String type=getType(ann);
+            if (type!=null) res.add(type);
+        }
+        return res;
+    }
+
+
+    /** Return the value of the profile property. */
+    public List<String> getProfiles(List<JAXBElement<? extends EmbeddedAnnotation>> annotations) {
+        List<String> res=new LinkedList();
+        for (JAXBElement<? extends EmbeddedAnnotation> jann: annotations) {
+            EmbeddedAnnotation ann=jann.getValue();
+            String profile=getProfile(ann);
+            if (profile!=null) res.add(profile);
+        }
+        return res;
+    }
+
+    /** Return the value of the pname property. */
+    public List<String> getPnames(List<JAXBElement<? extends EmbeddedAnnotation>> annotations) {
+        List<String> res=new LinkedList();
+        for (JAXBElement<? extends EmbeddedAnnotation> jann: annotations) {
+            EmbeddedAnnotation ann=jann.getValue();
+            String pname=getPname(ann);
+            if (pname!=null) res.add(pname);
+        }
+        return res;
+    }
+
     /** Generic accessor for annotable entities. */
     public String getLabel(Annotable annotable) {
         return getLabel(annotable.getAnnotation());
@@ -484,6 +545,10 @@ public class OPMFactory implements CommonURIs {
             }
 
 
+	public OTime newOTime (OTime time) {
+        return newOTime(time.getNoEarlierThan(),
+                        time.getNoLaterThan());
+    }
 
 	public OTime newOTime (XMLGregorianCalendar point1,
                            XMLGregorianCalendar point2) {
@@ -585,12 +650,65 @@ public class OPMFactory implements CommonURIs {
         return res;
     }
 
+    public Role newRole(Role role) {
+        return newRole(role.getId(),role.getValue());
+    }
+
     public Role newRole(String id, String value) {
         Role res=of.createRole();
         res.setId(id);
         res.setValue(value);
         return res;
     }
+
+    public Artifact newArtifact(Artifact a) {
+        LinkedList<Account> ll=new LinkedList();
+        for (AccountRef acc: a.getAccount()) {
+            ll.add(newAccount((Account)acc.getRef()));
+        }
+        Artifact res=newArtifact(a.getId(),ll);
+        addNewAnnotations(res,a.getAnnotation());
+        return res;
+    }
+    public Process newProcess(Process a) {
+        LinkedList<Account> ll=new LinkedList();
+        for (AccountRef acc: a.getAccount()) {
+            ll.add(newAccount((Account)acc.getRef()));
+        }
+        Process res=newProcess(a.getId(),ll);
+        addNewAnnotations(res,a.getAnnotation());
+        return res;
+    }
+    public Agent newAgent(Agent a) {
+        LinkedList<Account> ll=new LinkedList();
+        for (AccountRef acc: a.getAccount()) {
+            ll.add(newAccount((Account)acc.getRef()));
+        }
+        Agent res=newAgent(a.getId(),ll);
+        addNewAnnotations(res,a.getAnnotation());
+        return res;
+    }
+
+    public Account newAccount(Account acc) {
+        Account res=newAccount(acc.getId());
+        addNewAnnotations(res,acc.getAnnotation());
+        return res;
+    }
+
+    public void addNewAnnotations(Annotable res,
+                                  List<JAXBElement<? extends org.openprovenance.model.EmbeddedAnnotation>> anns) {
+        for (JAXBElement<? extends org.openprovenance.model.EmbeddedAnnotation> ann: anns) {
+            EmbeddedAnnotation ea=ann.getValue();
+            if (ea.getId()!=null) 
+            addAnnotation(res,newEmbeddedAnnotation(ea.getId(),
+                                                    ea.getProperty(),
+                                                    ea.getAccount(),
+                                                    null));
+        }
+    }
+
+
+
 
     public Artifact newArtifact(String id,
                                 Collection<Account> accounts) {
@@ -735,7 +853,6 @@ public class OPMFactory implements CommonURIs {
                                              d.getEffect(),
                                              d.getCause(),
                                              d.getAccount());
-        wdf.setId(d.getId());
         wdf.getAnnotation().addAll(d.getAnnotation());
         return wdf;
     }
@@ -1159,6 +1276,10 @@ public class OPMFactory implements CommonURIs {
         return res;
     }
 
+    public Property newProperty(Property property) {
+        return newProperty(property.getUri(),property.getValue());
+    }
+
 
     public void addProperty(Annotation ann, Property p) {
         ann.getProperty().add(p);
@@ -1186,6 +1307,28 @@ public class OPMFactory implements CommonURIs {
         res.setLocalSubject(ref.getRef());
         addProperty(res,newProperty(property,value));
         addAccounts(res,accs);
+        return res;
+    }
+
+    public Annotation newAnnotation(String id,
+                                    Object o,
+                                    List<Property> properties,
+                                    Collection<AccountRef> accs) {
+        Annotation res=of.createAnnotation();
+        res.setId(id);
+        res.setLocalSubject(o);
+        for (Property property: properties) {
+            addProperty(res,property);
+        }
+        addAccounts(res,accs);
+        return res;
+    }
+
+    public Annotation newAnnotation(Annotation ann) {
+        Annotation res=newAnnotation(ann.getId(),
+                                     ann.getLocalSubject(),
+                                     ann.getProperty(),
+                                     ann.getAccount());
         return res;
     }
 

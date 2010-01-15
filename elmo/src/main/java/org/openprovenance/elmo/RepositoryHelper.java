@@ -75,31 +75,40 @@ public class RepositoryHelper {
         manager.getConnection().add(file,uri,format);
     }
 
-    static String TEST_NS="http://example.com/";
 
     public static void main(String [] args) throws Exception {
-        if ((args==null) || (args.length!=3)) {
-            System.out.println("Usage: opmconvert [-rdf2xml | -xml2rdf] fileIn fileOut NS");
+        if ((args==null) || (!((args.length==4) || (args.length==5)))) {
+            System.out.println("Usage: opmconvert -xml2rdf fileIn fileOut NS [yes]");
+            System.out.println("Usage: opmconvert -rdf2xml fileIn fileOut NS [gid]");
             return;
         }
         if (args[0].equals("-rdf2xml")) {
             String fileIn=args[1];
             String fileOut=args[2];
+            String namespace=args[3];
+            String gid=null;
+            if (args.length==5) gid=args[4];
 
             RepositoryHelper rHelper=new RepositoryHelper();
-            rHelper.rdfToXml(fileIn,fileOut,TEST_NS,"gr1");
+            rHelper.rdfToXml(fileIn,fileOut,namespace,gid);
             return;
         }
-        //TODO: other options here
 
         if (args[0].equals("-xml2rdf")) {
             String fileIn=args[1];
             String fileOut=args[2];
+            String namespace=args[3];
+            String gid=null;
+            if (args.length==5) gid=args[4];
 
             RepositoryHelper rHelper=new RepositoryHelper();
-            rHelper.xmlToRdf(fileIn,fileOut,TEST_NS);
+            rHelper.xmlToRdf(fileIn,fileOut,namespace,gid);
             return;
         }
+
+        //TODO: other options here
+
+
     }
 
     public void rdfToXml(String fileIn, String fileOut, String NS, String graphId) throws Exception {
@@ -120,22 +129,26 @@ public class RepositoryHelper {
         OPMSerialiser.getThreadOPMSerialiser().serialiseOPMGraph(new File(fileOut),oGraph,true);
     }
 
-    public void xmlToRdf(String fileIn, String fileOut, String NS) throws Exception {
+    public void xmlToRdf(String fileIn, String fileOut, String NS, String gid) throws Exception {
         ElmoModule module = new ElmoModule();
         registerConcepts(module);
         ElmoManagerFactory factory=new SesameManagerFactory(module);
         ElmoManager manager = factory.createElmoManager();
 
-        RdfOPMFactory oFactory=new RdfOPMFactory(new RdfObjectFactory(manager,NS));
 
         OPMGraph oGraph=OPMDeserialiser.getThreadOPMDeserialiser().deserialiseOPMGraph(new File(fileIn));
-
         String graphId=oGraph.getId();
+
+
+        String namespace=NS;
+        if ((gid!=null) && (gid.equals("yes"))) namespace=namespace+ graphId +"/";
+        RdfOPMFactory oFactory=new RdfOPMFactory(new RdfObjectFactory(manager,namespace));
+
 
         //TODO:
         System.out.println("CREATE RDFOPMGraph VALUES");
 
-        Collection<String[]> prefixes=Collections.singleton(new String[]{"ex",TEST_NS});
+        Collection<String[]> prefixes=Collections.singleton(new String[]{"ex",namespace});
         
             
         dumpToRDF(new File(fileOut),(SesameManager)manager,RDFFormat.RDFXML,prefixes);

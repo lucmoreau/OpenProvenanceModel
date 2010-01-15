@@ -14,6 +14,7 @@ import org.openprovenance.model.AccountRef;
 import org.openprovenance.model.OPMGraph;
 import org.openprovenance.model.Annotation;
 import org.openprovenance.model.EmbeddedAnnotation;
+import org.openprovenance.model.Identifiable;
 import org.openprovenance.model.Property;
 import org.openprovenance.model.Annotable;
 import org.openprovenance.model.Label;
@@ -21,6 +22,11 @@ import org.openprovenance.model.Agent;
 import org.openprovenance.model.Artifact;
 import org.openprovenance.model.Process;
 import org.openprovenance.model.Account;
+import org.openprovenance.model.WasDerivedFrom;
+import org.openprovenance.model.Used;
+import org.openprovenance.model.WasGeneratedBy;
+import org.openprovenance.model.WasControlledBy;
+import org.openprovenance.model.WasTriggeredBy;
 
 import org.openprovenance.rdf.AnnotationOrEdgeOrNode;
 import org.openrdf.elmo.Entity;
@@ -254,6 +260,8 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
     }
 
 
+
+
     private Hashtable<QName, RdfAgent>    agentRegister    =new Hashtable();
     private Hashtable<QName, RdfProcess>  processRegister  =new Hashtable();
     private Hashtable<QName, RdfArtifact> artifactRegister =new Hashtable();
@@ -275,7 +283,31 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
         accountRegister.put(qname,account);
         return account;
     }
+
+
+    private Hashtable<String, Agent>    agentRegister2    =new Hashtable();
+    private Hashtable<String, Process>  processRegister2  =new Hashtable();
+    private Hashtable<String, Artifact> artifactRegister2 =new Hashtable();
+    private Hashtable<String, Account>  accountRegister2  =new Hashtable();
+
+    public Agent register(String id, Agent agent) {
+        agentRegister2.put(id,agent);
+        return agent;
+    }
+    public Process register(String id, Process process) {
+        processRegister2.put(id,process);
+        return process;
+    }
+    public Artifact register(String id, Artifact artifact) {
+        artifactRegister2.put(id,artifact);
+        return artifact;
+    }
+    public Account register(String id, Account account) {
+        accountRegister2.put(id,account);
+        return account;
+    }
     
+
     public RdfOTime newOTime(org.openprovenance.rdf.OTime a) {
         QName qname=((Entity)a).getQName();
         RdfOTime res=new RdfOTime(manager,qname);
@@ -288,6 +320,14 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
         for (org.openprovenance.rdf.Account acc: hasAccounts.getAccounts()) {
             accounts.add(newAccountRef(newAccount(acc)));
         }
+    }
+
+    public List<AccountRef> newAccounts(List<AccountRef> accounts) {
+        List<AccountRef> res=new LinkedList();
+        for (AccountRef acc: accounts) {
+            res.add(newAccountRef(accountRegister2.get(((Account)acc.getRef()).getId())));
+        }
+        return res;
     }
 
     public RdfWasDerivedFrom newWasDerivedFrom(org.openprovenance.rdf.WasDerivedFrom a) {
@@ -380,6 +420,31 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
     }
 
 
+    public void addNewAnnotations(Annotable res,
+                                  List<JAXBElement<? extends org.openprovenance.model.EmbeddedAnnotation>> anns) {
+        for (JAXBElement<? extends org.openprovenance.model.EmbeddedAnnotation> ann: anns) {
+            EmbeddedAnnotation ea=ann.getValue();
+
+            String label=getLabel(ea);
+            if (label!=null) addAnnotation(res,newLabel(label));
+
+            String type=getType(ea);
+            if (type!=null) addAnnotation(res,newType(type));
+
+            String profile=getProfile(ea);
+            if (profile!=null) addAnnotation(res,newProfile(profile));
+
+            String pname=getPname(ea);
+            if (pname!=null) addAnnotation(res,newPName(pname));
+
+            if (ea.getId()!=null) 
+            addAnnotation(res,newEmbeddedAnnotation(ea.getId(),
+                                                    ea.getProperty(),
+                                                    newAccounts(ea.getAccount()),
+                                                    null));
+        }
+    }
+
 
     public OPMGraph newOPMGraph(org.openprovenance.rdf.OPMGraph gr) {
 
@@ -440,6 +505,156 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
         }
 
         return res;
+    }
+
+    public WasDerivedFrom newWasDerivedFrom(WasDerivedFrom d) {
+        WasDerivedFrom wdf=newWasDerivedFrom(d.getId(),
+                                             newArtifactRef(artifactRegister2.get(((Artifact)d.getEffect().getRef()).getId())),
+                                             newArtifactRef(artifactRegister2.get(((Artifact)d.getCause().getRef()).getId())),
+                                             newAccounts(d.getAccount()));
+        wdf.getAnnotation().addAll(d.getAnnotation());
+        return wdf;
+    }
+
+    public WasTriggeredBy newWasTriggeredBy(WasTriggeredBy d) {
+        WasTriggeredBy wtb=newWasTriggeredBy(d.getId(),
+                                             newProcessRef(processRegister2.get(((Process)d.getEffect().getRef()).getId())),
+                                             newProcessRef(processRegister2.get(((Process)d.getCause().getRef()).getId())),
+                                             newAccounts(d.getAccount()));
+        wtb.getAnnotation().addAll(d.getAnnotation());
+        return wtb;
+    }
+
+    public Used newUsed(Used d) {
+        Used u=newUsed(d.getId(),
+                       newProcessRef(processRegister2.get(((Process)d.getEffect().getRef()).getId())),
+                       newRole(d.getRole()),
+                       newArtifactRef(artifactRegister2.get(((Artifact)d.getCause().getRef()).getId())),
+                       newAccounts(d.getAccount()));
+        u.getAnnotation().addAll(d.getAnnotation());
+        u.setTime(newOTime(d.getTime()));
+        return u;
+    }
+    public WasGeneratedBy newWasGeneratedBy(WasGeneratedBy d) {
+        WasGeneratedBy wgb=newWasGeneratedBy(d.getId(),
+                                             newArtifactRef(artifactRegister2.get(((Artifact)d.getEffect().getRef()).getId())),
+
+                                             newRole(d.getRole()),
+                                             newProcessRef(processRegister2.get(((Process)d.getCause().getRef()).getId())),
+                                             newAccounts(d.getAccount()));
+        wgb.getAnnotation().addAll(d.getAnnotation());
+        wgb.setTime(newOTime(d.getTime()));
+        return wgb;
+    }
+
+    public WasControlledBy newWasControlledBy(WasControlledBy d) {
+        WasControlledBy wcb=newWasControlledBy(d.getId(),
+                                               newProcessRef(processRegister2.get(((Process)d.getEffect().getRef()).getId())),
+                                               newRole(d.getRole()),
+                                               newAgentRef(agentRegister2.get(((Agent)d.getCause().getRef()).getId())),
+                                               newAccounts(d.getAccount()));
+        wcb.getAnnotation().addAll(d.getAnnotation());
+        wcb.setStartTime(newOTime(d.getStartTime()));
+        wcb.setEndTime(newOTime(d.getEndTime()));
+        return wcb;
+    }
+
+    public List<Property> newProperties(List<Property> props) {
+        List<Property> res=new LinkedList();
+        for (Property prop: props) {
+            res.add(newProperty(prop));
+        }
+        return res;
+    }
+    
+    public Annotation newAnnotation(Annotation ann) {
+        Annotation res=newAnnotation(ann.getId(),
+                                     getFromRegisters(((Identifiable)ann.getLocalSubject()).getId()),
+                                     newProperties(ann.getProperty()),
+                                     newAccounts(ann.getAccount()));
+        return res;
+    }
+
+    public Object getFromRegisters(String id) {
+        Object res=null;
+        res=artifactRegister2.get(id);
+        if (res!=null) return res;
+
+        res=accountRegister2.get(id);
+        if (res!=null) return res;
+
+        res=processRegister2.get(id);
+        if (res!=null) return res;
+
+        res=agentRegister2.get(id);
+        if (res!=null) return res;
+
+        return res;
+    }
+
+
+
+    public RdfOPMGraph newOPMGraph(OPMGraph gr) {
+
+        List<Account> accs=new LinkedList();
+        for (Account acc: gr.getAccounts().getAccount()) {
+            accs.add(register(acc.getId(),newAccount(acc)));
+        }
+
+
+
+        List<Artifact> as=new LinkedList();
+        for (Artifact a: gr.getArtifacts().getArtifact()) {
+            as.add(register(a.getId(),newArtifact(a)));
+        }
+
+        List<Process> ps=new LinkedList();
+        for (Process p: gr.getProcesses().getProcess()) {
+            ps.add(register(p.getId(), newProcess(p)));
+        }
+
+
+        List<Agent> ags=new LinkedList();
+        for (Agent ag: gr.getAgents().getAgent()) {
+            ags.add(register(ag.getId(), newAgent(ag)));
+        }
+
+        List<Object> lks=new LinkedList();
+
+        for (Object edge: gr.getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy()) {
+             if (edge instanceof org.openprovenance.model.Used) {
+                lks.add(newUsed((org.openprovenance.model.Used) edge));
+            } else if (edge instanceof org.openprovenance.model.WasGeneratedBy) {
+                lks.add(newWasGeneratedBy((org.openprovenance.model.WasGeneratedBy) edge));
+            } else if (edge instanceof org.openprovenance.model.WasDerivedFrom) {
+                lks.add(newWasDerivedFrom((org.openprovenance.model.WasDerivedFrom) edge));
+             } else if (edge instanceof org.openprovenance.model.WasControlledBy) {
+                 lks.add(newWasControlledBy((org.openprovenance.model.WasControlledBy) edge));
+             } else if (edge instanceof org.openprovenance.model.WasTriggeredBy) {
+                 lks.add(newWasTriggeredBy((org.openprovenance.model.WasTriggeredBy) edge));
+            }
+        }
+
+
+
+        List<Annotation> anns=new LinkedList();
+        for (Annotation ann: gr.getAnnotations().getAnnotation()) {
+            Annotation ann2=newAnnotation(ann);
+            anns.add(ann2);
+        }
+
+        OPMGraph res=super.newOPMGraph(gr.getId(),
+                                       accs,
+                                       new LinkedList(),
+                                       ps,
+                                       as,
+                                       ags,
+                                       lks,
+                                       anns);
+
+        addNewAnnotations(res,gr.getAnnotation());
+
+        return (RdfOPMGraph) res;
     }
 
 

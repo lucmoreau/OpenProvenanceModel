@@ -33,6 +33,7 @@ import org.openrdf.rio.n3.N3Writer;
 import org.openrdf.rio.ntriples.NTriplesWriter;
 import org.openrdf.rio.RDFFormat;
 
+import org.openprovenance.model.IndexedOPMGraph;
 import org.openprovenance.model.OPMSerialiser;
 import org.openprovenance.model.OPMDeserialiser;
 import org.openprovenance.model.OPMFactory;
@@ -255,7 +256,7 @@ public class ElmoTest
 
     }
 
-    public void testCompareGraphs() throws Exception {
+    public void testCompareGraphs() throws Exception{ 
         OPMFactory oFactory=new OPMFactory();  // use a regular factory, not an rdf one
         
         Normalise normaliser=new Normalise(oFactory);
@@ -308,6 +309,64 @@ public class ElmoTest
         assertTrue( "graph differ", graph1.equals(graph2) );
 
 
+    }
+
+    public void testCompareGraphCopys() throws Exception {
+        RdfOPMFactory oFactory=new RdfOPMFactory(new RdfObjectFactory(manager,TEST_NS));
+
+        OPMDeserialiser deserial=OPMDeserialiser.getThreadOPMDeserialiser();
+        OPMGraph graph1=deserial.deserialiseOPMGraph(new File("target/repository.xml"));
+
+        RdfOPMGraph graph3=oFactory.newOPMGraph(graph1);
+
+        OPMSerialiser.getThreadOPMSerialiser().serialiseOPMGraph(new File("target/graph3.xml"),graph3,true);
+
+        Normalise normaliser=new Normalise(oFactory);
+
+        normaliser.sortGraph(graph1);
+        normaliser.sortGraph(graph3);
+
+        //normaliser.noAnnotation(graph1);
+        //normaliser.noAnnotation(graph3);
+
+
+        OPMSerialiser.getThreadOPMSerialiser().serialiseOPMGraph(new File("target/normalised-graph1.xml"),graph1,true);
+        OPMSerialiser.getThreadOPMSerialiser().serialiseOPMGraph(new File("target/normalised-graph3.xml"),graph3,true);
+
+
+        System.out.println("Now comparing");
+
+
+        assertTrue( "self graph differ", graph1.equals(graph1) );
+
+        assertTrue( "self graph3  differ", graph3.equals(graph3) );
+
+        assertTrue( "accounts differ", graph1.getAccounts().getAccount().equals(graph3.getAccounts().getAccount()) );
+
+        assertTrue( "account overalps differ", graph1.getAccounts().getOverlaps().equals(graph3.getAccounts().getOverlaps()) );
+
+        assertTrue( "accounts elements differ", graph1.getAccounts().equals(graph3.getAccounts()) );
+
+        assertTrue( "processes elements differ", graph1.getProcesses().equals(graph3.getProcesses()) );
+
+        assertTrue( "artifacts elements differ", graph1.getArtifacts().equals(graph3.getArtifacts()) );
+
+        assertTrue( "edges elements differ", graph1.getCausalDependencies().equals(graph3.getCausalDependencies()) );
+
+        if (graph1.getAgents()!=null && graph3.getAgents()!=null) {
+            assertTrue( "agents elements differ", graph1.getAgents().equals(graph3.getAgents()) );
+        } else {
+            if (graph1.getAgents()!=null) {
+                assertTrue( "agents elements differ, graph not null",  graph1.getAgents().getAgent().isEmpty());
+                graph1.setAgents(null);
+            } else if (graph3.getAgents()!=null) {
+                assertTrue( "agents elements differ, graph not null",  graph3.getAgents().getAgent().isEmpty());
+                graph3.setAgents(null);
+            }
+        }
+
+
+        assertTrue( "copy of graph differs from original", graph1.equals(graph3) );
     }
 }
 

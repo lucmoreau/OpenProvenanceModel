@@ -121,6 +121,13 @@
   	              <arg value="opm2dot" />
                 </exec>
 
+
+                <exec executable="sed" dir="${project.build.directory}/appassembler/bin">
+  	              <arg value="-e s/^cd/#### no CD ### Luc/" />
+  	              <arg value="-iBAK" />
+  	              <arg value="opmconvert" />
+                </exec>
+
                 <exec executable="chmod" dir="${project.build.directory}/appassembler/bin">
   	              <arg value="a+x" />
   	              <arg value="opm2dot" />
@@ -162,6 +169,12 @@
   	              <arg value="a+x" />
   	              <arg value="opmxml-validate" />
   	              <arg value="opmxml-validate.bat" />
+                </exec>
+
+                <exec executable="chmod" dir="${project.build.directory}/appassembler/bin">
+  	              <arg value="a+x" />
+  	              <arg value="opmconvert" />
+  	              <arg value="opmconvert.bat" />
                 </exec>
 
 

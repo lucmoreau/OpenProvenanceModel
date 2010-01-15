@@ -239,6 +239,7 @@ public class IndexedOPMGraph extends OPMGraph {
     public Agent getAgent(String name) {
         return agentMap.get(name);
     }
+
             
     public IndexedOPMGraph(OPMFactory oFactory, OPMGraph graph) {
         this.oFactory=oFactory;
