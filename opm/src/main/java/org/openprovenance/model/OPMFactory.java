@@ -522,7 +522,14 @@ public class OPMFactory implements CommonURIs {
 
 
 	public OTime newInstantaneousTime (Date date) {
-        return newOTime(date,date);
+        GregorianCalendar gc=new GregorianCalendar();
+        gc.setTime(date);
+        XMLGregorianCalendar xgc=newXMLGregorianCalendar(gc);
+        return newOTime(xgc,xgc);
+    }
+
+	public OTime newInstantaneousTimeNow () {
+        return newInstantaneousTime(new Date());
     }
 
 
