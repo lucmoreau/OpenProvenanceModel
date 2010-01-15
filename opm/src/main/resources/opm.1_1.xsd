@@ -304,7 +304,6 @@
 	<xs:sequence>
 	  <xs:element name="noLaterThan"   type="xs:dateTime" minOccurs="0"  maxOccurs="1" />
 	  <xs:element name="noEarlierThan" type="xs:dateTime" minOccurs="0"  maxOccurs="1" />
-	  <xs:element name="clockId"       type="xs:string"/>
 	</xs:sequence>
   </xs:complexType>
 

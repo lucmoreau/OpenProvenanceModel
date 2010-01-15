@@ -3,7 +3,13 @@ import java.util.Collection;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Date;
 import javax.xml.bind.JAXBElement;
+import java.util.GregorianCalendar;
+import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.DatatypeConfigurationException;
+
 
 /** Factory of OPM objects. */
 
@@ -24,12 +30,26 @@ public class OPMFactory implements CommonURIs {
 
     protected ObjectFactory of;
 
+    protected DatatypeFactory dataFactory;
+
+    void init() {
+        try {
+            dataFactory= DatatypeFactory.newInstance ();
+        } catch (DatatypeConfigurationException ex) {
+            throw new RuntimeException (ex);
+        }
+    }
+
+
+
     public OPMFactory() {
         of=new ObjectFactory();
+        init();
     }
 
     public OPMFactory(ObjectFactory of) {
         this.of=of;
+        init();
     }
 
     public ObjectFactory getObjectFactory() {
@@ -457,6 +477,54 @@ public class OPMFactory implements CommonURIs {
 
         return of.createAnnotation(ann);
     }
+
+    public XMLGregorianCalendar
+           newXMLGregorianCalendar(GregorianCalendar gc) {
+                 return dataFactory.newXMLGregorianCalendar(gc);
+            }
+
+
+
+	public OTime newOTime (XMLGregorianCalendar point1,
+                           XMLGregorianCalendar point2) {
+        OTime time = of.createOTime();
+        time.setNoEarlierThan (point1);
+        time.setNoLaterThan (point2);
+        return time;
+    }
+
+	public OTime newOTime (String value1, String value2) {
+        XMLGregorianCalendar point1 = dataFactory.newXMLGregorianCalendar (value1);
+        XMLGregorianCalendar point2 = dataFactory.newXMLGregorianCalendar (value2);
+        return newOTime(point1,point2);
+    }
+
+	public OTime newOTime (Date date1,
+                           Date date2) {
+        GregorianCalendar gc1=new GregorianCalendar();
+        gc1.setTime(date1);
+        GregorianCalendar gc2=new GregorianCalendar();
+        gc2.setTime(date2);
+        OTime time = of.createOTime();
+        time.setNoEarlierThan (newXMLGregorianCalendar(gc1));
+        time.setNoLaterThan (newXMLGregorianCalendar(gc2));
+        return time;
+    }
+
+	public OTime newInstantaneousTime (XMLGregorianCalendar point) {
+        return newOTime(point,point);
+    }
+
+	public OTime newInstantaneousTime (String value) {
+        XMLGregorianCalendar point = dataFactory.newXMLGregorianCalendar (value);
+        return newOTime(point);
+    }
+
+
+	public OTime newInstantaneousTime (Date date) {
+        return newOTime(date,date);
+    }
+
 
     public boolean compactId=false;
     

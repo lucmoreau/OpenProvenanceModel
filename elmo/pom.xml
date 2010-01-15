@@ -57,7 +57,7 @@
 
     <dependency>
       <groupId>org.openprovenance</groupId>
-      <artifactId>opm</artifactId>
+      <artifactId>opm-core</artifactId>
       <version>1.2-SNAPSHOT</version>
     </dependency>
 
