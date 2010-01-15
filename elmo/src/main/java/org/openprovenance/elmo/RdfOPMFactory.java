@@ -620,6 +620,9 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
     }
 
 
+    /** Clones an OPMGraph to an OPMGraph with facade, and creates
+     * corresponding rdf representation in triple store. This is
+     * definitely a stateful operation. */
 
     public RdfOPMGraph newOPMGraph(OPMGraph gr) {
 
