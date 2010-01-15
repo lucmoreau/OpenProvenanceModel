@@ -145,8 +145,7 @@ public class RepositoryHelper {
         RdfOPMFactory oFactory=new RdfOPMFactory(new RdfObjectFactory(manager,namespace));
 
 
-        //TODO:
-        System.out.println("CREATE RDFOPMGraph VALUES");
+        RdfOPMGraph graph2=oFactory.newOPMGraph(oGraph);
 
         Collection<String[]> prefixes=Collections.singleton(new String[]{"ex",namespace});
         
