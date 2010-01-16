@@ -31,17 +31,23 @@ public class PC1TimeTest
         super( testName );
     }
 
-    /**
-     * @return the suite of tests being tested
-     */
-
-
     static OPMGraph graph1;
 
 
+    public void testPC1Time() throws JAXBException, InterruptedException {
+
+        OPMGraph graph=makePC1TimeGraph(oFactory);
+
+        OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
+        serial.serialiseOPMGraph(new File("target/pc1-time.xml"),graph,true);
+
+        graph1=graph;
+        System.out.println("PC1Time Test asserting True");
+        assertTrue( true );    
+    }
 
 
-    public void testPC1Time() throws JAXBException, InterruptedException
+    public OPMGraph makePC1TimeGraph(OPMFactory oFactory) throws InterruptedException
     {
 
         Collection<Account> black=Collections.singleton(oFactory.newAccount("black"));
@@ -57,7 +63,7 @@ public class PC1TimeTest
                                     "John Doe");
 
 
-        OTime otime0=oFactory.newInstantaneousTimeNow(); // testing with a now
+        OTime otime0=oFactory.newInstantaneousTimeNow(); // testing with now
         Thread.sleep(1000);
 
         Artifact a1=oFactory.newArtifact("a1",
@@ -123,16 +129,8 @@ public class PC1TimeTest
 
 
 
-        OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
-        serial.serialiseOPMGraph(new File("target/pc1-time.xml"),graph,true);
+        return graph;
 
-        
-        //System.out.println(sw);
-
-        graph1=graph;
-        System.out.println("PC1Time Test asserting True");
-        assertTrue( true );
-        
     }
     
 
