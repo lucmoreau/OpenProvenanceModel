@@ -11,9 +11,17 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.DatatypeConfigurationException;
 
 
-/** Factory of OPM objects. */
+/** A stateless factory of OPM objects. */
 
 public class OPMFactory implements CommonURIs {
+
+    static String roleIdPrefix="r_";
+    static String usedIdPrefix="u_";
+    static String wasGenerateByIdPrefix="g_";
+    static String wasDerivedFromIdPrefix="d_";
+    static String wasTriggeredByIdPrefix="t_";
+    static String wasControlledByIdPrefix="c_";
+    static String opmGraphIdPrefix="gr_";
 
     public static final String packageList=
         "org.openprovenance.model";
@@ -642,12 +650,20 @@ public class OPMFactory implements CommonURIs {
         res.getAccount().add(aid2);
         return res;
     }
-        
+
+    /** By default, no auto generation of Id.  Override this behaviour if required. */
+    public String autoGenerateId(String prefix) {
+        return null;
+    }
+
+    /** Conditional autogeneration of Id. By default, no auto
+     * generation of Id.  Override this behaviour if required. */
+    public String autoGenerateId(String prefix, String id) {
+        return id;
+    }
 
     public Role newRole(String value) {
-        Role res=of.createRole();
-        res.setValue(value);
-        return res;
+        return newRole(autoGenerateId(roleIdPrefix),value);
     }
 
     public Role newRole(Role role) {
@@ -747,7 +763,7 @@ public class OPMFactory implements CommonURIs {
                         ArtifactRef aid,
                         Collection<AccountRef> accounts) {
         Used res=of.createUsed();
-        res.setId(id);
+        res.setId(autoGenerateId(usedIdPrefix,id));
         res.setEffect(pid);
         res.setRole(role);
         res.setCause(aid);
@@ -875,7 +891,7 @@ public class OPMFactory implements CommonURIs {
                                             ProcessRef pid,
                                             Collection<AccountRef> accounts) {
         WasGeneratedBy res=of.createWasGeneratedBy();
-        res.setId(id);
+        res.setId(autoGenerateId(wasGenerateByIdPrefix,id));
         res.setCause(pid);
         res.setRole(role);
         res.setEffect(aid);
@@ -952,7 +968,7 @@ public class OPMFactory implements CommonURIs {
                                               AgentRef agid,
                                               Collection<AccountRef> accounts) {
         WasControlledBy res=of.createWasControlledBy();
-        res.setId(id);
+        res.setId(autoGenerateId(wasControlledByIdPrefix,id));
         res.setEffect(pid);
         res.setRole(role);
         res.setCause(agid);
@@ -999,7 +1015,7 @@ public class OPMFactory implements CommonURIs {
                                             ArtifactRef aid2,
                                             Collection<AccountRef> accounts) {
         WasDerivedFrom res=of.createWasDerivedFrom();
-        res.setId(id);
+        res.setId(autoGenerateId(wasDerivedFromIdPrefix,id));
         res.setCause(aid2);
         res.setEffect(aid1);
         addAccounts(res,accounts);
@@ -1065,7 +1081,7 @@ public class OPMFactory implements CommonURIs {
                                             ProcessRef pid2,
                                             Collection<AccountRef> accounts) {
         WasTriggeredBy res=of.createWasTriggeredBy();
-        res.setId(id);
+        res.setId(autoGenerateId(wasTriggeredByIdPrefix,id));
         res.setEffect(pid1);
         res.setCause(pid2);
         addAccounts(res,accounts);
@@ -1386,7 +1402,7 @@ public class OPMFactory implements CommonURIs {
                                 Collection<Annotation> anns)
     {
         OPMGraph res=of.createOPMGraph();
-        res.setId(id);
+        res.setId(autoGenerateId(opmGraphIdPrefix,id));
         if (accs!=null) {
             Accounts aaccs=of.createAccounts();
             aaccs.getAccount().addAll(accs);

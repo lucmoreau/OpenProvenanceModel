@@ -67,6 +67,15 @@
    	  <version>${jaxb.common.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.openprovenance</groupId>
+      <artifactId>opm-core</artifactId>
+      <version>1.2-SNAPSHOT</version>
+      <classifier>tests</classifier>
+      <scope>test</scope>
+    </dependency>
+
+
  </dependencies>
 
   <build>
@@ -81,40 +90,6 @@
 
 
      <plugins>
-
-      <!-- executable to be run as target/appassembler/bin/opm2dot src/test/resources/example2.xml file.dot file.pdf -->
-
-
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>appassembler-maven-plugin</artifactId>
-        <configuration>
-          <programs>
-            <program>
-              <mainClass>org.openprovenance.model.OPMToDot</mainClass>
-              <name>opm2dot</name>
-            </program>
-          </programs>
-          <repositoryLayout>default</repositoryLayout>
-          <repositoryName>lib</repositoryName>
-          <!-- Extra JVM arguments that will be included in the bin scripts 
-          <extraJvmArguments>-Xms128m</extraJvmArguments> -->
-          <platforms>
-            <platform>windows</platform>
-            <platform>unix</platform>
-          </platforms>
-
-        </configuration>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <id>assemble</id>
-              <goals>
-               <goal>assemble</goal>
-              </goals>
-          </execution>
-        </executions>
-      </plugin>
 
 
 

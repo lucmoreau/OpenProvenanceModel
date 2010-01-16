@@ -18,6 +18,9 @@ import junit.framework.TestSuite;
 public class PC1TimeTest 
     extends TestCase
 {
+
+    static public OPMFactory oFactory=new OPMFactory();
+
     /**
      * Create the test case
      *
@@ -40,7 +43,6 @@ public class PC1TimeTest
 
     public void testPC1Time() throws JAXBException, InterruptedException
     {
-        OPMFactory oFactory=new OPMFactory();
 
         Collection<Account> black=Collections.singleton(oFactory.newAccount("black"));
         

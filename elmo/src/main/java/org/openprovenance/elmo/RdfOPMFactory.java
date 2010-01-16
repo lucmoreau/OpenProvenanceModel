@@ -72,6 +72,20 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
         this.manager=manager;
     }
 
+    static int count=0;
+
+    public String autoGenerateId(String prefix) {
+        String id=prefix+count++;
+        return id;
+    }
+
+    public String autoGenerateId(String prefix, String id) {
+        if (id!=null) return id;
+        id=prefix+count++;
+        return id;
+    }
+
+    
     public void addProperty(EmbeddedAnnotation ann, Property p) {
         super.addProperty(ann,p);
         Object o=((HasFacade) ann).findMyFacade();
