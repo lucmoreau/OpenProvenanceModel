@@ -555,7 +555,19 @@ public class OPMFactory implements CommonURIs {
 
 	public OTime newOTime (OTime time) {
         return newOTime(time.getNoEarlierThan(),
-                        time.getNoLaterThan());
+                        time.getNoLaterThan(),
+                        time.getExactlyAt());
+    }
+
+
+	public OTime newOTime (XMLGregorianCalendar point1,
+                           XMLGregorianCalendar point2,
+                           XMLGregorianCalendar point3) {
+        OTime time = of.createOTime();
+        time.setNoEarlierThan (point1);
+        time.setNoLaterThan (point2);
+        time.setExactlyAt (point3);
+        return time;
     }
 
 	public OTime newOTime (XMLGregorianCalendar point1,
@@ -563,6 +575,12 @@ public class OPMFactory implements CommonURIs {
         OTime time = of.createOTime();
         time.setNoEarlierThan (point1);
         time.setNoLaterThan (point2);
+        return time;
+    }
+
+	public OTime newOTime (XMLGregorianCalendar point) {
+        OTime time = of.createOTime();
+        time.setExactlyAt (point);
         return time;
     }
 
@@ -578,19 +596,23 @@ public class OPMFactory implements CommonURIs {
         gc1.setTime(date1);
         GregorianCalendar gc2=new GregorianCalendar();
         gc2.setTime(date2);
-        OTime time = of.createOTime();
-        time.setNoEarlierThan (newXMLGregorianCalendar(gc1));
-        time.setNoLaterThan (newXMLGregorianCalendar(gc2));
-        return time;
+        return newOTime(newXMLGregorianCalendar(gc1),
+                        newXMLGregorianCalendar(gc2));
+    }
+
+	public OTime newOTime (Date date) {
+        GregorianCalendar gc=new GregorianCalendar();
+        gc.setTime(date);
+        return newOTime(newXMLGregorianCalendar(gc));
     }
 
 	public OTime newInstantaneousTime (XMLGregorianCalendar point) {
-        return newOTime(point,point);
+        return newOTime(point);
     }
 
 	public OTime newInstantaneousTime (String value) {
         XMLGregorianCalendar point = dataFactory.newXMLGregorianCalendar (value);
-        return newOTime(point,point);
+        return newOTime(point);
     }
 
 
@@ -598,7 +620,7 @@ public class OPMFactory implements CommonURIs {
         GregorianCalendar gc=new GregorianCalendar();
         gc.setTime(date);
         XMLGregorianCalendar xgc=newXMLGregorianCalendar(gc);
-        return newOTime(xgc,xgc);
+        return newOTime(xgc);
     }
 
 	public OTime newInstantaneousTimeNow () {

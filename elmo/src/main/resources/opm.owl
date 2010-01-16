@@ -330,6 +330,12 @@
     <rdfs:domain rdf:resource="#OTime"/>
   </owl:DatatypeProperty>
 
+  <owl:DatatypeProperty rdf:ID="exactlyAt">
+    <rdf:type    rdf:resource="&owl;FunctionalProperty" />
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The event occurred exactly at this time. This is meant to be an abbreviation for an OTime where noEarlierThan and noLaterThan are identical. exactlyAt should be  disjoint from noLaterThan  U noEarlierThan. </rdfs:comment>
+    <rdfs:domain rdf:resource="#OTime"/>
+  </owl:DatatypeProperty>
 
   <owl:Class rdf:ID="EventEdge">
     <rdfs:subClassOf rdf:resource="#Entity"/>

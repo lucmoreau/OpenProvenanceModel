@@ -82,7 +82,7 @@ public class PC1TimeTest
         Used u3=oFactory.newUsed(p1,oFactory.newRole("imgRef"),a3,black);
         Used u4=oFactory.newUsed(p1,oFactory.newRole("hdrRef"),a4,black);
 
-        OTime otime1=oFactory.newInstantaneousTime("2010-01-15T08:25:05.204Z"); // testing with a string date
+        OTime otime1=oFactory.newOTime("2010-01-15T08:25:03.204Z", "2010-01-15T08:25:05.204Z"); // testing with a string date
         u1.setTime(otime1);
         u2.setTime(otime1);
         u3.setTime(otime1);

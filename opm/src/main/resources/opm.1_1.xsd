@@ -300,11 +300,16 @@
   
 
  <!-- Observed Time allow for interval of observation. -->
+
   <xs:complexType name="OTime">
+	<xs:annotation>
+	  <xs:documentation>Observed Time allow for interval of observation, where an event is said to occur no earlier than a given time t1 and no later than a given time t2. When the event is observed to occur at a specific time, it is not convenient to use an interval. Instead, one can use the alternate exactlyAt attribute. We note that exactlyAt is disjoint from noEarlierThan and noLaterThan.</xs:documentation>
+	</xs:annotation>
 	<xs:sequence>
 	</xs:sequence>
 	  <xs:attribute name="noEarlierThan" type="xs:dateTime" />
 	  <xs:attribute name="noLaterThan"   type="xs:dateTime" />
+	  <xs:attribute name="exactlyAt"     type="xs:dateTime" />
   </xs:complexType>
 
 

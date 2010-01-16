@@ -49,6 +49,12 @@ public class RdfOTime extends org.openprovenance.model.OTime implements HasFacad
         r.setNoLaterThan(value);
     }
 
+    public void setExactlyAt(XMLGregorianCalendar value) {
+        super.setExactlyAt(value);
+        org.openprovenance.rdf.OTime r=findMyFacade();
+        r.setExactlyAt(value);
+    }
+
     public QName getQName() {
         return qname;
     }
@@ -58,9 +64,10 @@ public class RdfOTime extends org.openprovenance.model.OTime implements HasFacad
         return r;
     }
 
-    public void setFields(XMLGregorianCalendar begin, XMLGregorianCalendar end) {
+    public void setFields(XMLGregorianCalendar begin, XMLGregorianCalendar end, XMLGregorianCalendar at) {
         super.setNoEarlierThan(begin);
         super.setNoLaterThan(end);
+        super.setExactlyAt(at);
     }
 
 }

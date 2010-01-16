@@ -39,16 +39,15 @@ public class PC1TimeTest extends org.openprovenance.model.PC1TimeTest {
 
     Collection<String[]> prefixes=Collections.singleton(new String[]{"ex",TEST_NS});
 
-    public void testPC1Time() throws JAXBException, InterruptedException {
+    public void testPC1TimeSaveToN3() throws Exception {
+        // Note, I am reconstructing the graph, to be sure that its
+        // facade conrresponds to the current manager (the maven
+        // tester plugin seem to create a new instance of this tester
+        // object for each test)
         super.testPC1Time();
         File file = new File("target/pc1-time.n3");
         assert manager!=null;
-        try {
-            rHelper.dumpToRDF(file,(SesameManager)manager,RDFFormat.N3,prefixes);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("ex",e);
-        }
+        rHelper.dumpToRDF(file,(SesameManager)manager,RDFFormat.N3,prefixes);
     }
 
 

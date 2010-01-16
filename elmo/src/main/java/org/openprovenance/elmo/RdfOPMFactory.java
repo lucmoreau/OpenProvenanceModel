@@ -352,7 +352,7 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
     public RdfOTime newOTime(org.openprovenance.rdf.OTime a) {
         QName qname=((Entity)a).getQName();
         RdfOTime res=new RdfOTime(manager,qname);
-        res.setFields(a.getNoEarlierThan(), a.getNoEarlierThan());
+        res.setFields(a.getNoEarlierThan(), a.getNoEarlierThan(), a.getExactlyAt());
         return res;
     }
 
