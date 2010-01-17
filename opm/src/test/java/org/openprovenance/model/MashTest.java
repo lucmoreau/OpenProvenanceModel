@@ -13,11 +13,13 @@ import junit.framework.TestSuite;
 
 
 /**
- * Unit test for simple App.
+ * Unit test for Mashup example of survey paper.
  */
 public class MashTest 
     extends TestCase
 {
+    static public OPMFactory oFactory=new OPMFactory();
+
     /**
      * Create the test case
      *
@@ -40,7 +42,29 @@ public class MashTest
 
     public void testMash1() throws Exception 
     {
-        OPMFactory oFactory=new OPMFactory();
+
+        OPMGraph graph=makeMash1Graph(oFactory);
+
+        OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
+        serial.serialiseOPMGraph(new File("target/mash.xml"),graph,true);
+
+        
+        //System.out.println(sw);
+
+        graph1=graph;
+        System.out.println("test Mash asserting True");
+        assertTrue( true );
+
+
+        OPMToDot toDot=new OPMToDot();
+        
+        toDot.convert(graph1,"target/mash.dot", "target/mash.pdf");
+
+
+    }
+
+    public OPMGraph makeMash1Graph(OPMFactory oFactory) 
+    {
 
         Collection<Account> black=Collections.singleton(oFactory.newAccount("black"));
         Collection<Account> orange=Collections.singleton(oFactory.newAccount("orange"));
@@ -336,22 +360,7 @@ public class MashTest
 
 
 
-        OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
-        serial.serialiseOPMGraph(new File("target/mash.xml"),graph,true);
-
-        
-        //System.out.println(sw);
-
-        graph1=graph;
-        System.out.println("testOPM1 asserting True");
-        assertTrue( true );
-
-
-        OPMToDot toDot=new OPMToDot();
-        
-        toDot.convert(graph1,"target/mash.dot", "target/mash.pdf");
-
-
+        return graph;
         
     }
     

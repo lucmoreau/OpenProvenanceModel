@@ -15,9 +15,9 @@ import org.openrdf.elmo.sesame.SesameManager;
 import org.openrdf.rio.RDFFormat;
 import javax.xml.bind.JAXBException;
 
-public class PC1TimeTest extends org.openprovenance.model.PC1TimeTest {
+public class Cake2Test extends org.openprovenance.model.Cake2Test {
 
-    static String TEST_NS="http://www.ipaw.info/pc1/";
+    static String TEST_NS="http://example.com/cake2/";
 
     static ElmoManager        manager=null;
     static ElmoManagerFactory factory=null;
@@ -36,7 +36,7 @@ public class PC1TimeTest extends org.openprovenance.model.PC1TimeTest {
 
     }
 
-    public PC1TimeTest( String testName )
+    public Cake2Test( String testName )
     {
         super( testName );
         if (!initialized) {
@@ -45,20 +45,14 @@ public class PC1TimeTest extends org.openprovenance.model.PC1TimeTest {
         }
     }
 
-    Collection<String[]> prefixes=Collections.singleton(new String[]{"pc1",TEST_NS});
+    Collection<String[]> prefixes=Collections.singleton(new String[]{"ex",TEST_NS});
 
     static OPMGraph graph1;
 
-    public void testPC1TimeSaveToN3() throws Exception {
-        // Note, I am reconstructing the graph, to be sure that its
-        // facade conrresponds to the current manager (the maven
-        // tester plugin seem to create a new instance of this tester
-        // object for each test)
-        super.testPC1Time();
-
-        //graph1=makePC1TimeGraph(oFactory);
+    public void testCake2SaveToN3() throws Exception {
+        graph1=makeCake2Graph(oFactory);
         
-        File file = new File("target/pc1-time.n3");
+        File file = new File("target/cake2.n3");
         assert manager!=null;
         rHelper.dumpToRDF(file,(SesameManager)manager,RDFFormat.N3,prefixes);
     }

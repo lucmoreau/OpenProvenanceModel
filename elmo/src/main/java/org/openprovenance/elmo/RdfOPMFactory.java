@@ -18,6 +18,7 @@ import org.openprovenance.model.Identifiable;
 import org.openprovenance.model.Property;
 import org.openprovenance.model.Annotable;
 import org.openprovenance.model.Label;
+import org.openprovenance.model.Type;
 import org.openprovenance.model.Agent;
 import org.openprovenance.model.Artifact;
 import org.openprovenance.model.Process;
@@ -120,9 +121,9 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
 
     public void addAnnotation(Annotable annotable,
                                JAXBElement<? extends org.openprovenance.model.EmbeddedAnnotation> ann) {
-        super.addAnnotation(annotable,ann);
 
-        System.out.println("Annotations  !! (Jaxb Embedded)");
+        EmbeddedAnnotation ea=ann.getValue();
+        addAnnotation(annotable,ea);
     }
 
     public void addAnnotation(Annotable annotable, Label ann) {
@@ -130,6 +131,17 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
             super.addAnnotation(annotable,ann);
             try {
                 ((RdfLabel)ann).toRdf(annotable);
+            } catch (org.openrdf.repository.RepositoryException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void addAnnotation(Annotable annotable, Type ann) {
+        if (ann!=null) {
+            super.addAnnotation(annotable,ann);
+            try {
+                ((RdfType)ann).toRdf(annotable);
             } catch (org.openrdf.repository.RepositoryException e) {
                 e.printStackTrace();
             }
@@ -147,14 +159,21 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
 
     public void addAnnotation(org.openprovenance.model.Annotable annotable,
                               org.openprovenance.model.EmbeddedAnnotation ann) {
-        super.addAnnotation(annotable,ann);
 
-        HasFacade facade=(HasFacade) annotable;
-        Object o=facade.findMyFacade();
-        org.openprovenance.rdf.Annotable annotable2=(org.openprovenance.rdf.Annotable) o;
-        org.openprovenance.rdf.Annotation ann2=(org.openprovenance.rdf.Annotation) ((HasFacade)ann).findMyFacade();
-        annotable2.getAnnotations().add(ann2);
+        if (ann instanceof Label) {
+            addAnnotation(annotable,(Label) ann);
+        } else if (ann instanceof Type) {
+            addAnnotation(annotable,(Type) ann);
+        } else {
+            super.addAnnotation(annotable,ann);
 
+
+            HasFacade facade=(HasFacade) annotable;
+            Object o=facade.findMyFacade();
+            org.openprovenance.rdf.Annotable annotable2=(org.openprovenance.rdf.Annotable) o;
+            org.openprovenance.rdf.Annotation ann2=(org.openprovenance.rdf.Annotation) ((HasFacade)ann).findMyFacade();
+            annotable2.getAnnotations().add(ann2);
+        }
     }
 
     public OPMGraph newOPMGraph(String id,

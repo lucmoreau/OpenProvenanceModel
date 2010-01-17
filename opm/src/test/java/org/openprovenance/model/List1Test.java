@@ -18,6 +18,9 @@ import org.openprovenance.model.collections.CollectionFactory;
 public class List1Test 
     extends TestCase
 {
+
+    static public OPMFactory oFactory=new OPMFactory();
+
     /**
      * Create the test case
      *
@@ -40,10 +43,42 @@ public class List1Test
     static OPMGraph graph2;
 
     /** Creates and serialises an OPM graph. */
-
     public void testList1() throws JAXBException,  java.io.FileNotFoundException,  java.io.IOException
     {
         OPMFactory oFactory=new OPMFactory();
+        OPMGraph graph=makeList1Graph(oFactory);
+
+        
+        OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
+        StringWriter sw=new StringWriter();
+        serial.serialiseOPMGraph(sw,graph,true);
+        serial.serialiseOPMGraph(new File("target/list1.xml"),graph,true);
+
+        graph1=graph;
+
+        assertTrue( true );
+
+        OPMToDot toDot=new OPMToDot("src/test/resources/collectionConfig.xml");
+        
+        toDot.convert(graph1,"target/list1.dot", "target/list1.pdf");
+
+        toDot=new OPMToDot("src/test/resources/collectionConfig1.xml");
+        
+        toDot.convert(graph1,"target/list2.dot", "target/list2.pdf");
+
+        toDot=new OPMToDot("src/test/resources/collectionConfig2.xml");
+        
+        toDot.convert(graph1,"target/list3.dot", "target/list3.pdf");
+
+        toDot=new OPMToDot("src/test/resources/collectionConfig3.xml");
+        
+        toDot.convert(graph1,"target/list4.dot", "target/list4.pdf");
+
+
+    }
+
+    public OPMGraph makeList1Graph(OPMFactory oFactory) throws JAXBException,  java.io.FileNotFoundException,  java.io.IOException
+    {
         CollectionFactory cFactory=new CollectionFactory(oFactory);
 
 
@@ -154,7 +189,7 @@ public class List1Test
                                             new Overlaps[] { ov1 },
                                             new Process[] {p1,p2,p3,p4,p5, p6, p7, p8, p9},
                                             new Artifact[] {a1,a2,a3,a4,a5,a6},
-                                            null,
+                                            new Agent[] {},
                                             new Object[] {u1,u2,u3,u4,u5,u6,u7,u8,
                                                           wg1,wg2,wg3,wg4,wg5,wg6,wg7,wg8,
                                                           wdf0, wdf1, wdf2, wdf3, wdf4, wdf5, wdf6,
@@ -163,32 +198,7 @@ public class List1Test
 
 
 
-
-        OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
-        StringWriter sw=new StringWriter();
-        serial.serialiseOPMGraph(sw,graph,true);
-        serial.serialiseOPMGraph(new File("target/list1.xml"),graph,true);
-
-        graph1=graph;
-
-        assertTrue( true );
-
-        OPMToDot toDot=new OPMToDot("src/test/resources/collectionConfig.xml");
-        
-        toDot.convert(graph1,"target/list1.dot", "target/list1.pdf");
-
-        toDot=new OPMToDot("src/test/resources/collectionConfig1.xml");
-        
-        toDot.convert(graph1,"target/list2.dot", "target/list2.pdf");
-
-        toDot=new OPMToDot("src/test/resources/collectionConfig2.xml");
-        
-        toDot.convert(graph1,"target/list3.dot", "target/list3.pdf");
-
-        toDot=new OPMToDot("src/test/resources/collectionConfig3.xml");
-        
-        toDot.convert(graph1,"target/list4.dot", "target/list4.pdf");
-
+        return graph;
 
 
 

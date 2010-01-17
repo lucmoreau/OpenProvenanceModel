@@ -17,6 +17,9 @@ import junit.framework.TestSuite;
 public class Cake1Test 
     extends TestCase
 {
+
+    static public OPMFactory oFactory=new OPMFactory();
+
     /**
      * Create the test case
      *
@@ -36,10 +39,30 @@ public class Cake1Test
 
 
 
-
     public void testCake1() throws JAXBException
     {
         OPMFactory oFactory=new OPMFactory();
+
+        OPMGraph graph=makeCake1Graph(oFactory);
+
+
+
+        OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
+        serial.serialiseOPMGraph(new File("target/cake1.xml"),graph,true);
+
+        
+        //System.out.println(sw);
+
+        graph1=graph;
+        System.out.println("test Cake1 asserting True");
+        assertTrue( true );
+
+
+
+    }
+    
+    public OPMGraph makeCake1Graph(OPMFactory oFactory) 
+    {
 
         Collection<Account> black=Collections.singleton(oFactory.newAccount("black"));
         
@@ -102,21 +125,7 @@ public class Cake1Test
                                                           wc1} );
 
 
-
-
-
-        OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
-        serial.serialiseOPMGraph(new File("target/cake1.xml"),graph,true);
-
-        
-        //System.out.println(sw);
-
-        graph1=graph;
-        System.out.println("testOPM1 asserting True");
-        assertTrue( true );
-
-
-        
+        return graph;
     }
     
 
