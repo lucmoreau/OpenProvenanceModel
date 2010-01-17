@@ -80,8 +80,7 @@ public class RdfWasControlledBy extends org.openprovenance.model.WasControlledBy
 
     public void setStartTime(org.openprovenance.model.OTime otime) {
         super.setStartTime(otime);
-        QName q=((HasFacade)(otime)).getQName();
-        org.openprovenance.rdf.OTime time=(org.openprovenance.rdf.OTime)manager.find(q);
+        org.openprovenance.rdf.OTime time=(org.openprovenance.rdf.OTime)((HasFacade)(otime)).findMyFacade();
         org.openprovenance.rdf.WasControlledBy wcb=(org.openprovenance.rdf.WasControlledBy)manager.find(getQName());
         wcb.setStartTime(time);
     }
@@ -90,8 +89,7 @@ public class RdfWasControlledBy extends org.openprovenance.model.WasControlledBy
 
     public void setEndTime(org.openprovenance.model.OTime otime) {
         super.setEndTime(otime);
-        QName q=((HasFacade)(otime)).getQName();
-        org.openprovenance.rdf.OTime time=(org.openprovenance.rdf.OTime)manager.find(q);
+        org.openprovenance.rdf.OTime time=(org.openprovenance.rdf.OTime)((HasFacade)(otime)).findMyFacade();
         org.openprovenance.rdf.WasControlledBy wcb=(org.openprovenance.rdf.WasControlledBy)manager.find(getQName());
         wcb.setEndTime(time);
     }

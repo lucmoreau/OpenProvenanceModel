@@ -77,8 +77,7 @@ public class RdfUsed extends org.openprovenance.model.Used implements HasFacade 
 
     public void setTime(org.openprovenance.model.OTime otime) {
         super.setTime(otime);
-        QName q=((HasFacade)(otime)).getQName();
-        org.openprovenance.rdf.OTime time=(org.openprovenance.rdf.OTime)manager.find(q);
+        org.openprovenance.rdf.OTime time=(org.openprovenance.rdf.OTime)((HasFacade)(otime)).findMyFacade();
         org.openprovenance.rdf.EventEdge u=(org.openprovenance.rdf.Used)manager.find(getQName());
         u.setTime(time);
     }

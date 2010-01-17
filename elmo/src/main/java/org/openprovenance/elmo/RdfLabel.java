@@ -27,6 +27,12 @@ public class RdfLabel extends org.openprovenance.model.Label implements CompactA
 
 
     public void toRdf(Annotable entity) throws org.openrdf.repository.RepositoryException {
+        org.openprovenance.rdf.Annotable subject=(org.openprovenance.rdf.Annotable)((HasFacade)entity).findMyFacade();
+        subject.getLabels().add(getValue());
+    }
+
+
+    public void toRdf_DELETE(Annotable entity) throws org.openrdf.repository.RepositoryException {
         QName subject=((HasFacade)entity).getQName();
         Statement stmnt=new org.openrdf.model.impl.StatementImpl(new org.openrdf.model.impl.URIImpl(subject.getNamespaceURI()+subject.getLocalPart()),
                                                                  new org.openrdf.model.impl.URIImpl(NEW_LABEL_PROPERTY),

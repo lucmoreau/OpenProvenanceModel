@@ -29,9 +29,14 @@ public class RdfOTime extends org.openprovenance.model.OTime implements HasFacad
         setId("ti_" + (count++));
     }
 
+    //    org.openprovenance.rdf.OTime facade;
+
     public void setId(String value) {
         qname = new QName(prefix, value);
         manager.designate(qname, org.openprovenance.rdf.OTime.class);
+
+        // would be nice to make this an anonymous node!
+        //facade=manager.create(org.openprovenance.rdf.OTime.class);
     }
 
 
@@ -61,7 +66,7 @@ public class RdfOTime extends org.openprovenance.model.OTime implements HasFacad
 
     public org.openprovenance.rdf.OTime findMyFacade() {
         org.openprovenance.rdf.OTime r=(org.openprovenance.rdf.OTime)manager.find(getQName());
-        return r;
+        return r; //facade
     }
 
     public void setFields(XMLGregorianCalendar begin, XMLGregorianCalendar end, XMLGregorianCalendar at) {
