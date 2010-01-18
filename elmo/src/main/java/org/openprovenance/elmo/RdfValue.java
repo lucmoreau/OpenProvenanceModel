@@ -1,55 +1,71 @@
 package org.openprovenance.elmo;
 import java.util.Set;
+import java.net.URI;
 import org.openprovenance.rdf.Account;
 import org.openprovenance.rdf.Node;
-
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import javax.xml.namespace.QName;
 import org.openrdf.elmo.ElmoManager;
-import org.openprovenance.model.Annotable;
-import org.openprovenance.rdf.ArtifactOrPropertyOrRole;
-import org.openrdf.model.Statement;
-import org.openrdf.elmo.sesame.SesameManager;
+import org.openprovenance.elmo.XMLLiteral;
 
-import org.openprovenance.model.CommonURIs;
-
-public class RdfValue extends org.openprovenance.model.Value implements CompactAnnotation, CommonURIs {
+public class RdfValue extends org.openprovenance.model.Value implements HasFacade {
 
     ElmoManager manager;
     String prefix;
     QName qname;
 
     static int count=0;
+    
+    public RdfValue(ElmoManager manager, QName qname) {
+        this.manager=manager;
+        this.qname=qname;
+        this.prefix=qname.getNamespaceURI();
+        setId(qname.getLocalPart());
+    }
+    
 
     public RdfValue(ElmoManager manager, String prefix) {
         this.manager=manager;
         this.prefix=prefix;
+        setId("av_" + (count++));
     }
 
-    // TODO, use Avalue to set fields. define a a facade.
-
-    public void toRdf(Annotable entity) throws org.openrdf.repository.RepositoryException {
-        org.openprovenance.rdf.Annotable subject=(org.openprovenance.rdf.Annotable)((HasFacade)entity).findMyFacade();
-        ((ArtifactOrPropertyOrRole) subject).setValue(getContent()); //.add(getContent());
-        //((ArtifactOrPropertyOrRole) subject).setValue(getEncoding()); //.add(getContent());
+    public void setId(String value) {
+        qname = new QName(prefix, value);
+        manager.designate(qname, org.openprovenance.rdf.AValue.class);
     }
 
 
 
-//     public void toRdf(Annotable entity) throws org.openrdf.repository.RepositoryException {
-//         QName subject=((HasFacade)entity).getQName();
-//         //TODO: currently only supporting string values
+    public void setContent(Object value) {
+        super.setContent(value);
+        org.openprovenance.rdf.AValue r=findMyFacade();
+        r.setContent(new XMLLiteral(((Element)value).getOwnerDocument()));
+    }
 
-//         Statement stmnt1=new org.openrdf.model.impl.StatementImpl(new org.openrdf.model.impl.URIImpl(subject.getNamespaceURI()+subject.getLocalPart()),
-//                                                                  new org.openrdf.model.impl.URIImpl(NEW_VALUE_PROPERTY),
-//                                                                   new org.openrdf.model.impl.LiteralImpl((String)getContent()));
-//         Statement stmnt2=new org.openrdf.model.impl.StatementImpl(new org.openrdf.model.impl.URIImpl(subject.getNamespaceURI()+subject.getLocalPart()),
-//                                                                  new org.openrdf.model.impl.URIImpl(NEW_ENCODING_PROPERTY),
-//                                                                  new org.openrdf.model.impl.LiteralImpl(getEncoding()));
 
-//         ((SesameManager)manager).getConnection().add(stmnt1);
-//         ((SesameManager)manager).getConnection().add(stmnt2);
+    public void setEncoding(String encoding) {
+        super.setEncoding(encoding);
+        org.openprovenance.rdf.AValue r=findMyFacade();
+        r.setEncoding(URI.create(encoding));
+    }
 
-//     }
+    public QName getQName() {
+        return qname;
+    }
 
+    public org.openprovenance.rdf.AValue findMyFacade() {
+        org.openprovenance.rdf.AValue r=(org.openprovenance.rdf.AValue)manager.find(getQName());
+        return r;
+    }
+
+    public void setFields(Object content, String encoding) {
+        super.setContent(content);
+        super.setEncoding(encoding);
+    }
 
 }
+
+
+

@@ -42,7 +42,9 @@ public class RepositoryHelper {
         module.addConcept(org.openprovenance.rdf.Annotation.class);
         module.addConcept(org.openprovenance.rdf.Property.class);
         module.addConcept(org.openprovenance.rdf.OTime.class);
-        //module.addConcept(org.openprovenance.elmo.XMLLiteral.class);
+        module.addConcept(org.openprovenance.rdf.AValue.class);
+        module.addDatatype(org.openprovenance.elmo.XMLLiteral.class,
+                           "http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral");
     }
 
     public void setPrefixes(RDFHandler serialiser,

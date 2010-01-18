@@ -153,11 +153,13 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
     public void addAnnotation(Annotable annotable, Value ann) {
         if (ann!=null) {
             super.addAnnotation(annotable,ann);
-            try {
-                ((RdfValue)ann).toRdf(annotable);
-            } catch (org.openrdf.repository.RepositoryException e) {
-                e.printStackTrace();
-            }
+
+            HasFacade facade=(HasFacade) annotable;
+            Object o=facade.findMyFacade();
+            org.openprovenance.rdf.Annotable annotable2=(org.openprovenance.rdf.Annotable) o;
+            org.openprovenance.rdf.AValue ann2=(org.openprovenance.rdf.AValue) ((HasFacade)ann).findMyFacade();
+            ((org.openprovenance.rdf.Artifact) annotable2).getAvalues().add(ann2);
+
         }
     }
 

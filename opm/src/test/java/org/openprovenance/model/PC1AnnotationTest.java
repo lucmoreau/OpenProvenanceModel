@@ -1,4 +1,5 @@
 package org.openprovenance.model;
+import org.w3c.dom.Document;
 import java.io.File;
 import java.io.StringWriter;
 import java.util.Collection;
@@ -10,6 +11,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.openprovenance.util.DOMSerialiser;
 
 /**
  * Unit test for simple Provenance Challenge 1 like workflow.
@@ -92,14 +94,19 @@ public class PC1AnnotationTest
                                          black,
                                          "Atlas X Graphic");
 
+        DOMSerialiser builder=new DOMSerialiser("http://example.com/");
+        builder.start("ignore").single("image","http://www.ipaw.info/challenge/anatomy1.img");
+
+        
         oFactory.addValue(a1,
-                          "http://www.ipaw.info/challenge/anatomy1.img",
-                          "http://www.w3.org/2001/XMLSchema#anyURI");
+                          ((Document)builder.getRoot()).getDocumentElement(),
+                          "http://www.ipaw.info/imagePointer");
+
+        oFactory.addValue(a1,
+                          ((Document)builder.getRoot()).getDocumentElement(),
+                          "http://www.ipaw.info/imagePointer2");
 
 
-        oFactory.addValue(a1,
-                          "http://www.ipaw.info/challenge/anatomy1.img",
-                          "http://www.w3.org/2001/XMLSchema#anyURI");
 
 
         Used u1=oFactory.newUsed(p1,oFactory.newRole("img1"),a1,black);

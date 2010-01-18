@@ -31,12 +31,6 @@
   
   <owl:Class rdf:ID="Artifact">
     <rdfs:subClassOf rdf:resource="#Node"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty rdf:resource="#value" />
-        <owl:allValuesFrom rdf:resource="#AValue" />
-      </owl:Restriction>
-    </rdfs:subClassOf>
   </owl:Class>
 
   <!-- OPM Edges -->
@@ -251,7 +245,6 @@
         <owl:unionOf rdf:parseType="Collection">
           <owl:Class rdf:about="#Role"/>
           <owl:Class rdf:about="#Property"/>
-          <owl:Class rdf:about="#Artifact"/>
         </owl:unionOf>
       </owl:Class>
     </rdfs:domain>
@@ -313,15 +306,21 @@
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
   </owl:ObjectProperty>
 
+  <owl:ObjectProperty rdf:ID="avalue">
+    <rdfs:domain rdf:resource="#Artifact"/>
+    <rdfs:range rdf:resource="#AValue"/>
+  </owl:ObjectProperty>
 
   <owl:Class rdf:ID="AValue">
     <rdfs:subClassOf rdf:resource="#Entity"/>
   </owl:Class>
-  <owl:ObjectProperty rdf:ID="contents">
+  <owl:ObjectProperty rdf:ID="content">
+    <rdf:type    rdf:resource="&owl;FunctionalProperty" />
     <rdfs:domain rdf:resource="#AValue"/>
     <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="encoding">
+    <rdf:type    rdf:resource="&owl;FunctionalProperty" />
     <rdfs:domain rdf:resource="#AValue"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
   </owl:ObjectProperty>
