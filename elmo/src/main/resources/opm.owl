@@ -238,6 +238,7 @@
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty rdf:resource="#value"/>
+        <!-- <rdf:type    rdf:resource="&owl;FunctionalProperty" /> -->
         <owl:allValuesFrom rdf:resource="&owl;Thing"/>
       </owl:Restriction>
     </rdfs:subClassOf>
@@ -250,6 +251,7 @@
         <owl:unionOf rdf:parseType="Collection">
           <owl:Class rdf:about="#Role"/>
           <owl:Class rdf:about="#Property"/>
+          <owl:Class rdf:about="#Artifact"/>
         </owl:unionOf>
       </owl:Class>
     </rdfs:domain>

@@ -10,24 +10,25 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 import org.openrdf.elmo.ElmoManager;
 
-import org.openprovenance.model.HasAccounts;
-import org.openprovenance.model.AccountRef;
-import org.openprovenance.model.OPMGraph;
-import org.openprovenance.model.Annotation;
-import org.openprovenance.model.EmbeddedAnnotation;
-import org.openprovenance.model.Identifiable;
-import org.openprovenance.model.Property;
-import org.openprovenance.model.Annotable;
-import org.openprovenance.model.Label;
-import org.openprovenance.model.Type;
-import org.openprovenance.model.Agent;
-import org.openprovenance.model.Artifact;
-import org.openprovenance.model.Process;
 import org.openprovenance.model.Account;
-import org.openprovenance.model.WasDerivedFrom;
+import org.openprovenance.model.AccountRef;
+import org.openprovenance.model.Agent;
+import org.openprovenance.model.Annotable;
+import org.openprovenance.model.Annotation;
+import org.openprovenance.model.Artifact;
+import org.openprovenance.model.EmbeddedAnnotation;
+import org.openprovenance.model.HasAccounts;
+import org.openprovenance.model.Identifiable;
+import org.openprovenance.model.Label;
+import org.openprovenance.model.OPMGraph;
+import org.openprovenance.model.Process;
+import org.openprovenance.model.Property;
+import org.openprovenance.model.Type;
 import org.openprovenance.model.Used;
-import org.openprovenance.model.WasGeneratedBy;
+import org.openprovenance.model.Value;
 import org.openprovenance.model.WasControlledBy;
+import org.openprovenance.model.WasDerivedFrom;
+import org.openprovenance.model.WasGeneratedBy;
 import org.openprovenance.model.WasTriggeredBy;
 
 import org.openprovenance.rdf.AnnotationOrEdgeOrNode;
@@ -143,6 +144,17 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
             super.addAnnotation(annotable,ann);
             try {
                 ((RdfType)ann).toRdf(annotable);
+            } catch (org.openrdf.repository.RepositoryException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void addAnnotation(Annotable annotable, Value ann) {
+        if (ann!=null) {
+            super.addAnnotation(annotable,ann);
+            try {
+                ((RdfValue)ann).toRdf(annotable);
             } catch (org.openrdf.repository.RepositoryException e) {
                 e.printStackTrace();
             }

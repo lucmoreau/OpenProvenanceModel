@@ -14,9 +14,10 @@ import junit.framework.TestSuite;
 /**
  * Unit test for simple Provenance Challenge 1 like workflow.
  */
-public class PC1Test 
+public class PC1AnnotationTest 
     extends TestCase
 {
+
     public static OPMFactory oFactory=new OPMFactory();
 
     /**
@@ -24,7 +25,7 @@ public class PC1Test
      *
      * @param testName name of the test case
      */
-    public PC1Test( String testName )
+    public PC1AnnotationTest( String testName )
     {
         super( testName );
     }
@@ -37,26 +38,28 @@ public class PC1Test
     static OPMGraph graph1;
 
 
-    public void testPC1() throws JAXBException
+    public void testPC1Annotation() throws JAXBException
     {
         OPMFactory oFactory=new OPMFactory();
 
-        OPMGraph graph=makePC1Graph(oFactory);
+        OPMGraph graph=makePC1AnnotationGraph(oFactory);
+
 
         OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
-        serial.serialiseOPMGraph(new File("target/pc1.xml"),graph,true);
+        serial.serialiseOPMGraph(new File("target/pc1-annotation.xml"),graph,true);
 
         
         //System.out.println(sw);
 
         graph1=graph;
-        System.out.println("PC1 Test asserting True");
+        System.out.println("PC1Annotation Test asserting True");
         assertTrue( true );
 
+        
 
     }
 
-    public OPMGraph makePC1Graph(OPMFactory oFactory)
+    public OPMGraph makePC1AnnotationGraph(OPMFactory oFactory)
     {
 
         Collection<Account> black=Collections.singleton(oFactory.newAccount("black"));
@@ -89,6 +92,16 @@ public class PC1Test
                                          black,
                                          "Atlas X Graphic");
 
+        oFactory.addValue(a1,
+                          "http://www.ipaw.info/challenge/anatomy1.img",
+                          "http://www.w3.org/2001/XMLSchema#anyURI");
+
+
+        oFactory.addValue(a1,
+                          "http://www.ipaw.info/challenge/anatomy1.img",
+                          "http://www.w3.org/2001/XMLSchema#anyURI");
+
+
         Used u1=oFactory.newUsed(p1,oFactory.newRole("img1"),a1,black);
         Used u2=oFactory.newUsed(p1,oFactory.newRole("hdr1"),a2,black);
         Used u3=oFactory.newUsed(p1,oFactory.newRole("imgRef"),a3,black);
@@ -120,21 +133,22 @@ public class PC1Test
 
 
         return graph;
-    }
+
+   }
     
 
     /** Produces a dot representation
      * of created graph. */
-    public void testPC1Conversion() throws java.io.FileNotFoundException,  java.io.IOException   {
+    public void testPC1AnnotationConversion() throws java.io.FileNotFoundException,  java.io.IOException   {
         OPMToDot toDot=new OPMToDot(true); // with roles
         
-        toDot.convert(graph1,"target/pc1.dot", "target/pc1.pdf");
+        toDot.convert(graph1,"target/pc1-annotation.dot", "target/pc1-annotation.pdf");
     }
 
 
 
 
-    public void testCopy() throws java.io.FileNotFoundException,  java.io.IOException   {
+    public void testPC1AnnotationCopy() throws java.io.FileNotFoundException,  java.io.IOException   {
         OPMFactory oFactory=new OPMFactory();
 
         OPMGraph graph2=oFactory.newOPMGraph(graph1);

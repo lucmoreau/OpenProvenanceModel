@@ -435,7 +435,7 @@ public class OPMFactory implements CommonURIs {
     }
 
     public void addValue(Artifact annotable, Object value, String encoding) {
-        annotable.getAnnotation().add(of.createValue(newValue(value,encoding)));
+        addAnnotation(annotable,newValue(value,encoding));
     }
 
     public void addAnnotation(Annotable annotable, Label ann) {

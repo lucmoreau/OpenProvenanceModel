@@ -31,15 +31,5 @@ public class RdfType extends org.openprovenance.model.Type implements CompactAnn
         subject.getTypes().add(URI.create(getValue()));
     }
 
-    public void toRdf_DELETE(Annotable entity) throws org.openrdf.repository.RepositoryException {
-        QName subject=((HasFacade)entity).getQName();
-        Statement stmnt=new org.openrdf.model.impl.StatementImpl(new org.openrdf.model.impl.URIImpl(subject.getNamespaceURI()+subject.getLocalPart()),
-                                                                 new org.openrdf.model.impl.URIImpl(NEW_TYPE_PROPERTY),
-                                                                 new org.openrdf.model.impl.LiteralImpl(getValue()));
-
-        ((SesameManager)manager).getConnection().add(stmnt);
-
-    }
-
 
 }
