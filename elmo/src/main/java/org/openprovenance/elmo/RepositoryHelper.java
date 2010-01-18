@@ -42,6 +42,7 @@ public class RepositoryHelper {
         module.addConcept(org.openprovenance.rdf.Annotation.class);
         module.addConcept(org.openprovenance.rdf.Property.class);
         module.addConcept(org.openprovenance.rdf.OTime.class);
+        module.addConcept(org.openprovenance.elmo.XMLLiteral.class);
     }
 
     public void setPrefixes(RDFHandler serialiser,
