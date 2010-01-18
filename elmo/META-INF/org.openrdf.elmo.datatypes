@@ -1,0 +1,4 @@
+org.openprovenance.elmo.XMLLiteral = http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral
+
+
+#javax.xml.datatype.XMLGregorianCalendar = http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral

@@ -1,4 +1,5 @@
 package org.openprovenance.elmo;
+import java.net.URI;
 import java.util.Collection;
 import java.util.Set;
 import java.util.List;
@@ -468,14 +469,14 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
         for (String label: a.getLabels()) {
             super.addAnnotation(res,newLabel(label));
         }
-        for (String pname: a.getPnames()) {
-            super.addAnnotation(res,newPName(pname));
+        for (URI pname: a.getPnames()) {
+            super.addAnnotation(res,newPName(pname.toString()));
         }
         for (String profile: a.getProfiles()) {
             super.addAnnotation(res,newProfile(profile));
         }
-        for (String type: a.getTypes()) {
-            super.addAnnotation(res,newType(type));
+        for (URI type: a.getTypes()) {
+            super.addAnnotation(res,newType(type.toString()));
         }
     }
 

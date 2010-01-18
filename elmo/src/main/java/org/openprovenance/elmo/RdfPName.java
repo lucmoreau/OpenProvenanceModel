@@ -1,5 +1,6 @@
 package org.openprovenance.elmo;
 import java.util.Set;
+import java.net.URI;
 import org.openprovenance.rdf.Account;
 import org.openprovenance.rdf.Node;
 
@@ -27,7 +28,7 @@ public class RdfPName extends org.openprovenance.model.PName implements CompactA
 
     public void toRdf(Annotable entity) throws org.openrdf.repository.RepositoryException {
         org.openprovenance.rdf.Annotable subject=(org.openprovenance.rdf.Annotable)((HasFacade)entity).findMyFacade();
-        subject.getPnames().add(getValue());
+        subject.getPnames().add(URI.create(getValue()));
     }
 
     public void toRdf_DELETE(Annotable entity) throws org.openrdf.repository.RepositoryException {
