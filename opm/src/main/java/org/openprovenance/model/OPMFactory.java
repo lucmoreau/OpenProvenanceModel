@@ -15,13 +15,13 @@ import javax.xml.datatype.DatatypeConfigurationException;
 
 public class OPMFactory implements CommonURIs {
 
-    static String roleIdPrefix="r_";
-    static String usedIdPrefix="u_";
-    static String wasGenerateByIdPrefix="g_";
-    static String wasDerivedFromIdPrefix="d_";
-    static String wasTriggeredByIdPrefix="t_";
-    static String wasControlledByIdPrefix="c_";
-    static String opmGraphIdPrefix="gr_";
+    public static String roleIdPrefix="r_";
+    public static String usedIdPrefix="u_";
+    public static String wasGenerateByIdPrefix="g_";
+    public static String wasDerivedFromIdPrefix="d_";
+    public static String wasTriggeredByIdPrefix="t_";
+    public static String wasControlledByIdPrefix="c_";
+    public static String opmGraphIdPrefix="gr_";
 
     public static final String packageList=
         "org.openprovenance.model";
@@ -860,7 +860,6 @@ public class OPMFactory implements CommonURIs {
                         u.getRole(),
                         u.getCause(),
                         u.getAccount());
-        u1.setId(u.getId());
         u1.getAnnotation().addAll(u.getAnnotation());
         return u1;
     }
@@ -1514,6 +1513,7 @@ public class OPMFactory implements CommonURIs {
                                 CausalDependencies lks)
     {
         OPMGraph res=of.createOPMGraph();
+        //res.setId(autoGenerateId(opmGraphIdPrefix));
         res.setAccounts(accs);
         res.setProcesses(ps);
         res.setArtifacts(as);
@@ -1530,6 +1530,7 @@ public class OPMFactory implements CommonURIs {
                                 Annotations anns)
     {
         OPMGraph res=of.createOPMGraph();
+        //res.setId(autoGenerateId(opmGraphIdPrefix));
         res.setAccounts(accs);
         res.setProcesses(ps);
         res.setArtifacts(as);

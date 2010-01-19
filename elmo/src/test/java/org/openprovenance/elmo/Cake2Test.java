@@ -49,13 +49,54 @@ public class Cake2Test extends org.openprovenance.model.Cake2Test {
 
     static OPMGraph graph1;
 
+
+    public void testCake2() throws javax.xml.bind.JAXBException {
+        //super.testCake2();
+    }
+
+
     public void testCake2SaveToN3() throws Exception {
-        graph1=makeCake2Graph(oFactory);
+        super.testCake2();
+
         
         File file = new File("target/cake2.n3");
         assert manager!=null;
         rHelper.dumpToRDF(file,(SesameManager)manager,RDFFormat.N3,prefixes);
     }
+
+    GraphComparator gCompare=new GraphComparator();
+
+    public void testCompareCake2Graphs() throws Exception {
+
+        System.out.println("Running testCompareCake2Graphs");
+
+        ElmoManager manager = factory.createElmoManager();
+
+        gCompare.testCompareGraphs("target/cake2.xml",
+                                   "target/cake2.n3",
+                                   TEST_NS,
+                                   RDFFormat.N3,
+                                   rHelper,
+                                   manager,
+                                   "target/cake2-normalised-xml.xml",
+                                   "target/cake2-normalised-rdf.xml");
+
+    }
+
+    public void testCompareCake2GraphCopies() throws Exception {
+
+        System.out.println("Running testCompareCake2GraphCopies");
+        RdfOPMFactory oFactory=new RdfOPMFactory(new RdfObjectFactory(manager,TEST_NS));
+
+        gCompare.testCompareGraphCopies(oFactory,
+                                        "target/cake2.xml",
+                                        "target/cake2-graph3.xml",
+                                        "target/cake2-normalised-graph1.xml",
+                                        "target/cake2-normalised-graph3.xml");
+
+    }
+
+
 
 
 }

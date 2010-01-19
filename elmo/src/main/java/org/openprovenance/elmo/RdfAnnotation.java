@@ -50,13 +50,5 @@ public class RdfAnnotation extends org.openprovenance.model.Annotation implement
 
 
         
-    public void setAnnotations(java.util.Set<? extends org.openprovenance.rdf.Annotation> ann) {
-        throw new UnsupportedOperationException();
-    }
-
-    public java.util.Set<org.openprovenance.rdf.Annotation> getAnnotations() {
-        throw new UnsupportedOperationException();
-    }
-
 
 }

@@ -85,6 +85,8 @@ public class ElmoTest
         assert Edge.class.isInterface();
         assert Node.class.isInterface();
 
+        System.out.println("testElmo1");
+
         ElmoModule module = new ElmoModule();
 
         rHelper=new RepositoryHelper();
@@ -228,7 +230,10 @@ public class ElmoTest
 
     GraphComparator gCompare=new GraphComparator();
 
-    public void testCompareGraphs() throws Exception {
+    public void testElmo1CompareGraphs() throws Exception {
+        System.out.println("testElmo1CompareGraphs");
+
+        assert factory!=null;
 
         ElmoManager manager = factory.createElmoManager();
 
@@ -243,7 +248,7 @@ public class ElmoTest
 
     }
 
-    public void testCompareGraphCopies() throws Exception {
+    public void testElmo1CompareGraphCopies() throws Exception {
         RdfOPMFactory oFactory=new RdfOPMFactory(new RdfObjectFactory(manager,TEST_NS));
 
         gCompare.testCompareGraphCopies(oFactory,

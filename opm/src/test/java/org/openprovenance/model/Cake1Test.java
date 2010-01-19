@@ -41,7 +41,6 @@ public class Cake1Test
 
     public void testCake1() throws JAXBException
     {
-        OPMFactory oFactory=new OPMFactory();
 
         OPMGraph graph=makeCake1Graph(oFactory);
 

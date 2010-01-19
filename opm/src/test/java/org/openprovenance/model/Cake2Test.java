@@ -40,8 +40,6 @@ public class Cake2Test
 
     public void testCake2() throws JAXBException
     {
-        OPMFactory oFactory=new OPMFactory();
-
 
         OPMGraph graph=makeCake2Graph(oFactory);
 
