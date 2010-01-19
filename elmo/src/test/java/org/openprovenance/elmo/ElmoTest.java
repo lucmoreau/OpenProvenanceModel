@@ -194,10 +194,8 @@ public class ElmoTest
         assert (graph instanceof RdfOPMGraph);
 
         OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
-        serial.serialiseOPMGraph(new File("target/repository.xml"),graph,true);
+        serial.serialiseOPMGraph(new File("target/elmo-repository.xml"),graph,true);
 
-        OPMDeserialiser deserial=OPMDeserialiser.getThreadOPMDeserialiser();
-        graph1=deserial.deserialiseOPMGraph(new File("target/repository.xml"));
     }
 
     public void setPrefixes(RDFHandler serialiser) throws org.openrdf.rio.RDFHandlerException {
@@ -207,166 +205,53 @@ public class ElmoTest
     Collection<String[]> prefixes=Collections.singleton(new String[]{"ex",TEST_NS});
 
     public void testDumptoRDFXML() throws Exception {
-        File file = new File("target/repository.rdf");
+        File file = new File("target/elmo-repository.rdf");
         assert manager!=null;
         rHelper.dumpToRDF(file,(SesameManager)manager,RDFFormat.RDFXML,prefixes);
     }
 
 
     public void testDumpToN3() throws Exception {
-        File file = new File("target/repository.n3");
+        File file = new File("target/elmo-repository.n3");
         assert manager!=null;
         rHelper.dumpToRDF(file,(SesameManager)manager,RDFFormat.N3,prefixes);
     }
 
 
     public void testDumpToNTRIPLES() throws Exception {
-        File file = new File("target/repository.ntriples");
+        File file = new File("target/elmo-repository.ntriples");
         assert manager!=null;
         rHelper.dumpToRDF(file,(SesameManager)manager,RDFFormat.NTRIPLES,prefixes);
     }
 
 
-    
-    public void testRead() throws Exception {
-        File file = new File("target/repository.rdf");
-        assert manager!=null;
+
+    GraphComparator gCompare=new GraphComparator();
+
+    public void testCompareGraphs() throws Exception {
 
         ElmoManager manager = factory.createElmoManager();
-        RdfOPMFactory oFactory=new RdfOPMFactory(new RdfObjectFactory(manager,TEST_NS),
-                                                 manager);
 
-        rHelper.readFromRDF(file,null,(SesameManager)manager,RDFFormat.RDFXML);
-        QName qname = new QName(TEST_NS, "gr1");
-
-        OPMGraph oGraph=readOPMGraph(manager,
-                                     oFactory,
-                                     qname);
-
-        OPMSerialiser.getThreadOPMSerialiser().serialiseOPMGraph(new File("target/foo.txt"),oGraph,true);
-        graph2=oGraph;
-    }
-
-    public OPMGraph readOPMGraph(ElmoManager manager,
-                                 RdfOPMFactory oFactory,
-                                 QName qname) {
-        Object o=manager.find(qname);
-        org.openprovenance.rdf.OPMGraph gr=(org.openprovenance.rdf.OPMGraph)o;
-        return oFactory.newOPMGraph(gr);
+        gCompare.testCompareGraphs("target/elmo-repository.xml",
+                                   "target/elmo-repository.rdf",
+                                   TEST_NS,
+                                   RDFFormat.RDFXML,
+                                   rHelper,
+                                   manager,
+                                   "target/elmo-normalised-xml.xml",
+                                   "target/elmo-normalised-rdf.xml");
 
     }
 
-    public void testCompareGraphs() throws Exception{ 
-        OPMFactory oFactory=new OPMFactory();  // use a regular factory, not an rdf one
-        
-        Normalise normaliser=new Normalise(oFactory);
-
-        // graph1: xml graph
-        // graph2, from rdf graph
-        normaliser.embedExternalAnnotations(graph1);
-
-
-        //no need, since by nature, they are embedded in rdf
-        //normaliser.embedExternalAnnotations(graph2);
-
-        normaliser.sortGraph(graph1);
-        normaliser.sortGraph(graph2);
-
-
-        OPMSerialiser.getThreadOPMSerialiser().serialiseOPMGraph(new File("target/normalised-xml.xml"),graph1,true);
-        OPMSerialiser.getThreadOPMSerialiser().serialiseOPMGraph(new File("target/normalised-rdf.xml"),graph2,true);
-
-
-
-        assertTrue( "self graph differ", graph1.equals(graph1) );
-
-        assertTrue( "self graph2  differ", graph2.equals(graph2) );
-
-        assertTrue( "accounts differ", graph1.getAccounts().getAccount().equals(graph2.getAccounts().getAccount()) );
-
-        assertTrue( "account overalps differ", graph1.getAccounts().getOverlaps().equals(graph2.getAccounts().getOverlaps()) );
-
-        assertTrue( "accounts elements differ", graph1.getAccounts().equals(graph2.getAccounts()) );
-
-        assertTrue( "processes elements differ", graph1.getProcesses().equals(graph2.getProcesses()) );
-
-        assertTrue( "artifacts elements differ", graph1.getArtifacts().equals(graph2.getArtifacts()) );
-
-        assertTrue( "edges elements differ", graph1.getCausalDependencies().equals(graph2.getCausalDependencies()) );
-
-        if (graph1.getAgents()!=null && graph2.getAgents()!=null) {
-            assertTrue( "agents elements differ", graph1.getAgents().equals(graph2.getAgents()) );
-        } else {
-            if (graph1.getAgents()!=null) {
-                assertTrue( "agents elements differ, graph not null",  graph1.getAgents().getAgent().isEmpty());
-                graph1.setAgents(null);
-            } else if (graph2.getAgents()!=null) {
-                assertTrue( "agents elements differ, graph not null",  graph2.getAgents().getAgent().isEmpty());
-                graph2.setAgents(null);
-            }
-        }
-
-        assertTrue( "graph differ", graph1.equals(graph2) );
-
-
-    }
-
-    public void testCompareGraphCopys() throws Exception {
+    public void testCompareGraphCopies() throws Exception {
         RdfOPMFactory oFactory=new RdfOPMFactory(new RdfObjectFactory(manager,TEST_NS));
 
-        OPMDeserialiser deserial=OPMDeserialiser.getThreadOPMDeserialiser();
-        OPMGraph graph1=deserial.deserialiseOPMGraph(new File("target/repository.xml"));
+        gCompare.testCompareGraphCopies(oFactory,
+                                        "target/elmo-repository.xml",
+                                        "target/elmo-graph3.xml",
+                                        "target/elmo-normalised-graph1.xml",
+                                        "target/elmo-normalised-graph3.xml");
 
-        RdfOPMGraph graph3=oFactory.newOPMGraph(graph1);
-
-        OPMSerialiser.getThreadOPMSerialiser().serialiseOPMGraph(new File("target/graph3.xml"),graph3,true);
-
-        Normalise normaliser=new Normalise(oFactory);
-
-        normaliser.sortGraph(graph1);
-        normaliser.sortGraph(graph3);
-
-        //normaliser.noAnnotation(graph1);
-        //normaliser.noAnnotation(graph3);
-
-
-        OPMSerialiser.getThreadOPMSerialiser().serialiseOPMGraph(new File("target/normalised-graph1.xml"),graph1,true);
-        OPMSerialiser.getThreadOPMSerialiser().serialiseOPMGraph(new File("target/normalised-graph3.xml"),graph3,true);
-
-
-        System.out.println("Now comparing");
-
-
-        assertTrue( "self graph differ", graph1.equals(graph1) );
-
-        assertTrue( "self graph3  differ", graph3.equals(graph3) );
-
-        assertTrue( "accounts differ", graph1.getAccounts().getAccount().equals(graph3.getAccounts().getAccount()) );
-
-        assertTrue( "account overalps differ", graph1.getAccounts().getOverlaps().equals(graph3.getAccounts().getOverlaps()) );
-
-        assertTrue( "accounts elements differ", graph1.getAccounts().equals(graph3.getAccounts()) );
-
-        assertTrue( "processes elements differ", graph1.getProcesses().equals(graph3.getProcesses()) );
-
-        assertTrue( "artifacts elements differ", graph1.getArtifacts().equals(graph3.getArtifacts()) );
-
-        assertTrue( "edges elements differ", graph1.getCausalDependencies().equals(graph3.getCausalDependencies()) );
-
-        if (graph1.getAgents()!=null && graph3.getAgents()!=null) {
-            assertTrue( "agents elements differ", graph1.getAgents().equals(graph3.getAgents()) );
-        } else {
-            if (graph1.getAgents()!=null) {
-                assertTrue( "agents elements differ, graph not null",  graph1.getAgents().getAgent().isEmpty());
-                graph1.setAgents(null);
-            } else if (graph3.getAgents()!=null) {
-                assertTrue( "agents elements differ, graph not null",  graph3.getAgents().getAgent().isEmpty());
-                graph3.setAgents(null);
-            }
-        }
-
-
-        assertTrue( "copy of graph differs from original", graph1.equals(graph3) );
     }
 }
 

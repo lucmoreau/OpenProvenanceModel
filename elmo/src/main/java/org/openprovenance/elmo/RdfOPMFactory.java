@@ -386,7 +386,7 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
     public RdfOTime newOTime(org.openprovenance.rdf.OTime a) {
         QName qname=((Entity)a).getQName();
         RdfOTime res=new RdfOTime(manager,qname);
-        res.setFields(a.getNoEarlierThan(), a.getNoEarlierThan(), a.getExactlyAt());
+        res.setFields(a.getNoEarlierThan(), a.getNoLaterThan(), a.getExactlyAt());
         return res;
     }
 
@@ -716,9 +716,11 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
 
 
         List<Annotation> anns=new LinkedList();
-        for (Annotation ann: gr.getAnnotations().getAnnotation()) {
-            Annotation ann2=newAnnotation(ann);
-            anns.add(ann2);
+        if (gr.getAnnotations()!=null) {
+            for (Annotation ann: gr.getAnnotations().getAnnotation()) {
+                Annotation ann2=newAnnotation(ann);
+                anns.add(ann2);
+            }
         }
 
         OPMGraph res=super.newOPMGraph(gr.getId(),

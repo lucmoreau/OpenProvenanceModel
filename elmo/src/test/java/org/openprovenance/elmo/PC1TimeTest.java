@@ -64,4 +64,38 @@ public class PC1TimeTest extends org.openprovenance.model.PC1TimeTest {
     }
 
 
+    GraphComparator gCompare=new GraphComparator();
+
+    public void testComparePC1TimeGraphs() throws Exception {
+
+        System.out.println("Running testComparePC1TimeGraphs");
+
+        ElmoManager manager = factory.createElmoManager();
+
+        gCompare.testCompareGraphs("target/pc1-time.xml",
+                                   "target/pc1-time.n3",
+                                   TEST_NS,
+                                   RDFFormat.N3,
+                                   rHelper,
+                                   manager,
+                                   "target/pc1-time-normalised-xml.xml",
+                                   "target/pc1-time-normalised-rdf.xml");
+
+    }
+
+    public void testComparePC1TimeGraphCopies() throws Exception {
+
+        System.out.println("Running testComparePC1TimeGraphCopies");
+        RdfOPMFactory oFactory=new RdfOPMFactory(new RdfObjectFactory(manager,TEST_NS));
+
+        gCompare.testCompareGraphCopies(oFactory,
+                                        "target/pc1-time.xml",
+                                        "target/pc1-time-graph3.xml",
+                                        "target/pc1-time-normalised-graph1.xml",
+                                        "target/pc1-time-normalised-graph3.xml");
+
+    }
+
+
+
 }

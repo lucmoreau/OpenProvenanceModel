@@ -15,6 +15,8 @@ public class Normalise  {
 
     public void sortGraph(OPMGraph graph) {
 
+        graph.setAnnotations(oFactory.getObjectFactory().createAnnotations());
+
         sortById((List)graph.getAccounts().getAccount());
 
         if (graph.getProcesses()!=null && graph.getProcesses().getProcess()!=null) {
