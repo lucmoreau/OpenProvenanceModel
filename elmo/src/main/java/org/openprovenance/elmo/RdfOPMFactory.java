@@ -428,7 +428,7 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
                       newRole(role));
         addAccounts((org.openprovenance.rdf.AnnotationOrEdgeOrNode)a,wgb.getAccount());
         processAnnotations(a,wgb);
-        wgb.setTime(newOTime(a.getTime()));
+        if (a.getTime()!=null) wgb.setTime(newOTime(a.getTime()));
         return wgb;
     }
 
@@ -443,7 +443,7 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
                     newRole(role));
         addAccounts((org.openprovenance.rdf.AnnotationOrEdgeOrNode)a,u.getAccount());
         processAnnotations(a,u);
-        u.setTime(newOTime(a.getTime()));
+        if (a.getTime()!=null) u.setTime(newOTime(a.getTime()));
         return u;
     }
 
@@ -458,8 +458,8 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
                       newRole(role));
         addAccounts((org.openprovenance.rdf.AnnotationOrEdgeOrNode)a,wcb.getAccount());
         processAnnotations(a,wcb);
-        wcb.setStartTime(newOTime(a.getStartTime()));
-        wcb.setEndTime(newOTime(a.getEndTime()));
+        if (a.getStartTime()!=null) wcb.setStartTime(newOTime(a.getStartTime()));
+        if (a.getEndTime()!=null) wcb.setEndTime(newOTime(a.getEndTime()));
         return wcb;
     }
 
@@ -607,7 +607,7 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
                        newArtifactRef(artifactRegister2.get(((Artifact)d.getCause().getRef()).getId())),
                        newAccounts(d.getAccount()));
         u.getAnnotation().addAll(d.getAnnotation());
-        u.setTime(newOTime(d.getTime()));
+        if (d.getTime()!=null) u.setTime(newOTime(d.getTime()));
         return u;
     }
     public WasGeneratedBy newWasGeneratedBy(WasGeneratedBy d) {
@@ -618,7 +618,7 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
                                              newProcessRef(processRegister2.get(((Process)d.getCause().getRef()).getId())),
                                              newAccounts(d.getAccount()));
         wgb.getAnnotation().addAll(d.getAnnotation());
-        wgb.setTime(newOTime(d.getTime()));
+        if (d.getTime()!=null) wgb.setTime(newOTime(d.getTime()));
         return wgb;
     }
 
@@ -629,8 +629,8 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
                                                newAgentRef(agentRegister2.get(((Agent)d.getCause().getRef()).getId())),
                                                newAccounts(d.getAccount()));
         wcb.getAnnotation().addAll(d.getAnnotation());
-        wcb.setStartTime(newOTime(d.getStartTime()));
-        wcb.setEndTime(newOTime(d.getEndTime()));
+        if (d.getStartTime()!=null) wcb.setStartTime(newOTime(d.getStartTime()));
+        if (d.getEndTime()!=null) wcb.setEndTime(newOTime(d.getEndTime()));
         return wcb;
     }
 

@@ -49,13 +49,55 @@ public class MashTest extends org.openprovenance.model.MashTest {
 
     static OPMGraph graph1;
 
+    public void testMash1() throws Exception {
+        super.testMash1();
+    }
+                                   
+
     public void testMashSaveToN3() throws Exception {
+        // reset counter to ensure that auto allocated ids are the same
+        RdfOPMFactory.count=0;
         graph1=makeMash1Graph(oFactory);
         
         File file = new File("target/mash.n3");
         assert manager!=null;
         rHelper.dumpToRDF(file,(SesameManager)manager,RDFFormat.N3,prefixes);
     }
+
+
+    GraphComparator gCompare=new GraphComparator();
+
+    public void testCompareMashGraphs() throws Exception {
+
+        System.out.println("Running testCompareMashGraphs");
+
+        ElmoManager manager = factory.createElmoManager();
+
+        gCompare.testCompareGraphs("target/mash.xml",
+                                   "target/mash.n3",
+                                   TEST_NS,
+                                   RDFFormat.N3,
+                                   rHelper,
+                                   manager,
+                                   "target/mash-normalised-xml.xml",
+                                   "target/mash-normalised-rdf.xml");
+
+    }
+
+    public void testCompareMashGraphCopies() throws Exception {
+
+        System.out.println("Running testCompareMashGraphCopies");
+        RdfOPMFactory oFactory=new RdfOPMFactory(new RdfObjectFactory(manager,TEST_NS));
+
+        gCompare.testCompareGraphCopies(oFactory,
+                                        "target/mash.xml",
+                                        "target/mash-graph3.xml",
+                                        "target/mash-normalised-graph1.xml",
+                                        "target/mash-normalised-graph3.xml");
+
+    }
+
+
 
 
 }
