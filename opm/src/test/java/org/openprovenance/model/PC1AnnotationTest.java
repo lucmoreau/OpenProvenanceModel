@@ -1,5 +1,6 @@
 package org.openprovenance.model;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import java.io.File;
 import java.io.StringWriter;
 import java.util.Collection;
@@ -11,7 +12,11 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.openprovenance.util.DOMSerialiser;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+
 
 /**
  * Unit test for simple Provenance Challenge 1 like workflow.
@@ -19,6 +24,8 @@ import org.openprovenance.util.DOMSerialiser;
 public class PC1AnnotationTest 
     extends TestCase
 {
+
+    public static String APP_NS="http://www.ipaw.info/pc1";
 
     public static OPMFactory oFactory=new OPMFactory();
 
@@ -42,7 +49,6 @@ public class PC1AnnotationTest
 
     public void testPC1Annotation() throws JAXBException
     {
-        OPMFactory oFactory=new OPMFactory();
 
         OPMGraph graph=makePC1AnnotationGraph(oFactory);
 
@@ -94,17 +100,18 @@ public class PC1AnnotationTest
                                          black,
                                          "Atlas X Graphic");
 
-        DOMSerialiser builder=new DOMSerialiser("http://example.com/");
-        builder.start("ignore").single("image","http://www.ipaw.info/challenge/anatomy1.img");
 
+        Document doc=oFactory.builder.newDocument();
+        Element el=doc.createElementNS(APP_NS,"app:ignore");
+        Element el2=doc.createElementNS(APP_NS,"app:image");
+        el.appendChild(el2);
+        el2.appendChild(doc.createTextNode("http://www.ipaw.info/challenge/anatomy1.img"));
+        doc.appendChild(el);
         
-        oFactory.addValue(a1,
-                          ((Document)builder.getRoot()).getDocumentElement(),
-                          "http://www.ipaw.info/imagePointer");
+        
+        oFactory.addValue(a1,el,"http://www.ipaw.info/imagePointer");
 
-        oFactory.addValue(a1,
-                          ((Document)builder.getRoot()).getDocumentElement(),
-                          "http://www.ipaw.info/imagePointer2");
+        oFactory.addValue(a1,el,"http://www.ipaw.info/imagePointer2");
 
 
 
@@ -167,5 +174,7 @@ public class PC1AnnotationTest
         assertTrue( "graph1 graph2 differ", graph1.equals(graph2) );        
         
     }
+
+
 
 }

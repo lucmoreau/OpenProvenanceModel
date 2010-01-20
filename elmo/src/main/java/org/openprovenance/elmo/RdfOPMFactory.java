@@ -8,7 +8,12 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import org.openrdf.elmo.ElmoManager;
+import org.openprovenance.elmo.XMLLiteral;
 
 import org.openprovenance.model.Account;
 import org.openprovenance.model.AccountRef;
@@ -179,6 +184,8 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
             addAnnotation(annotable,(Label) ann);
         } else if (ann instanceof Type) {
             addAnnotation(annotable,(Type) ann);
+        } else if (ann instanceof Value) {
+            addAnnotation(annotable,(Value) ann);
         } else {
             super.addAnnotation(annotable,ann);
 
@@ -492,6 +499,16 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
         for (URI type: a.getTypes()) {
             super.addAnnotation(res,newType(type.toString()));
         }
+        if (a instanceof org.openprovenance.rdf.Artifact) {
+            org.openprovenance.rdf.Artifact aa=(org.openprovenance.rdf.Artifact) a;
+            for (org.openprovenance.rdf.AValue av: aa.getAvalues()) {
+                XMLLiteral lit=av.getContent();
+                Document doc=builder.newDocument();
+                Element el=(Element)doc.importNode(lit.getDocument().getDocumentElement(),true);
+                super.addAnnotation(res,newValue(el,
+                                                 av.getEncoding().toString()));
+            }
+        }
     }
 
 
@@ -511,6 +528,9 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
 
             String pname=getPname(ea);
             if (pname!=null) addAnnotation(res,newPName(pname));
+
+            Object value=getValue(ea);
+            if (value!=null) addAnnotation(res,newValue(value,getEncoding(ea)));
 
             if (ea.getId()!=null) 
             addAnnotation(res,newEmbeddedAnnotation(ea.getId(),

@@ -80,8 +80,9 @@ public class XMLLiteral {
             CharArrayReader reader = new CharArrayReader(charArray);
             try {
                 if (builder == null) {
-                    builder = DocumentBuilderFactory.newInstance()
-                        .newDocumentBuilder();
+                    DocumentBuilderFactory dbf=DocumentBuilderFactory.newInstance();
+                    dbf.setNamespaceAware(true);
+                    builder = dbf.newDocumentBuilder();
                 }
                 return builder.parse(new InputSource(reader));
             } finally {

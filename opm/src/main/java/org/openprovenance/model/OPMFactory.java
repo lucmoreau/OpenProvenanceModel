@@ -10,6 +10,12 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.DatatypeConfigurationException;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 
 /** A stateless factory of OPM objects. */
 
@@ -253,6 +259,20 @@ public class OPMFactory implements CommonURIs {
             for (Property prop: annotation.getProperty()) {
                 if (prop.getUri().equals(VALUE_PROPERTY)) {
                     return prop.getValue();
+                }
+            }
+            return null;
+        }
+    }
+
+    public String getEncoding(EmbeddedAnnotation annotation) {
+        if (annotation instanceof Value) {
+            Value value=(Value) annotation;
+            return value.getEncoding();
+        } else {
+            for (Property prop: annotation.getProperty()) {
+                if (prop.getUri().equals(ENCODING_PROPERTY)) {
+                    return (String) prop.getValue();
                 }
             }
             return null;
@@ -1581,6 +1601,20 @@ public class OPMFactory implements CommonURIs {
 //         }
 //     }
 
+    static {
+        initBuilder();
+    }
+    static public DocumentBuilder builder;
+
+	static void initBuilder() {
+		try {
+			DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+			docBuilderFactory.setNamespaceAware(true);
+			builder = docBuilderFactory.newDocumentBuilder();
+		} catch (ParserConfigurationException ex) {
+			throw new RuntimeException(ex);
+		}
+	}
             
 }
 

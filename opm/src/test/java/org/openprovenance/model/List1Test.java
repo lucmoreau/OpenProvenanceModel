@@ -45,7 +45,6 @@ public class List1Test
     /** Creates and serialises an OPM graph. */
     public void testList1() throws JAXBException,  java.io.FileNotFoundException,  java.io.IOException
     {
-        OPMFactory oFactory=new OPMFactory();
         OPMGraph graph=makeList1Graph(oFactory);
 
         
@@ -185,8 +184,8 @@ public class List1Test
         WasTriggeredBy wtb2=oFactory.newWasTriggeredBy(p9,p8,superdetailed);
 
 
-        OPMGraph graph=oFactory.newOPMGraph(summary_detailed,
-                                            new Overlaps[] { ov1 },
+        OPMGraph graph=oFactory.newOPMGraph(summary_super_detailed,
+                                            new Overlaps[] {  },  //ov1
                                             new Process[] {p1,p2,p3,p4,p5, p6, p7, p8, p9},
                                             new Artifact[] {a1,a2,a3,a4,a5,a6},
                                             new Agent[] {},

@@ -49,13 +49,59 @@ public class PC1AnnotationTest extends org.openprovenance.model.PC1AnnotationTes
 
     static OPMGraph graph1;
 
+
+
+    public void testPC1Annotation() throws javax.xml.bind.JAXBException {
+        //super.testPC1Annotation();
+    }
+
+    public void testPC1AnnotationCopy() throws java.io.FileNotFoundException,  java.io.IOException   {
+        
+    }
+
+
     public void testPC1AnnotationSaveToN3() throws Exception {
-        graph1=makePC1AnnotationGraph(oFactory);
+        super.testPC1Annotation();
+
         
         File file = new File("target/pc1-annotation.n3");
         assert manager!=null;
         rHelper.dumpToRDF(file,(SesameManager)manager,RDFFormat.N3,prefixes);
     }
+
+    GraphComparator gCompare=new GraphComparator();
+
+    public void testComparePC1AnnotationGraphs() throws Exception {
+
+        System.out.println("Running testComparePC1AnnotationGraphs");
+
+        ElmoManager manager = factory.createElmoManager();
+
+        gCompare.testCompareGraphs("target/pc1-annotation.xml",
+                                   "target/pc1-annotation.n3",
+                                   TEST_NS,
+                                   RDFFormat.N3,
+                                   rHelper,
+                                   manager,
+                                   "target/pc1-annotation-normalised-xml.xml",
+                                   "target/pc1-annotation-normalised-rdf.xml");
+
+    }
+
+    public void testComparePC1AnnotationGraphCopies() throws Exception {
+
+        System.out.println("Running testComparePC1AnnotationGraphCopies");
+        RdfOPMFactory oFactory=new RdfOPMFactory(new RdfObjectFactory(manager,TEST_NS));
+
+        gCompare.testCompareGraphCopies(oFactory,
+                                        "target/pc1-annotation.xml",
+                                        "target/pc1-annotation-graph3.xml",
+                                        "target/pc1-annotation-normalised-graph1.xml",
+                                        "target/pc1-annotation-normalised-graph3.xml");
+
+    }
+
+
 
 
 }

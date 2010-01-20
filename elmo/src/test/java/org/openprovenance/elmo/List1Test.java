@@ -49,13 +49,56 @@ public class List1Test extends org.openprovenance.model.List1Test {
 
     static OPMGraph graph1;
 
+
+    public void testList1() throws javax.xml.bind.JAXBException {
+        //super.testList1();
+    }
+
+
     public void testList1SaveToN3() throws Exception {
-        graph1=makeList1Graph(oFactory);
+        super.testList1();
+
         
         File file = new File("target/list1.n3");
         assert manager!=null;
         rHelper.dumpToRDF(file,(SesameManager)manager,RDFFormat.N3,prefixes);
     }
 
+    GraphComparator gCompare=new GraphComparator();
+
+    public void testCompareList1Graphs() throws Exception {
+
+        System.out.println("Running testCompareList1Graphs");
+
+        ElmoManager manager = factory.createElmoManager();
+
+        gCompare.testCompareGraphs("target/list1.xml",
+                                   "target/list1.n3",
+                                   TEST_NS,
+                                   RDFFormat.N3,
+                                   rHelper,
+                                   manager,
+                                   "target/list1-normalised-xml.xml",
+                                   "target/list1-normalised-rdf.xml");
+
+    }
+
+    public void testCompareList1GraphCopies() throws Exception {
+
+        System.out.println("Running testCompareList1GraphCopies");
+        RdfOPMFactory oFactory=new RdfOPMFactory(new RdfObjectFactory(manager,TEST_NS));
+
+        gCompare.testCompareGraphCopies(oFactory,
+                                        "target/list1.xml",
+                                        "target/list1-graph3.xml",
+                                        "target/list1-normalised-graph1.xml",
+                                        "target/list1-normalised-graph3.xml");
+
+    }
+
+
+
 
 }
+
+

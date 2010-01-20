@@ -336,8 +336,20 @@
   	              <arg value="CausalDependencyRef.java" />
                 </exec>
 
+                <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
+  	              <arg value="-e s/equalsBuilder.append(this.getContent(), that.getContent());/\/\/Luc: equalsBuilder.append(this.getContent(), that.getContent());/" />
+  	              <arg value="-iBAK" />
+  	              <arg value="Value.java" />
+                </exec>
+
+                <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
+  	              <arg value="-e s/hashCodeBuilder.append(this.getContent());/\/\/Luc: hashCodeBuilder.append(this.getContent());/" />
+  	              <arg value="-iBAK" />
+  	              <arg value="Value.java" />
+                </exec>
 
 
+        
               </tasks>
               <sourceRoot>${project.build.directory}/generated-sources/xjc/</sourceRoot>
             </configuration>
