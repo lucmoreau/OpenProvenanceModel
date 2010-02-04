@@ -7,7 +7,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import javax.xml.namespace.QName;
 import org.openrdf.elmo.ElmoManager;
-import org.openprovenance.elmo.XMLLiteral;
+
 
 public class RdfValue extends org.openprovenance.model.Value implements HasFacade {
 
@@ -41,7 +41,11 @@ public class RdfValue extends org.openprovenance.model.Value implements HasFacad
     public void setContent(Object value) {
         super.setContent(value);
         org.openprovenance.rdf.AValue r=findMyFacade();
-        r.setContent(new XMLLiteral(((Element)value).getOwnerDocument()));
+        if (value instanceof Element) {
+            r.setContent(new XMLLiteral(((Element)value).getOwnerDocument()));
+        } else {
+            r.setContent(value);
+        }
     }
 
 

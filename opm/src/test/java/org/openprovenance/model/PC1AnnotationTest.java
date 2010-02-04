@@ -107,11 +107,27 @@ public class PC1AnnotationTest
         el.appendChild(el2);
         el2.appendChild(doc.createTextNode("http://www.ipaw.info/challenge/anatomy1.img"));
         doc.appendChild(el);
-        
+
+
         
         oFactory.addValue(a1,el,"http://www.ipaw.info/imagePointer");
 
-        oFactory.addValue(a1,el,"http://www.ipaw.info/imagePointer2");
+
+      
+        Document doc_=oFactory.builder.newDocument();
+        Element el_=doc_.createElementNS(APP_NS,"app:ignore");
+        el_.appendChild(doc_.createCDATASection("   {\"menu\": { \"id\": \"file\", \"value\": \"File\"}}"));
+        doc_.appendChild(el_);
+
+
+        oFactory.addValue(a1,"   {\"menu\": { \"id\": \"file\", \"value\": \"File\"}}","mime:application/json");
+
+
+        oFactory.addValue(a1,10,"http://www.ipaw.info/imagePointer3");
+
+        oFactory.addValue(a1,"foo","http://www.ipaw.info/imagePointer4");
+
+        oFactory.addValue(a1,1.0,"http://www.ipaw.info/imagePointer5");
 
 
 

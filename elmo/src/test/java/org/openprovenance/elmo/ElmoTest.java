@@ -175,6 +175,12 @@ public class ElmoTest
         oFactory.addAnnotation(a2,
                                oFactory.newEmbeddedAnnotation("an11","http://property.org/hasQuality", "bad", accl1));
 
+        oFactory.addAnnotation(a2,
+                               oFactory.newEmbeddedAnnotation("an12","http://property.org/hasQuality", 1, accl1));
+
+        oFactory.addAnnotation(a2,
+                               oFactory.newEmbeddedAnnotation("an13","http://property.org/hasQuality", 1.0, accl1));
+
 
         OPMGraph graph=oFactory.newOPMGraph("gr1",
                                             accl12,
@@ -191,7 +197,7 @@ public class ElmoTest
 
 
         oFactory.addAnnotation(graph,
-                               oFactory.newEmbeddedAnnotation("an12","http://property.org/graphKind", "joli", null));
+                               oFactory.newEmbeddedAnnotation("an20","http://property.org/graphKind", "joli", null));
 
         assert (graph instanceof RdfOPMGraph);
 

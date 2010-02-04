@@ -1,4 +1,6 @@
 org.openprovenance.elmo.XMLLiteral = http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral
 
-
+#java.lang.Object = http://www.w3.org/1999/02/22-rdf-syntax-ns#Literal
+#org.openprovenance.elmo.Literal = http://www.w3.org/2000/01/rdf-schema#Literal
+#org.openrdf.concepts.rdfs.Literal = http://www.w3.org/1999/02/22-rdf-syntax-ns#Literal
 #javax.xml.datatype.XMLGregorianCalendar = http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral

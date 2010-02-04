@@ -502,11 +502,16 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
         if (a instanceof org.openprovenance.rdf.Artifact) {
             org.openprovenance.rdf.Artifact aa=(org.openprovenance.rdf.Artifact) a;
             for (org.openprovenance.rdf.AValue av: aa.getAvalues()) {
-                XMLLiteral lit=av.getContent();
-                Document doc=builder.newDocument();
-                Element el=(Element)doc.importNode(lit.getDocument().getDocumentElement(),true);
-                super.addAnnotation(res,newValue(el,
-                                                 av.getEncoding().toString()));
+                if (av.getContent() instanceof XMLLiteral) {
+                    XMLLiteral lit=(XMLLiteral)av.getContent();
+                    Document doc=builder.newDocument();
+                    Element el=(Element)doc.importNode(lit.getDocument().getDocumentElement(),true);
+                    super.addAnnotation(res,newValue(el,
+                                                     av.getEncoding().toString()));
+                } else {
+                    super.addAnnotation(res,newValue(av.getContent(),
+                                                     av.getEncoding().toString()));
+                }
             }
         }
     }

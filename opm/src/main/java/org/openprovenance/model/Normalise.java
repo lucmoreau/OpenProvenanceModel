@@ -260,8 +260,24 @@ public class Normalise  {
 
 
                              }});
+        for (JAXBElement je: ll) {
+            EmbeddedAnnotation a=(EmbeddedAnnotation) je.getValue();
+            sortProperties(a.getProperty());
+        }
     }
 
+
+    public void sortProperties(List<Property> ll) {
+        // TODO: when keys are identical, i should sort by values too
+        Collections.sort(ll,
+                         new Comparator() {
+                             public int compare(Object o1, Object o2) {
+                                 Property p1=(Property) o1;
+                                 Property p2=(Property) o2;
+
+                                 return p1.getUri().compareTo(p2.getUri());
+                             }});
+    }
 
 
 

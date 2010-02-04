@@ -233,7 +233,7 @@
       <owl:Restriction>
         <owl:onProperty rdf:resource="#value"/>
         <!-- <rdf:type    rdf:resource="&owl;FunctionalProperty" /> -->
-        <owl:allValuesFrom rdf:resource="&owl;Thing"/>
+        <owl:allValuesFrom rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
       </owl:Restriction>
     </rdfs:subClassOf>
   </owl:Class>
@@ -317,7 +317,7 @@
   <owl:ObjectProperty rdf:ID="content">
     <rdf:type    rdf:resource="&owl;FunctionalProperty" />
     <rdfs:domain rdf:resource="#AValue"/>
-    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="encoding">
     <rdf:type    rdf:resource="&owl;FunctionalProperty" />
