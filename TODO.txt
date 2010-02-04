@@ -2,20 +2,6 @@
 
 
 
-elmo:
- 
-- support for exactlyAt in OPMFactory
-
-- support for exactlyAt in opm.owl
-
-- serialisation of exactlyAt in rdf
-
-- try bidirectional conversion xmltordf, rdftoxml for all examples of opm-tests
-
-- opmconvert to finish
-   - namespace TEST_NS
-   - graph id (specify it, or find a graph)
-   - convert opm graph into rdf opm graph
     
 
 Validation
@@ -25,4 +11,4 @@ Validation
 - test that a opm graph instance is compatible with xml schema
   noteschema opm_v1.01 hardcoded in validator
 
-serialisation of values, encodign
+

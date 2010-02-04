@@ -1,0 +1,57 @@
+I am pleased to announce the release of the OPM Toolbox 1.1.2. It
+incorporates the recently proposed OWL ontology for OPM v1.1, and
+conversion to/from RDF. 
+
+Key changes to the toolkit:
+
+    * Better support for Literal (XMLLiteral and based types)
+
+
+All information on OPM v1.1, the schema, the ontology, and the OPM
+Toolbox available from openprovenance.org.
+
+Maven artifacts are available from
+http://openprovenance.org/java/maven-releases/. Source code is
+available from http://github.com/lucmoreau/OpenProvenanceModel.
+
+
+------------------------------------------------------------
+I am pleased to announce the release of the OPM Toolbox 1.1.1. It
+incorporates the recently proposed OWL ontology for OPM v1.1, and
+conversion to/from RDF.  Minor changes have been incorporated to the
+XML Schema to ensure bidirectional conversion between XML and RDF.
+
+Key changes to the toolkit:
+
+    * Better support for annotations
+    * Elmo based serialisation/deserialisation to/from RDF
+    * opmconvert converting between xml and rdf
+    * Support for time
+    * Introduction of exactlyAt as an abbreviation for
+        noLaterThan and noEarlierThan with same value
+
+All information on OPM v1.1, the schema, the ontology, and the OPM
+Toolbox available from openprovenance.org.
+
+Maven artifacts are available from
+http://openprovenance.org/java/maven-releases/. Source code is
+available from http://github.com/lucmoreau/OpenProvenanceModel.
+
+------------------------------------------------------------
+
+
+Today, 2009-12-21, the OPM Toolbox 1.1 was released. It incorporates a
+new XML schema compatible with the OPM v1.1 specification, and
+conversion to/from RDF using Tupelo 2.5 recently released.
+
+Key changes to the the XML Schema include:
+
+    * Support for annotations
+    * Compact representation for pre-defined properties, 
+      including type, profile, label
+    * Fixed time representation
+
+
+Maven artifacts are available from
+http://openprovenance.org/java/maven-releases/. Source code is
+available from http://github.com/lucmoreau/OpenProvenanceModel.
