@@ -12,3 +12,7 @@ Validation
   noteschema opm_v1.01 hardcoded in validator
 
 
+
+
+- signatures on opm graphs
+
