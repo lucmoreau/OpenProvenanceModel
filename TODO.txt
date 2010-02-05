@@ -11,4 +11,5 @@ Validation
 - test that a opm graph instance is compatible with xml schema
   noteschema opm_v1.01 hardcoded in validator
 
+- signatures of opm graphs
 
