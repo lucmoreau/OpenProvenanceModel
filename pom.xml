@@ -72,7 +72,7 @@
     <site>
       <id>public.www.site</id>
       <name>Site Deployment location</name>
-      <url>scp://openprovenance@websites1.ecs.soton.ac.uk/home/openprovenance/openprovenance.org/htdocs/java/site/1_1</url>
+      <url>scp://openprovenance@websites1.ecs.soton.ac.uk/home/openprovenance/openprovenance.org/htdocs/java/site/1_1_2</url>
     </site>
 
  </distributionManagement>
