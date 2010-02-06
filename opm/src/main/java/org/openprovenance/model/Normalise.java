@@ -263,6 +263,7 @@ public class Normalise  {
         for (JAXBElement je: ll) {
             EmbeddedAnnotation a=(EmbeddedAnnotation) je.getValue();
             sortProperties(a.getProperty());
+            sortByRef(a.getAccount());
         }
     }
 
@@ -276,6 +277,18 @@ public class Normalise  {
                                  Property p2=(Property) o2;
 
                                  return p1.getUri().compareTo(p2.getUri());
+                             }});
+    }
+
+    public void sortAccounts(List<Account> ll) {
+        // TODO: when keys are identical, i should sort by values too
+        Collections.sort(ll,
+                         new Comparator() {
+                             public int compare(Object o1, Object o2) {
+                                 Account acc1=(Account) o1;
+                                 Account acc2=(Account) o2;
+
+                                 return acc1.getId().compareTo(acc2.getId());
                              }});
     }
 

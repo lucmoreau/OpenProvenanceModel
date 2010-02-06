@@ -50,14 +50,16 @@ public class MashTest extends org.openprovenance.model.MashTest {
     static OPMGraph graph1;
 
     public void testMash1() throws Exception {
-        super.testMash1();
+        //super.testMash1();
     }
                                    
 
     public void testMashSaveToN3() throws Exception {
+        super.testMash1();
+        
         // reset counter to ensure that auto allocated ids are the same
-        RdfOPMFactory.count=0;
-        graph1=makeMash1Graph(oFactory);
+        //RdfOPMFactory.count=0;
+        //graph1=makeMash1Graph(oFactory);
         
         File file = new File("target/mash.n3");
         assert manager!=null;
