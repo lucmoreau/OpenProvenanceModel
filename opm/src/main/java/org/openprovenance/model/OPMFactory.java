@@ -251,6 +251,20 @@ public class OPMFactory implements CommonURIs {
         }
     }
 
+    public Object getSignature(EmbeddedAnnotation annotation) {
+        if (annotation instanceof Signature) {
+            Signature signature=(Signature) annotation;
+            return signature.getAny();
+        } else {
+            for (Property prop: annotation.getProperty()) {
+                if (prop.getUri().equals(SIGNATURE_PROPERTY)) {
+                    return prop.getValue();
+                }
+            }
+            return null;
+        }
+    }
+
     public Object getValue(EmbeddedAnnotation annotation) {
         if (annotation instanceof Value) {
             Value value=(Value) annotation;
@@ -264,6 +278,8 @@ public class OPMFactory implements CommonURIs {
             return null;
         }
     }
+
+
 
     public String getEncoding(EmbeddedAnnotation annotation) {
         if (annotation instanceof Value) {
@@ -344,6 +360,16 @@ public class OPMFactory implements CommonURIs {
         return null;
     }
 
+
+    /** Return the value of the signature property in the first annotation. */
+    public Object getSignature(List<JAXBElement<? extends EmbeddedAnnotation>> annotations) {
+        for (JAXBElement<? extends EmbeddedAnnotation> jann: annotations) {
+            EmbeddedAnnotation ann=jann.getValue();
+            Object signature=getSignature(ann);
+            if (signature!=null) return signature;
+        }
+        return null;
+    }
 
     /** Return the value of the profile property in the first annotation. */
     public String getProfile(List<JAXBElement<? extends EmbeddedAnnotation>> annotations) {
@@ -427,6 +453,19 @@ public class OPMFactory implements CommonURIs {
         return res;
     }
 
+    /** Return the value of the signature property. */
+    public List<Object> getSignatures(List<JAXBElement<? extends EmbeddedAnnotation>> annotations) {
+        List<Object> res=new LinkedList();
+        for (JAXBElement<? extends EmbeddedAnnotation> jann: annotations) {
+            EmbeddedAnnotation ann=jann.getValue();
+            Object signature=getSignature(ann);
+            if (signature!=null) res.add(signature);
+        }
+        return res;
+    }
+
+
+
     /** Generic accessor for annotable entities. */
     public String getLabel(Annotable annotable) {
         return getLabel(annotable.getAnnotation());
@@ -440,6 +479,11 @@ public class OPMFactory implements CommonURIs {
     /** Generic accessor for annotable entities. */
     public String getProfile(Annotable annotable) {
         return getProfile(annotable.getAnnotation());
+    }
+
+    /** Generic accessor for annotable entities. */
+    public Object getSignature(Annotable annotable) {
+        return getSignature(annotable.getAnnotation());
     }
 
     /** Generic accessor for annotable entities. */
@@ -470,6 +514,10 @@ public class OPMFactory implements CommonURIs {
 
     public void addAnnotation(Annotable annotable, Profile ann) {
         annotable.getAnnotation().add(of.createProfile(ann));
+    }
+
+    public void addAnnotation(Annotable annotable, Signature ann) {
+        annotable.getAnnotation().add(of.createSignature(ann));
     }
 
     public void addAnnotation(Annotable annotable, PName ann) {
@@ -1600,6 +1648,14 @@ public class OPMFactory implements CommonURIs {
 //             return null;
 //         }
 //     }
+
+    public Signature newSignature(Object sig) {
+        Signature res=of.createSignature();
+        res.setAny(sig);
+        return res;
+    }
+
+
 
     static {
         initBuilder();
