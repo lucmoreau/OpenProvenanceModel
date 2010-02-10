@@ -49,8 +49,18 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamResult;
+
+//import javax.xml.crypto.dsig.SignatureProperties;
+//import org.apache.xml.security.signature.ObjectContainer;
+//import org.apache.xml.security.signature.SignatureProperties;
+//import org.apache.xml.security.signature.SignatureProperty;
+import javax.xml.crypto.dom.DOMStructure;
+
+
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.w3c.dom.Element;
 
 /**
    Code inspired from the examples accompanying the xmlsec library.
@@ -274,7 +284,7 @@ public class Signature {
         generateEnveloped(doc,new StreamResult(output));
     }
 
-    boolean modifiedEnveloped=false;
+    boolean modifiedEnveloped=true;
     public Transform newTransformEnveloped() throws NoSuchAlgorithmException, InvalidAlgorithmParameterException {
         if (modifiedEnveloped) {
             String xp=    
@@ -294,6 +304,67 @@ public class Signature {
                                     (TransformParameterSpec) null);
         }
     }
+
+    public List<XMLObject> signatureProperties(
+                                       Document doc) throws org.apache.xml.security.signature.XMLSignatureException{
+
+        
+        List<XMLObject> res=new LinkedList();
+        List content=new LinkedList();
+
+        Element signedAddress = doc.createElementNS("urn:demo",
+                                                   "signedAddress");
+
+        signedAddress.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns", "urn:demo");
+        content.add(new DOMStructure(signedAddress));
+
+        // NEED SIGNATURE PROPERTIES
+        // NEED ID: Id="AMadeUpTimeStamp"
+        // NEED TO add refernce <Reference URI="#AMadeUpTimeStamp" Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties">
+
+        List content2 = Collections.singletonList(fac.newSignatureProperty(content,"http://foo/hello", "timestamp"));
+
+        XMLObject obj=fac.newXMLObject(content2,null,null,null);
+        res.add(obj);
+        return res;
+        
+    
+        // List properties=new LinkedList();
+        // SignatureProperties props=fac.newSignatureProperties(properties,"#SigProp1");
+        // ObjectContainer objc=new ObjectContainer(doc);
+        
+        //((org.apache.xml.security.signature.XMLSignature)signature).appendObject(objc);
+
+            // object number 4
+        // {
+        //     Object sig2=signature;
+        //     org.apache.xml.security.signature.XMLSignature sig=
+        //         (org.apache.xml.security.signature.XMLSignature)sig2;
+        //     ObjectContainer object = new ObjectContainer(doc);
+        //     SignatureProperties sps = new SignatureProperties(doc);
+
+        //     sps.setId("signature-properties-1");
+
+        //     SignatureProperty sp = new SignatureProperty(doc, "#signature");
+        //     Element signedAdress = doc.createElementNS("urn:demo",
+        //                                                "SignedAddress");
+
+        //     signedAdress.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns", "urn:demo");
+
+        //     Element IP = doc.createElementNS("urn:demo", "IP");
+
+        //     IP.appendChild(doc.createTextNode("192.168.21.138"));
+        //     signedAdress.appendChild(IP);
+        //     sp.appendChild(signedAdress);
+        //     sps.addSignatureProperty(sp);
+        //     object.appendChild(sps.getElement());
+        //     sig.appendObject(object);
+        // }
+
+
+        
+    }
+    
     public  void generateEnveloped(Document doc, Result result) throws Exception, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
         generateEnveloped(doc,doc.getDocumentElement(),result);
     }
@@ -315,13 +386,16 @@ public class Signature {
 
 
         // Create the XMLSignature (but don't sign it yet)
-        XMLSignature signature = fac.newXMLSignature(si, ki);
+        XMLSignature signature = fac.newXMLSignature(si, ki,
+                                                     signatureProperties(doc),
+                                                     null,null);
 
     
         // Create a DOMSignContext and specify the DSA PrivateKey and
         // location of the resulting XMLSignature's parent element
         DOMSignContext dsc = new DOMSignContext(getPrivateKey(), node);
         setPrefixes(dsc);
+
 
         // Marshal, generate (and sign) the enveloped signature
         signature.sign(dsc);

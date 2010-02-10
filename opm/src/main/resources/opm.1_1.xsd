@@ -36,7 +36,6 @@
 	  <xs:element name="causalDependencies" type="opm:CausalDependencies" minOccurs="0"/>
 	  <xs:element name="annotations" type="opm:Annotations" minOccurs="0"/>
 	  <xs:element ref="opm:annotation"  minOccurs="0" maxOccurs="unbounded"/>
-	  <xs:any namespace="##other" processContents="strict" maxOccurs="1" minOccurs="0" />
 	</xs:sequence>
 	<xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>

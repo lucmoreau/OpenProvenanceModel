@@ -63,7 +63,7 @@ public class Signature1Test
                               props.getProperty("build.keystorepass"),
                               props.getProperty("build.alias"),
                               props.getProperty("build.keypass"),
-                              "the tester program");
+                              "the first tester program");
 
 
 
@@ -77,6 +77,33 @@ public class Signature1Test
 
         graph1=graph;
         System.out.println("Signature1 Test asserting True");
+        assertTrue( true );
+
+        
+
+    }
+
+
+    public void testSignature2() throws JAXBException, Exception
+    {
+
+        getKeystoreConfig();
+        Signer sig=new Signer(props.getProperty("build.keystoretype"),
+                              props.getProperty("build.keystore"),
+                              props.getProperty("build.keystorepass"),
+                              props.getProperty("build.alias"),
+                              props.getProperty("build.keypass"),
+                              "the second tester program");
+
+
+
+        sig.sign(graph1);
+        
+        OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
+        serial.serialiseOPMGraph(new File("target/signature2.xml"),graph1,false);
+
+        
+        System.out.println("Signature2 Test asserting True");
         assertTrue( true );
 
         
@@ -191,22 +218,36 @@ public class Signature1Test
         toDot.convert(graph1,"target/signature1.dot", "target/signature1.pdf");
     }
 
-    public Node getSignature(String file) throws Exception {
+    public List<Node> getSignature(String file) throws Exception {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
         Document doc =
             dbf.newDocumentBuilder().parse(new FileInputStream(file));
         
-        // Find Signature element
+        // Find Signature elements
         NodeList nl = 
             doc.getElementsByTagNameNS(XMLSignature.XMLNS, "Signature");
-        //doc.getElementsByTagNameNS("http://openprovenance.org/model/v1.1.a", "sig");
-        return nl.item(0);
+
+        List<Node> res=new LinkedList();
+        for (int i=0; i<nl.getLength(); i++) {
+            res.add(nl.item(i));
+        }
+        return res;
     }
 
-    public void testCheckFile() throws Exception {
-        assertTrue(new Signer().validate(getSignature("target/signature1.xml")));
+    public void testCheckLastSignature1() throws Exception {
+        List<Node> nl=getSignature("target/signature1.xml");
+        assertTrue(new Signer().validate(nl.get(nl.size()-1)));
     }
+
+    public void testCheckLastSignature2() throws Exception {
+        List<Node> nl=getSignature("target/signature2.xml");
+        // signature is invalidated because of the extra signature we have added
+        assertFalse(new Signer().validate(nl.get(0)));
+        assertTrue(new Signer().validate(nl.get(nl.size()-1)));
+    }
+
+
 
 
     public void NOtestSignature1Copy() throws java.io.FileNotFoundException,  java.io.IOException   {

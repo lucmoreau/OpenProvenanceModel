@@ -70,7 +70,6 @@ public class Signer extends com.uprovenance.util.security.Signature implements S
 
 
     public boolean sign(OPMGraph oGraph) throws javax.xml.bind.JAXBException, Exception {
-        if (oFactory.getSignature(oGraph)!=null) return false;
 
         // create the opmSig
         Signature opmSig=oFactory.newSignature();
@@ -80,19 +79,23 @@ public class Signer extends com.uprovenance.util.security.Signature implements S
         OPMSerialiser pserial=OPMSerialiser.getThreadOPMSerialiser();
         Document doc=pserial.serialiseOPMGraph(oGraph);
 
-        NodeList anchor = 
+        NodeList anchors = 
             doc.getElementsByTagNameNS("http://openprovenance.org/model/v1.1.a", "signature");
-        // System.out.println("Found anchor " + anchor);
+         System.out.println("Found anchors " + anchors.getLength());
+
+        Node anchor=anchors.item(anchors.getLength()-1);
 
         DOMResult result=new DOMResult(); // may be better to use a saxresult!
-        generateEnveloped(doc,anchor.item(0),result);
+        generateEnveloped(doc,anchor,result);
         //generateEnveloped(doc,result);
         Node theNode=result.getNode();
         Document doc2=(Document)theNode;
         //debug
         serializeToXML(doc2,"target/signature0.xml");
+
         NodeList nl = 
-            doc2.getElementsByTagNameNS(XMLSignature.XMLNS, "Signature");
+            ((Element)anchor).getElementsByTagNameNS(XMLSignature.XMLNS, "Signature");
+        
         Node theSignature=nl.item(0);
         // orphaning the signature
         Node removedSignature=theSignature.getParentNode().removeChild(theSignature);
@@ -103,7 +106,20 @@ public class Signer extends com.uprovenance.util.security.Signature implements S
         return true;
     }
 
-    void serializeToXML(Document node, String filename) throws java.io.IOException, java.io.FileNotFoundException {
+    public void serializeToXML(Document node, String filename) throws java.io.IOException, java.io.FileNotFoundException {
+        FileOutputStream fos = new FileOutputStream(filename);
+        // XERCES 1 or 2 additionnal classes.
+        OutputFormat of = new OutputFormat("XML","UTF-8",true);
+        of.setIndent(1);
+        of.setIndenting(true);
+        //of.setDoctype(null,"users.dtd");
+        XMLSerializer serializer = new XMLSerializer(fos,null);
+        // As a DOM Serializer
+        serializer.asDOMSerializer().serialize( node );
+        fos.close();
+    }
+
+    public void serializeToXML(Element node, String filename) throws java.io.IOException, java.io.FileNotFoundException {
         FileOutputStream fos = new FileOutputStream(filename);
         // XERCES 1 or 2 additionnal classes.
         OutputFormat of = new OutputFormat("XML","UTF-8",true);
