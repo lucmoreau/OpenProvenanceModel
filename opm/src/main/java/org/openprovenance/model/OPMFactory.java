@@ -1655,6 +1655,11 @@ public class OPMFactory implements CommonURIs {
         return res;
     }
 
+    public Signature newSignature() {
+        Signature res=of.createSignature();
+        return res;
+    }
+
 
 
     static {

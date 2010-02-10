@@ -62,7 +62,8 @@ public class Signature1Test
                               props.getProperty("build.keystore"),
                               props.getProperty("build.keystorepass"),
                               props.getProperty("build.alias"),
-                              props.getProperty("build.keypass"));
+                              props.getProperty("build.keypass"),
+                              "the tester program");
 
 
 

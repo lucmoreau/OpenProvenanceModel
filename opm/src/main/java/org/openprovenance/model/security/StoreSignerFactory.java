@@ -25,11 +25,13 @@ public class StoreSignerFactory {
     }
 
     public SignerFunctionality newInstance(String privateKeyAlias,
-                                           String privateKeyPassword) 
-        throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+                                           String privateKeyPassword,
+                                           String simpleName) 
+        throws ClassNotFoundException, InstantiationException, IllegalAccessException, KeyStoreException {
         return new Signer(ks,
                           privateKeyAlias,
-                          privateKeyPassword);
+                          privateKeyPassword,
+                          simpleName);
     }
 
 

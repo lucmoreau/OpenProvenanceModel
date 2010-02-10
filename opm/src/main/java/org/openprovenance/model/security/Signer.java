@@ -29,11 +29,14 @@ public class Signer extends com.uprovenance.util.security.Signature implements S
     public Signer() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
     }
 
+    String signer;
+    
     public Signer(String keyStoreType,
                   String keyStoreName,
                   String keyStorePassword,
                   String privateKeyAlias,
-                  String privateKeyPassword)
+                  String privateKeyPassword,
+                  String simpleName)
         throws NoSuchAlgorithmException, IOException, KeyStoreException, CertificateException,
                ClassNotFoundException, InstantiationException, IllegalAccessException {
         super(keyStoreType,
@@ -41,20 +44,37 @@ public class Signer extends com.uprovenance.util.security.Signature implements S
               keyStorePassword,
               privateKeyAlias,
               privateKeyPassword);
+        if (simpleName!=null) {
+            signer=simpleName;
+        } else {
+            signer=getDistinguishedName();
+        }
+                                  
     }
 
     public Signer(KeyStore ks,
                   String privateKeyAlias,
-                  String privateKeyPassword)
-        throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+                  String privateKeyPassword,
+                  String simpleName)
+        throws ClassNotFoundException, InstantiationException, IllegalAccessException, KeyStoreException {
         super(ks,
               privateKeyAlias,
               privateKeyPassword);
+        if (simpleName!=null) {
+            signer=simpleName;
+        } else {
+            signer=getDistinguishedName();
+        }
     }
 
 
     public boolean sign(OPMGraph oGraph) throws javax.xml.bind.JAXBException, Exception {
         if (oFactory.getSignature(oGraph)!=null) return false;
+
+        // create the opmSig
+        Signature opmSig=oFactory.newSignature();
+        opmSig.setSigner(signer);
+        oFactory.addAnnotation(oGraph,opmSig);
 
         OPMSerialiser pserial=OPMSerialiser.getThreadOPMSerialiser();
         Document doc=pserial.serialiseOPMGraph(oGraph);
@@ -67,7 +87,9 @@ public class Signer extends com.uprovenance.util.security.Signature implements S
         Node theSignature=nl.item(0);
         // orphaning the signature
         Node removedSignature=theSignature.getParentNode().removeChild(theSignature);
-        oFactory.addAnnotation(oGraph,oFactory.newSignature(removedSignature));
+
+        // insert the XML signature inside the opmSig
+        opmSig.setAny(removedSignature);
         return true;
     }
 
@@ -96,7 +118,7 @@ public class Signer extends com.uprovenance.util.security.Signature implements S
                 theX509Data.getElementsByTagNameNS(XMLSignature.XMLNS, "X509SubjectName");
             Element x509SubjectName=(Element)snl.item(0);
             String dn=x509SubjectName.getTextContent();
-            String dn2=((Signature)oFactory.getSignature(oGraph)).getDn();
+            String dn2=((Signature)oFactory.getSignature(oGraph)).getSigner();
             System.out.println("** signature found DN " + dn);
             System.out.println("** signature found DN " + dn2);
             sameDN=dn.equals(dn2);

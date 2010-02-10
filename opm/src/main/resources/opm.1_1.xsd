@@ -375,7 +375,7 @@
 	<xs:complexContent>
 	  <xs:extension base="opm:EmbeddedAnnotation">
         <xs:sequence>
-          <xs:element name="dn"        type="xs:string"/>
+          <xs:element name="signer"        type="xs:string"/>
 		  <xs:any namespace="##other" processContents="strict" maxOccurs="1" minOccurs="0" />
         </xs:sequence>
 	  </xs:extension>

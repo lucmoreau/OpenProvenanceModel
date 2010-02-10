@@ -186,6 +186,7 @@ public class Signature {
 
     public void setPrefixes(XMLCryptoContext context) {
         context.putNamespacePrefix(XMLSIG_NAMESPACE, XMLSIG_PREFIX);
+        //context.putNamespacePrefix("opm","http://openprovenance.org/model/v1.1.a");
     }
 
     //
@@ -273,7 +274,7 @@ public class Signature {
         generateEnveloped(doc,new StreamResult(output));
     }
 
-    boolean modifiedEnveloped=true;
+    boolean modifiedEnveloped=false;
     public Transform newTransformEnveloped() throws NoSuchAlgorithmException, InvalidAlgorithmParameterException {
         if (modifiedEnveloped) {
             String xp=    
