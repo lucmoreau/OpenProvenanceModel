@@ -200,6 +200,8 @@
             </goals>
             <configuration>
               <tasks>
+
+                  <delete file="${project.build.directory}/${build.keystore}" />
                 
 <!--
                 <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
