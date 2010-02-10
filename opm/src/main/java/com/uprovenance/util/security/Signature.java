@@ -18,6 +18,8 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Collections;
+import java.util.Random;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.HashMap;
@@ -34,6 +36,7 @@ import javax.xml.crypto.dsig.Transform;
 import javax.xml.crypto.dsig.XMLObject;
 import javax.xml.crypto.dsig.XMLSignature;
 import javax.xml.crypto.dsig.XMLSignatureFactory;
+import javax.xml.crypto.dsig.SignatureProperties;
 import javax.xml.crypto.dsig.dom.DOMSignContext;
 import javax.xml.crypto.dsig.dom.DOMValidateContext;
 import javax.xml.crypto.dsig.keyinfo.KeyInfo;
@@ -60,17 +63,18 @@ import javax.xml.crypto.dom.DOMStructure;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.w3c.dom.Text;
 import org.w3c.dom.Element;
 
 /**
    Code inspired from the examples accompanying the xmlsec library.
    This code attempts to abstract the different signature methods
-     GenDetached, GenEnveloped and GenEnveloping.
+   GenDetached, GenEnveloped and GenEnveloping.
 
-     Code initially developed in the context of
-     Universal Provenance Infrastructure
+   Code initially developed in the context of
+   Universal Provenance Infrastructure
    
- */
+*/
 
 public class Signature {
     public static final String XMLSIG_PREFIX="ds";
@@ -210,14 +214,18 @@ public class Signature {
         generateDetached(new FileOutputStream(file));
     }
 
-        // Create the SignedInfo
+    // Create the SignedInfo
     public SignedInfo createSignedInfo(Reference ref) throws NoSuchAlgorithmException, InvalidAlgorithmParameterException {
+	return createSignedInfo(Collections.singletonList(ref));
+    }
+    // Create the SignedInfo
+    public SignedInfo createSignedInfo(List<Reference> refs) throws NoSuchAlgorithmException, InvalidAlgorithmParameterException {
         SignedInfo si = fac.newSignedInfo(
                                           fac.newCanonicalizationMethod
                                           (CanonicalizationMethod.INCLUSIVE_WITH_COMMENTS, 
                                            (C14NMethodParameterSpec) null),
                                           fac.newSignatureMethod(SignatureMethod.DSA_SHA1, null),
-                                          Collections.singletonList(ref));
+                                          refs);
         return si;
     }
 
@@ -305,26 +313,46 @@ public class Signature {
         }
     }
 
-    public List<XMLObject> signatureProperties(
-                                       Document doc) throws org.apache.xml.security.signature.XMLSignatureException{
+    Random rand=new Random();
+    
+    public List<XMLObject> signatureProperties(String sigId,
+					       Document doc) throws org.apache.xml.security.signature.XMLSignatureException{
 
         
         List<XMLObject> res=new LinkedList();
-        List content=new LinkedList();
+	Date now=new Date();
+        List contentCreated=new LinkedList();
+        Element createdEl = doc.createElementNS("http://www.w3.org/2009/xmldsig-properties","dsp:Created");
+	Text date=doc.createTextNode(""+now);
+	createdEl.appendChild(date);
+        //createdEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns", "urn:ignore");
+        contentCreated.add(new DOMStructure(createdEl));
 
-        Element signedAddress = doc.createElementNS("urn:demo",
-                                                   "signedAddress");
-
-        signedAddress.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns", "urn:demo");
-        content.add(new DOMStructure(signedAddress));
+        List contentReplayProtect=new LinkedList();
+        Element replayProtectEl = doc.createElementNS("http://www.w3.org/2009/xmldsig-properties","dsp:ReplayProtect");
+        Element timestampEl = doc.createElementNS("http://www.w3.org/2009/xmldsig-properties","dsp:timestamp");
+        Element nonceEl = doc.createElementNS("http://www.w3.org/2009/xmldsig-properties","dsp:nonce");
+	date=doc.createTextNode(""+now);
+	replayProtectEl.appendChild(timestampEl);
+	replayProtectEl.appendChild(nonceEl);
+	Text nonce=doc.createTextNode(""+rand.nextInt());
+	timestampEl.appendChild(date);
+	nonceEl.appendChild(nonce);
+        //replayProtectEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns", "urn:ignore");
+        contentReplayProtect.add(new DOMStructure(replayProtectEl));
 
         // NEED SIGNATURE PROPERTIES
         // NEED ID: Id="AMadeUpTimeStamp"
         // NEED TO add refernce <Reference URI="#AMadeUpTimeStamp" Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties">
 
-        List content2 = Collections.singletonList(fac.newSignatureProperty(content,"http://foo/hello", "timestamp"));
+	
+        List content2 = new LinkedList();
+	content2.add(fac.newSignatureProperty(contentCreated,"urn:ignore", sigId + ".timestamp"));
+	content2.add(fac.newSignatureProperty(contentReplayProtect,"urn:ignore", sigId + ".contentreplay"));
 
-        XMLObject obj=fac.newXMLObject(content2,null,null,null);
+	List content3 = Collections.singletonList(fac.newSignatureProperties(content2, sigId + ".sig.properties"));
+	
+        XMLObject obj=fac.newXMLObject(content3,null,null,null);
         res.add(obj);
         return res;
         
@@ -364,22 +392,40 @@ public class Signature {
 
         
     }
+
+    static int sigCount=0;
+    public String newSignatureId() {
+	return "sigId"+ sigCount++;
+    }
     
     public  void generateEnveloped(Document doc, Result result) throws Exception, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
         generateEnveloped(doc,doc.getDocumentElement(),result);
     }
     public  void generateEnveloped(Document doc, Node node, Result result) throws Exception, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
+	String sigId=newSignatureId();
+
+	List<Reference> refs=new LinkedList();
 
         // Create a Reference to the enveloped document (in this case we are
         // signing the whole document, so a URI of "" signifies that) and
         // also specify the SHA1 digest algorithm and the ENVELOPED Transform.
-        Reference ref = fac.newReference
-            ("", fac.newDigestMethod(DigestMethod.SHA1, null),
-             Collections.singletonList(newTransformEnveloped()), 
-             null, null);
+        refs.add(fac.newReference("",
+				  fac.newDigestMethod(DigestMethod.SHA1, null),
+				  Collections.singletonList(newTransformEnveloped()), 
+				  null,
+				  null));
+
+	//TODO, validation fails for second reference here.
+	if (false) 
+        refs.add(fac.newReference("#" + sigId + ".sig.properties",
+				  fac.newDigestMethod(DigestMethod.SHA1, null),
+				  null, 
+				  SignatureProperties.TYPE,
+				  null));
+
 
         // Create the SignedInfo
-        SignedInfo si = createSignedInfo(ref);
+        SignedInfo si = createSignedInfo(refs);
 
         KeyInfo ki = makeKeyInfo();
 
@@ -387,8 +433,8 @@ public class Signature {
 
         // Create the XMLSignature (but don't sign it yet)
         XMLSignature signature = fac.newXMLSignature(si, ki,
-                                                     signatureProperties(doc),
-                                                     null,null);
+                                                     signatureProperties(sigId,doc),
+                                                     sigId,null);
 
     
         // Create a DOMSignContext and specify the DSA PrivateKey and
