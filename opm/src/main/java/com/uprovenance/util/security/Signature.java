@@ -282,9 +282,10 @@ public class Signature {
                 + " here()/ancestor::opm:signature[1]) > "
                 + " count(ancestor-or-self::opm:signature) ";
 
-            //xp="not(ancestor-or-self::opm:signature)";
+            xp="not(ancestor-or-self::ds:Signature)";
             HashMap map=new HashMap();
             map.put("opm","http://openprovenance.org/model/v1.1.a");
+            map.put("ds","http://www.w3.org/2000/09/xmldsig#");
             XPathFilterParameterSpec xpath=new XPathFilterParameterSpec(xp,map);
             return fac.newTransform(Transform.XPATH,
                                     xpath);
@@ -293,9 +294,10 @@ public class Signature {
                                     (TransformParameterSpec) null);
         }
     }
-
-                          
     public  void generateEnveloped(Document doc, Result result) throws Exception, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
+        generateEnveloped(doc,doc.getDocumentElement(),result);
+    }
+    public  void generateEnveloped(Document doc, Node node, Result result) throws Exception, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
 
         // Create a Reference to the enveloped document (in this case we are
         // signing the whole document, so a URI of "" signifies that) and
@@ -318,7 +320,7 @@ public class Signature {
     
         // Create a DOMSignContext and specify the DSA PrivateKey and
         // location of the resulting XMLSignature's parent element
-        DOMSignContext dsc = new DOMSignContext(getPrivateKey(), doc.getDocumentElement());
+        DOMSignContext dsc = new DOMSignContext(getPrivateKey(), node);
         setPrefixes(dsc);
 
         // Marshal, generate (and sign) the enveloped signature
@@ -430,6 +432,8 @@ public class Signature {
     public boolean validate(Node signatureToCheck) throws Exception {
         // Create a DOMValidateContext and specify a KeyValue KeySelector
         // and document context
+
+        System.out.println("Validating " + signatureToCheck);
         DOMValidateContext valContext = new DOMValidateContext(new MultiKeySelector(),
                                                                signatureToCheck);
         setPrefixes(valContext);
@@ -446,11 +450,15 @@ public class Signature {
             boolean sv = signature.getSignatureValue().validate(valContext);
             System.out.println("signature validation status: " + sv);
             // check the validation status of each Reference
-            Iterator<?> i = signature.getSignedInfo().getReferences().iterator();
-            for (int j=0; i.hasNext(); j++) {
-                boolean refValid = 
-                    ((Reference) i.next()).validate(valContext);
-                System.out.println("ref["+j+"] validity status: " + refValid);
+            int j=0;
+            System.out.println(" references: " + signature.getSignedInfo().getReferences().size());
+            for (Object o: signature.getSignedInfo().getReferences()) {
+                Reference ref=(Reference) o;
+                System.out.println("- " + j);
+                boolean refValid = ref.validate(valContext);
+                System.out.println("- " + j);
+                System.out.println("- ref["+j+"] validity status: " + refValid);
+                j++;
             }
             return false;
         } else {

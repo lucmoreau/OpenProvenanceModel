@@ -70,7 +70,7 @@ public class Signature1Test
         sig.sign(graph);
         
         OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
-        serial.serialiseOPMGraph(new File("target/signature1.xml"),graph,true);
+        serial.serialiseOPMGraph(new File("target/signature1.xml"),graph,false);
 
         
         //System.out.println(sw);

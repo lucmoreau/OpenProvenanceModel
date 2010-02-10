@@ -89,6 +89,8 @@ public class OPMSerialiser {
     public Node serialiseOPMGraph (Node addTo, OPMGraph graph)
         throws JAXBException {
         Marshaller m=jc.createMarshaller();
+        m.setProperty("jaxb.formatted.output",true);
+        configurePrefixes(m);
         m.marshal(of.createOpmGraph(graph),addTo);
         return addTo;
     }
@@ -96,6 +98,7 @@ public class OPMSerialiser {
         throws JAXBException {
         Marshaller m=jc.createMarshaller();
         m.marshal(of.createOpmGraph(graph),sw);
+        configurePrefixes(m);
         return sw.toString();
     }
 

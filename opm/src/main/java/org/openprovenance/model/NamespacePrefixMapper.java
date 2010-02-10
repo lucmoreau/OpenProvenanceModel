@@ -1,4 +1,5 @@
 package org.openprovenance.model;
+import com.uprovenance.util.security.Signature;
 
 /** Prefix definition for OPM serialisations. */
 
@@ -61,6 +62,9 @@ public class NamespacePrefixMapper extends com.sun.xml.bind.marshaller.Namespace
         }
         if (namespaceUri.equals("http://www.w3.org/2001/XMLSchema-instance")) {
             return "xsi";
+        }
+        if (namespaceUri.equals(Signature.XMLSIG_NAMESPACE)) {
+            return Signature.XMLSIG_PREFIX;
         }
         if ((defaultNamespace!=null) && (namespaceUri.equals(defaultNamespace))) {
             return "";

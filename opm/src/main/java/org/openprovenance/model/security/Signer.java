@@ -19,8 +19,9 @@ import org.w3c.dom.NodeList;
 import javax.xml.transform.dom.DOMResult;
 import java.security.KeyStore;
 
-
-
+import java.io.FileOutputStream;
+import org.apache.xml.serialize.OutputFormat;
+import org.apache.xml.serialize.XMLSerializer;
 
 public class Signer extends com.uprovenance.util.security.Signature implements SignerFunctionality {
 
@@ -78,10 +79,18 @@ public class Signer extends com.uprovenance.util.security.Signature implements S
 
         OPMSerialiser pserial=OPMSerialiser.getThreadOPMSerialiser();
         Document doc=pserial.serialiseOPMGraph(oGraph);
+
+        NodeList anchor = 
+            doc.getElementsByTagNameNS("http://openprovenance.org/model/v1.1.a", "signature");
+        // System.out.println("Found anchor " + anchor);
+
         DOMResult result=new DOMResult(); // may be better to use a saxresult!
-        generateEnveloped(doc,result);
+        generateEnveloped(doc,anchor.item(0),result);
+        //generateEnveloped(doc,result);
         Node theNode=result.getNode();
         Document doc2=(Document)theNode;
+        //debug
+        serializeToXML(doc2,"target/signature0.xml");
         NodeList nl = 
             doc2.getElementsByTagNameNS(XMLSignature.XMLNS, "Signature");
         Node theSignature=nl.item(0);
@@ -90,8 +99,23 @@ public class Signer extends com.uprovenance.util.security.Signature implements S
 
         // insert the XML signature inside the opmSig
         opmSig.setAny(removedSignature);
+        //oGraph.setAny(removedSignature);
         return true;
     }
+
+    void serializeToXML(Document node, String filename) throws java.io.IOException, java.io.FileNotFoundException {
+        FileOutputStream fos = new FileOutputStream(filename);
+        // XERCES 1 or 2 additionnal classes.
+        OutputFormat of = new OutputFormat("XML","UTF-8",true);
+        of.setIndent(1);
+        of.setIndenting(true);
+        //of.setDoctype(null,"users.dtd");
+        XMLSerializer serializer = new XMLSerializer(fos,null);
+        // As a DOM Serializer
+        serializer.asDOMSerializer().serialize( node );
+        fos.close();
+    }
+
 
     public boolean validate(OPMGraph oGraph) throws javax.xml.bind.JAXBException, Exception {
         return validate(oGraph,true);
