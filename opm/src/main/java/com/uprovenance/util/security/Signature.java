@@ -1,42 +1,48 @@
 package com.uprovenance.util.security;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.security.InvalidAlgorithmParameterException;
+import java.security.KeyException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
-import java.security.Provider;
 import java.security.PrivateKey;
+import java.security.Provider;
 import java.security.PublicKey;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Collections;
-import java.util.Random;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+import javax.xml.crypto.MarshalException;
 import javax.xml.crypto.XMLCryptoContext;
 import javax.xml.crypto.XMLStructure;
+import javax.xml.crypto.dom.DOMStructure;
 import javax.xml.crypto.dom.DOMStructure;
 import javax.xml.crypto.dsig.CanonicalizationMethod;
 import javax.xml.crypto.dsig.DigestMethod;
 import javax.xml.crypto.dsig.Reference;
 import javax.xml.crypto.dsig.SignatureMethod;
+import javax.xml.crypto.dsig.SignatureProperties;
 import javax.xml.crypto.dsig.SignedInfo;
 import javax.xml.crypto.dsig.Transform;
 import javax.xml.crypto.dsig.XMLObject;
 import javax.xml.crypto.dsig.XMLSignature;
+import javax.xml.crypto.dsig.XMLSignatureException;
 import javax.xml.crypto.dsig.XMLSignatureFactory;
-import javax.xml.crypto.dsig.SignatureProperties;
 import javax.xml.crypto.dsig.dom.DOMSignContext;
 import javax.xml.crypto.dsig.dom.DOMValidateContext;
 import javax.xml.crypto.dsig.keyinfo.KeyInfo;
@@ -47,24 +53,19 @@ import javax.xml.crypto.dsig.spec.C14NMethodParameterSpec;
 import javax.xml.crypto.dsig.spec.TransformParameterSpec;
 import javax.xml.crypto.dsig.spec.XPathFilterParameterSpec;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamResult;
-
-//import javax.xml.crypto.dsig.SignatureProperties;
-//import org.apache.xml.security.signature.ObjectContainer;
-//import org.apache.xml.security.signature.SignatureProperties;
-//import org.apache.xml.security.signature.SignatureProperty;
-import javax.xml.crypto.dom.DOMStructure;
-
-
-
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.Text;
-import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 /**
    Code inspired from the examples accompanying the xmlsec library.
@@ -79,6 +80,9 @@ import org.w3c.dom.Element;
 public class Signature {
     public static final String XMLSIG_PREFIX="ds";
     public static final String XMLSIG_NAMESPACE=XMLSignature.XMLNS;
+    public static final String XMLSIG_PROP_PREFIX="dsp";
+    public static final String XMLSIG_PROP_NAMESPACE="http://www.w3.org/2009/xmldsig-properties";
+    public static final String SIG_PROPERTIES_ID_SUFFIX=".sig.properties";
 
     public Signature() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         createSignatureFactory();
@@ -200,17 +204,18 @@ public class Signature {
 
     public void setPrefixes(XMLCryptoContext context) {
         context.putNamespacePrefix(XMLSIG_NAMESPACE, XMLSIG_PREFIX);
+	context.putNamespacePrefix(XMLSIG_PROP_NAMESPACE,XMLSIG_PROP_PREFIX);
         //context.putNamespacePrefix("opm","http://openprovenance.org/model/v1.1.a");
     }
 
-    //
-    // Synopsis: java GenDetached [output]
-    //
-    // where output is the name of the file that will contain the detached
-    // signature. If not specified, standard output is used.
-    //
+    /**
+     Synopsis: java GenDetached [output]
+    
+     where output is the name of the file that will contain the detached
+     signature. 
+    */
 
-    public void generateDetached(String file) throws Exception {
+    public void generateDetached(String file)  throws KeyException, UnrecoverableKeyException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, java.security.KeyStoreException, TransformerException, ParserConfigurationException, MarshalException, XMLSignatureException, FileNotFoundException {
         generateDetached(new FileOutputStream(file));
     }
 
@@ -233,7 +238,7 @@ public class Signature {
 
 
 
-    public void generateDetached(OutputStream os) throws Exception, NoSuchAlgorithmException, InvalidAlgorithmParameterException, java.security.KeyStoreException {
+    public void generateDetached(OutputStream os) throws KeyException, UnrecoverableKeyException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, java.security.KeyStoreException, TransformerException, ParserConfigurationException, MarshalException, XMLSignatureException {
 
         // Create a Reference to an external URI that will be digested
         // using the SHA1 digest algorithm
@@ -279,12 +284,12 @@ public class Signature {
     //    standard output will be used.
     //
 
-    public  void generateEnveloped(String input, String output) throws Exception {
+    public  void generateEnveloped(String input, String output)  throws KeyException, UnrecoverableKeyException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, java.security.KeyStoreException, TransformerException, ParserConfigurationException, MarshalException, XMLSignatureException, FileNotFoundException, SAXException, IOException {
         generateEnveloped(new FileInputStream(input),
                           new FileOutputStream(output));
     }
 
-    public  void generateEnveloped(InputStream input, OutputStream output) throws Exception, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
+    public  void generateEnveloped(InputStream input, OutputStream output)  throws KeyException, UnrecoverableKeyException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, java.security.KeyStoreException, TransformerException, ParserConfigurationException, MarshalException, XMLSignatureException, SAXException, IOException {
         // Instantiate the document to be signed
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
@@ -292,7 +297,7 @@ public class Signature {
         generateEnveloped(doc,new StreamResult(output));
     }
 
-    boolean modifiedEnveloped=true;
+    boolean modifiedEnveloped=false;
     public Transform newTransformEnveloped() throws NoSuchAlgorithmException, InvalidAlgorithmParameterException {
         if (modifiedEnveloped) {
             String xp=    
@@ -316,29 +321,29 @@ public class Signature {
     Random rand=new Random();
     
     public List<XMLObject> signatureProperties(String sigId,
-					       Document doc) throws org.apache.xml.security.signature.XMLSignatureException{
+					       Document doc)  {
 
         
         List<XMLObject> res=new LinkedList();
 	Date now=new Date();
         List contentCreated=new LinkedList();
-        Element createdEl = doc.createElementNS("http://www.w3.org/2009/xmldsig-properties","dsp:Created");
+        Element createdEl = doc.createElementNS(XMLSIG_PROP_NAMESPACE,XMLSIG_PROP_PREFIX+":Created");
 	Text date=doc.createTextNode(""+now);
 	createdEl.appendChild(date);
-        //createdEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns", "urn:ignore");
+        createdEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns", "urn:ignore");
         contentCreated.add(new DOMStructure(createdEl));
 
         List contentReplayProtect=new LinkedList();
-        Element replayProtectEl = doc.createElementNS("http://www.w3.org/2009/xmldsig-properties","dsp:ReplayProtect");
-        Element timestampEl = doc.createElementNS("http://www.w3.org/2009/xmldsig-properties","dsp:timestamp");
-        Element nonceEl = doc.createElementNS("http://www.w3.org/2009/xmldsig-properties","dsp:nonce");
+        Element replayProtectEl = doc.createElementNS(XMLSIG_PROP_NAMESPACE,XMLSIG_PROP_PREFIX+":ReplayProtect");
+        Element timestampEl =     doc.createElementNS(XMLSIG_PROP_NAMESPACE,XMLSIG_PROP_PREFIX+":timestamp");
+        Element nonceEl =         doc.createElementNS(XMLSIG_PROP_NAMESPACE,XMLSIG_PROP_PREFIX+":nonce");
 	date=doc.createTextNode(""+now);
 	replayProtectEl.appendChild(timestampEl);
 	replayProtectEl.appendChild(nonceEl);
 	Text nonce=doc.createTextNode(""+rand.nextInt());
 	timestampEl.appendChild(date);
 	nonceEl.appendChild(nonce);
-        //replayProtectEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns", "urn:ignore");
+        replayProtectEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns", "urn:ignore");
         contentReplayProtect.add(new DOMStructure(replayProtectEl));
 
         // NEED SIGNATURE PROPERTIES
@@ -347,81 +352,63 @@ public class Signature {
 
 	
         List content2 = new LinkedList();
-	content2.add(fac.newSignatureProperty(contentCreated,"urn:ignore", sigId + ".timestamp"));
+	content2.add(fac.newSignatureProperty(contentCreated,"urn:ignore", sigId + ".created"));
 	content2.add(fac.newSignatureProperty(contentReplayProtect,"urn:ignore", sigId + ".contentreplay"));
 
-	List content3 = Collections.singletonList(fac.newSignatureProperties(content2, sigId + ".sig.properties"));
+	List content3 = Collections.singletonList(fac.newSignatureProperties(content2, sigId + SIG_PROPERTIES_ID_SUFFIX));
 	
         XMLObject obj=fac.newXMLObject(content3,null,null,null);
         res.add(obj);
         return res;
-        
-    
-        // List properties=new LinkedList();
-        // SignatureProperties props=fac.newSignatureProperties(properties,"#SigProp1");
-        // ObjectContainer objc=new ObjectContainer(doc);
-        
-        //((org.apache.xml.security.signature.XMLSignature)signature).appendObject(objc);
-
-            // object number 4
-        // {
-        //     Object sig2=signature;
-        //     org.apache.xml.security.signature.XMLSignature sig=
-        //         (org.apache.xml.security.signature.XMLSignature)sig2;
-        //     ObjectContainer object = new ObjectContainer(doc);
-        //     SignatureProperties sps = new SignatureProperties(doc);
-
-        //     sps.setId("signature-properties-1");
-
-        //     SignatureProperty sp = new SignatureProperty(doc, "#signature");
-        //     Element signedAdress = doc.createElementNS("urn:demo",
-        //                                                "SignedAddress");
-
-        //     signedAdress.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns", "urn:demo");
-
-        //     Element IP = doc.createElementNS("urn:demo", "IP");
-
-        //     IP.appendChild(doc.createTextNode("192.168.21.138"));
-        //     signedAdress.appendChild(IP);
-        //     sp.appendChild(signedAdress);
-        //     sps.addSignatureProperty(sp);
-        //     object.appendChild(sps.getElement());
-        //     sig.appendObject(object);
-        // }
-
-
-        
     }
 
     static int sigCount=0;
     public String newSignatureId() {
 	return "sigId"+ sigCount++;
     }
+
+   /** Create a Reference to a signature properties and
+	also specify the SHA1 digest algorithm.
+	@param id: signature  id used as a prefix to create the signature properties id
+	@return a Reference
+    */
+    public Reference newReferenceToSigProperties(String sigId) throws NoSuchAlgorithmException, InvalidAlgorithmParameterException {
+	return fac.newReference("#" + sigId + SIG_PROPERTIES_ID_SUFFIX, //".created"
+				fac.newDigestMethod(DigestMethod.SHA1, null),
+				null, 
+				SignatureProperties.TYPE,
+				null);
+    }
+
+    /** Create a Reference to the enveloped document (in this case we are
+	signing the whole document, so a URI of "" signifies that) and
+	also specify the SHA1 digest algorithm and the ENVELOPED Transform.
+	@param id: document id, use "" to denote root
+	@return a Reference
+    */
+    public Reference newReferenceToDocument(String id) throws NoSuchAlgorithmException, InvalidAlgorithmParameterException {
+	return fac.newReference(id,
+				fac.newDigestMethod(DigestMethod.SHA1, null),
+				Collections.singletonList(newTransformEnveloped()), 
+				null,
+				null);
+    }
     
-    public  void generateEnveloped(Document doc, Result result) throws Exception, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
+    public  void generateEnveloped(Document doc, Result result) throws KeyException, UnrecoverableKeyException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, java.security.KeyStoreException, TransformerException, ParserConfigurationException, MarshalException, XMLSignatureException {
         generateEnveloped(doc,doc.getDocumentElement(),result);
     }
-    public  void generateEnveloped(Document doc, Node node, Result result) throws Exception, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
+    public  void generateEnveloped(Document doc, Node node, Result result) throws KeyException, UnrecoverableKeyException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, java.security.KeyStoreException, TransformerException, ParserConfigurationException, MarshalException, XMLSignatureException {
+
+	// create an identifier for signature (used as prefix for other substructure ids)
 	String sigId=newSignatureId();
 
 	List<Reference> refs=new LinkedList();
 
-        // Create a Reference to the enveloped document (in this case we are
-        // signing the whole document, so a URI of "" signifies that) and
-        // also specify the SHA1 digest algorithm and the ENVELOPED Transform.
-        refs.add(fac.newReference("",
-				  fac.newDigestMethod(DigestMethod.SHA1, null),
-				  Collections.singletonList(newTransformEnveloped()), 
-				  null,
-				  null));
+        refs.add(newReferenceToDocument(""));
 
 	//TODO, validation fails for second reference here.
-	if (false) 
-        refs.add(fac.newReference("#" + sigId + ".sig.properties",
-				  fac.newDigestMethod(DigestMethod.SHA1, null),
-				  null, 
-				  SignatureProperties.TYPE,
-				  null));
+	if (true) 
+	    refs.add(newReferenceToSigProperties(sigId));
 
 
         // Create the SignedInfo
@@ -429,12 +416,12 @@ public class Signature {
 
         KeyInfo ki = makeKeyInfo();
 
-
-
         // Create the XMLSignature (but don't sign it yet)
-        XMLSignature signature = fac.newXMLSignature(si, ki,
+        XMLSignature signature = fac.newXMLSignature(si,
+						     ki,
                                                      signatureProperties(sigId,doc),
-                                                     sigId,null);
+                                                     sigId,
+						     null);
 
     
         // Create a DOMSignContext and specify the DSA PrivateKey and
@@ -452,14 +439,16 @@ public class Signature {
         trans.transform(new DOMSource(doc), result);
     }
 
-    public void generateEnveloping(String input, String file) throws Exception {
+    public void generateEnveloping(String input, String file) throws KeyException, UnrecoverableKeyException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, java.security.KeyStoreException, TransformerException, ParserConfigurationException, MarshalException, XMLSignatureException, SAXException, FileNotFoundException, IOException {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
         Document doc = dbf.newDocumentBuilder().parse(input);
 
         generateEnveloping(doc, doc.getDocumentElement(), new FileOutputStream(file));
     }
-    public void generateEnveloping(Document doc, String file) throws Exception {
+
+
+    public void generateEnveloping(Document doc, String file) throws KeyException, UnrecoverableKeyException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, java.security.KeyStoreException, TransformerException, ParserConfigurationException, MarshalException, XMLSignatureException, SAXException, FileNotFoundException, IOException {
         generateEnveloping(doc, doc.getDocumentElement(), new FileOutputStream(file));
     }
 
@@ -469,9 +458,6 @@ public class Signature {
     //   where "output" is the name of a file that will contain the
     //   generated signature. If not specified, standard ouput will be used.
     //
-    public void generateEnvelopingIgnore(Document doc, Node node, OutputStream output)
-        throws Exception, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
-    }
 
     public KeyInfo makeKeyInfo() throws java.security.KeyStoreException, java.security.KeyException {
         if (ks!=null) return makeKeyInfoWithCertificate();
@@ -503,8 +489,7 @@ public class Signature {
         return ki;
     }
 
-    public void generateEnveloping(Document doc, Node node, OutputStream output)
-        throws Exception, NoSuchAlgorithmException, InvalidAlgorithmParameterException{
+    public void generateEnveloping(Document doc, Node node, OutputStream output) throws KeyException, UnrecoverableKeyException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, java.security.KeyStoreException, TransformerException, ParserConfigurationException, MarshalException, XMLSignatureException {
 
         // Next, create a Reference to a same-document URI that is an Object
         // element and specify the SHA1 digest algorithm
@@ -541,7 +526,7 @@ public class Signature {
         trans.transform(new DOMSource(doc), new StreamResult(output));
     }
 
-    public void testGenerateEnveloping(OutputStream output) throws Exception, NoSuchAlgorithmException, InvalidAlgorithmParameterException{    
+    public void testGenerateEnveloping(OutputStream output) throws KeyException, UnrecoverableKeyException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, java.security.KeyStoreException, TransformerException, ParserConfigurationException, MarshalException, XMLSignatureException {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
         Document doc = dbf.newDocumentBuilder().newDocument();
@@ -549,7 +534,7 @@ public class Signature {
     }
 
 
-    public boolean validate(Node signatureToCheck) throws Exception {
+    public boolean validate(Node signatureToCheck) throws MarshalException, XMLSignatureException {
         // Create a DOMValidateContext and specify a KeyValue KeySelector
         // and document context
 
@@ -566,23 +551,21 @@ public class Signature {
 
         // Check core validation status
         if (coreValidity == false) {
-    	    System.err.println("Signature failed core validation"); 
+    	    System.out.println("- Signature failed core validation"); 
             boolean sv = signature.getSignatureValue().validate(valContext);
-            System.out.println("signature validation status: " + sv);
+            System.out.println(" - signature validation status: " + sv);
             // check the validation status of each Reference
             int j=0;
-            System.out.println(" references: " + signature.getSignedInfo().getReferences().size());
+            System.out.println(" - references: " + signature.getSignedInfo().getReferences().size());
             for (Object o: signature.getSignedInfo().getReferences()) {
                 Reference ref=(Reference) o;
-                System.out.println("- " + j);
                 boolean refValid = ref.validate(valContext);
-                System.out.println("- " + j);
-                System.out.println("- ref["+j+"] validity status: " + refValid);
+                System.out.println("  - ref["+j+"] validity status: " + refValid + " " + new String(ref.getDigestValue()) + " " + new String(ref.getCalculatedDigestValue()));
                 j++;
             }
             return false;
         } else {
-    	    System.out.println("Signature passed core validation");
+    	    System.out.println("- Signature passed core validation");
             return true;
         }
     }
