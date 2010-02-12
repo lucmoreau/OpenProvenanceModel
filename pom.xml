@@ -289,6 +289,14 @@
      <plugin>
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-surefire-report-plugin</artifactId>
+       <configuration>
+         <systemProperties>
+           <property>
+             <name>java.util.logging.config.file</name>
+             <value>/home/lavm/papers/papers/OpenProvenanceModel/opm/target/test-classes/logging.properties</value>
+           </property>
+         </systemProperties>
+       </configuration>
      </plugin>
 
      <plugin>

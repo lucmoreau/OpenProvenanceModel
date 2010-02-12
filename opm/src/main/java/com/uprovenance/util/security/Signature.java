@@ -83,6 +83,7 @@ public class Signature {
     public static final String XMLSIG_PROP_PREFIX="dsp";
     public static final String XMLSIG_PROP_NAMESPACE="http://www.w3.org/2009/xmldsig-properties";
     public static final String SIG_PROPERTIES_ID_SUFFIX=".sig.properties";
+    public static final String SIG_OBJECT_ID_SUFFIX=".object";
 
     public Signature() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         createSignatureFactory();
@@ -325,25 +326,25 @@ public class Signature {
 
         
         List<XMLObject> res=new LinkedList();
-	Date now=new Date();
+        Date now=new Date();
         List contentCreated=new LinkedList();
         Element createdEl = doc.createElementNS(XMLSIG_PROP_NAMESPACE,XMLSIG_PROP_PREFIX+":Created");
-	Text date=doc.createTextNode(""+now);
-	createdEl.appendChild(date);
-        createdEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns", "urn:ignore");
+        Text date=doc.createTextNode(""+now);
+        createdEl.appendChild(date);
+        //createdEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns", "urn:ignore");
         contentCreated.add(new DOMStructure(createdEl));
 
         List contentReplayProtect=new LinkedList();
         Element replayProtectEl = doc.createElementNS(XMLSIG_PROP_NAMESPACE,XMLSIG_PROP_PREFIX+":ReplayProtect");
         Element timestampEl =     doc.createElementNS(XMLSIG_PROP_NAMESPACE,XMLSIG_PROP_PREFIX+":timestamp");
         Element nonceEl =         doc.createElementNS(XMLSIG_PROP_NAMESPACE,XMLSIG_PROP_PREFIX+":nonce");
-	date=doc.createTextNode(""+now);
-	replayProtectEl.appendChild(timestampEl);
-	replayProtectEl.appendChild(nonceEl);
-	Text nonce=doc.createTextNode(""+rand.nextInt());
-	timestampEl.appendChild(date);
-	nonceEl.appendChild(nonce);
-        replayProtectEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns", "urn:ignore");
+        date=doc.createTextNode(""+now);
+        replayProtectEl.appendChild(timestampEl);
+        replayProtectEl.appendChild(nonceEl);
+        Text nonce=doc.createTextNode(""+rand.nextInt());
+        timestampEl.appendChild(date);
+        nonceEl.appendChild(nonce);
+        //replayProtectEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns", "urn:ignore");
         contentReplayProtect.add(new DOMStructure(replayProtectEl));
 
         // NEED SIGNATURE PROPERTIES
@@ -352,12 +353,12 @@ public class Signature {
 
 	
         List content2 = new LinkedList();
-	content2.add(fac.newSignatureProperty(contentCreated,"urn:ignore", sigId + ".created"));
-	content2.add(fac.newSignatureProperty(contentReplayProtect,"urn:ignore", sigId + ".contentreplay"));
+        content2.add(fac.newSignatureProperty(contentCreated,"#" + sigId, sigId + ".created"));
+        content2.add(fac.newSignatureProperty(contentReplayProtect,"#" + sigId, sigId + ".contentreplay"));
 
-	List content3 = Collections.singletonList(fac.newSignatureProperties(content2, sigId + SIG_PROPERTIES_ID_SUFFIX));
+        List content3 = Collections.singletonList(fac.newSignatureProperties(content2, sigId + SIG_PROPERTIES_ID_SUFFIX));
 	
-        XMLObject obj=fac.newXMLObject(content3,null,null,null);
+        XMLObject obj=fac.newXMLObject(content3,sigId + SIG_OBJECT_ID_SUFFIX,null,null);
         res.add(obj);
         return res;
     }
@@ -373,11 +374,11 @@ public class Signature {
 	@return a Reference
     */
     public Reference newReferenceToSigProperties(String sigId) throws NoSuchAlgorithmException, InvalidAlgorithmParameterException {
-	return fac.newReference("#" + sigId + SIG_PROPERTIES_ID_SUFFIX, //".created"
-				fac.newDigestMethod(DigestMethod.SHA1, null),
-				null, 
-				SignatureProperties.TYPE,
-				null);
+	return fac.newReference("#" + sigId + SIG_OBJECT_ID_SUFFIX, //".created"
+                            fac.newDigestMethod(DigestMethod.SHA1, null),
+                            null, 
+                            SignatureProperties.TYPE,
+                            null);
     }
 
     /** Create a Reference to the enveloped document (in this case we are
