@@ -1,0 +1,2 @@
+#!/bin/sh
+mvn -Dmaven.surefire.debug="-Djava.util.logging.config.file=/home/lavm/papers/papers/OpenProvenanceModel/opm/target/test-classes/logging.properties"  test -X 

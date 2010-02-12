@@ -331,13 +331,17 @@ public class Signature {
         Element createdEl = doc.createElementNS(XMLSIG_PROP_NAMESPACE,XMLSIG_PROP_PREFIX+":Created");
         Text date=doc.createTextNode(""+now);
         createdEl.appendChild(date);
+        createdEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:"+ XMLSIG_PROP_PREFIX, XMLSIG_PROP_NAMESPACE);
         //createdEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns", "urn:ignore");
         contentCreated.add(new DOMStructure(createdEl));
 
         List contentReplayProtect=new LinkedList();
         Element replayProtectEl = doc.createElementNS(XMLSIG_PROP_NAMESPACE,XMLSIG_PROP_PREFIX+":ReplayProtect");
+        replayProtectEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:"+ XMLSIG_PROP_PREFIX, XMLSIG_PROP_NAMESPACE);
         Element timestampEl =     doc.createElementNS(XMLSIG_PROP_NAMESPACE,XMLSIG_PROP_PREFIX+":timestamp");
+        timestampEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:"+ XMLSIG_PROP_PREFIX, XMLSIG_PROP_NAMESPACE);
         Element nonceEl =         doc.createElementNS(XMLSIG_PROP_NAMESPACE,XMLSIG_PROP_PREFIX+":nonce");
+        nonceEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:"+ XMLSIG_PROP_PREFIX, XMLSIG_PROP_NAMESPACE);
         date=doc.createTextNode(""+now);
         replayProtectEl.appendChild(timestampEl);
         replayProtectEl.appendChild(nonceEl);
@@ -561,7 +565,10 @@ public class Signature {
             for (Object o: signature.getSignedInfo().getReferences()) {
                 Reference ref=(Reference) o;
                 boolean refValid = ref.validate(valContext);
-                System.out.println("  - ref["+j+"] validity status: " + refValid + " " + new String(ref.getDigestValue()) + " " + new String(ref.getCalculatedDigestValue()));
+                // conversion doesn't seem portable
+                String digest1=new sun.misc.BASE64Encoder().encode(ref.getDigestValue()); 
+                String digest2=new sun.misc.BASE64Encoder().encode(ref.getCalculatedDigestValue()); 
+                System.out.println("  - ref["+j+"] validity status: " + refValid + " " + new String(digest1) + " " + new String(digest2));
                 j++;
             }
             return false;
