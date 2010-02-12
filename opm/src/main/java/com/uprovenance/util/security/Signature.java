@@ -374,11 +374,12 @@ public class Signature {
 
    /** Create a Reference to a signature properties and
 	also specify the SHA1 digest algorithm.
+    We can point to the id of the ds:SignatureProperties or ds:Object elements.
 	@param id: signature  id used as a prefix to create the signature properties id
 	@return a Reference
     */
     public Reference newReferenceToSigProperties(String sigId) throws NoSuchAlgorithmException, InvalidAlgorithmParameterException {
-	return fac.newReference("#" + sigId + SIG_OBJECT_ID_SUFFIX, //".created"
+	return fac.newReference("#" + sigId + SIG_PROPERTIES_ID_SUFFIX, //".created"
                             fac.newDigestMethod(DigestMethod.SHA1, null),
                             null, 
                             SignatureProperties.TYPE,
