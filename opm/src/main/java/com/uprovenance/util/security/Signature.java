@@ -322,43 +322,72 @@ public class Signature {
     Random rand=new Random();
     
     public List<XMLObject> signatureProperties(String sigId,
-					       Document doc)  {
+                                               Document doc,
+                                               boolean createdFlag,
+                                               boolean nonceFlag,
+                                               String roleId)  {
 
         
         List<XMLObject> res=new LinkedList();
         Date now=new Date();
-        List contentCreated=new LinkedList();
-        Element createdEl = doc.createElementNS(XMLSIG_PROP_NAMESPACE,XMLSIG_PROP_PREFIX+":Created");
-        Text date=doc.createTextNode(""+now);
-        createdEl.appendChild(date);
-        createdEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:"+ XMLSIG_PROP_PREFIX, XMLSIG_PROP_NAMESPACE);
-        //createdEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns", "urn:ignore");
-        contentCreated.add(new DOMStructure(createdEl));
 
-        List contentReplayProtect=new LinkedList();
-        Element replayProtectEl = doc.createElementNS(XMLSIG_PROP_NAMESPACE,XMLSIG_PROP_PREFIX+":ReplayProtect");
-        replayProtectEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:"+ XMLSIG_PROP_PREFIX, XMLSIG_PROP_NAMESPACE);
-        Element timestampEl =     doc.createElementNS(XMLSIG_PROP_NAMESPACE,XMLSIG_PROP_PREFIX+":timestamp");
-        timestampEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:"+ XMLSIG_PROP_PREFIX, XMLSIG_PROP_NAMESPACE);
-        Element nonceEl =         doc.createElementNS(XMLSIG_PROP_NAMESPACE,XMLSIG_PROP_PREFIX+":nonce");
-        nonceEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:"+ XMLSIG_PROP_PREFIX, XMLSIG_PROP_NAMESPACE);
-        date=doc.createTextNode(""+now);
-        replayProtectEl.appendChild(timestampEl);
-        replayProtectEl.appendChild(nonceEl);
-        Text nonce=doc.createTextNode(""+rand.nextInt());
-        timestampEl.appendChild(date);
-        nonceEl.appendChild(nonce);
-        //replayProtectEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns", "urn:ignore");
-        contentReplayProtect.add(new DOMStructure(replayProtectEl));
-
-        // NEED SIGNATURE PROPERTIES
-        // NEED ID: Id="AMadeUpTimeStamp"
-        // NEED TO add refernce <Reference URI="#AMadeUpTimeStamp" Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties">
-
-	
         List content2 = new LinkedList();
-        content2.add(fac.newSignatureProperty(contentCreated,"#" + sigId, sigId + ".created"));
-        content2.add(fac.newSignatureProperty(contentReplayProtect,"#" + sigId, sigId + ".contentreplay"));
+
+        Text date=doc.createTextNode(""+now);
+
+        if (createdFlag) {
+            List contentCreated=new LinkedList();
+            Element createdEl = doc.createElementNS(XMLSIG_PROP_NAMESPACE,XMLSIG_PROP_PREFIX+":Created");
+            createdEl.appendChild(date);
+            createdEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:"+ XMLSIG_PROP_PREFIX, XMLSIG_PROP_NAMESPACE);
+            //createdEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns", "urn:ignore");
+            contentCreated.add(new DOMStructure(createdEl));
+
+            content2.add(fac.newSignatureProperty(contentCreated,"#" + sigId, sigId + ".created"));
+        }
+
+        
+        List contentReplayProtect=new LinkedList();
+
+        if (nonceFlag) {
+            Element replayProtectEl = doc.createElementNS(XMLSIG_PROP_NAMESPACE,XMLSIG_PROP_PREFIX+":ReplayProtect");
+            replayProtectEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:"+ XMLSIG_PROP_PREFIX, XMLSIG_PROP_NAMESPACE);
+            Element timestampEl =     doc.createElementNS(XMLSIG_PROP_NAMESPACE,XMLSIG_PROP_PREFIX+":timestamp");
+            timestampEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:"+ XMLSIG_PROP_PREFIX, XMLSIG_PROP_NAMESPACE);
+            Element nonceEl =         doc.createElementNS(XMLSIG_PROP_NAMESPACE,XMLSIG_PROP_PREFIX+":nonce");
+            nonceEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:"+ XMLSIG_PROP_PREFIX, XMLSIG_PROP_NAMESPACE);
+            date=doc.createTextNode(""+now);
+            replayProtectEl.appendChild(timestampEl);
+            replayProtectEl.appendChild(nonceEl);
+            Text nonce=doc.createTextNode(""+rand.nextInt());
+            timestampEl.appendChild(date);
+            nonceEl.appendChild(nonce);
+            //replayProtectEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns", "urn:ignore");
+            contentReplayProtect.add(new DOMStructure(replayProtectEl));
+            content2.add(fac.newSignatureProperty(contentReplayProtect,"#" + sigId, sigId + ".contentreplay"));            
+        }
+
+
+
+
+
+        List contentRole=new LinkedList();
+        if (roleId!=null) {
+            Element roleEl = doc.createElementNS(XMLSIG_PROP_NAMESPACE,XMLSIG_PROP_PREFIX+":Role");
+            roleEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:"+ XMLSIG_PROP_PREFIX, XMLSIG_PROP_NAMESPACE);
+            roleEl.setAttributeNS(XMLSIG_PROP_NAMESPACE, XMLSIG_PROP_PREFIX + ":URI", roleId);
+            //roleEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns", "urn:ignore");
+            contentRole.add(new DOMStructure(roleEl));
+            
+            content2.add(fac.newSignatureProperty(contentRole,"#" + sigId, sigId + ".role"));
+        }
+
+
+
+
+
+
+
 
         List content3 = Collections.singletonList(fac.newSignatureProperties(content2, sigId + SIG_PROPERTIES_ID_SUFFIX));
 	
@@ -379,7 +408,7 @@ public class Signature {
 	@return a Reference
     */
     public Reference newReferenceToSigProperties(String sigId) throws NoSuchAlgorithmException, InvalidAlgorithmParameterException {
-	return fac.newReference("#" + sigId + SIG_PROPERTIES_ID_SUFFIX, //".created"
+	return fac.newReference("#" + sigId + SIG_PROPERTIES_ID_SUFFIX, 
                             fac.newDigestMethod(DigestMethod.SHA1, null),
                             null, 
                             SignatureProperties.TYPE,
@@ -424,10 +453,10 @@ public class Signature {
 
         // Create the XMLSignature (but don't sign it yet)
         XMLSignature signature = fac.newXMLSignature(si,
-						     ki,
-                                                     signatureProperties(sigId,doc),
+                                                     ki,
+                                                     signatureProperties(sigId,doc,true,true,"urn:role:myRole"),
                                                      sigId,
-						     null);
+                                                     null);
 
     
         // Create a DOMSignContext and specify the DSA PrivateKey and
