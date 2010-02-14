@@ -175,6 +175,23 @@ public class Gov1Test
 			      "http://www.ons.gov.uk/about-statistics/geography/products/geog-products-area/names-codes/administrative/government-office-regions.zip",
 			      "http://www.iana.org/assignments/media-types/application/zip",
 			      "EDABGFH");
+
+        Artifact a3-A2=oFactory.newArtifact("a3_A2",
+					    black,
+					    "A");
+        Artifact a3_B2=oFactory.newArtifact("a3_B2",
+					    black,
+					    "North East");
+	
+        Artifact a3_A8=oFactory.newArtifact("a3_A8",
+					    black,
+					    "H");
+        Artifact a3_B8=oFactory.newArtifact("a3_B2",
+					    black,
+					    "London");
+	
+	
+	
         
         Used u1=oFactory.newUsed(p1,oFactory.newRole("src"),a1,black);
 
@@ -187,6 +204,7 @@ public class Gov1Test
         Used u5=oFactory.newUsed(p4,oFactory.newRole("in"),a5,black);
 
         Used u6=oFactory.newUsed(p5,oFactory.newRole("in"),a6,black);
+
 
 
 
@@ -220,6 +238,12 @@ public class Gov1Test
 	wc3.setStartTime(otime3);
 	wc4.setStartTime(otime4);
 	wc5.setStartTime(otime5);
+
+
+	WasDerivedFrom wd3_A2=cFactory.newContained("wd3_A2",a3_A2,a2,black);
+	WasDerivedFrom wd3_B2=cFactory.newContained("wd3_B2",a3_B2,a2,black);
+	WasDerivedFrom wd3_A8=cFactory.newContained("wd3_A8",a3_A8,a2,black);
+	WasDerivedFrom wd3_B8=cFactory.newContained("wd3_B8",a3_B8,a2,black);
 
         
 
