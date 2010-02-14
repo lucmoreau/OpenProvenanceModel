@@ -10,6 +10,9 @@ public interface CommonURIs {
     final String NEW_PNAME_PROPERTY    = "http://openprovenance.org/ontology#pname";
 
     final String SIGNATURE_PROPERTY    = "http://openprovenance.org/ontology#signature";
+    final String REFERENCE_LOCATION_PROPERTY    = "http://openprovenance.org/ontology#location";
+    final String REFERENCE_ENCODING_PROPERTY    = "http://openprovenance.org/ontology#encoding";
+    final String REFERENCE_DIGEST_PROPERTY    = "http://openprovenance.org/ontology#digest";
 
 
     final String PROFILE_PROPERTY  = "http://openprovenance.org/property/profile";

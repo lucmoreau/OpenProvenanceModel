@@ -195,6 +195,15 @@ public class OPMFactory implements CommonURIs {
     }
 
 
+    public Reference newReference(String location, String encoding, String digest) {
+        Reference res=of.createReference();
+        res.setLocation(location);
+        res.setEncoding(encoding);
+        res.setDigest(digest);
+        return res;
+    }
+
+
     public Profile newProfile(String profile) {
         Profile res=of.createProfile();
         res.setValue(profile);
@@ -502,6 +511,11 @@ public class OPMFactory implements CommonURIs {
         addAnnotation(annotable,newValue(value,encoding));
     }
 
+
+    public void addReference(Artifact annotable, String reference, String encoding, String digest) {
+        addAnnotation(annotable,newReference(reference,encoding,digest));
+    }
+
     public void addAnnotation(Annotable annotable, Label ann) {
         if (ann!=null) {
             annotable.getAnnotation().add(of.createLabel(ann));
@@ -510,6 +524,10 @@ public class OPMFactory implements CommonURIs {
 
     public void addAnnotation(Annotable annotable, Value ann) {
         annotable.getAnnotation().add(of.createValue(ann));
+    }
+
+    public void addAnnotation(Annotable annotable, Reference ann) {
+        annotable.getAnnotation().add(of.createReference(ann));
     }
 
     public void addAnnotation(Annotable annotable, Profile ann) {
@@ -522,6 +540,9 @@ public class OPMFactory implements CommonURIs {
 
     public void addAnnotation(Annotable annotable, PName ann) {
         annotable.getAnnotation().add(of.createPname(ann));
+    }
+    public void addAnnotation(Annotable annotable, Type ann) {
+        annotable.getAnnotation().add(of.createType(ann));
     }
 
     public void addAnnotation(Annotable annotable, EmbeddedAnnotation ann) {
@@ -545,6 +566,20 @@ public class OPMFactory implements CommonURIs {
             Type type=(Type) ann;
             String typeValue=type.getValue();
             ann.getProperty().add(newProperty(TYPE_PROPERTY,typeValue));
+        }
+        if (ann instanceof PName) {
+            PName type=(PName) ann;
+            String typeValue=type.getValue();
+            ann.getProperty().add(newProperty(PNAME_PROPERTY,typeValue));
+        }
+        if (ann instanceof Reference) {
+            Reference reference=(Reference) ann;
+            String referenceLocation=reference.getLocation();
+            ann.getProperty().add(newProperty(REFERENCE_LOCATION_PROPERTY,referenceLocation));
+            String referenceEncoding=reference.getEncoding();
+            ann.getProperty().add(newProperty(REFERENCE_ENCODING_PROPERTY,referenceEncoding));
+            String referenceDigest=reference.getDigest();
+            ann.getProperty().add(newProperty(REFERENCE_DIGEST_PROPERTY,referenceDigest));
         }
     }
 

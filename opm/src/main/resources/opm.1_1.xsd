@@ -369,17 +369,34 @@
 	</xs:complexContent>
   </xs:complexType>
 
+  <!-- extensions -->
+
+  <xs:element name="reference" type="opm:Reference" substitutionGroup="opm:annotation"/>
+
+  <xs:complexType name="Reference">
+    <xs:complexContent>
+      <xs:extension base="opm:EmbeddedAnnotation">
+        <xs:sequence>
+          <xs:element name="location" type="xs:anyURI"/>
+          <xs:element name="encoding" type="xs:anyURI"/>
+          <xs:element name="digest" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+
   <xs:element name="signature" type="opm:Signature" substitutionGroup="opm:annotation"/>
 
   <xs:complexType name="Signature">
-	<xs:complexContent>
-	  <xs:extension base="opm:EmbeddedAnnotation">
+    <xs:complexContent>
+      <xs:extension base="opm:EmbeddedAnnotation">
         <xs:sequence>
           <xs:element name="signer"        type="xs:string"/>
-		  <xs:any namespace="##other" processContents="strict" maxOccurs="1" minOccurs="0" />
+	  <xs:any namespace="##other" processContents="strict" maxOccurs="1" minOccurs="0" />
         </xs:sequence>
-	  </xs:extension>
-	</xs:complexContent>
+      </xs:extension>
+    </xs:complexContent>
   </xs:complexType>
 
 </xs:schema>

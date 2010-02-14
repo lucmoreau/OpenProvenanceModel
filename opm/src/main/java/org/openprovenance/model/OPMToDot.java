@@ -357,7 +357,7 @@ public class OPMToDot {
         for (Property prop: ann.getProperty()) {
             label=label+"	<TR>\n";
             label=label+"	    <TD align=\"left\">" + convertProperty(prop.getUri()) + ":</TD>\n";
-            label=label+"	    <TD align=\"left\">" + prop.getValue() + "</TD>\n";
+            label=label+"	    <TD align=\"left\">" + convertValue(prop.getValue()) + "</TD>\n";
             label=label+"	</TR>\n";
         }
         label=label+"    </TABLE>>\n";
@@ -369,6 +369,28 @@ public class OPMToDot {
         int i=label.lastIndexOf("#");
         int j=label.lastIndexOf("/");
         return label.substring(Math.max(i,j)+1, label.length());
+    }
+
+
+    public Object convertValue(Object value) {
+	if (value instanceof String) {
+	    String label=(String) value;
+	    String prefix="http://www.iana.org/assignments/media-types/"; 
+	    if (label.startsWith(prefix)) {
+		return label.substring(prefix.length());
+	    }
+	    prefix="http://www.jenitennison.com/log/2009-10-24/";
+	    if (label.startsWith(prefix)) {
+		return label.substring(prefix.length());
+	    }
+	    prefix="http://www.ons.gov.uk/about-statistics/geography/products/geog-products-area/names-codes/administrative";
+	    if (label.startsWith(prefix)) {
+		return "http://www.ons.gov.uk/.../government-office-regions.zip"+label.substring(prefix.length());
+	    }
+	    return label;
+	} else {
+	    return value;
+	}
     }
 
 
