@@ -43,6 +43,13 @@ public class CollectionFactory  implements CollectionURIs {
         return oFactory.newWasDerivedFrom(id,a1,a2,CONTAINED,accounts);
     }
 
+    public WasDerivedFrom newWasPartOf(String id,
+                                       Artifact a1,
+                                       Artifact a2,
+                                       Collection<Account> accounts) {
+        return oFactory.newWasDerivedFrom(id,a1,a2,WASPARTOF,accounts);
+    }
+
 
 //     public WasDerivedFrom newWasIdenticalTo(String id,
 //                                             ArtifactRef aid1,

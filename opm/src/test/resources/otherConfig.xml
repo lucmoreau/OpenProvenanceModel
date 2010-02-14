@@ -33,5 +33,6 @@
     <account name="orange"      color="red"/>
   </accounts>
 
-
+  <annotations defaultColor="gray">
+  </annotations>
 </configuration>  

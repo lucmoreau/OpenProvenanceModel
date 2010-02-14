@@ -37,5 +37,6 @@
     <account name="superdetailed"       color="blue"/>
   </accounts>
 
-
+  <annotations defaultColor="gray">
+  </annotations>
 </configuration>  

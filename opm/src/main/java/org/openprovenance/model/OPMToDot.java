@@ -153,6 +153,15 @@ public class OPMToDot {
             }
         }
 
+        if (configuration.getAnnotations()!=null) {
+            if (configuration.getAnnotations().getDefaultColor()!=null) {
+                this.defaultAnnotationColor=configuration.getAnnotations().getDefaultColor();
+            }
+            if (configuration.getAnnotations().getDefaultFontColor()!=null) {
+                this.defaultAnnotationFontColor=configuration.getAnnotations().getDefaultFontColor();
+            }
+        }
+
         if (configuration.getGraphName()!=null) {
             this.name=configuration.getGraphName();
         }
@@ -169,6 +178,12 @@ public class OPMToDot {
         convert(graph,new File(dotFile));
         Runtime runtime = Runtime.getRuntime();
         java.lang.Process proc = runtime.exec("dot -o " + pdfFile + " -Tpdf " + dotFile);
+    }
+    public void convert(OPMGraph graph, String dotFile, String type, String outFile)
+        throws java.io.FileNotFoundException, java.io.IOException {
+        convert(graph,new File(dotFile));
+        Runtime runtime = Runtime.getRuntime();
+        java.lang.Process proc = runtime.exec("dot -o " + outFile + " -T" + type + " " + dotFile);
     }
 
     public void convert(OPMGraph graph, File file) throws java.io.FileNotFoundException{
@@ -287,7 +302,7 @@ public class OPMToDot {
     public HashMap<String,String> addAnnotationLinkProperties(EmbeddedAnnotation ann, HashMap<String,String> properties) {
         properties.put("arrowhead","none");
         properties.put("style","dashed");
-        properties.put("color","gray");
+        properties.put("color",defaultAnnotationColor);
         return properties;
     }
     
@@ -397,7 +412,7 @@ public class OPMToDot {
     public HashMap<String,String> addAnnotationColor(EmbeddedAnnotation ann, HashMap<String,String> properties) {
         if (displayAnnotationColor) {
             properties.put("color",annotationColor(ann));
-            properties.put("fontcolor","black");
+            properties.put("fontcolor",defaultAnnotationFontColor);
             //properties.put("style","filled");
         }
         return properties;
@@ -468,10 +483,12 @@ public class OPMToDot {
         return selectColor(colors);
     }
 
+    String defaultAnnotationColor;
+    String defaultAnnotationFontColor;
 
     public String annotationColor(EmbeddedAnnotation ann) {
         List<String> colors=new LinkedList();
-        colors.add("gray");
+        colors.add(defaultAnnotationColor);
         return selectColor(colors);
     }
 
@@ -517,7 +534,8 @@ public class OPMToDot {
             accounts=new LinkedList();
             accounts.add(of.newAccountRef(of.newAccount(defaultAccountLabel)));
         }
-            
+
+	boolean flag=true;
         for (AccountRef acc: accounts) {
             String accountLabel=((Account)acc.getRef()).getId();
             addEdgeAttributes(accountLabel,e,properties);
@@ -526,6 +544,7 @@ public class OPMToDot {
                       properties,
                       out,
                       true);
+	    if (flag && (!(properties.get("color").equals("transparent")))) return; //luc added this to avoid multiple was derived from edges in different accounts.
         }
     }
 

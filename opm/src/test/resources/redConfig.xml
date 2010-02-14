@@ -34,5 +34,6 @@
 
   </accounts>
 
-
+  <annotations defaultColor="gray">
+  </annotations>
 </configuration>  

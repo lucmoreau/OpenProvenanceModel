@@ -34,6 +34,7 @@
     <account name="receiver"      color="red"/>
     <account name="original"      color="green"/>
   </accounts>
-
+  <annotations defaultColor="gray">
+  </annotations>
 
 </configuration>  

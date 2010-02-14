@@ -36,6 +36,7 @@
     <account name="detailed"       color="black"/>
     <account name="superdetailed"       color="transparent"/>
   </accounts>
-
+  <annotations defaultColor="gray">
+  </annotations>
 
 </configuration>  
