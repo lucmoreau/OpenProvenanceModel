@@ -400,7 +400,7 @@ public class OPMToDot {
 	    }
 	    prefix="http://www.ons.gov.uk/about-statistics/geography/products/geog-products-area/names-codes/administrative";
 	    if (label.startsWith(prefix)) {
-		return "http://www.ons.gov.uk/.../government-office-regions.zip"+label.substring(prefix.length());
+		return "http://www.ons.gov.uk/..."+label.substring(prefix.length());
 	    }
 	    return label;
 	} else {

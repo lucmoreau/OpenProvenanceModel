@@ -61,13 +61,13 @@ public class Gov1Test
         OPMToDot toDot=new OPMToDot("src/test/resources/gov1.xml");        
         toDot.convert(graph1,"target/gov1.dot", "target/gov1.pdf");
 
-	toDot=new OPMToDot("src/test/resources/gov2.xml");        
+        toDot=new OPMToDot("src/test/resources/gov2.xml");        
         toDot.convert(graph1,"target/gov2.dot", "target/gov2.pdf");
 
-	toDot=new OPMToDot("src/test/resources/gov3.xml");        
+        toDot=new OPMToDot("src/test/resources/gov3.xml");        
         toDot.convert(graph1,"target/gov3.dot", "target/gov3.pdf");
 
-	toDot=new OPMToDot("src/test/resources/gov4.xml");        
+        toDot=new OPMToDot("src/test/resources/gov4.xml");        
         toDot.convert(graph1,"target/gov4.dot", "target/gov4.pdf");
 
 

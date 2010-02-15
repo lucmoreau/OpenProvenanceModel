@@ -23,10 +23,10 @@
 
 
   <edges default="filled">
-    <edge type="org.openprovenance.model.Used"            style="dotted"/>
-    <edge type="org.openprovenance.model.WasGeneratedBy"  style="dotted"/>
+    <edge type="org.openprovenance.model.Used"            style="dashed"/>
+    <edge type="org.openprovenance.model.WasGeneratedBy"  style="dashed"/>
     <edge type="org.openprovenance.model.WasControlledBy" style="dotted"/>
-    <edge type="org.openprovenance.model.WasTriggeredBy"  style="dotted"/>
+    <edge type="org.openprovenance.model.WasTriggeredBy"  style="dashed"/>
     <edge type="org.openprovenance.model.WasDerivedFrom"  style="bold"/>
   </edges>
 

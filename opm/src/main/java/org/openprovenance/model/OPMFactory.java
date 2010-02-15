@@ -563,16 +563,36 @@ public class OPMFactory implements CommonURIs {
             ann.getProperty().add(newProperty(LABEL_PROPERTY,labelValue));
         }
         if (ann instanceof Type) {
+            List<Property> properties=ann.getProperty();
+            if (properties.size()>0
+                && properties.get(0).getUri().equals(TYPE_PROPERTY)) {
+                // already expanded
+                return;
+            }
             Type type=(Type) ann;
             String typeValue=type.getValue();
             ann.getProperty().add(newProperty(TYPE_PROPERTY,typeValue));
         }
         if (ann instanceof PName) {
+            List<Property> properties=ann.getProperty();
+            if (properties.size()>0
+                && properties.get(0).getUri().equals(PNAME_PROPERTY)) {
+                // already expanded
+                return;
+            }
             PName type=(PName) ann;
             String typeValue=type.getValue();
             ann.getProperty().add(newProperty(PNAME_PROPERTY,typeValue));
         }
         if (ann instanceof Reference) {
+            List<Property> properties=ann.getProperty();
+            if (properties.size()>0
+                && ((properties.get(0).getUri().equals(REFERENCE_LOCATION_PROPERTY))
+                    || (properties.get(0).getUri().equals(REFERENCE_ENCODING_PROPERTY)) 
+                    || (properties.get(0).getUri().equals(REFERENCE_DIGEST_PROPERTY)))) {
+                // already expanded
+                return;
+            }
             Reference reference=(Reference) ann;
             String referenceLocation=reference.getLocation();
             ann.getProperty().add(newProperty(REFERENCE_LOCATION_PROPERTY,referenceLocation));
