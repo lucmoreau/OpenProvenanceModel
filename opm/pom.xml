@@ -410,6 +410,7 @@
         <artifactId>keytool-maven-plugin</artifactId>
         <executions>
           <execution>
+            <id>buildkey</id>
             <phase>generate-sources</phase>
             <goals>
               <goal>genkey</goal>
@@ -418,6 +419,20 @@
               <keystore>${project.build.directory}/${build.keystore}</keystore>
               <dname>${build.dname}</dname>
               <alias>${build.alias}</alias>
+              <keypass>${build.keypass}</keypass>
+              <storepass>${build.keystorepass}</storepass>
+            </configuration>
+          </execution>
+          <execution>
+            <id>jenikey</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>genkey</goal>
+            </goals>
+            <configuration>
+              <keystore>${project.build.directory}/${build.keystore}</keystore>
+              <dname>cn=jeni, ou=HM Government, L=London, c=UK</dname>
+              <alias>jeni</alias>
               <keypass>${build.keypass}</keypass>
               <storepass>${build.keystorepass}</storepass>
             </configuration>
