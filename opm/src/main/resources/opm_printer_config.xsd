@@ -42,6 +42,7 @@
 	<xs:attribute name="type"  type="xs:string"/>
 	<xs:attribute name="style" type="xs:string"/>
 	<xs:attribute name="printRole" type="xs:boolean"/>
+	<xs:attribute name="printTime" type="xs:boolean"/>
   </xs:complexType>
 
   <xs:complexType name="AccountMap">

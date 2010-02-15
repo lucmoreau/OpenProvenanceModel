@@ -566,19 +566,69 @@ public class OPMToDot {
         String type=of.getType(e);
         if (type!=null) {
             label=type;
-        } else if (getEdgePrintRole(e)) {
+        } else if (getEdgePrintRole(e) || getEdgePrintTime(e)) {
+            HashMap<String,String> annotations=new HashMap();
+
             Role role=of.getRole(e);
-            if (role!=null && role.getValue()!=null) {
-                label=displayRole(role.getValue());
-                properties.put("fontsize","8");
+            if (getEdgePrintRole(e)) {
+                if (role!=null && role.getValue()!=null) {
+                    String r=displayRole(role.getValue());
+                    properties.put("fontsize","8");
+                    annotations.put("role", r);
+                }
             }
+
+            label="";
+            if (getEdgePrintTime(e)) {
+                if (e instanceof WasGeneratedBy) {
+                    WasGeneratedBy wgb=(WasGeneratedBy) e;
+                    if (wgb.getTime()!=null) {
+                        annotations.put("time","" + wgb.getTime().getExactlyAt());
+                    }
+                }
+                if (e instanceof Used) {
+                    Used u=(Used) e;
+                    if (u.getTime()!=null) {
+                        annotations.put("time","" + u.getTime().getExactlyAt());
+                    }
+                }
+                if (e instanceof WasControlledBy) {
+                    WasControlledBy u=(WasControlledBy) e;
+                    if (u.getStartTime()!=null) {
+                        annotations.put("startTime","" + u.getStartTime().getExactlyAt());
+                    }
+                    if (u.getEndTime()!=null) {
+                        annotations.put("endTime","" + u.getEndTime().getExactlyAt());
+                    }
+                }
+            }
+
+            if (annotations.keySet().isEmpty()) {
+                label="";
+            } else {
+                label="<<TABLE cellpadding=\"0\" border=\"0\">\n";
+                label=label+"	<TR>\n";
+                for (String key: annotations.keySet()) {
+                    if (key.equals("time")
+                        || key.equals("startTime")
+                        || key.equals("endTime")) {
+                        label=label+"	    <TD align=\"left\">" + key + ":</TD>\n";
+                        label=label+"	    <TD align=\"left\">" +  annotations.get(key) + "</TD>\n";
+                    }
+                }
+                label=label+"	</TR>\n";
+                label=label+"    </TABLE>>\n";
+                properties.put("label",label);
+                properties.put("fontcolor","forestgreen");
+            }
+
         }
         if (label!=null) {
             properties.put("label",convertEdgeLabel(label));
             if (properties.get("fontsize")==null) {
                 properties.put("fontsize","10");
             }
-        }
+        } 
     }
 
     public String displayRole(String role) {
@@ -612,6 +662,18 @@ public class OPMToDot {
         EdgeStyleMapEntry style=edgeStyleMap.get(name);
         if (style!=null) {
             Boolean flag=style.isPrintRole();
+            if (flag==null) return false;
+            return flag;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean getEdgePrintTime(Edge edge) {
+        String name=edge.getClass().getName();
+        EdgeStyleMapEntry style=edgeStyleMap.get(name);
+        if (style!=null) {
+            Boolean flag=style.isPrintTime();
             if (flag==null) return false;
             return flag;
         } else {

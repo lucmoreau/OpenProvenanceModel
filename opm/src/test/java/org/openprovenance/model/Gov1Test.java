@@ -78,6 +78,9 @@ public class Gov1Test
         toDot=new OPMToDot("src/test/resources/gov2.xml");        
         toDot.convert(graph1,"target/gov2.dot", "target/gov2.pdf");
 
+        toDot=new OPMToDot("src/test/resources/gov2time.xml");        
+        toDot.convert(graph1,"target/gov2time.dot", "target/gov2time.pdf");
+
         toDot=new OPMToDot("src/test/resources/gov3.xml");        
         toDot.convert(graph1,"target/gov3.dot", "target/gov3.pdf");
 
@@ -113,7 +116,7 @@ public class Gov1Test
 
         Agent ag1=oFactory.newAgent("ag1",
                                     uptoProcessLevel,
-                                    "Jeni");
+                                    "Alice");
         OTime otime1=oFactory.newInstantaneousTimeNow();
         
         Process p1=oFactory.newProcess("p1",
@@ -353,9 +356,9 @@ public class Gov1Test
         Signer sig=new Signer(props.getProperty("build.keystoretype"),
                               props.getProperty("build.keystore"),
                               props.getProperty("build.keystorepass"),
-                              "jeni",
+                              "alice",
                               props.getProperty("build.keypass"),
-                              "Jeni");
+                              "Alice");
 
 
 

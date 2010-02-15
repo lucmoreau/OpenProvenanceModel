@@ -431,8 +431,8 @@
             </goals>
             <configuration>
               <keystore>${project.build.directory}/${build.keystore}</keystore>
-              <dname>cn=jeni, ou=HM Government, L=London, c=UK</dname>
-              <alias>jeni</alias>
+              <dname>cn=Alice, ou=HM Government, L=London, c=UK</dname>
+              <alias>alice</alias>
               <keypass>${build.keypass}</keypass>
               <storepass>${build.keystorepass}</storepass>
             </configuration>
