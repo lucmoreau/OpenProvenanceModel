@@ -311,6 +311,11 @@
     <rdfs:range rdf:resource="#AValue"/>
   </owl:ObjectProperty>
 
+  <owl:ObjectProperty rdf:ID="reference">
+    <rdfs:domain rdf:resource="#Artifact"/>
+    <rdfs:range rdf:resource="#Reference"/>
+  </owl:ObjectProperty>
+
   <owl:Class rdf:ID="AValue">
     <rdfs:subClassOf rdf:resource="#Entity"/>
   </owl:Class>
@@ -323,6 +328,26 @@
     <rdf:type    rdf:resource="&owl;FunctionalProperty" />
     <rdfs:domain rdf:resource="#AValue"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+  </owl:ObjectProperty>
+
+
+  <owl:Class rdf:ID="Reference">
+    <rdfs:subClassOf rdf:resource="#Entity"/>
+  </owl:Class>
+  <owl:ObjectProperty rdf:ID="location">
+    <rdf:type    rdf:resource="&owl;FunctionalProperty" />
+    <rdfs:domain rdf:resource="#Reference"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="encoding2">
+    <rdf:type    rdf:resource="&owl;FunctionalProperty" />
+    <rdfs:domain rdf:resource="#Reference"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="digest">
+    <rdf:type    rdf:resource="&owl;FunctionalProperty" />
+    <rdfs:domain rdf:resource="#Reference"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </owl:ObjectProperty>
 
 

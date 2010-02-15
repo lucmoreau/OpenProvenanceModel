@@ -11,6 +11,7 @@ import org.openprovenance.model.Annotation;
 import org.openprovenance.model.EmbeddedAnnotation;
 import org.openprovenance.model.Account;
 import org.openprovenance.model.Property;
+import org.openprovenance.model.Reference;
 import org.openprovenance.model.OPMGraph;
 import org.openprovenance.model.WasGeneratedBy;
 import org.openprovenance.model.WasDerivedFrom;
@@ -115,6 +116,10 @@ public class RdfObjectFactory extends org.openprovenance.model.ObjectFactory {
 
     public Value createValue() {
         return new RdfValue(manager,prefix);
+    }
+
+    public Reference createReference() {
+        return new RdfReference(manager,prefix);
     }
 
     public OTime createOTime() {

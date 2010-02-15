@@ -274,7 +274,7 @@ public class OPMFactory implements CommonURIs {
         }
     }
 
-    public Object getValue(EmbeddedAnnotation annotation) {
+    public Object getContent(EmbeddedAnnotation annotation) {
         if (annotation instanceof Value) {
             Value value=(Value) annotation;
             return value.getContent();
@@ -289,11 +289,13 @@ public class OPMFactory implements CommonURIs {
     }
 
 
-
     public String getEncoding(EmbeddedAnnotation annotation) {
         if (annotation instanceof Value) {
             Value value=(Value) annotation;
             return value.getEncoding();
+        } else if (annotation instanceof Reference) {
+            Reference reference=(Reference) annotation;
+            return reference.getEncoding();
         } else {
             for (Property prop: annotation.getProperty()) {
                 if (prop.getUri().equals(ENCODING_PROPERTY)) {
@@ -311,6 +313,35 @@ public class OPMFactory implements CommonURIs {
         } else {
             for (Property prop: annotation.getProperty()) {
                 if (prop.getUri().equals(PROFILE_PROPERTY)) {
+                    return (String) prop.getValue();
+                }
+            }
+            return null;
+        }
+    }
+
+    public String getLocation(EmbeddedAnnotation annotation) {
+        if (annotation instanceof Reference) {
+            Reference reference=(Reference) annotation;
+            return reference.getLocation();
+        } else {
+            for (Property prop: annotation.getProperty()) {
+                if (prop.getUri().equals(REFERENCE_LOCATION_PROPERTY)) {
+                    return (String) prop.getValue();
+                }
+            }
+            return null;
+        }
+    }
+
+
+    public String getDigest(EmbeddedAnnotation annotation) {
+        if (annotation instanceof Reference) {
+            Reference reference=(Reference) annotation;
+            return reference.getDigest();
+        } else {
+            for (Property prop: annotation.getProperty()) {
+                if (prop.getUri().equals(REFERENCE_DIGEST_PROPERTY)) {
                     return (String) prop.getValue();
                 }
             }
@@ -336,10 +367,23 @@ public class OPMFactory implements CommonURIs {
 
     /** Return the value of the value property in the first annotation. */
 
-    public Object getValue(List<JAXBElement<? extends EmbeddedAnnotation>> annotations) {
+    public Object getContent(List<JAXBElement<? extends EmbeddedAnnotation>> annotations) {
         for (JAXBElement<? extends EmbeddedAnnotation> jann: annotations) {
             EmbeddedAnnotation ann=jann.getValue();
-            Object value=getValue(ann);
+            Object value=getContent(ann);
+            if (value!=null) return value;
+        }
+        return null;
+    }
+
+
+
+    /** Return the value of the location property in the first annotation. */
+
+    public Object getLocation(List<JAXBElement<? extends EmbeddedAnnotation>> annotations) {
+        for (JAXBElement<? extends EmbeddedAnnotation> jann: annotations) {
+            EmbeddedAnnotation ann=jann.getValue();
+            Object value=getLocation(ann);
             if (value!=null) return value;
         }
         return null;
@@ -368,6 +412,7 @@ public class OPMFactory implements CommonURIs {
         }
         return null;
     }
+
 
 
     /** Return the value of the signature property in the first annotation. */
@@ -403,15 +448,16 @@ public class OPMFactory implements CommonURIs {
 
     /** Return the value of the value property. */
 
-    public List<Object> getValues(List<JAXBElement<? extends EmbeddedAnnotation>> annotations) {
+    public List<Object> getContents(List<JAXBElement<? extends EmbeddedAnnotation>> annotations) {
         List<Object> res=new LinkedList();
         for (JAXBElement<? extends EmbeddedAnnotation> jann: annotations) {
             EmbeddedAnnotation ann=jann.getValue();
-            Object value=getValue(ann);
+            Object value=getContent(ann);
             if (value!=null) res.add(value);
         }
         return res;
     }
+
 
 
 

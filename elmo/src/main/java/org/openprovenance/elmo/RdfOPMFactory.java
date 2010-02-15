@@ -31,6 +31,7 @@ import org.openprovenance.model.Property;
 import org.openprovenance.model.Type;
 import org.openprovenance.model.Used;
 import org.openprovenance.model.Value;
+import org.openprovenance.model.Reference;
 import org.openprovenance.model.WasControlledBy;
 import org.openprovenance.model.WasDerivedFrom;
 import org.openprovenance.model.WasGeneratedBy;
@@ -169,6 +170,20 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
     }
 
 
+    public void addAnnotation(Annotable annotable, Reference ann) {
+        if (ann!=null) {
+            super.addAnnotation(annotable,ann);
+
+            HasFacade facade=(HasFacade) annotable;
+            Object o=facade.findMyFacade();
+            org.openprovenance.rdf.Annotable annotable2=(org.openprovenance.rdf.Annotable) o;
+            org.openprovenance.rdf.Reference ann2=(org.openprovenance.rdf.Reference) ((HasFacade)ann).findMyFacade();
+            ((org.openprovenance.rdf.Artifact) annotable2).getReferences().add(ann2);
+
+        }
+    }
+
+
     public void addAnnotation(org.openprovenance.model.Annotable annotable,
                               org.openprovenance.model.Annotation ann) {
         System.out.println("*********** adding a annotations ");
@@ -186,6 +201,8 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
             addAnnotation(annotable,(Type) ann);
         } else if (ann instanceof Value) {
             addAnnotation(annotable,(Value) ann);
+        } else if (ann instanceof Reference) {
+            addAnnotation(annotable,(Reference) ann);
         } else {
             super.addAnnotation(annotable,ann);
 
@@ -513,6 +530,12 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
                                                      av.getEncoding().toString()));
                 }
             }
+
+            for (org.openprovenance.rdf.Reference av: aa.getReferences()) {
+                super.addAnnotation(res,newReference(av.getLocation().toString(),
+                                                     av.getEncoding2().toString(),
+                                                     av.getDigest().toString()));
+            }
         }
     }
 
@@ -534,8 +557,14 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
             String pname=getPname(ea);
             if (pname!=null) addAnnotation(res,newPName(pname));
 
-            Object value=getValue(ea);
+            Object value=getContent(ea);
             if (value!=null) addAnnotation(res,newValue(value,getEncoding(ea)));
+
+            String location=getLocation(ea);
+            if (location!=null) addAnnotation(res,newReference(location,
+                                                               getEncoding(ea),
+                                                               getDigest(ea)));
+
 
             if (ea.getId()!=null) 
             addAnnotation(res,newEmbeddedAnnotation(ea.getId(),

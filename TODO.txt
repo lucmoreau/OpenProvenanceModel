@@ -1,4 +1,7 @@
 
+- pname is not supported in conversion to rdf and back
+- used/wasGeneratedBy don't seem to be in order.
+    Need to change normaliser to sort them!
 
 
 

@@ -55,7 +55,7 @@ public class Gov1Test
 
 
 
-    public void testGov1() throws Exception
+    public void testGov1() throws javax.xml.bind.JAXBException, java.io.FileNotFoundException, java.io.IOException
     {
         OPMGraph graph=makeGov1Graph(oFactory);
 
@@ -94,7 +94,7 @@ public class Gov1Test
 
     }
 
-    public OPMGraph makeGov1Graph(OPMFactory oFactory) throws Exception {
+    public OPMGraph makeGov1Graph(OPMFactory oFactory) {
 
         CollectionFactory cFactory=new CollectionFactory(oFactory);
 
