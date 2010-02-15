@@ -580,26 +580,34 @@ public class OPMToDot {
 
             label="";
             if (getEdgePrintTime(e)) {
+                boolean timeFlag=false;
                 if (e instanceof WasGeneratedBy) {
                     WasGeneratedBy wgb=(WasGeneratedBy) e;
                     if (wgb.getTime()!=null) {
                         annotations.put("time","" + wgb.getTime().getExactlyAt());
+                        timeFlag=true;
                     }
                 }
                 if (e instanceof Used) {
                     Used u=(Used) e;
                     if (u.getTime()!=null) {
                         annotations.put("time","" + u.getTime().getExactlyAt());
+                        timeFlag=true;
                     }
                 }
                 if (e instanceof WasControlledBy) {
                     WasControlledBy u=(WasControlledBy) e;
                     if (u.getStartTime()!=null) {
                         annotations.put("startTime","" + u.getStartTime().getExactlyAt());
+                        timeFlag=true;
                     }
                     if (u.getEndTime()!=null) {
                         annotations.put("endTime","" + u.getEndTime().getExactlyAt());
+                        timeFlag=true;
                     }
+                }
+                if (timeFlag) {
+                    properties.put("fontsize","10");
                 }
             }
 
@@ -741,7 +749,7 @@ public class OPMToDot {
     }
 
     void prelude(PrintStream out) {
-        out.println("digraph " + name + " { rankdir=\"BT\"; ");
+        out.println("digraph " + name + " { rankdir=\"BT\"; fontsize=\"16\"");
     }
 
     void postlude(PrintStream out) {
