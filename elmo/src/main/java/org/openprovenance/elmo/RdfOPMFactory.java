@@ -25,6 +25,7 @@ import org.openprovenance.model.EmbeddedAnnotation;
 import org.openprovenance.model.HasAccounts;
 import org.openprovenance.model.Identifiable;
 import org.openprovenance.model.Label;
+import org.openprovenance.model.PName;
 import org.openprovenance.model.OPMGraph;
 import org.openprovenance.model.Process;
 import org.openprovenance.model.Property;
@@ -145,6 +146,18 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
         }
     }
 
+
+    public void addAnnotation(Annotable annotable, PName ann) {
+        if (ann!=null) {
+            super.addAnnotation(annotable,ann);
+            try {
+                ((RdfPName)ann).toRdf(annotable);
+            } catch (org.openrdf.repository.RepositoryException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void addAnnotation(Annotable annotable, Type ann) {
         if (ann!=null) {
             super.addAnnotation(annotable,ann);
@@ -199,6 +212,8 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
             addAnnotation(annotable,(Label) ann);
         } else if (ann instanceof Type) {
             addAnnotation(annotable,(Type) ann);
+        } else if (ann instanceof PName) {
+            addAnnotation(annotable,(PName) ann);
         } else if (ann instanceof Value) {
             addAnnotation(annotable,(Value) ann);
         } else if (ann instanceof Reference) {

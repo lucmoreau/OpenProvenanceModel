@@ -273,7 +273,7 @@ public class Gov1Test
         WasDerivedFrom wd1=cFactory.newWasIdenticalTo("wd1",a2,a1,allLevels);
         WasDerivedFrom wd2=cFactory.newWasPartOf("wd2",a3,a2,allLevels);
         WasDerivedFrom wd3=oFactory.newWasDerivedFrom("wd3",a5,a3,"wasTransformationOf",allLevels);
-        WasDerivedFrom wd3b=oFactory.newWasDerivedFrom("wd3",a5,a4,"wasStyledBy",allLevels);
+        WasDerivedFrom wd3b=oFactory.newWasDerivedFrom("wd3b",a5,a4,"wasStyledBy",allLevels);
         WasDerivedFrom wd4=oFactory.newWasDerivedFrom("wd4",a6,a5,"wasExtractedFrom",allLevels);
         WasDerivedFrom wd5=cFactory.newWasPartOf("wd5",a7,a6,allLevels);
 
