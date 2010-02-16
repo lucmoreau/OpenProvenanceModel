@@ -66,9 +66,6 @@ public class Gov1Test extends org.openprovenance.model.Gov1Test {
 
     }
 
-    public void testCheckGovSignature() throws Exception {
-    }
-
     public void testGov1SaveToN3() throws Exception {
         // reset counter to ensure that auto allocated ids are the same
         RdfOPMFactory.count=0;
@@ -98,7 +95,7 @@ public class Gov1Test extends org.openprovenance.model.Gov1Test {
 
     }
 
-    public void NOtestCompareGov1GraphCopies() throws Exception {
+    public void testCompareGov1GraphCopies() throws Exception {
 
         System.out.println("Running testCompareGov1GraphCopies");
         RdfOPMFactory oFactory=new RdfOPMFactory(new RdfObjectFactory(manager,TEST_NS));
@@ -108,6 +105,48 @@ public class Gov1Test extends org.openprovenance.model.Gov1Test {
                                         "target/gov1-graph3.xml",
                                         "target/gov1-normalised-graph1.xml",
                                         "target/gov1-normalised-graph3.xml");
+
+    }
+
+    public void testGovSignature() throws Exception {
+        // reset counter to ensure that auto allocated ids are the same
+        RdfOPMFactory.count=0;
+
+        super.testGovSignature();
+    }
+
+    public void testCheckGovSignature() throws Exception {
+        super.testCheckGovSignature();
+    }
+
+
+
+
+    public void testGov1SigSaveToN3() throws Exception {
+        // reset counter to ensure that auto allocated ids are the same
+        RdfOPMFactory.count=0;
+        //graph1=makeGov1Graph(oFactory);
+        
+        File file = new File("target/gov1sig.n3");
+        assert manager!=null;
+        rHelper.dumpToRDF(file,(SesameManager)manager,RDFFormat.N3,prefixes);
+    }
+
+
+    public void NotestCompareGov1SigGraphs() throws Exception {
+
+        System.out.println("Running testCompareGov1Graphs");
+
+        ElmoManager manager = factory.createElmoManager();
+
+        gCompare.testCompareGraphs("target/gov1sig.xml",
+                                   "target/gov1sig.n3",
+                                   TEST_NS,
+                                   RDFFormat.N3,
+                                   rHelper,
+                                   manager,
+                                   "target/gov1sig-normalised-xml.xml",
+                                   "target/gov1sig-normalised-rdf.xml");
 
     }
 
