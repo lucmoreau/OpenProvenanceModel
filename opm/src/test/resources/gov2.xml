@@ -4,7 +4,7 @@
   <graphName>OPMGraph</graphName>
 
 
-  <processes displayValue="true" coloredAsAccount="true">
+  <processes displayValue="true" coloredAsAccount="true" fontSize="18">
     <process value="http://process.org/add1ToAll" display="add1ToAll"/>
     <process value="http://process.org/accessor"     display="accessor"/>
     <process value="http://process.org/plus1"     display="+1"/>
@@ -14,18 +14,18 @@
     <process value="http://process.org/badBake"   display="badBake"/>
   </processes>
 
-  <artifacts displayValue="true" coloredAsAccount="true">
+  <artifacts displayValue="true" coloredAsAccount="true" fontSize="18">
   </artifacts>
 
-  <agents displayValue="true" coloredAsAccount="true">
+  <agents displayValue="true" coloredAsAccount="true" fontSize="18">
   </agents>
 
 
 
   <edges default="filled">
-    <edge type="org.openprovenance.model.Used"            style="dashed"/>
-    <edge type="org.openprovenance.model.WasGeneratedBy"  style="dashed"/>
-    <edge type="org.openprovenance.model.WasControlledBy" style="dotted"/>
+    <edge type="org.openprovenance.model.Used"            style="dashed" penwidth="2"/>
+    <edge type="org.openprovenance.model.WasGeneratedBy"  style="dashed" penwidth="2"/>
+    <edge type="org.openprovenance.model.WasControlledBy" style="dotted" penwidth="2"/>
     <edge type="org.openprovenance.model.WasTriggeredBy"  style="dashed"/>
     <edge type="org.openprovenance.model.WasDerivedFrom"  style="bold"/>
   </edges>

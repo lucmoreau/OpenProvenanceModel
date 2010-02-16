@@ -4,20 +4,20 @@
   <graphName>OPMGraph</graphName>
 
 
-  <processes displayValue="true" coloredAsAccount="true">
-    <process value="http://process.org/add1ToAll" display="add1ToAll"/>
-    <process value="http://process.org/accessor"     display="accessor"/>
-    <process value="http://process.org/plus1"     display="+1"/>
+  <processes displayValue="true" coloredAsAccount="true" fontSize="18">
+    <process value="http://process.org/add1ToAll"   display="add1ToAll"/>
+    <process value="http://process.org/accessor"    display="accessor"/>
+    <process value="http://process.org/plus1"       display="+1"/>
     <process value="http://process.org/constructor" display="constructor"/>
-    <process value="http://process.org/fry"       display="fry"/>
-    <process value="http://process.org/bake"      display="bake"/>
-    <process value="http://process.org/badBake"   display="badBake"/>
+    <process value="http://process.org/fry"         display="fry"/>
+    <process value="http://process.org/bake"        display="bake"/>
+    <process value="http://process.org/badBake"     display="badBake"/>
   </processes>
 
-  <artifacts displayValue="true" coloredAsAccount="true">
+  <artifacts displayValue="true" coloredAsAccount="true" fontSize="18">
   </artifacts>
 
-  <agents displayValue="true" coloredAsAccount="true">
+  <agents displayValue="true" coloredAsAccount="true" fontSize="18">
   </agents>
 
 

@@ -20,14 +20,14 @@
 
   <xs:complexType name="OPMPrinterConfiguration">
 	<xs:sequence>
-	  <xs:element name="edges"                type="opc:EdgeStyleMap" minOccurs="0"/>
-	  <xs:element name="processes"            type="opc:ProcessMap"   minOccurs="0"/>
-	  <xs:element name="artifacts"            type="opc:ArtifactMap"  minOccurs="0"/>
-	  <xs:element name="agents"               type="opc:AgentMap"     minOccurs="0"/>
+	  <xs:element name="edges"                type="opc:EdgeStyleMap"  minOccurs="0"/>
+	  <xs:element name="processes"            type="opc:ProcessMap"    minOccurs="0"/>
+	  <xs:element name="artifacts"            type="opc:ArtifactMap"   minOccurs="0"/>
+	  <xs:element name="agents"               type="opc:AgentMap"      minOccurs="0"/>
 	  <xs:element name="annotations"          type="opc:AnnotationMap" minOccurs="0"/>
-	  <xs:element name="accounts"             type="opc:AccountMap"   minOccurs="0"/>
-	  <xs:element name="displayArtifactValue" type="xs:boolean"       minOccurs="0"/>
-	  <xs:element name="graphName"            type="xs:string"        minOccurs="0"/>
+	  <xs:element name="accounts"             type="opc:AccountMap"    minOccurs="0"/>
+	  <xs:element name="displayArtifactValue" type="xs:boolean"        minOccurs="0"/>
+	  <xs:element name="graphName"            type="xs:string"         minOccurs="0"/>
 	</xs:sequence>
   </xs:complexType>
 
@@ -41,6 +41,7 @@
   <xs:complexType name="EdgeStyleMapEntry">
 	<xs:attribute name="type"  type="xs:string"/>
 	<xs:attribute name="style" type="xs:string"/>
+	<xs:attribute name="penwidth" type="xs:string"/>
 	<xs:attribute name="printRole" type="xs:boolean"/>
 	<xs:attribute name="printTime" type="xs:boolean"/>
   </xs:complexType>
@@ -64,6 +65,7 @@
 	</xs:sequence>
 	<xs:attribute name="displayValue"   type="xs:boolean"/>
 	<xs:attribute name="coloredAsAccount" type="xs:boolean"/>
+	<xs:attribute name="fontSize" type="xs:string"/>
   </xs:complexType>
 
   <xs:complexType name="ProcessMapEntry">
@@ -76,8 +78,9 @@
 	<xs:sequence>
       <xs:element name="artifact" type="opc:ArtifactMapEntry" minOccurs="0" maxOccurs="unbounded"/>
 	</xs:sequence>
-	<xs:attribute name="displayValue"  type="xs:boolean"/>
+	<xs:attribute name="displayValue"     type="xs:boolean"/>
 	<xs:attribute name="coloredAsAccount" type="xs:boolean"/>
+	<xs:attribute name="fontSize"         type="xs:string"/>
   </xs:complexType>
 
   <xs:complexType name="ArtifactMapEntry">
@@ -91,6 +94,7 @@
 	</xs:sequence>
 	<xs:attribute name="displayValue"  type="xs:boolean"/>
 	<xs:attribute name="coloredAsAccount" type="xs:boolean"/>
+	<xs:attribute name="fontSize" type="xs:string"/>
   </xs:complexType>
 
   <xs:complexType name="AgentMapEntry">

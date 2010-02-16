@@ -92,6 +92,11 @@ public class OPMToDot {
         }
     }
 
+    String agentFontSize=null;
+    String artifactFontSize=null;
+    String processFontSize=null;
+
+
     public void init(OPMPrinterConfiguration configuration) {
         if (configuration==null) return;
 
@@ -109,6 +114,9 @@ public class OPMToDot {
             if (configuration.getProcesses().isDisplayValue()!=null) {
                 this.displayProcessValue=configuration.getProcesses().isDisplayValue();
             }
+            if (configuration.getProcesses().getFontSize()!=null) {
+                this.processFontSize=configuration.getProcesses().getFontSize();
+            }
             if (configuration.getProcesses().isColoredAsAccount()!=null) {
                 this.displayProcessColor=configuration.getProcesses().isColoredAsAccount();
             }
@@ -121,6 +129,9 @@ public class OPMToDot {
             if (configuration.getArtifacts().isDisplayValue()!=null) {
                 this.displayArtifactValue=configuration.getArtifacts().isDisplayValue();
             }
+            if (configuration.getArtifacts().getFontSize()!=null) {
+                this.artifactFontSize=configuration.getArtifacts().getFontSize();
+            }
             if (configuration.getArtifacts().isColoredAsAccount()!=null) {
                 this.displayArtifactColor=configuration.getArtifacts().isColoredAsAccount();
             }
@@ -132,6 +143,9 @@ public class OPMToDot {
         if (configuration.getAgents()!=null) {
             if (configuration.getAgents().isDisplayValue()!=null) {
                 this.displayAgentValue=configuration.getAgents().isDisplayValue();
+            }
+            if (configuration.getAgents().getFontSize()!=null) {
+                this.agentFontSize=configuration.getAgents().getFontSize();
             }
             if (configuration.getAgents().isColoredAsAccount()!=null) {
                 this.displayAgentColor=configuration.getAgents().isColoredAsAccount();
@@ -167,6 +181,8 @@ public class OPMToDot {
         }
 
     }
+
+
 
     public void convert(String opmFile, String dotFile, String pdfFile)
         throws java.io.FileNotFoundException, java.io.IOException, JAXBException {
@@ -314,6 +330,10 @@ public class OPMToDot {
 
     public HashMap<String,String> addProcessLabel(Process p, HashMap<String,String> properties) {
         properties.put("label",processLabel(p));
+        if (processFontSize!=null) {
+            properties.put("fontsize",processFontSize);
+        }
+        
         return properties;
     }
 
@@ -340,6 +360,9 @@ public class OPMToDot {
 
     public HashMap<String,String> addArtifactLabel(Artifact p, HashMap<String,String> properties) {
         properties.put("label",artifactLabel(p));
+        if (artifactFontSize!=null) {
+            properties.put("fontsize",artifactFontSize);
+        }
         return properties;
     }
 
@@ -351,6 +374,9 @@ public class OPMToDot {
 
     public HashMap<String,String> addAgentLabel(Agent p, HashMap<String,String> properties) {
         properties.put("label",agentLabel(p));
+        if (agentFontSize!=null) {
+            properties.put("fontsize",agentFontSize);
+        }
         return properties;
     }
 
@@ -535,7 +561,6 @@ public class OPMToDot {
             accounts.add(of.newAccountRef(of.newAccount(defaultAccountLabel)));
         }
 
-	boolean flag=true;
         for (AccountRef acc: accounts) {
             String accountLabel=((Account)acc.getRef()).getId();
             addEdgeAttributes(accountLabel,e,properties);
@@ -544,7 +569,9 @@ public class OPMToDot {
                       properties,
                       out,
                       true);
-	    if (flag && (!(properties.get("color").equals("transparent")))) return; //luc added this to avoid multiple was derived from edges in different accounts.
+            // let's stop after the first one. 
+            return;
+            //if (flag && (!(properties.get("color").equals("transparent")))) return; //luc added this to avoid multiple was derived from edges in different accounts.
         }
     }
 
@@ -556,6 +583,10 @@ public class OPMToDot {
         properties.put("fontcolor",colour);
         properties.put("style",getEdgeStyle(e));
         addEdgeLabel(e,properties);
+        String pw=getEdgePenWidth(e);
+        if (pw!=null) {
+            properties.put("penwidth",pw);
+        }
         return properties;
     }
 
@@ -677,6 +708,17 @@ public class OPMToDot {
         }
     }
 
+    public String getEdgePenWidth(Edge edge) {
+        String name=edge.getClass().getName();
+        EdgeStyleMapEntry style=edgeStyleMap.get(name);
+        if (style!=null) {
+            String penwidth=style.getPenwidth();
+            return penwidth;
+        } else {
+            return null;
+        }
+    }
+
     public boolean getEdgePrintTime(Edge edge) {
         String name=edge.getClass().getName();
         EdgeStyleMapEntry style=edgeStyleMap.get(name);
@@ -749,7 +791,7 @@ public class OPMToDot {
     }
 
     void prelude(PrintStream out) {
-        out.println("digraph " + name + " { rankdir=\"BT\"; fontsize=\"16\"");
+        out.println("digraph " + name + " { rankdir=\"BT\"; fontsize=\"16\";");
     }
 
     void postlude(PrintStream out) {
