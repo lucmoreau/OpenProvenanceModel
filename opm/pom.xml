@@ -424,7 +424,7 @@
             </configuration>
           </execution>
           <execution>
-            <id>jenikey</id>
+            <id>alicekey</id>
             <phase>generate-sources</phase>
             <goals>
               <goal>genkey</goal>

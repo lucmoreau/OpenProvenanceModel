@@ -31,6 +31,7 @@ import org.openprovenance.model.Process;
 import org.openprovenance.model.Property;
 import org.openprovenance.model.Type;
 import org.openprovenance.model.Used;
+import org.openprovenance.model.Signature;
 import org.openprovenance.model.Value;
 import org.openprovenance.model.Reference;
 import org.openprovenance.model.WasControlledBy;
@@ -169,6 +170,9 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
         }
     }
 
+
+
+
     public void addAnnotation(Annotable annotable, Value ann) {
         if (ann!=null) {
             super.addAnnotation(annotable,ann);
@@ -178,6 +182,19 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
             org.openprovenance.rdf.Annotable annotable2=(org.openprovenance.rdf.Annotable) o;
             org.openprovenance.rdf.AValue ann2=(org.openprovenance.rdf.AValue) ((HasFacade)ann).findMyFacade();
             ((org.openprovenance.rdf.Artifact) annotable2).getAvalues().add(ann2);
+
+        }
+    }
+
+    public void addAnnotation(Annotable annotable, Signature ann) {
+        if (ann!=null) {
+            super.addAnnotation(annotable,ann);
+
+            HasFacade facade=(HasFacade) annotable;
+            Object o=facade.findMyFacade();
+            org.openprovenance.rdf.Annotable annotable2=(org.openprovenance.rdf.Annotable) o;
+            org.openprovenance.rdf.Signature ann2=(org.openprovenance.rdf.Signature) ((HasFacade)ann).findMyFacade();
+            ((org.openprovenance.rdf.OPMGraph) annotable2).getSignatures().add(ann2);
 
         }
     }
@@ -218,6 +235,8 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
             addAnnotation(annotable,(Value) ann);
         } else if (ann instanceof Reference) {
             addAnnotation(annotable,(Reference) ann);
+        } else if (ann instanceof Signature) {
+            addAnnotation(annotable,(Signature) ann);
         } else {
             super.addAnnotation(annotable,ann);
 
@@ -551,6 +570,20 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
                                                      av.getEncoding2().toString(),
                                                      av.getDigest().toString()));
             }
+        } else if (a instanceof org.openprovenance.rdf.OPMGraph) {
+            org.openprovenance.rdf.OPMGraph gr=(org.openprovenance.rdf.OPMGraph) a;
+
+            for (org.openprovenance.rdf.Signature sig: gr.getSignatures()) {
+
+                if (sig.getSig() instanceof XMLLiteral) {
+                    XMLLiteral lit=(XMLLiteral)sig.getSig();
+                    Document doc=builder.newDocument();
+                    Element el=(Element)doc.importNode(lit.getDocument().getDocumentElement(),true);
+                    super.addAnnotation(res,newSignature(el,
+                                                         sig.getSigner()));
+                }
+
+            }
         }
     }
 
@@ -581,6 +614,11 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
                                                                getDigest(ea)));
 
 
+            Object sig=getSig(ea);
+            if (sig!=null) addAnnotation(res,newSignature(sig,
+                                                          getSigner(ea)));
+
+
             if (ea.getId()!=null) 
             addAnnotation(res,newEmbeddedAnnotation(ea.getId(),
                                                     ea.getProperty(),
@@ -588,7 +626,6 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
                                                     null));
         }
     }
-
 
     public OPMGraph newOPMGraph(org.openprovenance.rdf.OPMGraph gr) {
 
@@ -646,6 +683,11 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
             //RdfAnnotation ann2=newAnnotation(ann);
             RdfEmbeddedAnnotation ann2=newEmbeddedAnnotation(ann);
             super.addAnnotation(res,ann2);
+        }
+
+        for (org.openprovenance.rdf.Signature signature: gr.getSignatures()) {
+            System.out.println("---------TODO-------------->  " + signature);
+            processAnnotations(gr,res);
         }
 
         return res;

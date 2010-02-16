@@ -58,7 +58,8 @@ public class Signature1Test
 
         OPMGraph graph=makeSignature1Graph(oFactory);
         getKeystoreConfig();
-        Signer sig=new Signer(props.getProperty("build.keystoretype"),
+        Signer sig=new Signer(oFactory,
+                              props.getProperty("build.keystoretype"),
                               props.getProperty("build.keystore"),
                               props.getProperty("build.keystorepass"),
                               props.getProperty("build.alias"),
@@ -88,7 +89,8 @@ public class Signature1Test
     {
 
         getKeystoreConfig();
-        Signer sig=new Signer(props.getProperty("build.keystoretype"),
+        Signer sig=new Signer(oFactory,
+                              props.getProperty("build.keystoretype"),
                               props.getProperty("build.keystore"),
                               props.getProperty("build.keystorepass"),
                               props.getProperty("build.alias"),

@@ -2,6 +2,7 @@ package org.openprovenance.model.security;
 
 
 import org.openprovenance.model.OPMGraph;
+import org.openprovenance.model.OPMFactory;
 
 import java.security.KeyStore;
 import java.security.NoSuchAlgorithmException;
@@ -24,11 +25,13 @@ public class StoreSignerFactory {
         throws NoSuchAlgorithmException, IOException, KeyStoreException, CertificateException {
     }
 
-    public SignerFunctionality newInstance(String privateKeyAlias,
+    public SignerFunctionality newInstance(OPMFactory oFactory,
+                                           String privateKeyAlias,
                                            String privateKeyPassword,
                                            String simpleName) 
         throws ClassNotFoundException, InstantiationException, IllegalAccessException, KeyStoreException {
-        return new Signer(ks,
+        return new Signer(oFactory,
+                          ks,
                           privateKeyAlias,
                           privateKeyPassword,
                           simpleName);

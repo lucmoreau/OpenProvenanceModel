@@ -111,7 +111,7 @@ public class Gov1Test extends org.openprovenance.model.Gov1Test {
     public void testGovSignature() throws Exception {
         // reset counter to ensure that auto allocated ids are the same
         RdfOPMFactory.count=0;
-
+        multiplePlots=false;
         super.testGovSignature();
     }
 
@@ -133,13 +133,13 @@ public class Gov1Test extends org.openprovenance.model.Gov1Test {
     }
 
 
-    public void NotestCompareGov1SigGraphs() throws Exception {
+    public void testCompareGov1SigGraphs() throws Exception {
 
         System.out.println("Running testCompareGov1Graphs");
 
         ElmoManager manager = factory.createElmoManager();
 
-        gCompare.testCompareGraphs("target/gov1sig.xml",
+        gCompare.testCompareGraphs("target/gov-signature.xml",
                                    "target/gov1sig.n3",
                                    TEST_NS,
                                    RDFFormat.N3,

@@ -25,14 +25,16 @@ import org.apache.xml.serialize.XMLSerializer;
 
 public class Signer extends com.uprovenance.util.security.Signature implements SignerFunctionality {
 
-    static OPMFactory oFactory=new OPMFactory();
-
     public Signer() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        oFactory=null;
     }
 
     String signer;
+
+    final OPMFactory oFactory;
     
-    public Signer(String keyStoreType,
+    public Signer(OPMFactory oFactory,
+                  String keyStoreType,
                   String keyStoreName,
                   String keyStorePassword,
                   String privateKeyAlias,
@@ -45,6 +47,7 @@ public class Signer extends com.uprovenance.util.security.Signature implements S
               keyStorePassword,
               privateKeyAlias,
               privateKeyPassword);
+        this.oFactory=oFactory;
         if (simpleName!=null) {
             signer=simpleName;
         } else {
@@ -53,7 +56,8 @@ public class Signer extends com.uprovenance.util.security.Signature implements S
                                   
     }
 
-    public Signer(KeyStore ks,
+    public Signer(OPMFactory oFactory,
+                  KeyStore ks,
                   String privateKeyAlias,
                   String privateKeyPassword,
                   String simpleName)
@@ -61,6 +65,7 @@ public class Signer extends com.uprovenance.util.security.Signature implements S
         super(ks,
               privateKeyAlias,
               privateKeyPassword);
+        this.oFactory=oFactory;
         if (simpleName!=null) {
             signer=simpleName;
         } else {
@@ -158,7 +163,7 @@ public class Signer extends com.uprovenance.util.security.Signature implements S
                 theX509Data.getElementsByTagNameNS(XMLSignature.XMLNS, "X509SubjectName");
             Element x509SubjectName=(Element)snl.item(0);
             String dn=x509SubjectName.getTextContent();
-            String dn2=((Signature)oFactory.getSignature(oGraph)).getSigner();
+            String dn2=oFactory.getSigner(oGraph);
             System.out.println("** signature found DN " + dn);
             System.out.println("** signature found DN " + dn2);
             sameDN=dn.equals(dn2);

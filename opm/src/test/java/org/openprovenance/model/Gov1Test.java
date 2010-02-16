@@ -53,7 +53,7 @@ public class Gov1Test
 
     static public OPMFactory oFactory=new OPMFactory();
 
-
+    protected boolean multiplePlots=true;
 
     public void testGov1() throws javax.xml.bind.JAXBException, java.io.FileNotFoundException, java.io.IOException
     {
@@ -75,21 +75,23 @@ public class Gov1Test
         OPMToDot toDot=new OPMToDot("src/test/resources/gov1.xml");        
         toDot.convert(graph1,"target/gov1.dot", "target/gov1.pdf");
 
-        toDot=new OPMToDot("src/test/resources/gov2.xml");        
-        toDot.convert(graph1,"target/gov2.dot", "target/gov2.pdf");
+        if (multiplePlots) {
+            toDot=new OPMToDot("src/test/resources/gov2.xml");        
+            toDot.convert(graph1,"target/gov2.dot", "target/gov2.pdf");
+            
+            toDot=new OPMToDot("src/test/resources/gov2time.xml");        
+            toDot.convert(graph1,"target/gov2time.dot", "target/gov2time.pdf");
+            
+            toDot=new OPMToDot("src/test/resources/gov3.xml");        
+            toDot.convert(graph1,"target/gov3.dot", "target/gov3.pdf");
+            
+            toDot=new OPMToDot("src/test/resources/gov4.xml");        
+            toDot.convert(graph1,"target/gov4.dot", "target/gov4.pdf");
 
-        toDot=new OPMToDot("src/test/resources/gov2time.xml");        
-        toDot.convert(graph1,"target/gov2time.dot", "target/gov2time.pdf");
 
-        toDot=new OPMToDot("src/test/resources/gov3.xml");        
-        toDot.convert(graph1,"target/gov3.dot", "target/gov3.pdf");
-
-        toDot=new OPMToDot("src/test/resources/gov4.xml");        
-        toDot.convert(graph1,"target/gov4.dot", "target/gov4.pdf");
-
-
-        //toDot.convert(graph1,"target/gov1.dot", "jpg", "target/gov1.jpg");
-        //toDot.convert(graph1,"target/gov1.dot", "svg", "target/gov1.svg");
+            //toDot.convert(graph1,"target/gov1.dot", "jpg", "target/gov1.jpg");
+            //toDot.convert(graph1,"target/gov1.dot", "svg", "target/gov1.svg");
+        }
 
 
     }
@@ -353,7 +355,8 @@ public class Gov1Test
 
 
         getKeystoreConfig();
-        Signer sig=new Signer(props.getProperty("build.keystoretype"),
+        Signer sig=new Signer(oFactory,
+                              props.getProperty("build.keystoretype"),
                               props.getProperty("build.keystore"),
                               props.getProperty("build.keystorepass"),
                               "alice",

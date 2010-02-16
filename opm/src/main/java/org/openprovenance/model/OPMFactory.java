@@ -260,19 +260,7 @@ public class OPMFactory implements CommonURIs {
         }
     }
 
-    public Object getSignature(EmbeddedAnnotation annotation) {
-        if (annotation instanceof Signature) {
-            Signature signature=(Signature) annotation;
-            return signature.getAny();
-        } else {
-            for (Property prop: annotation.getProperty()) {
-                if (prop.getUri().equals(SIGNATURE_PROPERTY)) {
-                    return prop.getValue();
-                }
-            }
-            return null;
-        }
-    }
+
 
     public Object getContent(EmbeddedAnnotation annotation) {
         if (annotation instanceof Value) {
@@ -288,6 +276,33 @@ public class OPMFactory implements CommonURIs {
         }
     }
 
+    public Object getSig(EmbeddedAnnotation annotation) {
+        if (annotation instanceof Signature) {
+            Signature signature=(Signature) annotation;
+            return signature.getAny();
+        } else {
+            for (Property prop: annotation.getProperty()) {
+                if (prop.getUri().equals(SIGNATURE_PROPERTY)) {
+                    return prop.getValue();
+                }
+            }
+            return null;
+        }
+    }
+
+    public String getSigner(EmbeddedAnnotation annotation) {
+        if (annotation instanceof Signature) {
+            Signature signature=(Signature) annotation;
+            return signature.getSigner();
+        } else {
+            for (Property prop: annotation.getProperty()) {
+                if (prop.getUri().equals(SIGNER_PROPERTY)) {
+                    return (String) prop.getValue();
+                }
+            }
+            return null;
+        }
+    }
 
     public String getEncoding(EmbeddedAnnotation annotation) {
         if (annotation instanceof Value) {
@@ -416,11 +431,22 @@ public class OPMFactory implements CommonURIs {
 
 
     /** Return the value of the signature property in the first annotation. */
-    public Object getSignature(List<JAXBElement<? extends EmbeddedAnnotation>> annotations) {
+    public Object getSig(List<JAXBElement<? extends EmbeddedAnnotation>> annotations) {
         for (JAXBElement<? extends EmbeddedAnnotation> jann: annotations) {
             EmbeddedAnnotation ann=jann.getValue();
-            Object signature=getSignature(ann);
+            Object signature=getSig(ann);
             if (signature!=null) return signature;
+        }
+        return null;
+    }
+
+
+    /** Return the value of the signer property in the first annotation. */
+    public String getSigner(List<JAXBElement<? extends EmbeddedAnnotation>> annotations) {
+        for (JAXBElement<? extends EmbeddedAnnotation> jann: annotations) {
+            EmbeddedAnnotation ann=jann.getValue();
+            String signature=getSigner(ann);
+            return signature;
         }
         return null;
     }
@@ -509,11 +535,11 @@ public class OPMFactory implements CommonURIs {
     }
 
     /** Return the value of the signature property. */
-    public List<Object> getSignatures(List<JAXBElement<? extends EmbeddedAnnotation>> annotations) {
+    public List<Object> getSigs(List<JAXBElement<? extends EmbeddedAnnotation>> annotations) {
         List<Object> res=new LinkedList();
         for (JAXBElement<? extends EmbeddedAnnotation> jann: annotations) {
             EmbeddedAnnotation ann=jann.getValue();
-            Object signature=getSignature(ann);
+            Object signature=getSig(ann);
             if (signature!=null) res.add(signature);
         }
         return res;
@@ -537,8 +563,13 @@ public class OPMFactory implements CommonURIs {
     }
 
     /** Generic accessor for annotable entities. */
-    public Object getSignature(Annotable annotable) {
-        return getSignature(annotable.getAnnotation());
+    public Object getSig(Annotable annotable) {
+        return getSig(annotable.getAnnotation());
+    }
+
+    /** Generic accessor for annotable entities. */
+    public String getSigner(Annotable annotable) {
+        return getSigner(annotable.getAnnotation());
     }
 
     /** Generic accessor for annotable entities. */
@@ -1750,9 +1781,10 @@ public class OPMFactory implements CommonURIs {
 //         }
 //     }
 
-    public Signature newSignature(Object sig) {
+    public Signature newSignature(Object sig, String signer) {
         Signature res=of.createSignature();
-        res.setAny(sig);
+        if (signer!=null) res.setSigner(signer);
+        if (sig!=null) res.setAny(sig);
         return res;
     }
 

@@ -1,10 +1,13 @@
 
-- gov1.pdf and gov2.pdf should overlay.
-  Problem, in gov1.pdf multiple transparent edges from different accounts seem to be displayed
+
+- make sure conversion to/from rdf works on gov1 with signature
+- problem whole xml document appears instead of just signature
+- check signature in rdf
+- problem reference annotation occurs three times
+   - seems to be twice in rdf??
 
 
 - change size of edge types
-
 - change thickness of edges: penwidth
     
 
