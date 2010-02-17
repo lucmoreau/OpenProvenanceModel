@@ -43,7 +43,13 @@ public class RdfSignature extends org.openprovenance.model.Signature implements 
         org.openprovenance.rdf.Signature r=findMyFacade();
         Element element=(Element) value;
         //TODO make signature orphan, and elmeent in a dummy
-        r.setSig(new XMLLiteral(element.getOwnerDocument()));
+        Document doc=RdfOPMFactory.builder.newDocument();
+        String APP_NS="http://openprovenance.org/ignore";
+        //Element el=doc.createElementNS(APP_NS,"app:ignore");
+        Element el=(Element)doc.importNode(element,true);
+        doc.appendChild(el);
+        System.out.println("---> setAny  " + el);
+        r.setSig(new XMLLiteral(doc));
     }
 
 

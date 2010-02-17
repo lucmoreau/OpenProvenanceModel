@@ -144,7 +144,6 @@ public class GraphComparator {
             }
         }
 
-
         Assert.assertTrue( "copy of graph differs from original", graph1.equals(graph2) );
     }
 }

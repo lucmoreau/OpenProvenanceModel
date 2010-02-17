@@ -111,6 +111,23 @@ public class Signer extends com.uprovenance.util.security.Signature implements S
         return true;
     }
 
+    public static String extractSignatureValue(Object o) {
+        if (o==null) return null;
+        if (o instanceof Element) {
+            Element el=(Element) o;
+            NodeList nl = el.getElementsByTagNameNS(XMLSignature.XMLNS, "SignatureValue");
+            if (nl.getLength()>=1) {
+                Node n0=nl.item(0);
+                System.out.println("Signer. Debug: Found signatureValue ---> " + n0.getFirstChild().getNodeValue());
+                return n0.getFirstChild().getNodeValue();
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
     public void serializeToXML(Document node, String filename) throws java.io.IOException, java.io.FileNotFoundException {
         FileOutputStream fos = new FileOutputStream(filename);
         // XERCES 1 or 2 additionnal classes.

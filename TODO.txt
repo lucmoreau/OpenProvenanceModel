@@ -1,10 +1,7 @@
 
 
-- make sure conversion to/from rdf works on gov1 with signature
-- problem whole xml document appears instead of just signature
-- check signature in rdf
-- problem reference annotation occurs three times
-   - seems to be twice in rdf??
+- given an graph in memory and containing a signature, validate the signature
+- given a serialisation in rdf containing signature, validate the signature
 
 
 - change size of edge types

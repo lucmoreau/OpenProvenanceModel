@@ -686,7 +686,6 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
         }
 
         for (org.openprovenance.rdf.Signature signature: gr.getSignatures()) {
-            System.out.println("---------TODO-------------->  " + signature);
             processAnnotations(gr,res);
         }
 
