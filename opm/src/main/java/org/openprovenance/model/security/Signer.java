@@ -25,8 +25,8 @@ import org.apache.xml.serialize.XMLSerializer;
 
 public class Signer extends com.uprovenance.util.security.Signature implements SignerFunctionality {
 
-    public Signer() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-        oFactory=null;
+    public Signer(OPMFactory oFactory) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        this.oFactory=oFactory;
     }
 
     String signer;
@@ -181,8 +181,6 @@ public class Signer extends com.uprovenance.util.security.Signature implements S
             Element x509SubjectName=(Element)snl.item(0);
             String dn=x509SubjectName.getTextContent();
             String dn2=oFactory.getSigner(oGraph);
-            System.out.println("** signature found DN " + dn);
-            System.out.println("** signature found DN " + dn2);
             sameDN=dn.equals(dn2);
         }
         return validate(theSignature) && sameDN;

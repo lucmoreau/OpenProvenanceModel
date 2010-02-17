@@ -361,7 +361,7 @@ public class Gov1Test
                               props.getProperty("build.keystorepass"),
                               "alice",
                               props.getProperty("build.keypass"),
-                              "Alice");
+                              "CN=Alice, OU=HM Government, L=London, C=UK");
 
 
 
@@ -377,9 +377,21 @@ public class Gov1Test
     }
 
     public void testCheckGovSignature() throws Exception {
+        System.out.println("Validating signature directly from xml file");
         List<Node> nl=getSignature("target/gov-signature.xml");
-        assertTrue(new Signer().validate(nl.get(nl.size()-1)));
+        assertTrue(new Signer(oFactory).validate(nl.get(nl.size()-1)));
     }
+
+
+    
+    public void testCheckGovSignature2() throws Exception {
+        System.out.println("Validating signature of in-memory graph");
+        OPMDeserialiser pdeserial=OPMDeserialiser.getThreadOPMDeserialiser();
+        OPMGraph graph=pdeserial.deserialiseOPMGraph(new File("target/gov-signature.xml"));
+        assertTrue(new Signer(oFactory).validate(graph));
+    }
+
+
 
     static java.util.Properties props=null;
     static java.util.Properties getKeystoreConfig () throws java.io.IOException {

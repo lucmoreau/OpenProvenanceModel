@@ -239,14 +239,14 @@ public class Signature1Test
 
     public void testCheckLastSignature1() throws Exception {
         List<Node> nl=getSignature("target/signature1.xml");
-        assertTrue(new Signer().validate(nl.get(nl.size()-1)));
+        assertTrue(new Signer(oFactory).validate(nl.get(nl.size()-1)));
     }
 
     public void testCheckLastSignature2() throws Exception {
         List<Node> nl=getSignature("target/signature2.xml");
         // signature is invalidated because of the extra signature we have added
-        assertFalse(new Signer().validate(nl.get(0)));
-        assertTrue(new Signer().validate(nl.get(nl.size()-1)));
+        assertFalse(new Signer(oFactory).validate(nl.get(0)));
+        assertTrue(new Signer(oFactory).validate(nl.get(nl.size()-1)));
     }
 
 
