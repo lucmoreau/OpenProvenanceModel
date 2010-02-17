@@ -44,6 +44,7 @@
 	<xs:attribute name="penwidth" type="xs:string"/>
 	<xs:attribute name="printRole" type="xs:boolean"/>
 	<xs:attribute name="printTime" type="xs:boolean"/>
+	<xs:attribute name="fontSize" type="xs:string"/>
   </xs:complexType>
 
   <xs:complexType name="AccountMap">

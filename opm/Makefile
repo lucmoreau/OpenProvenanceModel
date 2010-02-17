@@ -1,7 +1,7 @@
 
 
 pdf:
-	pdftk target/gov1.pdf target/gov2.pdf target/gov3.pdf target/gov4.pdf cat output target/gov-all.pdf
+	pdftk target/gov1.pdf target/gov2.pdf target/gov2time.pdf target/gov3.pdf target/gov4.pdf cat output target/gov-all.pdf
 
 keys:
 	keytool -list -keystore target/keystore 

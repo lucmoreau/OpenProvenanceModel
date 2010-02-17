@@ -414,24 +414,24 @@ public class OPMToDot {
 
 
     public Object convertValue(Object value) {
-	if (value instanceof String) {
-	    String label=(String) value;
-	    String prefix="http://www.iana.org/assignments/media-types/"; 
-	    if (label.startsWith(prefix)) {
-		return label.substring(prefix.length());
-	    }
-	    prefix="http://www.jenitennison.com/log/2009-10-24/";
-	    if (label.startsWith(prefix)) {
-		return label.substring(prefix.length());
-	    }
-	    prefix="http://www.ons.gov.uk/about-statistics/geography/products/geog-products-area/names-codes/administrative";
-	    if (label.startsWith(prefix)) {
-		return "http://www.ons.gov.uk/..."+label.substring(prefix.length());
-	    }
-	    return label;
-	} else {
-	    return value;
-	}
+        if (value instanceof String) {
+            String label=(String) value;
+            String prefix="http://www.iana.org/assignments/media-types/"; 
+            if (label.startsWith(prefix)) {
+                return label.substring(prefix.length());
+            }
+            prefix="http://www.jenitennison.com/log/2009-10-24/";
+            if (label.startsWith(prefix)) {
+                return label.substring(prefix.length());
+            }
+            prefix="http://www.ons.gov.uk/about-statistics/geography/products/geog-products-area/names-codes/administrative";
+            if (label.startsWith(prefix)) {
+                return "http://www.ons.gov.uk/..."+label.substring(prefix.length());
+            }
+            return label;
+        } else {
+            return value;
+        }
     }
 
 
@@ -638,7 +638,12 @@ public class OPMToDot {
                     }
                 }
                 if (timeFlag) {
-                    properties.put("fontsize","10");
+                    String fs=getEdgeFontSize(e);
+                    if (fs==null) {
+                        properties.put("fontsize","10");
+                    } else {
+                        properties.put("fontsize",fs);
+                    }
                 }
             }
 
@@ -665,7 +670,12 @@ public class OPMToDot {
         if (label!=null) {
             properties.put("label",convertEdgeLabel(label));
             if (properties.get("fontsize")==null) {
-                properties.put("fontsize","10");
+                String fs=getEdgeFontSize(e);
+                if (fs==null) {
+                    properties.put("fontsize","10");
+                } else {
+                    properties.put("fontsize",fs);
+                }
             }
         } 
     }
@@ -676,6 +686,14 @@ public class OPMToDot {
 
     public String convertEdgeLabel(String label) {
         return label.substring(label.indexOf("#")+1, label.length());
+    }
+
+    public String convert2(String in) {
+        String out="";
+        for (char a: in.toCharArray() ) {
+            out=out + a + "\n";
+        }
+        return out;
     }
 
 
@@ -714,6 +732,16 @@ public class OPMToDot {
         if (style!=null) {
             String penwidth=style.getPenwidth();
             return penwidth;
+        } else {
+            return null;
+        }
+    }
+    public String getEdgeFontSize(Edge edge) {
+        String name=edge.getClass().getName();
+        EdgeStyleMapEntry style=edgeStyleMap.get(name);
+        if (style!=null) {
+            String fs=style.getFontSize();
+            return fs;
         } else {
             return null;
         }

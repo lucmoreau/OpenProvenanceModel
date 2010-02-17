@@ -154,16 +154,16 @@ public class Gov1Test
                                          "local zip file");
         Artifact a3=oFactory.newArtifact("a3",
                                          allLevels,
-                                         "GOR csv file");
+                                         "Government Office Regions csv file");
         Artifact a4=oFactory.newArtifact("a4",
                                          allLevels,
                                          "region xslt");
         Artifact a5=oFactory.newArtifact("a5",
                                          allLevels,
-                                         "GOR rdf file");
+                                         "Government Office Regions rdf file");
         Artifact a6=oFactory.newArtifact("a6",
                                          allLevels,
-                                         "Government Office Regions");
+                                         "Government Office Regions DataSet");
         Artifact a7=oFactory.newArtifact("a7",
                                          allLevels,
                                          "Region H");
