@@ -423,6 +423,19 @@
 
   <owl:Class rdf:ID="AValue">
     <rdfs:subClassOf rdf:resource="#Entity"/>
+
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#content"/>
+        <owl:someValuesFrom rdf:resource="&rdfs;Literal"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#encoding"/>
+        <owl:someValuesFrom rdf:resource="&xsd;anyURI"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
   </owl:Class>
 
   <owl:DatatypeProperty rdf:ID="content">

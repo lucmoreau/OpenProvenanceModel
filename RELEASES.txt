@@ -9,6 +9,9 @@ Key changes to the toolkit:
     * Used DatatypeProperty instead of ObjectProperty where appropriate
     * Made Role mandatory on Used, WasGeneratedBy, WasControlledBy
     * Made cause/effect mandatory on edges
+    * Made encoding/content mandatory in AValue
+    * Used DatatypeProperty for value property
+
 
 
 All information on OPM v1.1, the schema, the ontology, and the OPM
