@@ -1,3 +1,26 @@
+I am pleased to announce the release of the OPM Toolbox 1.1.3. It
+incorporates the recently proposed OWL ontology for OPM v1.1, and
+conversion to/from RDF. 
+
+Key changes to the toolkit:
+
+    * Ontology fix
+    * Removed inconsistency with time in WasControlledBy
+    * Used DatatypeProperty instead of ObjectProperty where appropriate
+    * Made Role mandatory on Used, WasGeneratedBy, WasControlledBy
+    * Made cause/effect mandatory on edges
+
+
+All information on OPM v1.1, the schema, the ontology, and the OPM
+Toolbox available from openprovenance.org.
+
+Maven artifacts are available from
+http://openprovenance.org/java/maven-releases/. Source code is
+available from http://github.com/lucmoreau/OpenProvenanceModel.
+
+
+----------------------------------------------------------------------
+
 I am pleased to announce the release of the OPM Toolbox 1.1.2. It
 incorporates the recently proposed OWL ontology for OPM v1.1, and
 conversion to/from RDF. 
@@ -16,6 +39,7 @@ available from http://github.com/lucmoreau/OpenProvenanceModel.
 
 
 ------------------------------------------------------------
+
 I am pleased to announce the release of the OPM Toolbox 1.1.1. It
 incorporates the recently proposed OWL ontology for OPM v1.1, and
 conversion to/from RDF.  Minor changes have been incorporated to the
