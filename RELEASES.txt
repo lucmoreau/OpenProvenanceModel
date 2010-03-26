@@ -1,3 +1,8 @@
+
+branch opmowl
+
+----------------------------------------------------------------------
+
 I am pleased to announce the release of the OPM Toolbox 1.1.3. It
 incorporates the recently proposed OWL ontology for OPM v1.1, and
 conversion to/from RDF. 
