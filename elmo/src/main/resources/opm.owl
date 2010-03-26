@@ -5,7 +5,7 @@
   <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
   <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
-<rdf:RDF xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#" xmlns:swrlb="http://www.w3.org/2003/11/swrlb#" xmlns:swrl="http://www.w3.org/2003/11/swrl#" xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:opm="http://openprovenance.org/ontology#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:owl="http://www.w3.org/2002/07/owl#" xml:base="http://openprovenance.org/ontology">
+<rdf:RDF xmlns="http://openprovenance.org/ontology#" xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#" xmlns:swrlb="http://www.w3.org/2003/11/swrlb#" xmlns:swrl="http://www.w3.org/2003/11/swrl#" xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:opm="http://openprovenance.org/ontology#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:owl="http://www.w3.org/2002/07/owl#" xml:base="http://openprovenance.org/ontology">
 
   <!-- Ontology designers/contributors:  Luc Moreau, Simon Miles, Paolo Missier, Paul Groth, Joe Futrelle, Li Ding,  Daniel Garijo Verdejo -->
 
@@ -19,6 +19,7 @@
 
   <owl:Class rdf:ID="Node">
     <rdfs:subClassOf rdf:resource="#Entity"/>
+    <owl:disjointWith rdf:resource="#Edge"/>
   </owl:Class>
   
   <owl:Class rdf:ID="Process">
@@ -48,6 +49,16 @@
     <rdfs:domain  rdf:resource="#Edge"/>
     <rdfs:range   rdf:resource="#Node"/>
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the cause of an Edge</rdfs:comment>
+    <owl:propertyChainAxiom rdf:parseType="Collection">
+      <rdf:Description rdf:about="#causeWasDerivedFrom"/>
+    </owl:propertyChainAxiom>
+    <owl:propertyChainAxiom rdf:parseType="Collection">
+      <rdf:Description rdf:about="#causeWasGeneratedBy"/>
+    </owl:propertyChainAxiom>
+    <owl:propertyChainAxiom rdf:parseType="Collection">
+      <rdf:Description rdf:about="#causeUsed"/>
+    </owl:propertyChainAxiom>
+
   </owl:ObjectProperty>
 
   <owl:ObjectProperty rdf:ID="effect">
@@ -55,9 +66,253 @@
     <rdfs:domain  rdf:resource="#Edge"/>
     <rdfs:range   rdf:resource="#Node"/>
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the effect of an Edge</rdfs:comment>
+    <owl:propertyChainAxiom rdf:parseType="Collection">
+      <rdf:Description rdf:about="#effectWasGeneratedBy"/>
+    </owl:propertyChainAxiom>
+    <owl:propertyChainAxiom rdf:parseType="Collection">
+      <rdf:Description rdf:about="#effectWasDerivedFrom"/>
+    </owl:propertyChainAxiom>
+    <owl:propertyChainAxiom rdf:parseType="Collection">
+      <rdf:Description rdf:about="#effectUsed"/>
+    </owl:propertyChainAxiom>
   </owl:ObjectProperty>
 
+    <!-- http://openprovenance.org/ontology#effectUsed -->
 
+    <owl:ObjectProperty rdf:about="#effectUsed">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="#Process"/>
+        <rdfs:domain rdf:resource="#Used"/>
+    </owl:ObjectProperty>
+    
+    <owl:ObjectProperty rdf:about="#effectWasTriggeredBy">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="#Process"/>
+        <rdfs:domain rdf:resource="#WasTriggeredBy"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/ontology#effectUsed-1 -->
+
+    <owl:ObjectProperty  rdf:ID="effectUsed-1">
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdfs:domain rdf:resource="#Process"/>
+        <rdfs:range rdf:resource="#Used"/>
+        <owl:inverseOf rdf:resource="#effectUsed"/>
+    </owl:ObjectProperty>
+    
+    <owl:ObjectProperty  rdf:ID="effectWasTriggeredBy-1">
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdfs:domain rdf:resource="#Process"/>
+        <rdfs:range rdf:resource="#WasTriggeredBy"/>
+        <owl:inverseOf rdf:resource="#effectWasTriggeredBy"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/ontology#effectWasDerivedFrom -->
+
+    <owl:ObjectProperty rdf:ID="effectWasDerivedFrom">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="#Artifact"/>
+        <rdfs:domain rdf:resource="#WasDerivedFrom"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/ontology#effectWasDerivedFrom-1 -->
+
+    <owl:ObjectProperty rdf:ID="effectWasDerivedFrom-1">
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdfs:domain rdf:resource="#Artifact"/>
+        <rdfs:range rdf:resource="#WasDerivedFrom"/>
+        <owl:inverseOf rdf:resource="#effectWasDerivedFrom"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/ontology#effectWasGeneratedBy -->
+
+    <owl:ObjectProperty rdf:ID="effectWasGeneratedBy">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="#Artifact"/>
+        <rdfs:domain rdf:resource="#WasGeneratedBy"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/ontology#effectWasGeneratedBy-1 -->
+
+    <owl:ObjectProperty rdf:ID="effectWasGeneratedBy-1">
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdfs:domain rdf:resource="#Artifact"/>
+        <rdfs:range rdf:resource="#WasGeneratedBy"/>
+        <owl:inverseOf rdf:resource="#effectWasGeneratedBy"/>
+    </owl:ObjectProperty>
+    
+
+    <owl:ObjectProperty rdf:ID="effectWasControlledBy">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="#Process"/>
+        <rdfs:domain rdf:resource="#WasControlledBy"/>
+    </owl:ObjectProperty>
+    
+    <owl:ObjectProperty rdf:ID="effectWasControlledBy-1">
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdfs:range rdf:resource="#WasControlledBy"/>
+        <rdfs:domain rdf:resource="#Process"/>
+        <owl:inverseOf rdf:resource="#effectWasControlledBy"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/ontology#causeUsed -->
+
+    <owl:ObjectProperty rdf:ID="causeUsed">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="#Artifact"/>
+        <rdfs:domain rdf:resource="#Used"/>
+    </owl:ObjectProperty>
+    
+    <owl:ObjectProperty rdf:ID="causeWasTriggeredBy">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="#Process"/>
+        <rdfs:domain rdf:resource="#WasTriggeredBy"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/ontology#causeWasDerivedFrom -->
+
+    <owl:ObjectProperty rdf:ID="causeWasDerivedFrom">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="#Artifact"/>
+        <rdfs:domain rdf:resource="#WasDerivedFrom"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/ontology#causeWasGeneratedBy -->
+
+    <owl:ObjectProperty rdf:ID="causeWasGeneratedBy">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="#Process"/>
+        <rdfs:domain rdf:resource="#WasGeneratedBy"/>
+    </owl:ObjectProperty>
+
+
+    <owl:ObjectProperty rdf:ID="causeWasControlledBy">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="#Agent"/>
+        <rdfs:domain rdf:resource="#WasControlledBy"/>
+    </owl:ObjectProperty>
+    
+
+
+ 
+    <!-- http://openprovenance.org/ontology#_used -->
+
+    <owl:ObjectProperty rdf:ID="_used">
+        <rdfs:range rdf:resource="#Artifact"/>
+        <rdfs:domain rdf:resource="#Process"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="#effectUsed-1"/>
+            <rdf:Description rdf:about="#causeUsed"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+    <owl:ObjectProperty rdf:ID="_wasTriggeredBy">
+        <rdfs:range rdf:resource="#Process"/>
+        <rdfs:domain rdf:resource="#Process"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="#effectWasTriggeredBy-1"/>
+            <rdf:Description rdf:about="#causeWasTriggeredBy"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+
+    <!-- http://openprovenance.org/ontology#_used_star -->
+
+    <owl:ObjectProperty rdf:ID="_used_star">
+        <rdfs:range rdf:resource="#Artifact"/>
+        <rdfs:domain rdf:resource="#Process"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="#_used"/>
+            <rdf:Description rdf:about="#_wasDerivedFrom_star"/>
+        </owl:propertyChainAxiom>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="#_used"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/ontology#_wasDerivedFrom -->
+
+    <owl:ObjectProperty rdf:ID="_wasDerivedFrom">
+        <rdfs:domain rdf:resource="#Artifact"/>
+        <rdfs:range rdf:resource="#Artifact"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="#effectWasDerivedFrom-1"/>
+            <rdf:Description rdf:about="#causeWasDerivedFrom"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/ontology#_wasDerivedFrom_star -->
+
+    <owl:ObjectProperty rdf:ID="_wasDerivedFrom_star">
+        <rdfs:domain rdf:resource="#Artifact"/>
+        <rdfs:range rdf:resource="#Artifact"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="#_wasDerivedFrom"/>
+        </owl:propertyChainAxiom>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="#_wasDerivedFrom"/>
+            <rdf:Description rdf:about="#_wasDerivedFrom_star"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/ontology#_wasGeneratedBy -->
+
+    <owl:ObjectProperty rdf:ID="_wasGeneratedBy">
+        <rdfs:domain rdf:resource="#Artifact"/>
+        <rdfs:range rdf:resource="#Process"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="#effectWasGeneratedBy-1"/>
+            <rdf:Description rdf:about="#causeWasGeneratedBy"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/ontology#_wasGeneratedBy_star -->
+
+    <owl:ObjectProperty rdf:ID="_wasGeneratedBy_star">
+        <rdfs:domain rdf:resource="#Artifact"/>
+        <rdfs:range rdf:resource="#Process"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="#_wasDerivedFrom_star"/>
+            <rdf:Description rdf:about="#_wasGeneratedBy"/>
+        </owl:propertyChainAxiom>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="#_wasGeneratedBy"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:ID="_wasControlledBy">
+        <rdfs:domain rdf:resource="#Process"/>
+        <rdfs:range rdf:resource="#Agent"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="#effectWasControlledBy-1"/>
+            <rdf:Description rdf:about="#causeWasControlledBy"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
 
   <owl:Class rdf:ID="Used">
     <rdfs:subClassOf rdf:resource="#Edge"/>
@@ -525,6 +780,195 @@
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the time at which the agent end controlling the process</rdfs:comment>
     <rdfs:domain rdf:resource="#WasControlledBy"/>
   </owl:ObjectProperty>
+
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://openprovenance.org/ontology#a0 -->
+
+    <owl:Thing rdf:about="#a0">
+        <rdf:type rdf:resource="#Artifact"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://openprovenance.org/ontology#a1 -->
+
+    <owl:Thing rdf:about="#a1">
+        <rdf:type rdf:resource="#Artifact"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://openprovenance.org/ontology#a2 -->
+
+    <Artifact rdf:about="#a2">
+        <rdf:type rdf:resource="&owl;Thing"/>
+    </Artifact>
+    
+
+
+    <!-- http://openprovenance.org/ontology#a3 -->
+
+    <owl:Thing rdf:about="#a3">
+        <rdf:type rdf:resource="#Artifact"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://openprovenance.org/ontology#a4 -->
+
+    <owl:Thing rdf:about="#a4">
+        <rdf:type rdf:resource="#Artifact"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://openprovenance.org/ontology#p0 -->
+
+    <Process rdf:about="#p0">
+        <rdf:type rdf:resource="&owl;Thing"/>
+    </Process>
+    
+    <Agent rdf:about="#ag0">
+        <rdf:type rdf:resource="&owl;Thing"/>
+    </Agent>
+
+
+    <!-- http://openprovenance.org/ontology#p1 -->
+
+    <Process rdf:about="#p1">
+        <rdf:type rdf:resource="&owl;Thing"/>
+    </Process>
+    
+
+
+    <!-- http://openprovenance.org/ontology#u0 -->
+
+    <owl:Thing rdf:about="#u0">
+        <rdf:type rdf:resource="#Used"/>
+        <causeUsed rdf:resource="#a0"/>
+        <effectUsed rdf:resource="#p0"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://openprovenance.org/ontology#u1 -->
+
+    <Used rdf:about="#u1">
+        <rdf:type rdf:resource="&owl;Thing"/>
+        <causeUsed rdf:resource="#a1"/>
+        <effectUsed rdf:resource="#p0"/>
+    </Used>
+    
+
+
+    <!-- http://openprovenance.org/ontology#u2 -->
+
+    <owl:Thing rdf:about="#u2">
+        <rdf:type rdf:resource="#Used"/>
+        <causeUsed rdf:resource="#a2"/>
+        <effectUsed rdf:resource="#p1"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://openprovenance.org/ontology#u3 -->
+
+    <Used rdf:about="#u3">
+        <rdf:type rdf:resource="&owl;Thing"/>
+        <causeUsed rdf:resource="#a3"/>
+        <effectUsed rdf:resource="#p1"/>
+    </Used>
+    
+
+
+    <!-- http://openprovenance.org/ontology#wdf0 -->
+
+    <WasDerivedFrom rdf:about="#wdf0">
+        <rdf:type rdf:resource="&owl;Thing"/>
+        <causeWasDerivedFrom rdf:resource="#a0"/>
+        <effectWasDerivedFrom rdf:resource="#a2"/>
+    </WasDerivedFrom>
+    
+
+
+    <!-- http://openprovenance.org/ontology#wdf1 -->
+
+    <owl:Thing rdf:about="#wdf1">
+        <rdf:type rdf:resource="#WasDerivedFrom"/>
+        <causeWasDerivedFrom rdf:resource="#a1"/>
+        <effectWasDerivedFrom rdf:resource="#a2"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://openprovenance.org/ontology#wdf2 -->
+
+    <owl:Thing rdf:about="#wdf2">
+        <rdf:type rdf:resource="#WasDerivedFrom"/>
+        <causeWasDerivedFrom rdf:resource="#a2"/>
+        <effectWasDerivedFrom rdf:resource="#a4"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://openprovenance.org/ontology#wdf3 -->
+
+    <owl:Thing rdf:about="#wdf3">
+        <rdf:type rdf:resource="#WasDerivedFrom"/>
+        <causeWasDerivedFrom rdf:resource="#a3"/>
+        <effectWasDerivedFrom rdf:resource="#a4"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://openprovenance.org/ontology#wgb0 -->
+
+    <WasGeneratedBy rdf:about="#wgb0">
+        <rdf:type rdf:resource="&owl;Thing"/>
+        <effectWasGeneratedBy rdf:resource="#a2"/>
+        <causeWasGeneratedBy rdf:resource="#p0"/>
+    </WasGeneratedBy>
+    
+
+
+    <!-- http://openprovenance.org/ontology#wgb1 -->
+
+    <WasGeneratedBy rdf:about="#wgb1">
+        <rdf:type rdf:resource="&owl;Thing"/>
+        <effectWasGeneratedBy rdf:resource="#a4"/>
+        <causeWasGeneratedBy rdf:resource="#p1"/>
+    </WasGeneratedBy>
+
+    <WasTriggeredBy rdf:about="#wtb0">
+        <rdf:type rdf:resource="&owl;Thing"/>
+        <effectWasTriggeredBy rdf:resource="#p1"/>
+        <causeWasTriggeredBy rdf:resource="#p0"/>
+    </WasTriggeredBy>
+
+    <WasControlledBy rdf:about="#wcb0">
+        <rdf:type rdf:resource="&owl;Thing"/>
+        <effectWasControlledBy rdf:resource="#p0"/>
+        <causeWasControlledBy rdf:resource="#ag0"/>
+    </WasControlledBy>
+
+    <WasControlledBy rdf:about="#wcb1">
+        <rdf:type rdf:resource="&owl;Thing"/>
+        <effectWasControlledBy rdf:resource="#p1"/>
+        <causeWasControlledBy rdf:resource="#ag0"/>
+    </WasControlledBy>
+
   
   <!--  Axioms -->
 
