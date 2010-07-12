@@ -4,6 +4,7 @@ import org.openprovenance.model.Process;
 import org.openprovenance.model.Agent;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import java.io.File;
 import java.io.StringWriter;
 import java.util.Collection;
@@ -61,10 +62,6 @@ public class Reproduce1Test extends org.openprovenance.model.Reproduce1Test
         assertTrue(ll!=null);
         assertTrue(ll.size()==1);
 
-        ll=u.getDefinitionForUri("http://openprovenance.org/reproducibility/swift#countwords");
-        System.out.println("Found " + ll);
-        assertTrue(ll!=null);
-        assertTrue(ll.size()==1);
 
         ll=u.getDefinitionForUri("http://openprovenance.org/reproducibility/swift#null");
         System.out.println("Found " + ll);
@@ -74,6 +71,36 @@ public class Reproduce1Test extends org.openprovenance.model.Reproduce1Test
         ll=u.getDefinitionForUri("http://other/reproducibility/swift#null");
         System.out.println("Found " + ll);
         assertTrue(ll==null);
+
+        ll=u.getDefinitionForUri("http://openprovenance.org/reproducibility/swift#countwords");
+        System.out.println("Found " + ll);
+        assertTrue(ll!=null);
+        assertTrue(ll.size()==1);
+
+        Node n=(Node)ll.get(0);
+
+
+        System.out.println("Searching " + n);
+        
+        List<?> ins=u.getInputs(n);
+        System.out.println("Ins " + ins);
+        assertTrue(ins!=null);
+        assertTrue(ins.size()==1);
+
+        List<?> outs=u.getOutputs(n);
+        System.out.println("Outs " + outs);
+        assertTrue(outs!=null);
+        assertTrue(outs.size()==1);
+
+        String role=u.getRole((Node)(outs.get(0)));
+        System.out.println("Role " + role);
+
+        String name=u.getName((Node)(outs.get(0)));
+        System.out.println("Variable " + name);
+
+        String type=u.getType((Node)(outs.get(0)));
+        System.out.println("Type " + type);
+
 
     }
 
@@ -88,9 +115,9 @@ public class Reproduce1Test extends org.openprovenance.model.Reproduce1Test
                          Agent ag2) {
 
         oFactory.addAnnotation(ag1,
-                               oFactory.newPName(Utilities.swift_NS+ "greeting"));
+                               oFactory.newPName(Utilities.swift_URI_PREFIX+ "greeting"));
         oFactory.addAnnotation(ag2,
-                               oFactory.newPName(Utilities.swift_NS+ "countwords"));
+                               oFactory.newPName(Utilities.swift_URI_PREFIX+ "countwords"));
 
         oFactory.addAnnotation(ag1,
                                oFactory.newType("http://openprovenance.org/primitives#primitive"));
