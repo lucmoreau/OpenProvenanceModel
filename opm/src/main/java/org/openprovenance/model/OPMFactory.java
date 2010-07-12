@@ -476,6 +476,10 @@ public class OPMFactory implements CommonURIs {
         annotable.getAnnotation().add(of.createPname(ann));
     }
 
+    public void addAnnotation(Annotable annotable, Type ann) {
+        annotable.getAnnotation().add(of.createType(ann));
+    }
+
     public void addAnnotation(Annotable annotable, EmbeddedAnnotation ann) {
         annotable.getAnnotation().add(of.createAnnotation(ann));
     }
@@ -492,6 +496,11 @@ public class OPMFactory implements CommonURIs {
             Label label=(Label) ann;
             String labelValue=label.getValue();
             ann.getProperty().add(newProperty(LABEL_PROPERTY,labelValue));
+        }
+        if (ann instanceof PName) {
+            PName pname=(PName) ann;
+            String pnameValue=pname.getValue();
+            ann.getProperty().add(newProperty(PNAME_PROPERTY,pnameValue));
         }
         if (ann instanceof Type) {
             Type type=(Type) ann;

@@ -91,6 +91,26 @@ public class Reproduce1Test extends org.openprovenance.model.Reproduce1Test
                                oFactory.newPName(Utilities.swift_NS+ "greeting"));
         oFactory.addAnnotation(ag2,
                                oFactory.newPName(Utilities.swift_NS+ "countwords"));
+
+        oFactory.addAnnotation(ag1,
+                               oFactory.newType("http://openprovenance.org/primitives#primitive"));
+        oFactory.addAnnotation(ag2,
+                               oFactory.newType("http://openprovenance.org/primitives#primitive"));
+
+        oFactory.addAnnotation(a1,
+                               oFactory.newType("http://openprovenance.org/primitives#String"));
+        oFactory.addAnnotation(a2,
+                               oFactory.newType("http://openprovenance.org/primitives#File"));
+        oFactory.addAnnotation(a3,
+                               oFactory.newType("http://openprovenance.org/primitives#File"));
+
+
+        oFactory.addAnnotation(p1,
+                               oFactory.newType("http://openprovenance.org/primitives#greeting"));
+        oFactory.addAnnotation(p2,
+                               oFactory.newType("http://openprovenance.org/primitives#countwords"));
+
+
     };
 
 
