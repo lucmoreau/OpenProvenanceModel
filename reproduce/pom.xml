@@ -1,0 +1,92 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <artifactId>specs</artifactId>
+    <groupId>org.openprovenance</groupId>
+    <version>1.1.4-SNAPSHOT</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.openprovenance</groupId>
+  <artifactId>opm-reproduce</artifactId>
+  <name>Open Provenance Model Reproducibility</name>
+  <version>1.1.4-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <description>A package to ensure reproducibility of opm traces</description>
+
+
+  <repositories>
+    <repository>
+		<id>aduna-opensource.releases</id>
+		<name>Aduna Open Source - Mavenr eleases</name>
+		<url>http://repo.aduna-software.org/maven2/releases</url>
+	</repository>
+  </repositories>
+
+
+  <dependencies>
+
+    <dependency>
+      <groupId>org.openprovenance</groupId>
+      <artifactId>opm-core</artifactId>
+      <version>1.1.4-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.openprovenance</groupId>
+      <artifactId>opm-elmo</artifactId>
+      <version>1.1.4-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jvnet.jaxb2_commons</groupId>
+	  <artifactId>runtime</artifactId>
+   	  <version>${jaxb.common.version}</version>
+    </dependency>
+
+      <dependency>
+        <groupId>xerces</groupId>
+        <artifactId>xercesImpl</artifactId>
+        <version>${xerces.version}</version>
+      </dependency>
+
+
+    <dependency>
+      <groupId>org.openprovenance</groupId>
+      <artifactId>opm-core</artifactId>
+      <version>1.1.4-SNAPSHOT</version>
+      <classifier>tests</classifier>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>jaxen</groupId>
+      <artifactId>jaxen</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+
+
+ </dependencies>
+
+  <build>
+
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+
+
+
+   
+    <testResources>
+       <testResource>
+         <directory>src/test/resources</directory>
+         <filtering>true</filtering>
+       </testResource>
+    </testResources>
+  </build>
+
+
+
+</project>
