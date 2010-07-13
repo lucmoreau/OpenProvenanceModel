@@ -7,7 +7,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import java.io.File;
 import java.io.StringWriter;
+import java.io.FileOutputStream;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,6 +17,8 @@ import javax.xml.bind.JAXBException;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import org.apache.xml.serialize.XMLSerializer;
+import org.apache.xml.serialize.OutputFormat;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -70,7 +74,8 @@ public class Reproduce1Test extends org.openprovenance.model.Reproduce1Test
 
         ll=u.getDefinitionForUri("http://other/reproducibility/swift#null");
         System.out.println("Found " + ll);
-        assertTrue(ll==null);
+        assertTrue(ll!=null);
+        assertTrue(ll.size()==0);
 
         ll=u.getDefinitionForUri("http://openprovenance.org/reproducibility/swift#countwords");
         System.out.println("Found " + ll);
@@ -101,9 +106,13 @@ public class Reproduce1Test extends org.openprovenance.model.Reproduce1Test
         String type=u.getType((Node)(outs.get(0)));
         System.out.println("Type " + type);
 
+        List<?> types=u.getLibraryTypeDefinition("messagefile");
+        System.out.println("Types " + types);
+        assertTrue(types!=null);
+        assertTrue(types.size()==1);
+
 
     }
-
 
 
     public void decorate(Artifact a1,
@@ -126,10 +135,26 @@ public class Reproduce1Test extends org.openprovenance.model.Reproduce1Test
 
         oFactory.addAnnotation(a1,
                                oFactory.newType("http://openprovenance.org/primitives#String"));
+        Document doc=oFactory.builder.newDocument();
+        Element el=doc.createElementNS(APP_NS,"app:ignore");
+        //Element el2=doc.createElementNS(APP_NS,"app:image");
+        //el.appendChild(el2);
+        el.appendChild(doc.createTextNode("Hello People!"));
+        doc.appendChild(el);
+        oFactory.addValue(a1,el,"http://www.w3.org/TR/xmlschema-2/#string");
+
+
         oFactory.addAnnotation(a2,
                                oFactory.newType("http://openprovenance.org/primitives#File"));
         oFactory.addAnnotation(a3,
                                oFactory.newType("http://openprovenance.org/primitives#File"));
+
+        oFactory.addAnnotation(a2,
+                               oFactory.newEmbeddedAnnotation("an13","http://openprovenance.org/primitives#path", "foo.txt", null));
+
+
+        oFactory.addAnnotation(a3,
+                               oFactory.newEmbeddedAnnotation("an14","http://openprovenance.org/primitives#path", "bar.txt", null));
 
 
         oFactory.addAnnotation(p1,
@@ -140,6 +165,36 @@ public class Reproduce1Test extends org.openprovenance.model.Reproduce1Test
 
     };
 
+    public void testReproduce1() throws JAXBException {
+        super.testReproduce1();
+    }
+
+                                        
+    public void testReproduce2() throws Exception {
+        Execute exec=new Execute(oFactory);
+
+        // need to be created from used edges
+        HashMap args=new HashMap();
+        args.put("in",graph1.getArtifacts().getArtifact().get(0));
+        args.put("filename", graph1.getArtifacts().getArtifact().get(1));
+        args.put("out", graph1.getArtifacts().getArtifact().get(1));
+
+        Document doc=exec.invoke("http://openprovenance.org/reproducibility/swift#greeting",args);
+
+        OutputFormat of=new OutputFormat(doc,null,true);
+        XMLSerializer serial = new XMLSerializer(System.out, of);
+        serial.serialize(doc.getDocumentElement());
+
+        XMLSerializer serial2 = new XMLSerializer(new FileOutputStream("target/swift.xml"), of);
+        serial2.serialize(doc.getDocumentElement());
+
+        // /home/lavm/swift2/cog/modules/swift/dist/swift-svn/bin/VDLx2Karajan target/swift.xml > target/swift.kml
+
+        //   /home/lavm/swift2/cog/modules/swift/dist/swift-svn/bin/swift target/swift.kml
+
+
+        
+    }
 
 
 }

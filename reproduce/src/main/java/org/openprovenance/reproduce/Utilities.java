@@ -14,6 +14,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Attr;
 import org.xml.sax.SAXException;
@@ -68,16 +69,30 @@ public class Utilities {
         return results;
     }
 
+    public List<?> getLibraryTypeDefinition(String name) throws JaxenException {
+        String xp="/swift:program/swift:types/swift:type[swift:typename/text()='"+ name + "']";
+        org.jaxen.dom.DOMXPath xpath=new org.jaxen.dom.DOMXPath(xp);
+        org.jaxen.SimpleNamespaceContext context = new org.jaxen.SimpleNamespaceContext();
+        context.addNamespace("swift",swift_XML_NS);
+        xpath.setNamespaceContext(context);
+        List<?> results = xpath.selectNodes(library.getDocumentElement());
+        return results;
+    }
 
-    
-    public List<?> getDefinitionForUri(String name) throws JaxenException {
+
+
+    public String getNameFromUri(String name) {
         if (name.startsWith(swift_URI_PREFIX)) {
             String s=name.substring(swift_URI_PREFIX.length());
             System.out.println("Found " + s);
-            return getLibraryDefinition(s);
+            return s;
         } else {
             return null;
         }
+    }
+
+    public List<?> getDefinitionForUri(String name) throws JaxenException {
+        return getLibraryDefinition(getNameFromUri(name));
     }
 
 
@@ -113,6 +128,23 @@ public class Utilities {
         Attr attr=(Attr) results.get(0);
         return attr.getValue();
     }
+
+
+    public void removeRoles(Node node) throws JaxenException {
+        String xp=".//@opr:role";
+        org.jaxen.dom.DOMXPath xpath=new org.jaxen.dom.DOMXPath(xp);
+        org.jaxen.SimpleNamespaceContext context = new org.jaxen.SimpleNamespaceContext();
+        context.addNamespace("opr",opr_XML_NS);
+        xpath.setNamespaceContext(context);
+        List<?> results = xpath.selectNodes(node);
+        if (results==null) return;
+        for (Object result: results) {
+            Attr attr=(Attr) result;
+            Element owner=attr.getOwnerElement();
+            owner.removeAttributeNode(attr);
+        }
+    }
+
 
     public String getName(Node node) throws JaxenException {
         String xp="./@name";

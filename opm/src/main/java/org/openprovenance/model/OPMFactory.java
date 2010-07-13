@@ -251,6 +251,16 @@ public class OPMFactory implements CommonURIs {
         }
     }
 
+    public Object getValue(EmbeddedAnnotation annotation,
+                           String property) {
+        for (Property prop: annotation.getProperty()) {
+            if (prop.getUri().equals(property)) {
+                return prop.getValue();
+            }
+        }
+        return null;
+    }
+
     public Object getValue(EmbeddedAnnotation annotation) {
         if (annotation instanceof Value) {
             Value value=(Value) annotation;
@@ -305,6 +315,18 @@ public class OPMFactory implements CommonURIs {
             }
             return null;
         }
+    }
+
+    /** Return the value of the value property in the first annotation. */
+
+    public Object getValue(List<JAXBElement<? extends EmbeddedAnnotation>> annotations,
+                           String prop) {
+        for (JAXBElement<? extends EmbeddedAnnotation> jann: annotations) {
+            EmbeddedAnnotation ann=jann.getValue();
+            Object value=getValue(ann,prop);
+            if (value!=null) return value;
+        }
+        return null;
     }
 
 
@@ -363,6 +385,19 @@ public class OPMFactory implements CommonURIs {
             if (pname!=null) return pname;
         }
         return null;
+    }
+
+    /** Return the value of the value property 'prop'. */
+
+    public List<Object> getPropertyValues(List<JAXBElement<? extends EmbeddedAnnotation>> annotations,
+                                          String prop) {
+        List<Object> res=new LinkedList();
+        for (JAXBElement<? extends EmbeddedAnnotation> jann: annotations) {
+            EmbeddedAnnotation ann=jann.getValue();
+            Object value=getValue(ann,prop);
+            if (value!=null) res.add(value);
+        }
+        return res;
     }
 
 
@@ -445,6 +480,18 @@ public class OPMFactory implements CommonURIs {
     /** Generic accessor for annotable entities. */
     public String getPname(Annotable annotable) {
         return getPname(annotable.getAnnotation());
+    }
+
+    /** Generic accessor for annotable entities. */
+    public Object getValue(Annotable annotable) {
+        return getValue(annotable.getAnnotation());
+    }
+
+    /** Generic accessor for annotable entities. */
+    public List getPropertyValues(Annotable annotable,
+                                  String prop) {
+        return getPropertyValues(annotable.getAnnotation(),
+                                 prop);
     }
 
 

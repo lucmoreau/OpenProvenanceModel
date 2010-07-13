@@ -44,7 +44,7 @@ public class Reproduce1Test extends TestCase
      */
 
 
-    static OPMGraph graph1;
+    public static OPMGraph graph1;
 
 
     public void testReproduce1() throws JAXBException
