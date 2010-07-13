@@ -61,7 +61,6 @@ public class Reproduce1Test extends org.openprovenance.model.Reproduce1Test
         assertTrue(ll!=null);
         assertTrue(ll.size()==1);
 
-throws IOException
         ll=u.getDefinitionForUri("http://openprovenance.org/reproducibility/swift#greeting");
         System.out.println("Found " + ll);
         assertTrue(ll!=null);
