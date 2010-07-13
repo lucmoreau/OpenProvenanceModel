@@ -8,6 +8,7 @@ import org.w3c.dom.Node;
 import java.io.File;
 import java.io.StringWriter;
 import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Collections;
@@ -60,7 +61,7 @@ public class Reproduce1Test extends org.openprovenance.model.Reproduce1Test
         assertTrue(ll!=null);
         assertTrue(ll.size()==1);
 
-
+throws IOException
         ll=u.getDefinitionForUri("http://openprovenance.org/reproducibility/swift#greeting");
         System.out.println("Found " + ll);
         assertTrue(ll!=null);
@@ -181,16 +182,47 @@ public class Reproduce1Test extends org.openprovenance.model.Reproduce1Test
 
         Document doc=exec.invoke("http://openprovenance.org/reproducibility/swift#greeting",args);
 
-        OutputFormat of=new OutputFormat(doc,null,true);
-        XMLSerializer serial = new XMLSerializer(System.out, of);
-        serial.serialize(doc.getDocumentElement());
+        serializeToStandardOut(doc.getDocumentElement(),doc);
 
-        XMLSerializer serial2 = new XMLSerializer(new FileOutputStream("target/swift.xml"), of);
-        serial2.serialize(doc.getDocumentElement());
+        serialize(doc.getDocumentElement(),doc, new FileOutputStream("target/swift.xml"));
 
         // /home/lavm/swift2/cog/modules/swift/dist/swift-svn/bin/VDLx2Karajan target/swift.xml > target/swift.kml
 
         //   /home/lavm/swift2/cog/modules/swift/dist/swift-svn/bin/swift target/swift.kml
+
+
+        
+    }
+
+    public void serializeToStandardOut(Element el, Document doc) throws IOException {
+        serialize(el,doc,System.out);
+    }
+
+    public void serialize(Element el, Document doc, OutputStream out) throws IOException {
+        OutputFormat of=new OutputFormat(doc,null,true);
+        XMLSerializer serial = new XMLSerializer(out, of);
+        serial.serialize(el);
+    }
+        
+
+
+    public void testReproduce3() throws Exception {
+        Execute exec=new Execute(oFactory);
+
+        // need to be created from used edges
+        HashMap args=new HashMap();
+        args.put("filename", graph1.getArtifacts().getArtifact().get(1));
+        args.put("out", graph1.getArtifacts().getArtifact().get(2));
+
+        Document doc=exec.invoke("http://openprovenance.org/reproducibility/swift#countwords",args);
+
+        serializeToStandardOut(doc.getDocumentElement(), doc);
+
+        serialize(doc.getDocumentElement(),doc, new FileOutputStream("target/swift2.xml"));
+
+        // /home/lavm/swift2/cog/modules/swift/dist/swift-svn/bin/VDLx2Karajan target/swift2.xml > target/swift2.kml
+
+        //   /home/lavm/swift2/cog/modules/swift/dist/swift-svn/bin/swift target/swift2.kml
 
 
         
