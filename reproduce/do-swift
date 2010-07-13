@@ -1,0 +1,7 @@
+#!/bin/sh
+
+cd target
+/home/lavm/swift2/cog/modules/swift/dist/swift-svn/bin/VDLx2Karajan $1 > $2
+/home/lavm/swift2/cog/modules/swift/dist/swift-svn/bin/swift $2
+
+
