@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:opm="http://openprovenance.org/ontology#"
+	xmlns:ex="http://example.com/reproduce2/"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="http://example.com/reproduce2/black">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Account"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/ag1">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Agent"/>
+	<opm:account rdf:resource="http://example.com/reproduce2/black"/>
+	<opm:label>Greeting Script</opm:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/ag2">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Agent"/>
+	<opm:account rdf:resource="http://example.com/reproduce2/black"/>
+	<opm:label>CountWords Script</opm:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/p1">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Process"/>
+	<opm:account rdf:resource="http://example.com/reproduce2/black"/>
+	<opm:label>greeting</opm:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/p2">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Process"/>
+	<opm:account rdf:resource="http://example.com/reproduce2/black"/>
+	<opm:label>countwords</opm:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/a1">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Artifact"/>
+	<opm:account rdf:resource="http://example.com/reproduce2/black"/>
+	<opm:label>Input String1</opm:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/a2">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Artifact"/>
+	<opm:account rdf:resource="http://example.com/reproduce2/black"/>
+	<opm:label>Message File</opm:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/a3">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Artifact"/>
+	<opm:account rdf:resource="http://example.com/reproduce2/black"/>
+	<opm:label>Count File</opm:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/ag1">
+	<opm:type rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://openprovenance.org/primitives#primitive</opm:type>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/ag2">
+	<opm:type rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://openprovenance.org/primitives#primitive</opm:type>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/a1">
+	<opm:type rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://openprovenance.org/primitives#String</opm:type>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/av_0">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#AValue"/>
+	<opm:content rdf:parseType="Literal"><app:ignore xmlns:app="http://openprovenance.org/reproduce">Hello People!</app:ignore></opm:content>
+	<opm:encoding rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://www.w3.org/TR/xmlschema-2/#string</opm:encoding>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/a1">
+	<opm:avalue rdf:resource="http://example.com/reproduce2/av_0"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/a2">
+	<opm:type rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://openprovenance.org/primitives#File</opm:type>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/a3">
+	<opm:type rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://openprovenance.org/primitives#File</opm:type>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/an13">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Annotation"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/pr_0">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Property"/>
+	<opm:uri>http://openprovenance.org/primitives#path</opm:uri>
+	<opm:value>foo.txt</opm:value>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/an13">
+	<opm:property rdf:resource="http://example.com/reproduce2/pr_0"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/a2">
+	<opm:annotation rdf:resource="http://example.com/reproduce2/an13"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/an14">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Annotation"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/pr_1">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Property"/>
+	<opm:uri>http://openprovenance.org/primitives#path</opm:uri>
+	<opm:value>bar.txt</opm:value>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/an14">
+	<opm:property rdf:resource="http://example.com/reproduce2/pr_1"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/a3">
+	<opm:annotation rdf:resource="http://example.com/reproduce2/an14"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/p1">
+	<opm:type rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://openprovenance.org/primitives#greeting</opm:type>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/p2">
+	<opm:type rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://openprovenance.org/primitives#countwords</opm:type>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/r_0">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Role"/>
+	<opm:value>in</opm:value>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/u_1">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Used"/>
+	<opm:effect rdf:resource="http://example.com/reproduce2/p1"/>
+	<opm:role rdf:resource="http://example.com/reproduce2/r_0"/>
+	<opm:cause rdf:resource="http://example.com/reproduce2/a1"/>
+	<opm:account rdf:resource="http://example.com/reproduce2/black"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/r_2">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Role"/>
+	<opm:value>filename</opm:value>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/u_3">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Used"/>
+	<opm:effect rdf:resource="http://example.com/reproduce2/p2"/>
+	<opm:role rdf:resource="http://example.com/reproduce2/r_2"/>
+	<opm:cause rdf:resource="http://example.com/reproduce2/a2"/>
+	<opm:account rdf:resource="http://example.com/reproduce2/black"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/r_4">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Role"/>
+	<opm:value>out</opm:value>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/g_5">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#WasGeneratedBy"/>
+	<opm:cause rdf:resource="http://example.com/reproduce2/p1"/>
+	<opm:role rdf:resource="http://example.com/reproduce2/r_4"/>
+	<opm:effect rdf:resource="http://example.com/reproduce2/a2"/>
+	<opm:account rdf:resource="http://example.com/reproduce2/black"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/r_6">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Role"/>
+	<opm:value>out</opm:value>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/g_7">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#WasGeneratedBy"/>
+	<opm:cause rdf:resource="http://example.com/reproduce2/p2"/>
+	<opm:role rdf:resource="http://example.com/reproduce2/r_6"/>
+	<opm:effect rdf:resource="http://example.com/reproduce2/a3"/>
+	<opm:account rdf:resource="http://example.com/reproduce2/black"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/d_8">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#WasDerivedFrom"/>
+	<opm:cause rdf:resource="http://example.com/reproduce2/a1"/>
+	<opm:effect rdf:resource="http://example.com/reproduce2/a2"/>
+	<opm:account rdf:resource="http://example.com/reproduce2/black"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/d_9">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#WasDerivedFrom"/>
+	<opm:cause rdf:resource="http://example.com/reproduce2/a2"/>
+	<opm:effect rdf:resource="http://example.com/reproduce2/a3"/>
+	<opm:account rdf:resource="http://example.com/reproduce2/black"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/r_10">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Role"/>
+	<opm:value>script</opm:value>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/c_11">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#WasControlledBy"/>
+	<opm:effect rdf:resource="http://example.com/reproduce2/p1"/>
+	<opm:role rdf:resource="http://example.com/reproduce2/r_10"/>
+	<opm:cause rdf:resource="http://example.com/reproduce2/ag1"/>
+	<opm:account rdf:resource="http://example.com/reproduce2/black"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/r_12">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Role"/>
+	<opm:value>script</opm:value>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/c_13">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#WasControlledBy"/>
+	<opm:effect rdf:resource="http://example.com/reproduce2/p2"/>
+	<opm:role rdf:resource="http://example.com/reproduce2/r_12"/>
+	<opm:cause rdf:resource="http://example.com/reproduce2/ag2"/>
+	<opm:account rdf:resource="http://example.com/reproduce2/black"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/gr_14">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#OPMGraph"/>
+	<opm:hasAccount rdf:resource="http://example.com/reproduce2/black"/>
+	<opm:hasProcess rdf:resource="http://example.com/reproduce2/p2"/>
+	<opm:hasProcess rdf:resource="http://example.com/reproduce2/p1"/>
+	<opm:hasArtifact rdf:resource="http://example.com/reproduce2/a2"/>
+	<opm:hasArtifact rdf:resource="http://example.com/reproduce2/a1"/>
+	<opm:hasArtifact rdf:resource="http://example.com/reproduce2/a3"/>
+	<opm:hasAgent rdf:resource="http://example.com/reproduce2/ag2"/>
+	<opm:hasAgent rdf:resource="http://example.com/reproduce2/ag1"/>
+	<opm:hasDependency rdf:resource="http://example.com/reproduce2/u_1"/>
+	<opm:hasDependency rdf:resource="http://example.com/reproduce2/g_5"/>
+	<opm:hasDependency rdf:resource="http://example.com/reproduce2/d_8"/>
+	<opm:hasDependency rdf:resource="http://example.com/reproduce2/u_3"/>
+	<opm:hasDependency rdf:resource="http://example.com/reproduce2/c_11"/>
+	<opm:hasDependency rdf:resource="http://example.com/reproduce2/c_13"/>
+	<opm:hasDependency rdf:resource="http://example.com/reproduce2/d_9"/>
+	<opm:hasDependency rdf:resource="http://example.com/reproduce2/g_7"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/_r_p0">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Process"/>
+	<opm:label>http://openprovenance.org/reproducibility/swift#greeting</opm:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/_r_p1">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Process"/>
+	<opm:label>http://openprovenance.org/reproducibility/swift#countwords</opm:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/av_1">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#AValue"/>
+	<opm:content rdf:parseType="Literal"><app:ignore xmlns:app="http://openprovenance.org/reproduce">Hello People!</app:ignore></opm:content>
+	<opm:encoding rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://www.w3.org/TR/xmlschema-2/#string</opm:encoding>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/a1">
+	<opm:avalue rdf:resource="http://example.com/reproduce2/av_1"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/pr_2">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Property"/>
+	<opm:uri>http://openprovenance.org/primitives#path</opm:uri>
+	<opm:value>foo.txt</opm:value>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/an13">
+	<opm:property rdf:resource="http://example.com/reproduce2/pr_2"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/pr_3">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Property"/>
+	<opm:uri>http://openprovenance.org/primitives#path</opm:uri>
+	<opm:value>bar.txt</opm:value>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/an14">
+	<opm:property rdf:resource="http://example.com/reproduce2/pr_3"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/r_15">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Role"/>
+	<opm:value>in</opm:value>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/u_16">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Used"/>
+	<opm:effect rdf:resource="http://example.com/reproduce2/p1"/>
+	<opm:role rdf:resource="http://example.com/reproduce2/r_15"/>
+	<opm:cause rdf:resource="http://example.com/reproduce2/a1"/>
+	<opm:account rdf:resource="http://example.com/reproduce2/black"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/r_17">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Role"/>
+	<opm:value>filename</opm:value>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/u_18">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Used"/>
+	<opm:effect rdf:resource="http://example.com/reproduce2/p2"/>
+	<opm:role rdf:resource="http://example.com/reproduce2/r_17"/>
+	<opm:cause rdf:resource="http://example.com/reproduce2/a2"/>
+	<opm:account rdf:resource="http://example.com/reproduce2/black"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/r_19">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Role"/>
+	<opm:value>out</opm:value>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/g_20">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#WasGeneratedBy"/>
+	<opm:cause rdf:resource="http://example.com/reproduce2/p1"/>
+	<opm:role rdf:resource="http://example.com/reproduce2/r_19"/>
+	<opm:effect rdf:resource="http://example.com/reproduce2/a2"/>
+	<opm:account rdf:resource="http://example.com/reproduce2/black"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/r_21">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Role"/>
+	<opm:value>out</opm:value>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/g_22">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#WasGeneratedBy"/>
+	<opm:cause rdf:resource="http://example.com/reproduce2/p2"/>
+	<opm:role rdf:resource="http://example.com/reproduce2/r_21"/>
+	<opm:effect rdf:resource="http://example.com/reproduce2/a3"/>
+	<opm:account rdf:resource="http://example.com/reproduce2/black"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/d_23">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#WasDerivedFrom"/>
+	<opm:cause rdf:resource="http://example.com/reproduce2/a1"/>
+	<opm:effect rdf:resource="http://example.com/reproduce2/a2"/>
+	<opm:account rdf:resource="http://example.com/reproduce2/black"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/d_24">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#WasDerivedFrom"/>
+	<opm:cause rdf:resource="http://example.com/reproduce2/a2"/>
+	<opm:effect rdf:resource="http://example.com/reproduce2/a3"/>
+	<opm:account rdf:resource="http://example.com/reproduce2/black"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/r_25">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Role"/>
+	<opm:value>script</opm:value>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/c_26">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#WasControlledBy"/>
+	<opm:effect rdf:resource="http://example.com/reproduce2/p1"/>
+	<opm:role rdf:resource="http://example.com/reproduce2/r_25"/>
+	<opm:cause rdf:resource="http://example.com/reproduce2/ag1"/>
+	<opm:account rdf:resource="http://example.com/reproduce2/black"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/r_27">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#Role"/>
+	<opm:value>script</opm:value>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/c_28">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#WasControlledBy"/>
+	<opm:effect rdf:resource="http://example.com/reproduce2/p2"/>
+	<opm:role rdf:resource="http://example.com/reproduce2/r_27"/>
+	<opm:cause rdf:resource="http://example.com/reproduce2/ag2"/>
+	<opm:account rdf:resource="http://example.com/reproduce2/black"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/reproduce2/gr_29">
+	<rdf:type rdf:resource="http://openprovenance.org/ontology#OPMGraph"/>
+	<opm:hasAccount rdf:resource="http://example.com/reproduce2/black"/>
+	<opm:hasProcess rdf:resource="http://example.com/reproduce2/p2"/>
+	<opm:hasProcess rdf:resource="http://example.com/reproduce2/p1"/>
+	<opm:hasArtifact rdf:resource="http://example.com/reproduce2/a2"/>
+	<opm:hasArtifact rdf:resource="http://example.com/reproduce2/a1"/>
+	<opm:hasArtifact rdf:resource="http://example.com/reproduce2/a3"/>
+	<opm:hasAgent rdf:resource="http://example.com/reproduce2/ag2"/>
+	<opm:hasAgent rdf:resource="http://example.com/reproduce2/ag1"/>
+	<opm:hasDependency rdf:resource="http://example.com/reproduce2/u_16"/>
+	<opm:hasDependency rdf:resource="http://example.com/reproduce2/d_23"/>
+	<opm:hasDependency rdf:resource="http://example.com/reproduce2/d_24"/>
+	<opm:hasDependency rdf:resource="http://example.com/reproduce2/u_18"/>
+	<opm:hasDependency rdf:resource="http://example.com/reproduce2/c_28"/>
+	<opm:hasDependency rdf:resource="http://example.com/reproduce2/g_22"/>
+	<opm:hasDependency rdf:resource="http://example.com/reproduce2/c_26"/>
+	<opm:hasDependency rdf:resource="http://example.com/reproduce2/g_20"/>
+</rdf:Description>
+
+</rdf:RDF>

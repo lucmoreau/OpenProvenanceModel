@@ -1,0 +1,239 @@
+@prefix opm: <http://openprovenance.org/ontology#> .
+@prefix ex: <http://example.com/reproduce2/> .
+
+
+ex:black a opm:Account .
+
+ex:ag1 a opm:Agent ;
+	opm:account ex:black ;
+	opm:label "Greeting Script" .
+
+ex:ag2 a opm:Agent ;
+	opm:account ex:black ;
+	opm:label "CountWords Script" .
+
+ex:p1 a opm:Process ;
+	opm:account ex:black ;
+	opm:label "greeting" .
+
+ex:p2 a opm:Process ;
+	opm:account ex:black ;
+	opm:label "countwords" .
+
+ex:a1 a opm:Artifact ;
+	opm:account ex:black ;
+	opm:label "Input String1" .
+
+ex:a2 a opm:Artifact ;
+	opm:account ex:black ;
+	opm:label "Message File" .
+
+ex:a3 a opm:Artifact ;
+	opm:account ex:black ;
+	opm:label "Count File" .
+
+ex:ag1 opm:type "http://openprovenance.org/primitives#primitive"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+ex:ag2 opm:type "http://openprovenance.org/primitives#primitive"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+ex:a1 opm:type "http://openprovenance.org/primitives#String"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+ex:av_0 a opm:AValue ;
+	opm:content "<?xml version=\"1.0\" encoding=\"UTF-8\"?><app:ignore xmlns:app=\"http://openprovenance.org/reproduce\">Hello People!</app:ignore>"^^<http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral> ;
+	opm:encoding "http://www.w3.org/TR/xmlschema-2/#string"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+ex:a1 opm:avalue ex:av_0 .
+
+ex:a2 opm:type "http://openprovenance.org/primitives#File"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+ex:a3 opm:type "http://openprovenance.org/primitives#File"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+ex:an13 a opm:Annotation .
+
+ex:pr_0 a opm:Property ;
+	opm:uri "http://openprovenance.org/primitives#path" ;
+	opm:value "foo.txt" .
+
+ex:an13 opm:property ex:pr_0 .
+
+ex:a2 opm:annotation ex:an13 .
+
+ex:an14 a opm:Annotation .
+
+ex:pr_1 a opm:Property ;
+	opm:uri "http://openprovenance.org/primitives#path" ;
+	opm:value "bar.txt" .
+
+ex:an14 opm:property ex:pr_1 .
+
+ex:a3 opm:annotation ex:an14 .
+
+ex:p1 opm:type "http://openprovenance.org/primitives#greeting"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+ex:p2 opm:type "http://openprovenance.org/primitives#countwords"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+ex:r_0 a opm:Role ;
+	opm:value "in" .
+
+ex:u_1 a opm:Used ;
+	opm:effect ex:p1 ;
+	opm:role ex:r_0 ;
+	opm:cause ex:a1 ;
+	opm:account ex:black .
+
+ex:r_2 a opm:Role ;
+	opm:value "filename" .
+
+ex:u_3 a opm:Used ;
+	opm:effect ex:p2 ;
+	opm:role ex:r_2 ;
+	opm:cause ex:a2 ;
+	opm:account ex:black .
+
+ex:r_4 a opm:Role ;
+	opm:value "out" .
+
+ex:g_5 a opm:WasGeneratedBy ;
+	opm:cause ex:p1 ;
+	opm:role ex:r_4 ;
+	opm:effect ex:a2 ;
+	opm:account ex:black .
+
+ex:r_6 a opm:Role ;
+	opm:value "out" .
+
+ex:g_7 a opm:WasGeneratedBy ;
+	opm:cause ex:p2 ;
+	opm:role ex:r_6 ;
+	opm:effect ex:a3 ;
+	opm:account ex:black .
+
+ex:d_8 a opm:WasDerivedFrom ;
+	opm:cause ex:a1 ;
+	opm:effect ex:a2 ;
+	opm:account ex:black .
+
+ex:d_9 a opm:WasDerivedFrom ;
+	opm:cause ex:a2 ;
+	opm:effect ex:a3 ;
+	opm:account ex:black .
+
+ex:r_10 a opm:Role ;
+	opm:value "script" .
+
+ex:c_11 a opm:WasControlledBy ;
+	opm:effect ex:p1 ;
+	opm:role ex:r_10 ;
+	opm:cause ex:ag1 ;
+	opm:account ex:black .
+
+ex:r_12 a opm:Role ;
+	opm:value "script" .
+
+ex:c_13 a opm:WasControlledBy ;
+	opm:effect ex:p2 ;
+	opm:role ex:r_12 ;
+	opm:cause ex:ag2 ;
+	opm:account ex:black .
+
+ex:gr_14 a opm:OPMGraph ;
+	opm:hasAccount ex:black ;
+	opm:hasProcess ex:p2 , ex:p1 ;
+	opm:hasArtifact ex:a2 , ex:a1 , ex:a3 ;
+	opm:hasAgent ex:ag2 , ex:ag1 ;
+	opm:hasDependency ex:u_1 , ex:g_5 , ex:d_8 , ex:u_3 , ex:c_11 , ex:c_13 , ex:d_9 , ex:g_7 .
+
+ex:_r_p0 a opm:Process ;
+	opm:label "http://openprovenance.org/reproducibility/swift#greeting" .
+
+ex:_r_p1 a opm:Process ;
+	opm:label "http://openprovenance.org/reproducibility/swift#countwords" .
+
+ex:av_1 a opm:AValue ;
+	opm:content "<?xml version=\"1.0\" encoding=\"UTF-8\"?><app:ignore xmlns:app=\"http://openprovenance.org/reproduce\">Hello People!</app:ignore>"^^<http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral> ;
+	opm:encoding "http://www.w3.org/TR/xmlschema-2/#string"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+ex:a1 opm:avalue ex:av_1 .
+
+ex:pr_2 a opm:Property ;
+	opm:uri "http://openprovenance.org/primitives#path" ;
+	opm:value "foo.txt" .
+
+ex:an13 opm:property ex:pr_2 .
+
+ex:pr_3 a opm:Property ;
+	opm:uri "http://openprovenance.org/primitives#path" ;
+	opm:value "bar.txt" .
+
+ex:an14 opm:property ex:pr_3 .
+
+ex:r_15 a opm:Role ;
+	opm:value "in" .
+
+ex:u_16 a opm:Used ;
+	opm:effect ex:p1 ;
+	opm:role ex:r_15 ;
+	opm:cause ex:a1 ;
+	opm:account ex:black .
+
+ex:r_17 a opm:Role ;
+	opm:value "filename" .
+
+ex:u_18 a opm:Used ;
+	opm:effect ex:p2 ;
+	opm:role ex:r_17 ;
+	opm:cause ex:a2 ;
+	opm:account ex:black .
+
+ex:r_19 a opm:Role ;
+	opm:value "out" .
+
+ex:g_20 a opm:WasGeneratedBy ;
+	opm:cause ex:p1 ;
+	opm:role ex:r_19 ;
+	opm:effect ex:a2 ;
+	opm:account ex:black .
+
+ex:r_21 a opm:Role ;
+	opm:value "out" .
+
+ex:g_22 a opm:WasGeneratedBy ;
+	opm:cause ex:p2 ;
+	opm:role ex:r_21 ;
+	opm:effect ex:a3 ;
+	opm:account ex:black .
+
+ex:d_23 a opm:WasDerivedFrom ;
+	opm:cause ex:a1 ;
+	opm:effect ex:a2 ;
+	opm:account ex:black .
+
+ex:d_24 a opm:WasDerivedFrom ;
+	opm:cause ex:a2 ;
+	opm:effect ex:a3 ;
+	opm:account ex:black .
+
+ex:r_25 a opm:Role ;
+	opm:value "script" .
+
+ex:c_26 a opm:WasControlledBy ;
+	opm:effect ex:p1 ;
+	opm:role ex:r_25 ;
+	opm:cause ex:ag1 ;
+	opm:account ex:black .
+
+ex:r_27 a opm:Role ;
+	opm:value "script" .
+
+ex:c_28 a opm:WasControlledBy ;
+	opm:effect ex:p2 ;
+	opm:role ex:r_27 ;
+	opm:cause ex:ag2 ;
+	opm:account ex:black .
+
+ex:gr_29 a opm:OPMGraph ;
+	opm:hasAccount ex:black ;
+	opm:hasProcess ex:p2 , ex:p1 ;
+	opm:hasArtifact ex:a2 , ex:a1 , ex:a3 ;
+	opm:hasAgent ex:ag2 , ex:ag1 ;
+	opm:hasDependency ex:u_16 , ex:d_23 , ex:d_24 , ex:u_18 , ex:c_28 , ex:g_22 , ex:c_26 , ex:g_20 .
