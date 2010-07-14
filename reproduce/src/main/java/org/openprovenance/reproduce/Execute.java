@@ -34,9 +34,15 @@ public class Execute {
         return prefix + "p" + (count++);
     }
 
-
-    public Document invoke(String procedure,
+    public Document OLDinvoke(String procedure,
                            HashMap<String,Artifact> arguments) throws org.jaxen.JaxenException{
+        return createInvocationDocument(procedure,arguments);
+    }
+    
+    public Document createInvocationDocument(String procedure,
+                                             HashMap<String,Artifact> arguments)
+        throws org.jaxen.JaxenException{
+        
         Process p=oFactory.newProcess(newProcessName(),
                                       null,
                                       procedure);
@@ -176,5 +182,21 @@ public class Execute {
     public String makeFilename(String path) {
         return "./" + path;
     }
+
+    /**
+        // /home/lavm/swift2/cog/modules/swift/dist/swift-svn/bin/VDLx2Karajan target/swift2.xml > target/swift2.kml
+
+        //   /home/lavm/swift2/cog/modules/swift/dist/swift-svn/bin/swift target/swift2.kml
+
+        */
+
+    public void invokeSwift(String file1, String file2) throws IOException {
+        Runtime run=Runtime.getRuntime();
+        java.lang.Process p=run.exec("do-swift " + file1 + "  " + file2);
+        try {
+            p.waitFor();
+        } catch (InterruptedException ie) {}
+    }
+
 
 }

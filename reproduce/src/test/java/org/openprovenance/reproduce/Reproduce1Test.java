@@ -179,17 +179,12 @@ public class Reproduce1Test extends org.openprovenance.model.Reproduce1Test
         args.put("filename", graph1.getArtifacts().getArtifact().get(1));
         args.put("out", graph1.getArtifacts().getArtifact().get(1));
 
-        Document doc=exec.invoke("http://openprovenance.org/reproducibility/swift#greeting",args);
+        Document doc=exec.createInvocationDocument("http://openprovenance.org/reproducibility/swift#greeting",args);
 
         serializeToStandardOut(doc.getDocumentElement(),doc);
-
         serialize(doc.getDocumentElement(),doc, new FileOutputStream("target/swift.xml"));
 
-        // /home/lavm/swift2/cog/modules/swift/dist/swift-svn/bin/VDLx2Karajan target/swift.xml > target/swift.kml
-
-        //   /home/lavm/swift2/cog/modules/swift/dist/swift-svn/bin/swift target/swift.kml
-
-        invokeSwift("swift.xml", "swift.kml");
+        exec.invokeSwift("swift.xml", "swift.kml");
     }
 
     public void serializeToStandardOut(Element el, Document doc) throws IOException {
@@ -212,27 +207,16 @@ public class Reproduce1Test extends org.openprovenance.model.Reproduce1Test
         args.put("filename", graph1.getArtifacts().getArtifact().get(1));
         args.put("out", graph1.getArtifacts().getArtifact().get(2));
 
-        Document doc=exec.invoke("http://openprovenance.org/reproducibility/swift#countwords",args);
+        Document doc=exec.createInvocationDocument("http://openprovenance.org/reproducibility/swift#countwords",args);
 
         serializeToStandardOut(doc.getDocumentElement(), doc);
 
         serialize(doc.getDocumentElement(),doc, new FileOutputStream("target/swift2.xml"));
 
-        // /home/lavm/swift2/cog/modules/swift/dist/swift-svn/bin/VDLx2Karajan target/swift2.xml > target/swift2.kml
-
-        //   /home/lavm/swift2/cog/modules/swift/dist/swift-svn/bin/swift target/swift2.kml
-
-        invokeSwift("swift2.xml", "swift2.kml");
+        exec.invokeSwift("swift2.xml", "swift2.kml");
         
     }
 
-    public void invokeSwift(String file1, String file2) throws IOException {
-        Runtime run=Runtime.getRuntime();
-        java.lang.Process p=run.exec("do-swift " + file1 + "  " + file2);
-        try {
-            p.waitFor();
-        } catch (InterruptedException ie) {}
-    }
 
 
 }
