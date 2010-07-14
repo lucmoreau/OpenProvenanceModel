@@ -58,7 +58,8 @@ public class Signature1Test
 
         OPMGraph graph=makeSignature1Graph(oFactory);
         getKeystoreConfig();
-        Signer sig=new Signer(props.getProperty("build.keystoretype"),
+        Signer sig=new Signer(oFactory,
+                              props.getProperty("build.keystoretype"),
                               props.getProperty("build.keystore"),
                               props.getProperty("build.keystorepass"),
                               props.getProperty("build.alias"),
@@ -88,7 +89,8 @@ public class Signature1Test
     {
 
         getKeystoreConfig();
-        Signer sig=new Signer(props.getProperty("build.keystoretype"),
+        Signer sig=new Signer(oFactory,
+                              props.getProperty("build.keystoretype"),
                               props.getProperty("build.keystore"),
                               props.getProperty("build.keystorepass"),
                               props.getProperty("build.alias"),
@@ -237,14 +239,14 @@ public class Signature1Test
 
     public void testCheckLastSignature1() throws Exception {
         List<Node> nl=getSignature("target/signature1.xml");
-        assertTrue(new Signer().validate(nl.get(nl.size()-1)));
+        assertTrue(new Signer(oFactory).validate(nl.get(nl.size()-1)));
     }
 
     public void testCheckLastSignature2() throws Exception {
         List<Node> nl=getSignature("target/signature2.xml");
         // signature is invalidated because of the extra signature we have added
-        assertFalse(new Signer().validate(nl.get(0)));
-        assertTrue(new Signer().validate(nl.get(nl.size()-1)));
+        assertFalse(new Signer(oFactory).validate(nl.get(0)));
+        assertTrue(new Signer(oFactory).validate(nl.get(nl.size()-1)));
     }
 
 

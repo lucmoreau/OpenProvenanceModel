@@ -53,7 +53,7 @@ public class Gov1Test
 
     static public OPMFactory oFactory=new OPMFactory();
 
-
+    protected boolean multiplePlots=true;
 
     public void testGov1() throws javax.xml.bind.JAXBException, java.io.FileNotFoundException, java.io.IOException
     {
@@ -75,21 +75,23 @@ public class Gov1Test
         OPMToDot toDot=new OPMToDot("src/test/resources/gov1.xml");        
         toDot.convert(graph1,"target/gov1.dot", "target/gov1.pdf");
 
-        toDot=new OPMToDot("src/test/resources/gov2.xml");        
-        toDot.convert(graph1,"target/gov2.dot", "target/gov2.pdf");
+        if (multiplePlots) {
+            toDot=new OPMToDot("src/test/resources/gov2.xml");        
+            toDot.convert(graph1,"target/gov2.dot", "target/gov2.pdf");
+            
+            toDot=new OPMToDot("src/test/resources/gov2time.xml");        
+            toDot.convert(graph1,"target/gov2time.dot", "target/gov2time.pdf");
+            
+            toDot=new OPMToDot("src/test/resources/gov3.xml");        
+            toDot.convert(graph1,"target/gov3.dot", "target/gov3.pdf");
+            
+            toDot=new OPMToDot("src/test/resources/gov4.xml");        
+            toDot.convert(graph1,"target/gov4.dot", "target/gov4.pdf");
 
-        toDot=new OPMToDot("src/test/resources/gov2time.xml");        
-        toDot.convert(graph1,"target/gov2time.dot", "target/gov2time.pdf");
 
-        toDot=new OPMToDot("src/test/resources/gov3.xml");        
-        toDot.convert(graph1,"target/gov3.dot", "target/gov3.pdf");
-
-        toDot=new OPMToDot("src/test/resources/gov4.xml");        
-        toDot.convert(graph1,"target/gov4.dot", "target/gov4.pdf");
-
-
-        //toDot.convert(graph1,"target/gov1.dot", "jpg", "target/gov1.jpg");
-        //toDot.convert(graph1,"target/gov1.dot", "svg", "target/gov1.svg");
+            //toDot.convert(graph1,"target/gov1.dot", "jpg", "target/gov1.jpg");
+            //toDot.convert(graph1,"target/gov1.dot", "svg", "target/gov1.svg");
+        }
 
 
     }
@@ -152,16 +154,16 @@ public class Gov1Test
                                          "local zip file");
         Artifact a3=oFactory.newArtifact("a3",
                                          allLevels,
-                                         "GOR csv file");
+                                         "Government Office Regions csv file");
         Artifact a4=oFactory.newArtifact("a4",
                                          allLevels,
                                          "region xslt");
         Artifact a5=oFactory.newArtifact("a5",
                                          allLevels,
-                                         "GOR rdf file");
+                                         "Government Office Regions rdf file");
         Artifact a6=oFactory.newArtifact("a6",
                                          allLevels,
-                                         "Government Office Regions");
+                                         "Government Office Regions DataSet");
         Artifact a7=oFactory.newArtifact("a7",
                                          allLevels,
                                          "Region H");
@@ -353,12 +355,13 @@ public class Gov1Test
 
 
         getKeystoreConfig();
-        Signer sig=new Signer(props.getProperty("build.keystoretype"),
+        Signer sig=new Signer(oFactory,
+                              props.getProperty("build.keystoretype"),
                               props.getProperty("build.keystore"),
                               props.getProperty("build.keystorepass"),
                               "alice",
                               props.getProperty("build.keypass"),
-                              "Alice");
+                              "CN=Alice, OU=HM Government, L=London, C=UK");
 
 
 
@@ -374,9 +377,21 @@ public class Gov1Test
     }
 
     public void testCheckGovSignature() throws Exception {
+        System.out.println("Validating signature directly from xml file");
         List<Node> nl=getSignature("target/gov-signature.xml");
-        assertTrue(new Signer().validate(nl.get(nl.size()-1)));
+        assertTrue(new Signer(oFactory).validate(nl.get(nl.size()-1)));
     }
+
+
+    
+    public void testCheckGovSignature2() throws Exception {
+        System.out.println("Validating signature of in-memory graph");
+        OPMDeserialiser pdeserial=OPMDeserialiser.getThreadOPMDeserialiser();
+        OPMGraph graph=pdeserial.deserialiseOPMGraph(new File("target/gov-signature.xml"));
+        assertTrue(new Signer(oFactory).validate(graph));
+    }
+
+
 
     static java.util.Properties props=null;
     static java.util.Properties getKeystoreConfig () throws java.io.IOException {

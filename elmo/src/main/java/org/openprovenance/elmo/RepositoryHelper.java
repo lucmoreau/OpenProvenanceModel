@@ -42,6 +42,7 @@ public class RepositoryHelper {
         module.addConcept(org.openprovenance.rdf.Annotation.class);
         module.addConcept(org.openprovenance.rdf.Property.class);
         module.addConcept(org.openprovenance.rdf.OTime.class);
+        module.addConcept(org.openprovenance.rdf.Signature.class);
         module.addConcept(org.openprovenance.rdf.AValue.class);
         module.addConcept(org.openprovenance.rdf.Reference.class);
         module.addDatatype(org.openprovenance.elmo.XMLLiteral.class,

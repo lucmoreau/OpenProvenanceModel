@@ -17,6 +17,7 @@ import org.openprovenance.model.WasGeneratedBy;
 import org.openprovenance.model.WasDerivedFrom;
 import org.openprovenance.model.WasTriggeredBy;
 import org.openprovenance.model.WasControlledBy;
+import org.openprovenance.model.Signature;
 import org.openprovenance.model.Label;
 import org.openprovenance.model.Type;
 import org.openprovenance.model.PName;
@@ -124,6 +125,10 @@ public class RdfObjectFactory extends org.openprovenance.model.ObjectFactory {
 
     public OTime createOTime() {
         return new RdfOTime(manager,prefix);
+    }
+
+    public Signature createSignature() {
+        return new RdfSignature(manager,prefix);
     }
 
 

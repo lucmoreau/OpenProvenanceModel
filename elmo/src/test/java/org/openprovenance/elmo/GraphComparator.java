@@ -29,24 +29,40 @@ public class GraphComparator {
         OPMDeserialiser deserial=OPMDeserialiser.getThreadOPMDeserialiser();
         OPMGraph graph1=deserial.deserialiseOPMGraph(new File(graphFile1));
 
-        File file = new File(graphFile2);
-        rHelper.readFromRDF(file,null,(SesameManager)manager,format);
 
-        QName qname = new QName(NS, graph1.getId());
-
-
-        org.openprovenance.rdf.OPMGraph gr=(org.openprovenance.rdf.OPMGraph)manager.find(qname);
-
-        RdfOPMFactory oFactory=new RdfOPMFactory(new RdfObjectFactory(manager,NS),
-                                                 manager);
+        OPMGraph graph2=readOPMGraphFromRdf(graphFile2,
+                                            NS,
+                                            format,
+                                            rHelper,
+                                            manager,
+                                            graph1.getId());
 
 
-        OPMGraph graph2=oFactory.newOPMGraph(gr);
         testCompareGraphs(graph1,graph2,normalisedFile1,normalisedFile2);
     }
 
 
         
+    static public OPMGraph readOPMGraphFromRdf(String graphFile2,
+                                               String NS,
+                                               RDFFormat format,
+                                               RepositoryHelper rHelper,
+                                               ElmoManager manager,
+                                               String id) throws Exception {
+        File file = new File(graphFile2);
+        rHelper.readFromRDF(file,null,(SesameManager)manager,format);
+
+        QName qname = new QName(NS, id);
+
+
+        System.out.println("Retrieving graph with identifier " + id);
+        org.openprovenance.rdf.OPMGraph gr=(org.openprovenance.rdf.OPMGraph)manager.find(qname);
+
+        RdfOPMFactory oFactory=new RdfOPMFactory(new RdfObjectFactory(manager,NS),
+                                                 manager);
+        OPMGraph graph2=oFactory.newOPMGraph(gr);
+        return graph2;
+    }
 
 
     public void testCompareGraphs(OPMGraph graph1,
@@ -143,7 +159,6 @@ public class GraphComparator {
                 graph2.setAgents(null);
             }
         }
-
 
         Assert.assertTrue( "copy of graph differs from original", graph1.equals(graph2) );
     }

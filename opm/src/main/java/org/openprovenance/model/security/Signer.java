@@ -25,14 +25,16 @@ import org.apache.xml.serialize.XMLSerializer;
 
 public class Signer extends com.uprovenance.util.security.Signature implements SignerFunctionality {
 
-    static OPMFactory oFactory=new OPMFactory();
-
-    public Signer() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public Signer(OPMFactory oFactory) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        this.oFactory=oFactory;
     }
 
     String signer;
+
+    final OPMFactory oFactory;
     
-    public Signer(String keyStoreType,
+    public Signer(OPMFactory oFactory,
+                  String keyStoreType,
                   String keyStoreName,
                   String keyStorePassword,
                   String privateKeyAlias,
@@ -45,6 +47,7 @@ public class Signer extends com.uprovenance.util.security.Signature implements S
               keyStorePassword,
               privateKeyAlias,
               privateKeyPassword);
+        this.oFactory=oFactory;
         if (simpleName!=null) {
             signer=simpleName;
         } else {
@@ -53,7 +56,8 @@ public class Signer extends com.uprovenance.util.security.Signature implements S
                                   
     }
 
-    public Signer(KeyStore ks,
+    public Signer(OPMFactory oFactory,
+                  KeyStore ks,
                   String privateKeyAlias,
                   String privateKeyPassword,
                   String simpleName)
@@ -61,6 +65,7 @@ public class Signer extends com.uprovenance.util.security.Signature implements S
         super(ks,
               privateKeyAlias,
               privateKeyPassword);
+        this.oFactory=oFactory;
         if (simpleName!=null) {
             signer=simpleName;
         } else {
@@ -104,6 +109,23 @@ public class Signer extends com.uprovenance.util.security.Signature implements S
         opmSig.setAny(removedSignature);
         //oGraph.setAny(removedSignature);
         return true;
+    }
+
+    public static String extractSignatureValue(Object o) {
+        if (o==null) return null;
+        if (o instanceof Element) {
+            Element el=(Element) o;
+            NodeList nl = el.getElementsByTagNameNS(XMLSignature.XMLNS, "SignatureValue");
+            if (nl.getLength()>=1) {
+                Node n0=nl.item(0);
+                System.out.println("Signer. Debug: Found signatureValue ---> " + n0.getFirstChild().getNodeValue());
+                return n0.getFirstChild().getNodeValue();
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
     }
 
     public void serializeToXML(Document node, String filename) throws java.io.IOException, java.io.FileNotFoundException {
@@ -158,9 +180,7 @@ public class Signer extends com.uprovenance.util.security.Signature implements S
                 theX509Data.getElementsByTagNameNS(XMLSignature.XMLNS, "X509SubjectName");
             Element x509SubjectName=(Element)snl.item(0);
             String dn=x509SubjectName.getTextContent();
-            String dn2=((Signature)oFactory.getSignature(oGraph)).getSigner();
-            System.out.println("** signature found DN " + dn);
-            System.out.println("** signature found DN " + dn2);
+            String dn2=oFactory.getSigner(oGraph);
             sameDN=dn.equals(dn2);
         }
         return validate(theSignature) && sameDN;

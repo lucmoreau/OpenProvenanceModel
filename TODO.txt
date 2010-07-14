@@ -1,10 +1,10 @@
 
-- gov1.pdf and gov2.pdf should overlay.
-  Problem, in gov1.pdf multiple transparent edges from different accounts seem to be displayed
+
+- given an graph in memory and containing a signature, validate the signature
+- given a serialisation in rdf containing signature, validate the signature
 
 
 - change size of edge types
-
 - change thickness of edges: penwidth
     
 

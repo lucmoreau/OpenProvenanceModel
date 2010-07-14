@@ -109,7 +109,8 @@
 			     <plugin>
 				   <groupId>org.jvnet.hyperjaxb3</groupId>
 				   <artifactId>hyperjaxb3-ejb-plugin</artifactId>
-				   <version>0.2.RC1</version>
+				   <!-- <version>0.2.RC1</version>  -->
+                   <version>0.5.4</version>  --
 			     </plugin>
 		       </plugins>
                <schemaIncludes>
@@ -366,6 +367,21 @@
   	              <arg value="Value.java" />
                 </exec>
 
+                <!-- check signature by comparing the signaturevalue field -->
+
+                <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
+  	              <arg value="-e s/equalsBuilder.append(this.getAny(), that.getAny());/equalsBuilder.append(org.openprovenance.model.security.Signer.extractSignatureValue(this.getAny()), org.openprovenance.model.security.Signer.extractSignatureValue(that.getAny()));/" />
+  	              <arg value="-iBAK" />
+  	              <arg value="Signature.java" />
+                </exec>
+
+
+                <exec executable="sed" dir="${project.build.directory}/generated-sources/xjc/org/openprovenance/model">
+  	              <arg value="-e s/hashCodeBuilder.append(this.getAny());/\/\/Luc: hashCodeBuilder.append(this.getAny());/" />
+  	              <arg value="-iBAK" />
+  	              <arg value="Signature.java" />
+                </exec>
+
 
         
               </tasks>
@@ -424,7 +440,7 @@
             </configuration>
           </execution>
           <execution>
-            <id>jenikey</id>
+            <id>alicekey</id>
             <phase>generate-sources</phase>
             <goals>
               <goal>genkey</goal>

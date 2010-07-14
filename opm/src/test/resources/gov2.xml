@@ -27,7 +27,7 @@
     <edge type="org.openprovenance.model.WasGeneratedBy"  style="dashed" penwidth="2"/>
     <edge type="org.openprovenance.model.WasControlledBy" style="dotted" penwidth="2"/>
     <edge type="org.openprovenance.model.WasTriggeredBy"  style="dashed"/>
-    <edge type="org.openprovenance.model.WasDerivedFrom"  style="bold"/>
+    <edge type="org.openprovenance.model.WasDerivedFrom"  style="bold"   fontSize="12"/>
   </edges>
 
 
