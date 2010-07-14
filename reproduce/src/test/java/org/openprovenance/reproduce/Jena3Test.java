@@ -155,4 +155,20 @@ public class Jena3Test extends TestCase {
         qe.close();
     }
 
+
+    public void testQuery4() {
+
+        Queries q=new Queries(theModel);
+
+        ResultSet results=q.getUsedArtifacts("eg:p2");
+        ResultSetFormatter.out(System.out, results);
+        q.close();
+
+        results=q.getGeneratedArtifacts("eg:p2");
+        ResultSetFormatter.out(System.out, results);
+        q.close();
+        
+    }
+
+
 }
