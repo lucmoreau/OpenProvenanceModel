@@ -52,6 +52,18 @@
       <url>http://download.java.net/maven/1</url>
       <layout>legacy</layout>
     </repository>
+
+    <repository>
+	  <id>jena-repository</id>
+	  <name>Jena Repository</name>
+	  <url>http://openjena.org/repo/</url>
+	</repository>
+
+    <repository>
+	  <id>pellet-repository</id>
+	  <name>Pellet Repository</name>
+	  <url>http://on.cs.unibas.ch/maven/repository/</url>
+	</repository>
   </repositories>
 
   <distributionManagement>
