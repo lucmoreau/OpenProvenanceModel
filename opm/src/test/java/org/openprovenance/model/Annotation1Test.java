@@ -172,7 +172,7 @@ public class Annotation1Test
     /** Produces a dot representation
      * of created graph. */
     public void testAnnotation11Conversion() throws java.io.FileNotFoundException,  java.io.IOException   {
-        OPMToDot toDot=new OPMToDot(true); // with roles
+        OPMToDot toDot=new OPMToDot(); // with roles
         
         toDot.convert(graph1,"target/annotation-example1.dot", "target/annotation-example1.pdf");
     }

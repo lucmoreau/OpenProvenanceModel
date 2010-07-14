@@ -606,6 +606,7 @@ public class OPMToDot {
                     String r=displayRole(role.getValue());
                     properties.put("fontsize","8");
                     annotations.put("role", r);
+                    System.out.println("role " + annotations);
                 }
             }
 
@@ -644,11 +645,15 @@ public class OPMToDot {
 
             if (annotations.keySet().isEmpty()) {
                 label="";
+            } else if ((annotations.keySet().size()==1)
+                       && (annotations.get("role")!=null)) {
+                label=annotations.get("role");
             } else {
                 label="<<TABLE cellpadding=\"0\" border=\"0\">\n";
                 label=label+"	<TR>\n";
                 for (String key: annotations.keySet()) {
                     if (key.equals("time")
+                        || key.equals("role")
                         || key.equals("startTime")
                         || key.equals("endTime")) {
                         label=label+"	    <TD align=\"left\">" + key + ":</TD>\n";
