@@ -90,13 +90,13 @@ public class StarbucksTest
                                          "order");
         Artifact a2=oFactory.newArtifact("a2",
                                          detailedAccount,
-                                         "money");
+                                         "cash");
         Artifact a3=oFactory.newArtifact("a3",
                                          detailedAccount,
                                          "annotated cup");
         Artifact a4=oFactory.newArtifact("a4",
                                          detailedAccount,
-                                         "coffee");
+                                         "latte");
         Artifact a5=oFactory.newArtifact("a5",
                                          detailedAccount,
                                          "juice");
@@ -108,6 +108,7 @@ public class StarbucksTest
         Used u4=oFactory.newUsed(p4,oFactory.newRole("order"),a1,summaryAccount);
 
         UsedStar u5=oFactory.newUsedStar(p3,a1,detailedAccount);
+        UsedStar u6=oFactory.newUsedStar(p3,a2,detailedAccount);
 
 
         WasGeneratedBy wg1=oFactory.newWasGeneratedBy(a3,oFactory.newRole("cup"),p1,detailedAccount);
@@ -119,11 +120,11 @@ public class StarbucksTest
 
         WasDerivedFrom wd1=oFactory.newWasDerivedFrom(a4,a3,detailedAccount);
 
-        WasDerivedFromStar wd2=oFactory.newWasDerivedFromStar(a3,a1,detailedAccount);
+        WasDerivedFrom wd2=oFactory.newWasDerivedFrom(a3,a1,detailedAccount);
         WasDerivedFromStar wd3=oFactory.newWasDerivedFromStar(a5,a1,detailedAccount);
         //WasDerivedFromStar wd4=oFactory.newWasDerivedFromStar(a4,a1,detailedAccount);
-        WasDerivedFromStar wd5=oFactory.newWasDerivedFromStar(a5,a2,detailedAccount);
-        WasDerivedFromStar wd6=oFactory.newWasDerivedFromStar(a4,a2,detailedAccount);
+        WasDerivedFromStar wd5=oFactory.newWasDerivedFromStar(a3,a2,detailedAccount);
+        WasDerivedFromStar wd6=oFactory.newWasDerivedFromStar(a5,a2,detailedAccount);
 
         WasTriggeredBy wt1=oFactory.newWasTriggeredBy(p3,p1,detailedAccount);
 
@@ -135,7 +136,7 @@ public class StarbucksTest
                                             new Process[] {p1, p2, p3, p4},
                                             new Artifact[] {a1,a2,a3,a4,a5},
                                             new Agent[] { },
-                                            new Object[] {u1,u2,u3,u4,u5,
+                                            new Object[] {u1,u2,u3,u4,u5,u6,
                                                           wg1,wg2,wg3,wg4,
                                                           wt1,
                                                           wd1,wd2,wd3,wd5,wd6
@@ -154,7 +155,7 @@ public class StarbucksTest
         toDot.convert(graph1,"target/starbucks.dot", "target/starbucks.pdf");
 
         toDot=new OPMToDot("src/test/resources/starbucksConfig2.xml");
-        toDot.convert(graph1,"target/starbucks2.dot", "target/starbucks2.pdf");
+        toDot.convert(graph1,"target/starbucks1.dot", "target/starbucks1.pdf");
     }
 
 
