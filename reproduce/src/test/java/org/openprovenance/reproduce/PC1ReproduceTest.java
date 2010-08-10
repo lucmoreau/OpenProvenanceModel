@@ -1,8 +1,7 @@
-/* This example is inspired by Clark & Parsia example to use Pellet with Jena,
-   and by an IBM example to write sparql queries in Jena. */
 
 
 package org.openprovenance.reproduce;
+import javax.xml.bind.JAXBException;
 
 import java.util.Iterator;
 import java.util.List;
@@ -30,6 +29,7 @@ import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSetFormatter;
 import com.hp.hpl.jena.rdf.model.InfModel;
 import com.hp.hpl.jena.rdf.model.Model;
@@ -37,11 +37,15 @@ import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.reasoner.Reasoner;
 import com.hp.hpl.jena.reasoner.ValidityReport;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
 import org.openprovenance.model.OPMFactory;
+import org.openprovenance.model.OPMDeserialiser;
+import org.openprovenance.model.OPMGraph;
+import org.openprovenance.model.IndexedOPMGraph;
 import org.openprovenance.model.Artifact;
 import org.openprovenance.model.Account;
 
@@ -53,8 +57,11 @@ import org.w3c.dom.Element;
  * Reproducibility of PC1
  */
 public class PC1ReproduceTest extends TestCase {
+    public static String PC1_NS="http://www.ipaw.info/pc1/";
 
     public OPMFactory oFactory=new OPMFactory();
+
+    public PrimitiveEnvironment primEnv=new OpenProvenanceEnvironment();
 
     public ArtifactFactory aFactory= new ArtifactFactory () {
             public Artifact newArtifact(Artifact a) {
@@ -73,8 +80,9 @@ public class PC1ReproduceTest extends TestCase {
     }
     
     static Model theModel;
+    static IndexedOPMGraph graph;
 
-    public static void loadModel() {
+    public void loadModel() {
         
         // ontologies that will be used
         String ont1 = "file:src/test/resources/opm.owl";
@@ -109,7 +117,19 @@ public class PC1ReproduceTest extends TestCase {
         printIterator(model.listObjectsOfProperty(c, RDFS.subClassOf), "All super classes of " + c.getLocalName());
         
         theModel=model;
+        try {
+            loadOPMGraph();
+        } catch (JAXBException je) {
+        }
     }
+
+    public void loadOPMGraph() throws JAXBException    {
+        OPMDeserialiser deserial=OPMDeserialiser.getThreadOPMDeserialiser();
+        OPMGraph graph1=deserial.deserialiseOPMGraph(new File("src/test/resources/pc1-full.xml"));
+        graph=new IndexedOPMGraph(oFactory,graph1);
+    }
+
+
 
 
     
@@ -177,7 +197,7 @@ public class PC1ReproduceTest extends TestCase {
     public void testQuery4() {
 
         Queries q=new Queries(theModel);
-        q.addPrefixes("pc1","http://www.ipaw.info/pc1/");
+        q.addPrefixes("pc1",PC1_NS);
 
         List ll=q.getUsedArtifactsAsResources("pc1:p1");
         System.out.println(" found " + ll);
@@ -219,6 +239,46 @@ public class PC1ReproduceTest extends TestCase {
     }
 
 
+    public void testQuery5() {
+        Queries q=new Queries(theModel);
+        String pc1NS="http://www.ipaw.info/pc1/";
+        q.addPrefixes("pc1",pc1NS);
+
+        List<Resource> results = q.getProcessesWithPropAsResources("http://openprovenance.org/primitives#primitive",
+                                                                   "http://openprovenance.org/primitives#align_warp");
+
+        System.out.println("==> Found Processes for Primitive " + results);
+
+        q.close();
+    }
+
+
+    public void testQuery6() {
+        Queries q=new Queries(theModel);
+        String pc1NS="http://www.ipaw.info/pc1/";
+        q.addPrefixes("pc1",pc1NS);
+
+        List<Literal> results = q.getResourcePropertyAsLiterals("http://www.ipaw.info/pc1/p1",
+                                                                  "http://openprovenance.org/primitives#primitive");
+
+        System.out.println("==> Found Value for property " + results);
+
+        q.close();
+    }
+
+
+    public void testQuery7() {
+        Queries q=new Queries(theModel);
+        String pc1NS="http://www.ipaw.info/pc1/";
+        q.addPrefixes("pc1",pc1NS);
+
+        ResultSet results = q.getUsedArtifactsAndRoles("pc1:p1");
+        ResultSetFormatter.out(System.out, results);
+
+        q.close();
+    }
+
+
     static String PATH_PROPERTY="http://openprovenance.org/primitives#path";
     static String FILE_LOCATION="//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/";
     //static String FILE_LOCATION="../src/test/resources/pc1/";
@@ -227,6 +287,34 @@ public class PC1ReproduceTest extends TestCase {
     static List<Account> black=new LinkedList();
 
     public void testReproduceP1() throws java.io.IOException, org.jaxen.JaxenException, org.xml.sax.SAXException {
+
+        /*
+
+~/Download/AIR5.2.6/bin/reslice params1.warp resliced1
+~/Download/AIR5.2.6/bin/softmean atlas.hdr y null resliced1.img 
+~/Download/fsl/bin/slicer ./atlas.hdr -x .5 ./sliced.pgm
+
+        */
+
+
+        invokeProcess("http://www.ipaw.info/pc1/p1",
+                      "p1-swift");
+
+        invokeProcess("http://www.ipaw.info/pc1/p5",
+                      "p5-swift");
+
+        invokeProcess("http://www.ipaw.info/pc1/p9",
+                      "p9-swift");
+
+        invokeProcess("http://www.ipaw.info/pc1/p10",
+                      "p10-swift");
+
+        invokeProcess("http://www.ipaw.info/pc1/p13",
+                      "p13-swift");
+        
+    }
+
+    public void NOtestReproduceP1() throws java.io.IOException, org.jaxen.JaxenException, org.xml.sax.SAXException {
         String p0="http://www.ipaw.info/pc1/p0";
         
         HashMap<String,Artifact> args=new HashMap();
@@ -349,22 +437,31 @@ public class PC1ReproduceTest extends TestCase {
         args.put("img", a3);
         args.put("imgRef", a1);
         args.put("out", a11);
-        Execute exec=new Execute(oFactory,aFactory);
-        Document doc=exec.createInvocationDocument("http://openprovenance.org/reproducibility/air#align_warp",args);
-        u.serializeToStandardOut(doc.getDocumentElement(), doc);
-        u.serialize(doc.getDocumentElement(),doc, new FileOutputStream("target/p0-swift2.xml"));
-        exec.invokeSwift("p0-swift2.xml", "p0-swift2.kml");
+        invokeProcess("http://www.ipaw.info/pc1/p1",
+                      //args,
+                      "p1-swift");
+
+        // Execute exec=new Execute(oFactory,aFactory);
+        // Document doc=exec.createInvocationDocument("http://openprovenance.org/reproducibility/air#align_warp",args);
+        // u.serializeToStandardOut(doc.getDocumentElement(), doc);
+        // u.serialize(doc.getDocumentElement(),doc, new FileOutputStream("target/p0-swift2.xml"));
+        // exec.invokeSwift("p0-swift2.xml", "p0-swift2.kml");
 
 
         HashMap<String,Artifact> args2=new HashMap();
         args2.put("in", a11);
         args2.put("img", a15);
         args2.put("hdr", a16);
-        exec=new Execute(oFactory,aFactory);
-        doc=exec.createInvocationDocument("http://openprovenance.org/reproducibility/air#reslice",args2);
-        u.serializeToStandardOut(doc.getDocumentElement(), doc);
-        u.serialize(doc.getDocumentElement(),doc, new FileOutputStream("target/p5-swift2.xml"));
-        exec.invokeSwift("p5-swift2.xml", "p5-swift2.kml");
+        invokeProcess("http://www.ipaw.info/pc1/p5",
+                      //args2,
+                      "p5-swift");
+
+
+        // exec=new Execute(oFactory,aFactory);
+        // doc=exec.createInvocationDocument("http://openprovenance.org/reproducibility/air#reslice",args2);
+        // u.serializeToStandardOut(doc.getDocumentElement(), doc);
+        // u.serialize(doc.getDocumentElement(),doc, new FileOutputStream("target/p5-swift2.xml"));
+        // exec.invokeSwift("p5-swift2.xml", "p5-swift2.kml");
 
 
 
@@ -373,11 +470,15 @@ public class PC1ReproduceTest extends TestCase {
         args3.put("h1", a16);
         args3.put("img", a23);
         args3.put("hdr", a24);
-        exec=new Execute(oFactory,aFactory);
-        doc=exec.createInvocationDocument("http://openprovenance.org/reproducibility/air#softmean",args3);
-        u.serializeToStandardOut(doc.getDocumentElement(), doc);
-        u.serialize(doc.getDocumentElement(),doc, new FileOutputStream("target/p9-swift2.xml"));
-        exec.invokeSwift("p9-swift2.xml", "p9-swift2.kml");
+        invokeProcess("http://www.ipaw.info/pc1/p9",
+                      //args3,
+                      "p9-swift");
+
+        // exec=new Execute(oFactory,aFactory);
+        // doc=exec.createInvocationDocument("http://openprovenance.org/reproducibility/air#softmean",args3);
+        // u.serializeToStandardOut(doc.getDocumentElement(), doc);
+        // u.serialize(doc.getDocumentElement(),doc, new FileOutputStream("target/p9-swift2.xml"));
+        // exec.invokeSwift("p9-swift2.xml", "p9-swift2.kml");
 
 
 
@@ -385,23 +486,94 @@ public class PC1ReproduceTest extends TestCase {
         args4.put("img", a23);
         args4.put("hdr", a24);
         args4.put("pgm", a_1);
-        exec=new Execute(oFactory,aFactory);
-        doc=exec.createInvocationDocument("http://openprovenance.org/reproducibility/air#slicer",args4);
-        u.serializeToStandardOut(doc.getDocumentElement(), doc);
-        u.serialize(doc.getDocumentElement(),doc, new FileOutputStream("target/p10-swift2.xml"));
-        exec.invokeSwift("p10-swift2.xml", "p10-swift2.kml");
+        invokeProcess("http://www.ipaw.info/pc1/p10",
+                      //args4,
+                      "p10-swift");
+
+        // exec=new Execute(oFactory,aFactory);
+        // doc=exec.createInvocationDocument("http://openprovenance.org/reproducibility/air#slicer",args4);
+        // u.serializeToStandardOut(doc.getDocumentElement(), doc);
+        // u.serialize(doc.getDocumentElement(),doc, new FileOutputStream("target/p10-swift2.xml"));
+        // exec.invokeSwift("p10-swift2.xml", "p10-swift2.kml");
 
 
 
         HashMap<String,Artifact> args5=new HashMap();
         args5.put("img", a_1);
         args5.put("jpg", a_2);
-        exec=new Execute(oFactory,aFactory);
-        doc=exec.createInvocationDocument("http://openprovenance.org/reproducibility/air#convert",args5);
-        u.serializeToStandardOut(doc.getDocumentElement(), doc);
-        u.serialize(doc.getDocumentElement(),doc, new FileOutputStream("target/p13-swift2.xml"));
-        exec.invokeSwift("p13-swift2.xml", "p13-swift2.kml");
+        invokeProcess("http://www.ipaw.info/pc1/p13",
+                      //args5,
+                      "p13-swift");
+        
+    }
 
+    public String localName(String uri, String ns) {
+        return uri.substring(ns.length());
+    }
+            
+
+    public void invokeProcess(String process,
+                              String name) throws java.io.IOException, org.jaxen.JaxenException, org.xml.sax.SAXException {
+        HashMap<String,Artifact> args=new HashMap();
+        Queries q=new Queries(theModel); 
+        List<Literal> results = q.getResourcePropertyAsLiterals(process,
+                                                                "http://openprovenance.org/primitives#primitive");
+        String primitiveName=results.get(0).getString();
+        q.close();
+        
+        q=new Queries(theModel); 
+        q.addPrefixes("pc1",PC1_NS);
+        ResultSet results2 = q.getUsedArtifactsAndRoles("<" + process + ">");
+        while (results2.hasNext()) {
+            QuerySolution qs=results2.next();
+            String artifactUri=qs.getResource("?a").getURI();
+            String role=qs.getLiteral("?r").getString();
+            Artifact a=graph.getArtifact(localName(artifactUri,PC1_NS));
+            //System.out.println("Found role " + role);
+            //System.out.println("Found artifact " + a);
+
+            // should invoke factory here
+            args.put(role,a);
+        }
+        q.close();
+
+        q=new Queries(theModel); 
+        q.addPrefixes("pc1",PC1_NS);
+        ResultSet results3 = q.getGeneratedArtifactsAndRoles("<" + process + ">");
+        while (results3.hasNext()) {
+            QuerySolution qs=results3.next();
+            String artifactUri=qs.getResource("?a").getURI();
+            String role=qs.getLiteral("?r").getString();
+            Artifact a=graph.getArtifact(localName(artifactUri,PC1_NS));
+            //System.out.println("Found role " + role);
+            //System.out.println("Found artifact " + a);
+
+            // should invoke factory here
+            args.put(role,a);
+        }
+        q.close();
+        
+        String primitive=primEnv.get(primitiveName);
+        invokePrimitive(primitive,
+                        args,
+                        name);
+    }
+        
+
+
+
+    public void invokePrimitive(String primitive,
+                                HashMap<String,Artifact> args,
+                                String name)
+        throws java.io.IOException, org.jaxen.JaxenException, org.xml.sax.SAXException {
+        
+        Execute exec=new Execute(oFactory,aFactory);
+        Document doc=exec.createInvocationDocument(primitive,args);
+        u.serializeToStandardOut(doc.getDocumentElement(), doc);
+        u.serialize(doc.getDocumentElement(),
+                    doc,
+                    new FileOutputStream("target/" + name + ".xml"));
+        exec.invokeSwift(name + ".xml", name + ".kml");
     }
 
         
