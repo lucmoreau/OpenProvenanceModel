@@ -55,7 +55,38 @@ public class PC1FullTest
     }
 
     static String PATH_PROPERTY="http://openprovenance.org/primitives#path";
-    static String FILE_LOCATION="/home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/";
+    static String PRIMITIVE_PROPERTY="http://openprovenance.org/primitives#primitive";
+    static String FILE_LOCATION="//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/";
+
+    static String PRIMITIVE_ALIGN_WARP="http://openprovenance.org/primitives#align_warp";
+    static String PRIMITIVE_RESLICE="http://openprovenance.org/primitives#reslice";
+    static String PRIMITIVE_SOFTMEAN="http://openprovenance.org/primitives#softmean";
+    static String PRIMITIVE_CONVERT="http://openprovenance.org/primitives#convert";
+    static String PRIMITIVE_SLICER="http://openprovenance.org/primitives#slicer";
+
+
+    public Artifact newFile(OPMFactory oFactory,
+                            String id,
+                            Collection<Account> accounts,
+                            String label,
+                            String file
+                            ) {
+                            
+        Artifact a10=oFactory.newArtifact(id,
+                                          accounts,
+                                          label);
+        oFactory.addAnnotation(a10,
+                               oFactory.newType("http://openprovenance.org/primitives#File"));
+        oFactory.addAnnotation(a10,
+                               oFactory.newEmbeddedAnnotation("an1_" + id,
+                                                              PATH_PROPERTY,
+                                                              "./" + file,
+                                                              null));
+        return a10;
+    }
+
+
+
 
     public OPMGraph makePC1FullGraph(OPMFactory oFactory)
     {
@@ -70,48 +101,131 @@ public class PC1FullTest
         Process p1=oFactory.newProcess("p1",
                                        black,
                                        "align_warp 1");
+        oFactory.addAnnotation(p1,
+                               oFactory.newEmbeddedAnnotation("an1_p1",
+                                                              PRIMITIVE_PROPERTY,
+                                                              PRIMITIVE_ALIGN_WARP,
+                                                              null));
+
         Process p2=oFactory.newProcess("p2",
                                        black,
                                        "align_warp 2");
+        oFactory.addAnnotation(p2,
+                               oFactory.newEmbeddedAnnotation("an1_p2",
+                                                              PRIMITIVE_PROPERTY,
+                                                              PRIMITIVE_ALIGN_WARP,
+                                                              null));
+
         Process p3=oFactory.newProcess("p3",
                                        black,
                                        "align_warp 3");
+        oFactory.addAnnotation(p3,
+                               oFactory.newEmbeddedAnnotation("an1_p3",
+                                                              PRIMITIVE_PROPERTY,
+                                                              PRIMITIVE_ALIGN_WARP,
+                                                              null));
         Process p4=oFactory.newProcess("p4",
                                        black,
                                        "align_warp 4");
+        oFactory.addAnnotation(p4,
+                               oFactory.newEmbeddedAnnotation("an1_p4",
+                                                              PRIMITIVE_PROPERTY,
+                                                              PRIMITIVE_ALIGN_WARP,
+                                                              null));
+
         Process p5=oFactory.newProcess("p5",
                                        black,
                                        "Reslice 1");
+        oFactory.addAnnotation(p5,
+                               oFactory.newEmbeddedAnnotation("an1_p5",
+                                                              PRIMITIVE_PROPERTY,
+                                                              PRIMITIVE_RESLICE,
+                                                              null));
+
         Process p6=oFactory.newProcess("p6",
                                        black,
                                        "Reslice 2");
+        oFactory.addAnnotation(p6,
+                               oFactory.newEmbeddedAnnotation("an1_p6",
+                                                              PRIMITIVE_PROPERTY,
+                                                              PRIMITIVE_RESLICE,
+                                                              null));
         Process p7=oFactory.newProcess("p7",
                                        black,
                                        "Reslice 3");
+        oFactory.addAnnotation(p7,
+                               oFactory.newEmbeddedAnnotation("an1_p7",
+                                                              PRIMITIVE_PROPERTY,
+                                                              PRIMITIVE_RESLICE,
+                                                              null));
         Process p8=oFactory.newProcess("p8",
                                        black,
                                        "Reslice 4");
+        oFactory.addAnnotation(p8,
+                               oFactory.newEmbeddedAnnotation("an1_p8",
+                                                              PRIMITIVE_PROPERTY,
+                                                              PRIMITIVE_RESLICE,
+                                                              null));
         Process p9=oFactory.newProcess("p9",
                                        black,
                                        "Softmean");
+        oFactory.addAnnotation(p9,
+                               oFactory.newEmbeddedAnnotation("an1_p9",
+                                                              PRIMITIVE_PROPERTY,
+                                                              PRIMITIVE_SOFTMEAN,
+                                                              null));
         Process p10=oFactory.newProcess("p10",
                                        black,
                                        "Slicer 1");
+        oFactory.addAnnotation(p10,
+                               oFactory.newEmbeddedAnnotation("an1_p10",
+                                                              PRIMITIVE_PROPERTY,
+                                                              PRIMITIVE_SLICER,
+                                                              null));
+
         Process p11=oFactory.newProcess("p11",
                                        black,
                                        "Slicer 2");
+        oFactory.addAnnotation(p11,
+                               oFactory.newEmbeddedAnnotation("an1_p11",
+                                                              PRIMITIVE_PROPERTY,
+                                                              PRIMITIVE_SLICER,
+                                                              null));
+
         Process p12=oFactory.newProcess("p12",
                                        black,
                                        "Slicer 3");
+        oFactory.addAnnotation(p12,
+                               oFactory.newEmbeddedAnnotation("an1_p12",
+                                                              PRIMITIVE_PROPERTY,
+                                                              PRIMITIVE_SLICER,
+                                                              null));
         Process p13=oFactory.newProcess("p13",
                                        black,
                                        "Convert 1");
+        oFactory.addAnnotation(p13,
+                               oFactory.newEmbeddedAnnotation("an1_p13",
+                                                              PRIMITIVE_PROPERTY,
+                                                              PRIMITIVE_CONVERT,
+                                                              null));
+
         Process p14=oFactory.newProcess("p14",
                                        black,
                                        "Convert 2");
+        oFactory.addAnnotation(p14,
+                               oFactory.newEmbeddedAnnotation("an1_p14",
+                                                              PRIMITIVE_PROPERTY,
+                                                              PRIMITIVE_CONVERT,
+                                                              null));
+
         Process p15=oFactory.newProcess("p15",
                                        black,
                                        "Convert 3");
+        oFactory.addAnnotation(p15,
+                               oFactory.newEmbeddedAnnotation("an1_p15",
+                                                              PRIMITIVE_PROPERTY,
+                                                              PRIMITIVE_CONVERT,
+                                                              null));
 
         Agent ag1=oFactory.newAgent("ag1",
                                     black,
@@ -124,9 +238,9 @@ public class PC1FullTest
         oFactory.addAnnotation(a1,
                                oFactory.newType("http://openprovenance.org/primitives#File"));
         oFactory.addAnnotation(a1,
-                               oFactory.newEmbeddedAnnotation("an1_1",
+                               oFactory.newEmbeddedAnnotation("an1_a1",
                                                               PATH_PROPERTY,
-                                                              FILE_LOCATION + "anatomy1.img",
+                                                              FILE_LOCATION + "reference.img",
                                                               null));
 
 
@@ -134,37 +248,110 @@ public class PC1FullTest
         Artifact a2=oFactory.newArtifact("a2",
                                          black,
                                          "Reference Header");
-
+        oFactory.addAnnotation(a2,
+                               oFactory.newType("http://openprovenance.org/primitives#File"));
+        oFactory.addAnnotation(a2,
+                               oFactory.newEmbeddedAnnotation("an1_a2",
+                                                              PATH_PROPERTY,
+                                                              FILE_LOCATION + "reference.hdr",
+                                                              null));
         Artifact a3=oFactory.newArtifact("a3",
                                          black,
                                          "Anatomy I1");
+        oFactory.addAnnotation(a3,
+                               oFactory.newType("http://openprovenance.org/primitives#File"));
+        oFactory.addAnnotation(a3,
+                               oFactory.newEmbeddedAnnotation("an1_a3",
+                                                              PATH_PROPERTY,
+                                                              FILE_LOCATION + "anatomy1.img",
+                                                              null));
+
         Artifact a4=oFactory.newArtifact("a4",
                                          black,
                                          "Anatomy H1");
+        oFactory.addAnnotation(a4,
+                               oFactory.newType("http://openprovenance.org/primitives#File"));
+        oFactory.addAnnotation(a4,
+                               oFactory.newEmbeddedAnnotation("an1_a4",
+                                                              PATH_PROPERTY,
+                                                              FILE_LOCATION + "anatomy1.hdr",
+                                                              null));
+
         Artifact a5=oFactory.newArtifact("a5",
                                          black,
                                          "Anatomy I2");
+        oFactory.addAnnotation(a5,
+                               oFactory.newType("http://openprovenance.org/primitives#File"));
+        oFactory.addAnnotation(a5,
+                               oFactory.newEmbeddedAnnotation("an1_a5",
+                                                              PATH_PROPERTY,
+                                                              FILE_LOCATION + "anatomy2.img",
+                                                              null));
+
         Artifact a6=oFactory.newArtifact("a6",
                                          black,
                                          "Anatomy H2");
+        oFactory.addAnnotation(a6,
+                               oFactory.newType("http://openprovenance.org/primitives#File"));
+        oFactory.addAnnotation(a6,
+                               oFactory.newEmbeddedAnnotation("an1_a6",
+                                                              PATH_PROPERTY,
+                                                              FILE_LOCATION + "anatomy2.hdr",
+                                                              null));
+
         Artifact a7=oFactory.newArtifact("a7",
                                          black,
                                          "Anatomy I3");
+        oFactory.addAnnotation(a7,
+                               oFactory.newType("http://openprovenance.org/primitives#File"));
+        oFactory.addAnnotation(a7,
+                               oFactory.newEmbeddedAnnotation("an1_a7",
+                                                              PATH_PROPERTY,
+                                                              FILE_LOCATION + "anatomy3.img",
+                                                              null));
+
         Artifact a8=oFactory.newArtifact("a8",
                                          black,
                                          "Anatomy H3");
+        oFactory.addAnnotation(a8,
+                               oFactory.newType("http://openprovenance.org/primitives#File"));
+        oFactory.addAnnotation(a8,
+                               oFactory.newEmbeddedAnnotation("an1_a8",
+                                                              PATH_PROPERTY,
+                                                              FILE_LOCATION + "anatomy3.hdr",
+                                                              null));
+
+
         Artifact a9=oFactory.newArtifact("a9",
                                          black,
                                          "Anatomy I4");
+        oFactory.addAnnotation(a9,
+                               oFactory.newType("http://openprovenance.org/primitives#File"));
+        oFactory.addAnnotation(a9,
+                               oFactory.newEmbeddedAnnotation("an1_a9",
+                                                              PATH_PROPERTY,
+                                                              FILE_LOCATION + "anatomy4.img",
+                                                              null));
+
         Artifact a10=oFactory.newArtifact("a10",
                                           black,
                                           "Anatomy H4");
+        oFactory.addAnnotation(a10,
+                               oFactory.newType("http://openprovenance.org/primitives#File"));
+        oFactory.addAnnotation(a10,
+                               oFactory.newEmbeddedAnnotation("an1_a10",
+                                                              PATH_PROPERTY,
+                                                              FILE_LOCATION + "anatomy4.hdr",
+                                                              null));
 
 
 
-        Artifact a11=oFactory.newArtifact("a11",
-                                          black,
-                                          "Warp Params1");
+        Artifact a11=newFile(oFactory,
+                             "a11",
+                             black,
+                             "Warp Params1",
+                             "params1.warp");
+
         Artifact a12=oFactory.newArtifact("a12",
                                           black,
                                           "Warp Params2");
@@ -176,12 +363,19 @@ public class PC1FullTest
                                           "Warp Params4");
 
 
-        Artifact a15=oFactory.newArtifact("a15",
-                                         black,
-                                         "Resliced I1");
-        Artifact a16=oFactory.newArtifact("a16",
-                                         black,
-                                         "Resliced H1");
+        Artifact a15=newFile(oFactory,
+                             "a15",
+                             black,
+                             "Resliced I1",
+                             "resliced1.img");
+
+        Artifact a16=newFile(oFactory,
+                             "a16",
+                             black,
+                             "Resliced H1",
+                             "resliced1.hdr");
+
+
         Artifact a17=oFactory.newArtifact("a17",
                                          black,
                                          "Resliced I2");
@@ -202,18 +396,24 @@ public class PC1FullTest
                                           "Resliced H4");
 
 
+        Artifact a23=newFile(oFactory,
+                             "a23",
+                             black,
+                             "Atlas Image",
+                             "atlas.img");
+        Artifact a24=newFile(oFactory,
+                             "a24",
+                             black,
+                             "Atlas Header",
+                             "atlas.hdr");
 
-        Artifact a23=oFactory.newArtifact("a23",
-                                          black,
-                                          "Atlas Image");
 
-        Artifact a24=oFactory.newArtifact("a24",
-                                          black,
-                                          "Atlas Header");
+        Artifact a25=newFile(oFactory,
+                             "a25",
+                             black,
+                             "Atlas X Slice",
+                             "atlas-x.pgm");
 
-        Artifact a25=oFactory.newArtifact("a25",
-                                          black,
-                                          "Atlas X Slice");
         Artifact a26=oFactory.newArtifact("a26",
                                           black,
                                           "Atlas Y Slice");
@@ -221,10 +421,13 @@ public class PC1FullTest
                                           black,
                                           "Atlas Z Slice");
 
+        Artifact a28=newFile(oFactory,
+                             "a28",
+                             black,
+                             "Atlas X Graphic",
+                             "atlas-x.jpg");
 
-        Artifact a28=oFactory.newArtifact("a28",
-                                          black,
-                                          "Atlas X Graphic");
+
         Artifact a29=oFactory.newArtifact("a29",
                                           black,
                                           "Atlas Y Graphic");

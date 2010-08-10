@@ -136,7 +136,7 @@
 
 
   <procedure name="slicer" src="line 10">
-      <output name="o"  type="PGM"     xsi:nil="true" opr:role="pgm"/>
+      <output name="o"  type="PGM"     xsi:nil="true" opr:role="out"/>
       <input  name="i1" type="IMG"     xsi:nil="true" opr:role="img"/>
       <input  name="i2" type="HDR"     xsi:nil="true" opr:role="hdr"/>
 
@@ -151,8 +151,8 @@
   </procedure>
 
   <procedure name="convert" src="line 12">
-      <output name="o"  type="JPG"     xsi:nil="true" opr:role="jpg"/>
-      <input  name="i"  type="PGM"     xsi:nil="true" opr:role="img"/>
+      <output name="o"  type="JPG"     xsi:nil="true" opr:role="out"/>
+      <input  name="i"  type="PGM"     xsi:nil="true" opr:role="in"/>
 
       <binding>
         <application src="line 5">
