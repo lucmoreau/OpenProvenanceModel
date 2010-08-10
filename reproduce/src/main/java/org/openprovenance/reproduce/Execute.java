@@ -18,12 +18,14 @@ import java.io.IOException;
 public class Execute {
 
     final OPMFactory oFactory;
+    final ArtifactFactory artifactFactory;
 
     final Utilities u;
 
-    public Execute(OPMFactory oFactory) throws SAXException, IOException {
+    public Execute(OPMFactory oFactory, ArtifactFactory artifactFactory) throws SAXException, IOException {
         this.oFactory=oFactory;
         this.u=new Utilities(oFactory);
+        this.artifactFactory=artifactFactory;
         u.loadLibrary();
     }
 
@@ -87,7 +89,8 @@ public class Execute {
             System.out.println(" role " + role + ", name " + name + ", type " + type);
             System.out.println(arguments);
             Artifact a=arguments.get(role);
-            generateOutputForArtifact(a,type,call,program,types,doc);
+            Artifact a2=artifactFactory.newArtifact(a);
+            generateOutputForArtifact(a2,type,call,program,types,doc);
         }
 
         for (Object in: ins) {
@@ -114,6 +117,7 @@ public class Execute {
         Element input=doc.createElementNS(Utilities.swift_XML_NS,"swift:input");
 
         String type=oFactory.getType(a);
+        if (type==null) throw new NullPointerException("Unknown input type for artifact " + a);
         if (type.equals("http://openprovenance.org/primitives#File")) {
             Element ref=doc.createElementNS(Utilities.swift_XML_NS,"swift:variableReference");
             ref.appendChild(doc.createTextNode(makeVariable(a)));
@@ -147,6 +151,7 @@ public class Execute {
         Element output=doc.createElementNS(Utilities.swift_XML_NS,"swift:output");
 
         String type=oFactory.getType(a);
+        if (type==null) throw new NullPointerException("Unknown type");
         if (type.equals("http://openprovenance.org/primitives#File")) {
             Element ref=doc.createElementNS(Utilities.swift_XML_NS,"swift:variableReference");
             ref.appendChild(doc.createTextNode(makeVariable(a)));
@@ -180,7 +185,7 @@ public class Execute {
     }
 
     public String makeFilename(String path) {
-        return "./" + path;
+        return path;
     }
 
     /**

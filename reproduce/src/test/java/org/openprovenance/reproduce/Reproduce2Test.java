@@ -25,7 +25,7 @@ import org.openrdf.elmo.sesame.SesameManager;
 import org.openrdf.rio.RDFFormat;
 import javax.xml.bind.JAXBException;
 
-public class Reproduce2Test extends org.openprovenance.model.Reproduce1Test {
+abstract public class Reproduce2Test extends org.openprovenance.model.Reproduce1Test {
 
     static String TEST_NS="http://example.com/reproduce2/";
 

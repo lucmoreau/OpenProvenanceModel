@@ -33,8 +33,13 @@ import java.io.IOException;
  * Unit test for Reproducibility .
  */
 
-public class Reproduce1Test extends org.openprovenance.model.Reproduce1Test
+abstract public class Reproduce1Test extends org.openprovenance.model.Reproduce1Test
 {
+    public ArtifactFactory aFactory= new ArtifactFactory () {
+            public Artifact newArtifact(Artifact a) {
+                return a;
+            }};
+
 
     Utilities u=new Utilities(oFactory);
 
@@ -178,7 +183,7 @@ public class Reproduce1Test extends org.openprovenance.model.Reproduce1Test
     }
                                         
     public void testReproduce2() throws Exception {
-        Execute exec=new Execute(oFactory);
+        Execute exec=new Execute(oFactory,aFactory);
 
         // need to be created from used edges
         HashMap args=new HashMap();
@@ -207,7 +212,7 @@ public class Reproduce1Test extends org.openprovenance.model.Reproduce1Test
 
 
     public void testReproduce3() throws Exception {
-        Execute exec=new Execute(oFactory);
+        Execute exec=new Execute(oFactory,aFactory);
 
         // need to be created from used edges
         HashMap args=new HashMap();

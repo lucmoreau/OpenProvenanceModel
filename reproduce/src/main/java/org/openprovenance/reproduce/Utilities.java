@@ -19,10 +19,18 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Attr;
 import org.xml.sax.SAXException;
 
+import java.io.StringWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import org.apache.xml.serialize.XMLSerializer;
+import org.apache.xml.serialize.OutputFormat;
+
+
 import org.jaxen.JaxenException;
 
 public class Utilities {
     static String swift_URI_PREFIX="http://openprovenance.org/reproducibility/swift#";
+    static String air_URI_PREFIX="http://openprovenance.org/reproducibility/air#";
     static String swift_XML_NS="http://ci.uchicago.edu/swift/2009/02/swiftscript";
     static String opr_XML_NS="http://openprovenance.org/reproducibility";
 
@@ -50,7 +58,7 @@ public class Utilities {
 		return builder.parse(stream);
 	}
 
-    static String predefinedProcedures="lib.xml";
+    static String predefinedProcedures="air.xml";
 
     Document library;
 
@@ -84,6 +92,10 @@ public class Utilities {
     public String getNameFromUri(String name) {
         if (name.startsWith(swift_URI_PREFIX)) {
             String s=name.substring(swift_URI_PREFIX.length());
+            System.out.println("Found " + s);
+            return s;
+        } else if (name.startsWith(air_URI_PREFIX)) {
+            String s=name.substring(air_URI_PREFIX.length());
             System.out.println("Found " + s);
             return s;
         } else {
@@ -172,6 +184,16 @@ public class Utilities {
         return attr.getValue();
     }
 
+    public void serializeToStandardOut(Element el, Document doc) throws IOException {
+        serialize(el,doc,System.out);
+    }
+
+    public void serialize(Element el, Document doc, OutputStream out) throws IOException {
+        OutputFormat of=new OutputFormat(doc,null,true);
+        XMLSerializer serial = new XMLSerializer(out, of);
+        serial.serialize(el);
+    }
+        
 
 
 }

@@ -42,7 +42,7 @@ import com.hp.hpl.jena.vocabulary.RDFS;
  * 
  * @author Evren Sirin
  */
-public class Jena3Test extends TestCase {
+abstract public class Jena3Test extends TestCase {
     public Jena3Test (String testName) {
         super(testName);
     }

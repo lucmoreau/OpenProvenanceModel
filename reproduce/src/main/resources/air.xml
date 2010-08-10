@@ -1,0 +1,178 @@
+<program xmlns="http://ci.uchicago.edu/swift/2009/02/swiftscript"
+         xmlns:opr="http://openprovenance.org/reproducibility"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<!-- taken from swift2/cog/modules/swift/tests/language/working-baseq13.xml -->
+  
+  <types>
+     	<type>
+     		<typename>WarpParameters</typename>
+     		<typealias>string</typealias>
+     		<typestructure></typestructure>
+     	</type>
+     	<type>
+     		<typename>PGM</typename>
+     		<typealias>string</typealias>
+     		<typestructure></typestructure>
+     	</type>
+     	<type>
+     		<typename>IMG</typename>
+     		<typealias>string</typealias>
+     		<typestructure></typestructure>
+     	</type>
+     	<type>
+     		<typename>HDR</typename>
+     		<typealias>string</typealias>
+     		<typestructure></typestructure>
+     	</type>
+     	<type>
+     		<typename>JPG</typename>
+     		<typealias>string</typealias>
+     		<typestructure></typestructure>
+     	</type>
+     	<type>
+     		<typename>AnatomyImage</typename>
+     		<typealias>string</typealias>
+     		<typestructure></typestructure>
+     	</type>
+     	<type>
+     		<typename>AnatomyHeader</typename>
+     		<typealias>string</typealias>
+     		<typestructure></typestructure>
+     	</type>
+     	<type>
+     		<typename>AtlasHdr</typename>
+     		<typealias>string</typealias>
+     		<typestructure></typestructure>
+     	</type>
+     	<type>
+     		<typename>AtlasImg</typename>
+     		<typealias>string</typealias>
+     		<typestructure></typestructure>
+     	</type>
+     	<type>
+     		<typename>ReferenceImage</typename>
+     		<typealias>string</typealias>
+     		<typestructure></typestructure>
+     	</type>
+     	<type>
+     		<typename>ReferenceHeader</typename>
+     		<typealias>string</typealias>
+     		<typestructure></typestructure>
+     	</type>
+     	<type>
+     		<typename>Resliced_IMG</typename>
+     		<typealias>string</typealias>
+     		<typestructure></typestructure>
+     	</type>
+     	<type>
+     		<typename>Resliced_HDR</typename>
+     		<typealias>string</typealias>
+     		<typestructure></typestructure>
+     	</type>
+     	<type>
+     		<typename>Resliced</typename>
+     		<typealias>string</typealias>
+     		<typestructure></typestructure>
+     	</type>
+  </types>  
+
+
+  <procedure name="align_warp" src="line 4">
+
+      <output name="o" type="WarpParameters"    xsi:nil="true" opr:role="out"/>
+
+      <input  name="i1" type="AnatomyImage"     xsi:nil="true" opr:role="img"/>
+      <input  name="i2" type="ReferenceImage"   xsi:nil="true" opr:role="imgRef"/>
+
+      <binding>
+        <application src="line 5">
+          <executable>align_warp</executable>
+          <function name="filename"><variableReference>i1</variableReference></function>
+          <function name="filename"><variableReference>i2</variableReference></function>
+          <function name="filename"><variableReference>o</variableReference></function>
+          <stringConstant>-m</stringConstant>
+          <stringConstant>12</stringConstant>
+          <stringConstant>-q</stringConstant>
+        </application>
+      </binding>
+  </procedure>
+
+
+
+
+  <procedure name="reslice" src="line 4">
+      <output name="o1"  type="Resliced_IMG"   xsi:nil="true" opr:role="img"/>
+      <output name="o2"  type="Resliced_HDR"   xsi:nil="true" opr:role="hdr"/>
+      <input  name="i1" type="WarpParameters"     xsi:nil="true" opr:role="in"/>
+
+      <binding>
+        <application src="line 5">
+          <executable>reslice</executable>
+          <function name="filename"><variableReference>i1</variableReference></function>
+          <function name="filename"><variableReference>o1</variableReference></function>
+        </application>
+      </binding>
+  </procedure>
+
+
+  <procedure name="softmean" src="line 4">
+      <output name="o1"  type="AtlasImg"   xsi:nil="true" opr:role="img"/>
+      <output name="o2"  type="AtlasHdr"   xsi:nil="true" opr:role="hdr"/>
+      <input  name="in1"  type="Resliced"   xsi:nil="true" opr:role="i1"/>
+      <input  name="hdr1"  type="Resliced"   xsi:nil="true" opr:role="h1"/>
+
+      <binding>
+        <application src="line 5">
+          <executable>softmean</executable>
+          <function name="filename"><variableReference>o2</variableReference></function>
+          <stringConstant>y</stringConstant>
+          <stringConstant>null</stringConstant>
+          <function name="filename"><variableReference>in1</variableReference></function>
+        </application>
+      </binding>
+  </procedure>
+
+
+  <procedure name="slicer" src="line 10">
+      <output name="o"  type="PGM"     xsi:nil="true" opr:role="pgm"/>
+      <input  name="i1" type="IMG"     xsi:nil="true" opr:role="img"/>
+      <input  name="i2" type="HDR"     xsi:nil="true" opr:role="hdr"/>
+
+      <binding>
+        <application src="line 5">
+          <executable>slicer</executable>
+          <function name="filename"><variableReference>i2</variableReference></function>
+          <stringConstant>-x .5</stringConstant>
+          <function name="filename"><variableReference>o</variableReference></function>
+        </application>
+      </binding>
+  </procedure>
+
+  <procedure name="convert" src="line 12">
+      <output name="o"  type="JPG"     xsi:nil="true" opr:role="jpg"/>
+      <input  name="i"  type="PGM"     xsi:nil="true" opr:role="img"/>
+
+      <binding>
+        <application src="line 5">
+          <executable>convert</executable>
+          <function name="filename"><variableReference>i</variableReference></function>
+          <function name="filename"><variableReference>o</variableReference></function>
+        </application>
+      </binding>
+  </procedure>
+
+  <!-- invocation code -->
+
+  <variable name="outfile" type="messagefile" isGlobal="false"><file name="q13greeting.txt"/></variable>
+  <variable name="c" type="countfile" isGlobal="false"><file name="count.txt"/></variable>
+  <call proc="greeting" src="line 19">
+    <output><variableReference>outfile</variableReference></output>
+    <input><stringConstant>hello from Swift</stringConstant></input>
+  </call>
+  <call proc="countwords" src="line 20">
+    <output><variableReference>c</variableReference></output>
+    <input><variableReference>outfile</variableReference></input>
+  </call>
+</program>

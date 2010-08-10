@@ -39,8 +39,6 @@ public class PC1FullTest
 
     public void testPC1Full() throws JAXBException
     {
-        OPMFactory oFactory=new OPMFactory();
-
         OPMGraph graph=makePC1FullGraph(oFactory);
 
         OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
@@ -55,6 +53,9 @@ public class PC1FullTest
 
 
     }
+
+    static String PATH_PROPERTY="http://openprovenance.org/primitives#path";
+    static String FILE_LOCATION="/home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/";
 
     public OPMGraph makePC1FullGraph(OPMFactory oFactory)
     {
@@ -120,6 +121,16 @@ public class PC1FullTest
         Artifact a1=oFactory.newArtifact("a1",
                                          black,
                                          "Reference Image");
+        oFactory.addAnnotation(a1,
+                               oFactory.newType("http://openprovenance.org/primitives#File"));
+        oFactory.addAnnotation(a1,
+                               oFactory.newEmbeddedAnnotation("an1_1",
+                                                              PATH_PROPERTY,
+                                                              FILE_LOCATION + "anatomy1.img",
+                                                              null));
+
+
+
         Artifact a2=oFactory.newArtifact("a2",
                                          black,
                                          "Reference Header");

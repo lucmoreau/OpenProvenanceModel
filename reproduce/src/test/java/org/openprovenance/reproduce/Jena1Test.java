@@ -18,7 +18,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 
-public class Jena1Test extends TestCase {
+abstract public class Jena1Test extends TestCase {
 
     public Jena1Test (String testName) {
         super(testName);
