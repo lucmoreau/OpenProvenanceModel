@@ -1,0 +1,966 @@
+@prefix opm: <http://openprovenance.org/ontology#> .
+@prefix pc1: <http://www.ipaw.info/pc1/> .
+
+
+pc1:black a opm:Account .
+
+pc1:p0 a opm:Process ;
+	opm:account pc1:black ;
+	opm:label "PC1Full Workflow" .
+
+pc1:p1 a opm:Process ;
+	opm:account pc1:black ;
+	opm:label "align_warp 1" .
+
+pc1:p2 a opm:Process ;
+	opm:account pc1:black ;
+	opm:label "align_warp 2" .
+
+pc1:p3 a opm:Process ;
+	opm:account pc1:black ;
+	opm:label "align_warp 3" .
+
+pc1:p4 a opm:Process ;
+	opm:account pc1:black ;
+	opm:label "align_warp 4" .
+
+pc1:p5 a opm:Process ;
+	opm:account pc1:black ;
+	opm:label "Reslice 1" .
+
+pc1:p6 a opm:Process ;
+	opm:account pc1:black ;
+	opm:label "Reslice 2" .
+
+pc1:p7 a opm:Process ;
+	opm:account pc1:black ;
+	opm:label "Reslice 3" .
+
+pc1:p8 a opm:Process ;
+	opm:account pc1:black ;
+	opm:label "Reslice 4" .
+
+pc1:p9 a opm:Process ;
+	opm:account pc1:black ;
+	opm:label "Softmean" .
+
+pc1:p10 a opm:Process ;
+	opm:account pc1:black ;
+	opm:label "Slicer 1" .
+
+pc1:p11 a opm:Process ;
+	opm:account pc1:black ;
+	opm:label "Slicer 2" .
+
+pc1:p12 a opm:Process ;
+	opm:account pc1:black ;
+	opm:label "Slicer 3" .
+
+pc1:p13 a opm:Process ;
+	opm:account pc1:black ;
+	opm:label "Convert 1" .
+
+pc1:p14 a opm:Process ;
+	opm:account pc1:black ;
+	opm:label "Convert 2" .
+
+pc1:p15 a opm:Process ;
+	opm:account pc1:black ;
+	opm:label "Convert 3" .
+
+pc1:ag1 a opm:Agent ;
+	opm:account pc1:black ;
+	opm:label "John Doe" .
+
+pc1:a1 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Reference Image" .
+
+pc1:a2 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Reference Header" .
+
+pc1:a3 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Anatomy I1" .
+
+pc1:a4 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Anatomy H1" .
+
+pc1:a5 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Anatomy I2" .
+
+pc1:a6 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Anatomy H2" .
+
+pc1:a7 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Anatomy I3" .
+
+pc1:a8 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Anatomy H3" .
+
+pc1:a9 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Anatomy I4" .
+
+pc1:a10 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Anatomy H4" .
+
+pc1:a11 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Warp Params1" .
+
+pc1:a12 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Warp Params2" .
+
+pc1:a13 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Warp Params3" .
+
+pc1:a14 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Warp Params4" .
+
+pc1:a15 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Resliced I1" .
+
+pc1:a16 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Resliced H1" .
+
+pc1:a17 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Resliced I2" .
+
+pc1:a18 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Resliced H2" .
+
+pc1:a19 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Resliced I3" .
+
+pc1:a20 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Resliced H3" .
+
+pc1:a21 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Resliced I4" .
+
+pc1:a22 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Resliced H4" .
+
+pc1:a23 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Atlas Image" .
+
+pc1:a24 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Atlas Header" .
+
+pc1:a25 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Atlas X Slice" .
+
+pc1:a26 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Atlas Y Slice" .
+
+pc1:a27 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Atlas Z Slice" .
+
+pc1:a28 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Atlas X Graphic" .
+
+pc1:a29 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Atlas Y Graphic" .
+
+pc1:a30 a opm:Artifact ;
+	opm:account pc1:black ;
+	opm:label "Atlas Z Graphic" .
+
+pc1:r_52 a opm:Role ;
+	opm:value "img" .
+
+pc1:u_53 a opm:Used ;
+	opm:effect pc1:p1 ;
+	opm:role pc1:r_52 ;
+	opm:cause pc1:a3 ;
+	opm:account pc1:black .
+
+pc1:r_54 a opm:Role ;
+	opm:value "hdr" .
+
+pc1:u_55 a opm:Used ;
+	opm:effect pc1:p1 ;
+	opm:role pc1:r_54 ;
+	opm:cause pc1:a4 ;
+	opm:account pc1:black .
+
+pc1:r_56 a opm:Role ;
+	opm:value "imgRef" .
+
+pc1:u_57 a opm:Used ;
+	opm:effect pc1:p1 ;
+	opm:role pc1:r_56 ;
+	opm:cause pc1:a1 ;
+	opm:account pc1:black .
+
+pc1:r_58 a opm:Role ;
+	opm:value "hdrRef" .
+
+pc1:u_59 a opm:Used ;
+	opm:effect pc1:p1 ;
+	opm:role pc1:r_58 ;
+	opm:cause pc1:a2 ;
+	opm:account pc1:black .
+
+pc1:r_60 a opm:Role ;
+	opm:value "img" .
+
+pc1:u_61 a opm:Used ;
+	opm:effect pc1:p2 ;
+	opm:role pc1:r_60 ;
+	opm:cause pc1:a5 ;
+	opm:account pc1:black .
+
+pc1:r_62 a opm:Role ;
+	opm:value "hdr" .
+
+pc1:u_63 a opm:Used ;
+	opm:effect pc1:p2 ;
+	opm:role pc1:r_62 ;
+	opm:cause pc1:a6 ;
+	opm:account pc1:black .
+
+pc1:r_64 a opm:Role ;
+	opm:value "imgRef" .
+
+pc1:u_65 a opm:Used ;
+	opm:effect pc1:p2 ;
+	opm:role pc1:r_64 ;
+	opm:cause pc1:a1 ;
+	opm:account pc1:black .
+
+pc1:r_66 a opm:Role ;
+	opm:value "hdrRef" .
+
+pc1:u_67 a opm:Used ;
+	opm:effect pc1:p2 ;
+	opm:role pc1:r_66 ;
+	opm:cause pc1:a2 ;
+	opm:account pc1:black .
+
+pc1:r_68 a opm:Role ;
+	opm:value "img" .
+
+pc1:u_69 a opm:Used ;
+	opm:effect pc1:p3 ;
+	opm:role pc1:r_68 ;
+	opm:cause pc1:a7 ;
+	opm:account pc1:black .
+
+pc1:r_70 a opm:Role ;
+	opm:value "hdr" .
+
+pc1:u_71 a opm:Used ;
+	opm:effect pc1:p3 ;
+	opm:role pc1:r_70 ;
+	opm:cause pc1:a8 ;
+	opm:account pc1:black .
+
+pc1:r_72 a opm:Role ;
+	opm:value "imgRef" .
+
+pc1:u_73 a opm:Used ;
+	opm:effect pc1:p3 ;
+	opm:role pc1:r_72 ;
+	opm:cause pc1:a1 ;
+	opm:account pc1:black .
+
+pc1:r_74 a opm:Role ;
+	opm:value "hdrRef" .
+
+pc1:u_75 a opm:Used ;
+	opm:effect pc1:p3 ;
+	opm:role pc1:r_74 ;
+	opm:cause pc1:a2 ;
+	opm:account pc1:black .
+
+pc1:r_76 a opm:Role ;
+	opm:value "img" .
+
+pc1:u_77 a opm:Used ;
+	opm:effect pc1:p4 ;
+	opm:role pc1:r_76 ;
+	opm:cause pc1:a9 ;
+	opm:account pc1:black .
+
+pc1:r_78 a opm:Role ;
+	opm:value "hdr" .
+
+pc1:u_79 a opm:Used ;
+	opm:effect pc1:p4 ;
+	opm:role pc1:r_78 ;
+	opm:cause pc1:a10 ;
+	opm:account pc1:black .
+
+pc1:r_80 a opm:Role ;
+	opm:value "imgRef" .
+
+pc1:u_81 a opm:Used ;
+	opm:effect pc1:p4 ;
+	opm:role pc1:r_80 ;
+	opm:cause pc1:a1 ;
+	opm:account pc1:black .
+
+pc1:r_82 a opm:Role ;
+	opm:value "hdrRef" .
+
+pc1:u_83 a opm:Used ;
+	opm:effect pc1:p4 ;
+	opm:role pc1:r_82 ;
+	opm:cause pc1:a2 ;
+	opm:account pc1:black .
+
+pc1:r_84 a opm:Role ;
+	opm:value "in" .
+
+pc1:u_85 a opm:Used ;
+	opm:effect pc1:p5 ;
+	opm:role pc1:r_84 ;
+	opm:cause pc1:a11 ;
+	opm:account pc1:black .
+
+pc1:r_86 a opm:Role ;
+	opm:value "in" .
+
+pc1:u_87 a opm:Used ;
+	opm:effect pc1:p6 ;
+	opm:role pc1:r_86 ;
+	opm:cause pc1:a12 ;
+	opm:account pc1:black .
+
+pc1:r_88 a opm:Role ;
+	opm:value "in" .
+
+pc1:u_89 a opm:Used ;
+	opm:effect pc1:p7 ;
+	opm:role pc1:r_88 ;
+	opm:cause pc1:a13 ;
+	opm:account pc1:black .
+
+pc1:r_90 a opm:Role ;
+	opm:value "in" .
+
+pc1:u_91 a opm:Used ;
+	opm:effect pc1:p8 ;
+	opm:role pc1:r_90 ;
+	opm:cause pc1:a14 ;
+	opm:account pc1:black .
+
+pc1:r_92 a opm:Role ;
+	opm:value "i1" .
+
+pc1:u_93 a opm:Used ;
+	opm:effect pc1:p9 ;
+	opm:role pc1:r_92 ;
+	opm:cause pc1:a15 ;
+	opm:account pc1:black .
+
+pc1:r_94 a opm:Role ;
+	opm:value "h1" .
+
+pc1:u_95 a opm:Used ;
+	opm:effect pc1:p9 ;
+	opm:role pc1:r_94 ;
+	opm:cause pc1:a16 ;
+	opm:account pc1:black .
+
+pc1:r_96 a opm:Role ;
+	opm:value "i2" .
+
+pc1:u_97 a opm:Used ;
+	opm:effect pc1:p9 ;
+	opm:role pc1:r_96 ;
+	opm:cause pc1:a17 ;
+	opm:account pc1:black .
+
+pc1:r_98 a opm:Role ;
+	opm:value "h2" .
+
+pc1:u_99 a opm:Used ;
+	opm:effect pc1:p9 ;
+	opm:role pc1:r_98 ;
+	opm:cause pc1:a18 ;
+	opm:account pc1:black .
+
+pc1:r_100 a opm:Role ;
+	opm:value "i3" .
+
+pc1:u_101 a opm:Used ;
+	opm:effect pc1:p9 ;
+	opm:role pc1:r_100 ;
+	opm:cause pc1:a19 ;
+	opm:account pc1:black .
+
+pc1:r_102 a opm:Role ;
+	opm:value "h3" .
+
+pc1:u_103 a opm:Used ;
+	opm:effect pc1:p9 ;
+	opm:role pc1:r_102 ;
+	opm:cause pc1:a20 ;
+	opm:account pc1:black .
+
+pc1:r_104 a opm:Role ;
+	opm:value "i4" .
+
+pc1:u_105 a opm:Used ;
+	opm:effect pc1:p9 ;
+	opm:role pc1:r_104 ;
+	opm:cause pc1:a21 ;
+	opm:account pc1:black .
+
+pc1:r_106 a opm:Role ;
+	opm:value "h4" .
+
+pc1:u_107 a opm:Used ;
+	opm:effect pc1:p9 ;
+	opm:role pc1:r_106 ;
+	opm:cause pc1:a22 ;
+	opm:account pc1:black .
+
+pc1:r_108 a opm:Role ;
+	opm:value "img" .
+
+pc1:u_109 a opm:Used ;
+	opm:effect pc1:p10 ;
+	opm:role pc1:r_108 ;
+	opm:cause pc1:a23 ;
+	opm:account pc1:black .
+
+pc1:r_110 a opm:Role ;
+	opm:value "hdr" .
+
+pc1:u_111 a opm:Used ;
+	opm:effect pc1:p10 ;
+	opm:role pc1:r_110 ;
+	opm:cause pc1:a24 ;
+	opm:account pc1:black .
+
+pc1:r_112 a opm:Role ;
+	opm:value "img" .
+
+pc1:u_113 a opm:Used ;
+	opm:effect pc1:p11 ;
+	opm:role pc1:r_112 ;
+	opm:cause pc1:a23 ;
+	opm:account pc1:black .
+
+pc1:r_114 a opm:Role ;
+	opm:value "hdr" .
+
+pc1:u_115 a opm:Used ;
+	opm:effect pc1:p11 ;
+	opm:role pc1:r_114 ;
+	opm:cause pc1:a24 ;
+	opm:account pc1:black .
+
+pc1:r_116 a opm:Role ;
+	opm:value "img" .
+
+pc1:u_117 a opm:Used ;
+	opm:effect pc1:p12 ;
+	opm:role pc1:r_116 ;
+	opm:cause pc1:a23 ;
+	opm:account pc1:black .
+
+pc1:r_118 a opm:Role ;
+	opm:value "hdr" .
+
+pc1:u_119 a opm:Used ;
+	opm:effect pc1:p12 ;
+	opm:role pc1:r_118 ;
+	opm:cause pc1:a24 ;
+	opm:account pc1:black .
+
+pc1:r_120 a opm:Role ;
+	opm:value "in" .
+
+pc1:u_121 a opm:Used ;
+	opm:effect pc1:p13 ;
+	opm:role pc1:r_120 ;
+	opm:cause pc1:a25 ;
+	opm:account pc1:black .
+
+pc1:r_122 a opm:Role ;
+	opm:value "in" .
+
+pc1:u_123 a opm:Used ;
+	opm:effect pc1:p14 ;
+	opm:role pc1:r_122 ;
+	opm:cause pc1:a26 ;
+	opm:account pc1:black .
+
+pc1:r_124 a opm:Role ;
+	opm:value "in" .
+
+pc1:u_125 a opm:Used ;
+	opm:effect pc1:p15 ;
+	opm:role pc1:r_124 ;
+	opm:cause pc1:a27 ;
+	opm:account pc1:black .
+
+pc1:r_126 a opm:Role ;
+	opm:value "out" .
+
+pc1:g_127 a opm:WasGeneratedBy ;
+	opm:cause pc1:p1 ;
+	opm:role pc1:r_126 ;
+	opm:effect pc1:a11 ;
+	opm:account pc1:black .
+
+pc1:r_128 a opm:Role ;
+	opm:value "out" .
+
+pc1:g_129 a opm:WasGeneratedBy ;
+	opm:cause pc1:p2 ;
+	opm:role pc1:r_128 ;
+	opm:effect pc1:a12 ;
+	opm:account pc1:black .
+
+pc1:r_130 a opm:Role ;
+	opm:value "out" .
+
+pc1:g_131 a opm:WasGeneratedBy ;
+	opm:cause pc1:p3 ;
+	opm:role pc1:r_130 ;
+	opm:effect pc1:a13 ;
+	opm:account pc1:black .
+
+pc1:r_132 a opm:Role ;
+	opm:value "out" .
+
+pc1:g_133 a opm:WasGeneratedBy ;
+	opm:cause pc1:p4 ;
+	opm:role pc1:r_132 ;
+	opm:effect pc1:a14 ;
+	opm:account pc1:black .
+
+pc1:r_134 a opm:Role ;
+	opm:value "img" .
+
+pc1:g_135 a opm:WasGeneratedBy ;
+	opm:cause pc1:p5 ;
+	opm:role pc1:r_134 ;
+	opm:effect pc1:a15 ;
+	opm:account pc1:black .
+
+pc1:r_136 a opm:Role ;
+	opm:value "hdr" .
+
+pc1:g_137 a opm:WasGeneratedBy ;
+	opm:cause pc1:p5 ;
+	opm:role pc1:r_136 ;
+	opm:effect pc1:a16 ;
+	opm:account pc1:black .
+
+pc1:r_138 a opm:Role ;
+	opm:value "img" .
+
+pc1:g_139 a opm:WasGeneratedBy ;
+	opm:cause pc1:p6 ;
+	opm:role pc1:r_138 ;
+	opm:effect pc1:a17 ;
+	opm:account pc1:black .
+
+pc1:r_140 a opm:Role ;
+	opm:value "hdr" .
+
+pc1:g_141 a opm:WasGeneratedBy ;
+	opm:cause pc1:p6 ;
+	opm:role pc1:r_140 ;
+	opm:effect pc1:a18 ;
+	opm:account pc1:black .
+
+pc1:r_142 a opm:Role ;
+	opm:value "img" .
+
+pc1:g_143 a opm:WasGeneratedBy ;
+	opm:cause pc1:p7 ;
+	opm:role pc1:r_142 ;
+	opm:effect pc1:a19 ;
+	opm:account pc1:black .
+
+pc1:r_144 a opm:Role ;
+	opm:value "hdr" .
+
+pc1:g_145 a opm:WasGeneratedBy ;
+	opm:cause pc1:p7 ;
+	opm:role pc1:r_144 ;
+	opm:effect pc1:a20 ;
+	opm:account pc1:black .
+
+pc1:r_146 a opm:Role ;
+	opm:value "img" .
+
+pc1:g_147 a opm:WasGeneratedBy ;
+	opm:cause pc1:p8 ;
+	opm:role pc1:r_146 ;
+	opm:effect pc1:a21 ;
+	opm:account pc1:black .
+
+pc1:r_148 a opm:Role ;
+	opm:value "hdr" .
+
+pc1:g_149 a opm:WasGeneratedBy ;
+	opm:cause pc1:p8 ;
+	opm:role pc1:r_148 ;
+	opm:effect pc1:a22 ;
+	opm:account pc1:black .
+
+pc1:r_150 a opm:Role ;
+	opm:value "img" .
+
+pc1:g_151 a opm:WasGeneratedBy ;
+	opm:cause pc1:p9 ;
+	opm:role pc1:r_150 ;
+	opm:effect pc1:a23 ;
+	opm:account pc1:black .
+
+pc1:r_152 a opm:Role ;
+	opm:value "hdr" .
+
+pc1:g_153 a opm:WasGeneratedBy ;
+	opm:cause pc1:p9 ;
+	opm:role pc1:r_152 ;
+	opm:effect pc1:a24 ;
+	opm:account pc1:black .
+
+pc1:r_154 a opm:Role ;
+	opm:value "out" .
+
+pc1:g_155 a opm:WasGeneratedBy ;
+	opm:cause pc1:p10 ;
+	opm:role pc1:r_154 ;
+	opm:effect pc1:a25 ;
+	opm:account pc1:black .
+
+pc1:r_156 a opm:Role ;
+	opm:value "out" .
+
+pc1:g_157 a opm:WasGeneratedBy ;
+	opm:cause pc1:p11 ;
+	opm:role pc1:r_156 ;
+	opm:effect pc1:a26 ;
+	opm:account pc1:black .
+
+pc1:r_158 a opm:Role ;
+	opm:value "out" .
+
+pc1:g_159 a opm:WasGeneratedBy ;
+	opm:cause pc1:p12 ;
+	opm:role pc1:r_158 ;
+	opm:effect pc1:a27 ;
+	opm:account pc1:black .
+
+pc1:r_160 a opm:Role ;
+	opm:value "out" .
+
+pc1:g_161 a opm:WasGeneratedBy ;
+	opm:cause pc1:p13 ;
+	opm:role pc1:r_160 ;
+	opm:effect pc1:a28 ;
+	opm:account pc1:black .
+
+pc1:r_162 a opm:Role ;
+	opm:value "out" .
+
+pc1:g_163 a opm:WasGeneratedBy ;
+	opm:cause pc1:p14 ;
+	opm:role pc1:r_162 ;
+	opm:effect pc1:a29 ;
+	opm:account pc1:black .
+
+pc1:r_164 a opm:Role ;
+	opm:value "out" .
+
+pc1:g_165 a opm:WasGeneratedBy ;
+	opm:cause pc1:p15 ;
+	opm:role pc1:r_164 ;
+	opm:effect pc1:a30 ;
+	opm:account pc1:black .
+
+pc1:d_166 a opm:WasDerivedFrom ;
+	opm:cause pc1:a1 ;
+	opm:effect pc1:a11 ;
+	opm:account pc1:black .
+
+pc1:d_167 a opm:WasDerivedFrom ;
+	opm:cause pc1:a2 ;
+	opm:effect pc1:a11 ;
+	opm:account pc1:black .
+
+pc1:d_168 a opm:WasDerivedFrom ;
+	opm:cause pc1:a3 ;
+	opm:effect pc1:a11 ;
+	opm:account pc1:black .
+
+pc1:d_169 a opm:WasDerivedFrom ;
+	opm:cause pc1:a4 ;
+	opm:effect pc1:a11 ;
+	opm:account pc1:black .
+
+pc1:d_170 a opm:WasDerivedFrom ;
+	opm:cause pc1:a1 ;
+	opm:effect pc1:a12 ;
+	opm:account pc1:black .
+
+pc1:d_171 a opm:WasDerivedFrom ;
+	opm:cause pc1:a2 ;
+	opm:effect pc1:a12 ;
+	opm:account pc1:black .
+
+pc1:d_172 a opm:WasDerivedFrom ;
+	opm:cause pc1:a5 ;
+	opm:effect pc1:a12 ;
+	opm:account pc1:black .
+
+pc1:d_173 a opm:WasDerivedFrom ;
+	opm:cause pc1:a6 ;
+	opm:effect pc1:a12 ;
+	opm:account pc1:black .
+
+pc1:d_174 a opm:WasDerivedFrom ;
+	opm:cause pc1:a1 ;
+	opm:effect pc1:a13 ;
+	opm:account pc1:black .
+
+pc1:d_175 a opm:WasDerivedFrom ;
+	opm:cause pc1:a2 ;
+	opm:effect pc1:a13 ;
+	opm:account pc1:black .
+
+pc1:d_176 a opm:WasDerivedFrom ;
+	opm:cause pc1:a7 ;
+	opm:effect pc1:a13 ;
+	opm:account pc1:black .
+
+pc1:d_177 a opm:WasDerivedFrom ;
+	opm:cause pc1:a8 ;
+	opm:effect pc1:a13 ;
+	opm:account pc1:black .
+
+pc1:d_178 a opm:WasDerivedFrom ;
+	opm:cause pc1:a1 ;
+	opm:effect pc1:a14 ;
+	opm:account pc1:black .
+
+pc1:d_179 a opm:WasDerivedFrom ;
+	opm:cause pc1:a2 ;
+	opm:effect pc1:a14 ;
+	opm:account pc1:black .
+
+pc1:d_180 a opm:WasDerivedFrom ;
+	opm:cause pc1:a9 ;
+	opm:effect pc1:a14 ;
+	opm:account pc1:black .
+
+pc1:d_181 a opm:WasDerivedFrom ;
+	opm:cause pc1:a10 ;
+	opm:effect pc1:a14 ;
+	opm:account pc1:black .
+
+pc1:d_182 a opm:WasDerivedFrom ;
+	opm:cause pc1:a11 ;
+	opm:effect pc1:a15 ;
+	opm:account pc1:black .
+
+pc1:d_183 a opm:WasDerivedFrom ;
+	opm:cause pc1:a11 ;
+	opm:effect pc1:a16 ;
+	opm:account pc1:black .
+
+pc1:d_184 a opm:WasDerivedFrom ;
+	opm:cause pc1:a12 ;
+	opm:effect pc1:a17 ;
+	opm:account pc1:black .
+
+pc1:d_185 a opm:WasDerivedFrom ;
+	opm:cause pc1:a12 ;
+	opm:effect pc1:a18 ;
+	opm:account pc1:black .
+
+pc1:d_186 a opm:WasDerivedFrom ;
+	opm:cause pc1:a13 ;
+	opm:effect pc1:a19 ;
+	opm:account pc1:black .
+
+pc1:d_187 a opm:WasDerivedFrom ;
+	opm:cause pc1:a13 ;
+	opm:effect pc1:a20 ;
+	opm:account pc1:black .
+
+pc1:d_188 a opm:WasDerivedFrom ;
+	opm:cause pc1:a14 ;
+	opm:effect pc1:a21 ;
+	opm:account pc1:black .
+
+pc1:d_189 a opm:WasDerivedFrom ;
+	opm:cause pc1:a14 ;
+	opm:effect pc1:a22 ;
+	opm:account pc1:black .
+
+pc1:d_190 a opm:WasDerivedFrom ;
+	opm:cause pc1:a15 ;
+	opm:effect pc1:a23 ;
+	opm:account pc1:black .
+
+pc1:d_191 a opm:WasDerivedFrom ;
+	opm:cause pc1:a16 ;
+	opm:effect pc1:a23 ;
+	opm:account pc1:black .
+
+pc1:d_192 a opm:WasDerivedFrom ;
+	opm:cause pc1:a17 ;
+	opm:effect pc1:a23 ;
+	opm:account pc1:black .
+
+pc1:d_193 a opm:WasDerivedFrom ;
+	opm:cause pc1:a18 ;
+	opm:effect pc1:a23 ;
+	opm:account pc1:black .
+
+pc1:d_194 a opm:WasDerivedFrom ;
+	opm:cause pc1:a19 ;
+	opm:effect pc1:a23 ;
+	opm:account pc1:black .
+
+pc1:d_195 a opm:WasDerivedFrom ;
+	opm:cause pc1:a20 ;
+	opm:effect pc1:a23 ;
+	opm:account pc1:black .
+
+pc1:d_196 a opm:WasDerivedFrom ;
+	opm:cause pc1:a21 ;
+	opm:effect pc1:a23 ;
+	opm:account pc1:black .
+
+pc1:d_197 a opm:WasDerivedFrom ;
+	opm:cause pc1:a22 ;
+	opm:effect pc1:a23 ;
+	opm:account pc1:black .
+
+pc1:d_198 a opm:WasDerivedFrom ;
+	opm:cause pc1:a15 ;
+	opm:effect pc1:a24 ;
+	opm:account pc1:black .
+
+pc1:d_199 a opm:WasDerivedFrom ;
+	opm:cause pc1:a16 ;
+	opm:effect pc1:a24 ;
+	opm:account pc1:black .
+
+pc1:d_200 a opm:WasDerivedFrom ;
+	opm:cause pc1:a17 ;
+	opm:effect pc1:a24 ;
+	opm:account pc1:black .
+
+pc1:d_201 a opm:WasDerivedFrom ;
+	opm:cause pc1:a18 ;
+	opm:effect pc1:a24 ;
+	opm:account pc1:black .
+
+pc1:d_202 a opm:WasDerivedFrom ;
+	opm:cause pc1:a19 ;
+	opm:effect pc1:a24 ;
+	opm:account pc1:black .
+
+pc1:d_203 a opm:WasDerivedFrom ;
+	opm:cause pc1:a20 ;
+	opm:effect pc1:a24 ;
+	opm:account pc1:black .
+
+pc1:d_204 a opm:WasDerivedFrom ;
+	opm:cause pc1:a21 ;
+	opm:effect pc1:a24 ;
+	opm:account pc1:black .
+
+pc1:d_205 a opm:WasDerivedFrom ;
+	opm:cause pc1:a22 ;
+	opm:effect pc1:a24 ;
+	opm:account pc1:black .
+
+pc1:d_206 a opm:WasDerivedFrom ;
+	opm:cause pc1:a23 ;
+	opm:effect pc1:a25 ;
+	opm:account pc1:black .
+
+pc1:d_207 a opm:WasDerivedFrom ;
+	opm:cause pc1:a24 ;
+	opm:effect pc1:a25 ;
+	opm:account pc1:black .
+
+pc1:d_208 a opm:WasDerivedFrom ;
+	opm:cause pc1:a23 ;
+	opm:effect pc1:a26 ;
+	opm:account pc1:black .
+
+pc1:d_209 a opm:WasDerivedFrom ;
+	opm:cause pc1:a24 ;
+	opm:effect pc1:a26 ;
+	opm:account pc1:black .
+
+pc1:d_210 a opm:WasDerivedFrom ;
+	opm:cause pc1:a23 ;
+	opm:effect pc1:a27 ;
+	opm:account pc1:black .
+
+pc1:d_211 a opm:WasDerivedFrom ;
+	opm:cause pc1:a24 ;
+	opm:effect pc1:a27 ;
+	opm:account pc1:black .
+
+pc1:d_212 a opm:WasDerivedFrom ;
+	opm:cause pc1:a25 ;
+	opm:effect pc1:a28 ;
+	opm:account pc1:black .
+
+pc1:d_213 a opm:WasDerivedFrom ;
+	opm:cause pc1:a26 ;
+	opm:effect pc1:a29 ;
+	opm:account pc1:black .
+
+pc1:d_214 a opm:WasDerivedFrom ;
+	opm:cause pc1:a27 ;
+	opm:effect pc1:a30 ;
+	opm:account pc1:black .
+
+pc1:r_215 a opm:Role ;
+	opm:value "user" .
+
+pc1:c_216 a opm:WasControlledBy ;
+	opm:effect pc1:p1 ;
+	opm:role pc1:r_215 ;
+	opm:cause pc1:ag1 ;
+	opm:account pc1:black .
+
+pc1:gr_217 a opm:OPMGraph ;
+	opm:hasAccount pc1:black ;
+	opm:hasProcess pc1:p13 , pc1:p14 , pc1:p15 , pc1:p10 , pc1:p11 , pc1:p12 , pc1:p8 , pc1:p9 , pc1:p6 , pc1:p7 , pc1:p5 , pc1:p4 , pc1:p3 , pc1:p2 , pc1:p1 ;
+	opm:hasArtifact pc1:a28 , pc1:a27 , pc1:a29 , pc1:a24 , pc1:a23 , pc1:a26 , pc1:a25 , pc1:a20 , pc1:a8 , pc1:a7 , pc1:a22 , pc1:a21 , pc1:a9 , pc1:a5 , pc1:a6 , pc1:a3 , pc1:a4 , pc1:a1 , pc1:a2 , pc1:a15 , pc1:a14 , pc1:a13 , pc1:a12 , pc1:a19 , pc1:a18 , pc1:a17 , pc1:a16 , pc1:a30 , pc1:a11 , pc1:a10 ;
+	opm:hasDependency pc1:u_73 , pc1:g_147 , pc1:u_75 , pc1:g_145 , pc1:u_77 , pc1:u_79 , pc1:g_149 , pc1:d_212 , pc1:u_103 , pc1:d_213 , pc1:d_210 , pc1:u_105 , pc1:d_211 , pc1:u_107 , pc1:u_109 , pc1:u_111 , pc1:u_113 , pc1:d_214 , pc1:d_168 , pc1:d_169 , pc1:g_143 , pc1:d_166 , pc1:d_167 , pc1:u_71 , pc1:g_141 , pc1:g_157 , pc1:u_65 , pc1:g_159 , pc1:u_63 , pc1:u_69 , pc1:u_67 , pc1:d_200 , pc1:d_201 , pc1:d_202 , pc1:d_208 , pc1:d_207 , pc1:d_209 , pc1:d_204 , pc1:u_101 , pc1:d_203 , pc1:d_170 , pc1:d_171 , pc1:d_206 , pc1:d_205 , pc1:d_172 , pc1:d_173 , pc1:d_174 , pc1:d_175 , pc1:g_151 , pc1:d_176 , pc1:d_177 , pc1:g_153 , pc1:u_61 , pc1:d_178 , pc1:d_179 , pc1:g_155 , pc1:u_99 , pc1:u_95 , pc1:u_97 , pc1:u_125 , pc1:g_165 , pc1:u_91 , pc1:g_163 , pc1:u_93 , pc1:g_161 , pc1:u_89 , pc1:u_87 , pc1:u_85 , pc1:u_119 , pc1:u_117 , pc1:u_115 , pc1:u_123 , pc1:u_121 , pc1:u_83 , pc1:u_81 , pc1:d_189 , pc1:d_188 , pc1:d_185 , pc1:d_184 , pc1:u_59 , pc1:d_187 , pc1:d_186 , pc1:d_181 , pc1:d_180 , pc1:u_55 , pc1:d_183 , pc1:d_182 , pc1:u_57 , pc1:u_53 , pc1:g_127 , pc1:g_129 , pc1:g_133 , pc1:d_199 , pc1:g_131 , pc1:d_198 , pc1:d_197 , pc1:d_196 , pc1:d_195 , pc1:d_194 , pc1:d_193 , pc1:d_192 , pc1:d_191 , pc1:d_190 , pc1:g_139 , pc1:g_137 , pc1:g_135 .
