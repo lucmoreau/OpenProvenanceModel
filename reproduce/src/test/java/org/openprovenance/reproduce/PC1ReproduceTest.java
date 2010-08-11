@@ -63,10 +63,7 @@ public class PC1ReproduceTest extends TestCase {
 
     public PrimitiveEnvironment primEnv=new OpenProvenanceEnvironment();
 
-    public ArtifactFactory aFactory= new ArtifactFactory () {
-            public Artifact newArtifact(Artifact a) {
-                return a;
-            }};
+    public ArtifactFactory aFactory= new ArtifactGenerator (oFactory);
 
 
     Utilities u=new Utilities(oFactory);

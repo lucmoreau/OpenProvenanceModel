@@ -813,7 +813,7 @@ public class OPMFactory implements CommonURIs {
                                   List<JAXBElement<? extends org.openprovenance.model.EmbeddedAnnotation>> anns) {
         for (JAXBElement<? extends org.openprovenance.model.EmbeddedAnnotation> ann: anns) {
             EmbeddedAnnotation ea=ann.getValue();
-            if (ea.getId()!=null) 
+            //if (ea.getId()!=null)  Luc
             addAnnotation(res,newEmbeddedAnnotation(ea.getId(),
                                                     ea.getProperty(),
                                                     ea.getAccount(),
