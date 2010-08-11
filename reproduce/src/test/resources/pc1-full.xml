@@ -147,7 +147,7 @@
             <opm:type value="http://openprovenance.org/primitives#File"/>
             <opm:annotation id="an1_a1">
                 <opm:property uri="http://openprovenance.org/primitives#path">
-                    <opm:value xsi:type="xsd:string">//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/reference.img</opm:value>
+                    <opm:value xsi:type="xsd:string">/shomewhere/pc1/reference.img</opm:value>
                 </opm:property>
             </opm:annotation>
         </opm:artifact>
@@ -157,7 +157,7 @@
             <opm:type value="http://openprovenance.org/primitives#File"/>
             <opm:annotation id="an1_a2">
                 <opm:property uri="http://openprovenance.org/primitives#path">
-                    <opm:value xsi:type="xsd:string">//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/reference.hdr</opm:value>
+                    <opm:value xsi:type="xsd:string">/shomewhere/pc1/reference.hdr</opm:value>
                 </opm:property>
             </opm:annotation>
         </opm:artifact>
@@ -167,7 +167,7 @@
             <opm:type value="http://openprovenance.org/primitives#File"/>
             <opm:annotation id="an1_a5">
                 <opm:property uri="http://openprovenance.org/primitives#path">
-                    <opm:value xsi:type="xsd:string">//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/anatomy2.img</opm:value>
+                    <opm:value xsi:type="xsd:string">/shomewhere/pc1/anatomy2.img</opm:value>
                 </opm:property>
             </opm:annotation>
         </opm:artifact>
@@ -177,7 +177,7 @@
             <opm:type value="http://openprovenance.org/primitives#File"/>
             <opm:annotation id="an1_a6">
                 <opm:property uri="http://openprovenance.org/primitives#path">
-                    <opm:value xsi:type="xsd:string">//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/anatomy2.hdr</opm:value>
+                    <opm:value xsi:type="xsd:string">/shomewhere/pc1/anatomy2.hdr</opm:value>
                 </opm:property>
             </opm:annotation>
         </opm:artifact>
@@ -187,7 +187,7 @@
             <opm:type value="http://openprovenance.org/primitives#File"/>
             <opm:annotation id="an1_a3">
                 <opm:property uri="http://openprovenance.org/primitives#path">
-                    <opm:value xsi:type="xsd:string">//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/anatomy1.img</opm:value>
+                    <opm:value xsi:type="xsd:string">/shomewhere/pc1/anatomy1.img</opm:value>
                 </opm:property>
             </opm:annotation>
         </opm:artifact>
@@ -197,7 +197,7 @@
             <opm:type value="http://openprovenance.org/primitives#File"/>
             <opm:annotation id="an1_a4">
                 <opm:property uri="http://openprovenance.org/primitives#path">
-                    <opm:value xsi:type="xsd:string">//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/anatomy1.hdr</opm:value>
+                    <opm:value xsi:type="xsd:string">/shomewhere/pc1/anatomy1.hdr</opm:value>
                 </opm:property>
             </opm:annotation>
         </opm:artifact>
@@ -207,7 +207,7 @@
             <opm:type value="http://openprovenance.org/primitives#File"/>
             <opm:annotation id="an1_a7">
                 <opm:property uri="http://openprovenance.org/primitives#path">
-                    <opm:value xsi:type="xsd:string">//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/anatomy3.img</opm:value>
+                    <opm:value xsi:type="xsd:string">/shomewhere/pc1/anatomy3.img</opm:value>
                 </opm:property>
             </opm:annotation>
         </opm:artifact>
@@ -217,7 +217,7 @@
             <opm:type value="http://openprovenance.org/primitives#File"/>
             <opm:annotation id="an1_a8">
                 <opm:property uri="http://openprovenance.org/primitives#path">
-                    <opm:value xsi:type="xsd:string">//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/anatomy3.hdr</opm:value>
+                    <opm:value xsi:type="xsd:string">/shomewhere/pc1/anatomy3.hdr</opm:value>
                 </opm:property>
             </opm:annotation>
         </opm:artifact>
@@ -227,7 +227,7 @@
             <opm:type value="http://openprovenance.org/primitives#File"/>
             <opm:annotation id="an1_a9">
                 <opm:property uri="http://openprovenance.org/primitives#path">
-                    <opm:value xsi:type="xsd:string">//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/anatomy4.img</opm:value>
+                    <opm:value xsi:type="xsd:string">/shomewhere/pc1/anatomy4.img</opm:value>
                 </opm:property>
             </opm:annotation>
         </opm:artifact>
@@ -237,7 +237,7 @@
             <opm:type value="http://openprovenance.org/primitives#File"/>
             <opm:annotation id="an1_a10">
                 <opm:property uri="http://openprovenance.org/primitives#path">
-                    <opm:value xsi:type="xsd:string">//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/anatomy4.hdr</opm:value>
+                    <opm:value xsi:type="xsd:string">/shomewhere/pc1/anatomy4.hdr</opm:value>
                 </opm:property>
             </opm:annotation>
         </opm:artifact>
@@ -254,14 +254,32 @@
         <opm:artifact id="a12">
             <opm:account ref="black"/>
             <opm:label value="Warp Params2"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a12">
+                <opm:property uri="http://openprovenance.org/primitives#path">
+                    <opm:value xsi:type="xsd:string">./params2.warp</opm:value>
+                </opm:property>
+            </opm:annotation>
         </opm:artifact>
         <opm:artifact id="a13">
             <opm:account ref="black"/>
             <opm:label value="Warp Params3"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a13">
+                <opm:property uri="http://openprovenance.org/primitives#path">
+                    <opm:value xsi:type="xsd:string">./params3.warp</opm:value>
+                </opm:property>
+            </opm:annotation>
         </opm:artifact>
         <opm:artifact id="a14">
             <opm:account ref="black"/>
             <opm:label value="Warp Params4"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a14">
+                <opm:property uri="http://openprovenance.org/primitives#path">
+                    <opm:value xsi:type="xsd:string">./params3.warp</opm:value>
+                </opm:property>
+            </opm:annotation>
         </opm:artifact>
         <opm:artifact id="a15">
             <opm:account ref="black"/>
@@ -286,26 +304,62 @@
         <opm:artifact id="a17">
             <opm:account ref="black"/>
             <opm:label value="Resliced I2"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a17">
+                <opm:property uri="http://openprovenance.org/primitives#path">
+                    <opm:value xsi:type="xsd:string">./resliced2.img</opm:value>
+                </opm:property>
+            </opm:annotation>
         </opm:artifact>
         <opm:artifact id="a18">
             <opm:account ref="black"/>
             <opm:label value="Resliced H2"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a18">
+                <opm:property uri="http://openprovenance.org/primitives#path">
+                    <opm:value xsi:type="xsd:string">./resliced2.hdr</opm:value>
+                </opm:property>
+            </opm:annotation>
         </opm:artifact>
         <opm:artifact id="a19">
             <opm:account ref="black"/>
             <opm:label value="Resliced I3"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a19">
+                <opm:property uri="http://openprovenance.org/primitives#path">
+                    <opm:value xsi:type="xsd:string">./resliced3.img</opm:value>
+                </opm:property>
+            </opm:annotation>
         </opm:artifact>
         <opm:artifact id="a20">
             <opm:account ref="black"/>
             <opm:label value="Resliced H3"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a20">
+                <opm:property uri="http://openprovenance.org/primitives#path">
+                    <opm:value xsi:type="xsd:string">./resliced3.hdr</opm:value>
+                </opm:property>
+            </opm:annotation>
         </opm:artifact>
         <opm:artifact id="a21">
             <opm:account ref="black"/>
             <opm:label value="Resliced I4"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a21">
+                <opm:property uri="http://openprovenance.org/primitives#path">
+                    <opm:value xsi:type="xsd:string">./resliced4.img</opm:value>
+                </opm:property>
+            </opm:annotation>
         </opm:artifact>
         <opm:artifact id="a22">
             <opm:account ref="black"/>
             <opm:label value="Resliced H4"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a22">
+                <opm:property uri="http://openprovenance.org/primitives#path">
+                    <opm:value xsi:type="xsd:string">./resliced4.hdr</opm:value>
+                </opm:property>
+            </opm:annotation>
         </opm:artifact>
         <opm:artifact id="a23">
             <opm:account ref="black"/>
@@ -340,10 +394,22 @@
         <opm:artifact id="a26">
             <opm:account ref="black"/>
             <opm:label value="Atlas Y Slice"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a26">
+                <opm:property uri="http://openprovenance.org/primitives#path">
+                    <opm:value xsi:type="xsd:string">./atlas-y.pgm</opm:value>
+                </opm:property>
+            </opm:annotation>
         </opm:artifact>
         <opm:artifact id="a27">
             <opm:account ref="black"/>
             <opm:label value="Atlas Z Slice"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a27">
+                <opm:property uri="http://openprovenance.org/primitives#path">
+                    <opm:value xsi:type="xsd:string">./atlas-z.pgm</opm:value>
+                </opm:property>
+            </opm:annotation>
         </opm:artifact>
         <opm:artifact id="a28">
             <opm:account ref="black"/>
@@ -358,10 +424,22 @@
         <opm:artifact id="a29">
             <opm:account ref="black"/>
             <opm:label value="Atlas Y Graphic"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a29">
+                <opm:property uri="http://openprovenance.org/primitives#path">
+                    <opm:value xsi:type="xsd:string">./atlas-y.jpg</opm:value>
+                </opm:property>
+            </opm:annotation>
         </opm:artifact>
         <opm:artifact id="a30">
             <opm:account ref="black"/>
             <opm:label value="Atlas Z Graphic"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a30">
+                <opm:property uri="http://openprovenance.org/primitives#path">
+                    <opm:value xsi:type="xsd:string">./atlas-z.jpg</opm:value>
+                </opm:property>
+            </opm:annotation>
         </opm:artifact>
     </opm:artifacts>
     <opm:agents/>

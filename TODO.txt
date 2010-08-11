@@ -5,8 +5,11 @@ Reproducibility
 
 - modify factory so that it changes locations of files
 - modify factory so that it supports input files
+   current hardcoded in factory
 
 - handle NS automatically (currently, statitc variable PC1_NS)
+
+- softmean is configured to take only two images as input.
     
 
 Validation

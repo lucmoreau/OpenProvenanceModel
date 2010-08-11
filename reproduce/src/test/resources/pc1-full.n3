@@ -231,7 +231,7 @@ pc1:an1_a1 a opm:Annotation .
 
 pc1:pr_23 a opm:Property ;
 	opm:uri "http://openprovenance.org/primitives#path" ;
-	opm:value "//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/reference.img" .
+	opm:value "/shomewhere/pc1/reference.img" .
 
 pc1:an1_a1 opm:property pc1:pr_23 .
 
@@ -246,7 +246,7 @@ pc1:an1_a2 a opm:Annotation .
 
 pc1:pr_24 a opm:Property ;
 	opm:uri "http://openprovenance.org/primitives#path" ;
-	opm:value "//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/reference.hdr" .
+	opm:value "/shomewhere/pc1/reference.hdr" .
 
 pc1:an1_a2 opm:property pc1:pr_24 .
 
@@ -261,7 +261,7 @@ pc1:an1_a3 a opm:Annotation .
 
 pc1:pr_25 a opm:Property ;
 	opm:uri "http://openprovenance.org/primitives#path" ;
-	opm:value "//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/anatomy1.img" .
+	opm:value "/shomewhere/pc1/anatomy1.img" .
 
 pc1:an1_a3 opm:property pc1:pr_25 .
 
@@ -276,7 +276,7 @@ pc1:an1_a4 a opm:Annotation .
 
 pc1:pr_26 a opm:Property ;
 	opm:uri "http://openprovenance.org/primitives#path" ;
-	opm:value "//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/anatomy1.hdr" .
+	opm:value "/shomewhere/pc1/anatomy1.hdr" .
 
 pc1:an1_a4 opm:property pc1:pr_26 .
 
@@ -291,7 +291,7 @@ pc1:an1_a5 a opm:Annotation .
 
 pc1:pr_27 a opm:Property ;
 	opm:uri "http://openprovenance.org/primitives#path" ;
-	opm:value "//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/anatomy2.img" .
+	opm:value "/shomewhere/pc1/anatomy2.img" .
 
 pc1:an1_a5 opm:property pc1:pr_27 .
 
@@ -306,7 +306,7 @@ pc1:an1_a6 a opm:Annotation .
 
 pc1:pr_28 a opm:Property ;
 	opm:uri "http://openprovenance.org/primitives#path" ;
-	opm:value "//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/anatomy2.hdr" .
+	opm:value "/shomewhere/pc1/anatomy2.hdr" .
 
 pc1:an1_a6 opm:property pc1:pr_28 .
 
@@ -321,7 +321,7 @@ pc1:an1_a7 a opm:Annotation .
 
 pc1:pr_29 a opm:Property ;
 	opm:uri "http://openprovenance.org/primitives#path" ;
-	opm:value "//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/anatomy3.img" .
+	opm:value "/shomewhere/pc1/anatomy3.img" .
 
 pc1:an1_a7 opm:property pc1:pr_29 .
 
@@ -336,7 +336,7 @@ pc1:an1_a8 a opm:Annotation .
 
 pc1:pr_30 a opm:Property ;
 	opm:uri "http://openprovenance.org/primitives#path" ;
-	opm:value "//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/anatomy3.hdr" .
+	opm:value "/shomewhere/pc1/anatomy3.hdr" .
 
 pc1:an1_a8 opm:property pc1:pr_30 .
 
@@ -351,7 +351,7 @@ pc1:an1_a9 a opm:Annotation .
 
 pc1:pr_31 a opm:Property ;
 	opm:uri "http://openprovenance.org/primitives#path" ;
-	opm:value "//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/anatomy4.img" .
+	opm:value "/shomewhere/pc1/anatomy4.img" .
 
 pc1:an1_a9 opm:property pc1:pr_31 .
 
@@ -366,7 +366,7 @@ pc1:an1_a10 a opm:Annotation .
 
 pc1:pr_32 a opm:Property ;
 	opm:uri "http://openprovenance.org/primitives#path" ;
-	opm:value "//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/anatomy4.hdr" .
+	opm:value "/shomewhere/pc1/anatomy4.hdr" .
 
 pc1:an1_a10 opm:property pc1:pr_32 .
 
@@ -389,15 +389,48 @@ pc1:a11 opm:annotation pc1:an1_a11 .
 
 pc1:a12 a opm:Artifact ;
 	opm:account pc1:black ;
-	opm:label "Warp Params2" .
+	opm:label "Warp Params2" ;
+	opm:type "http://openprovenance.org/primitives#File"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+pc1:an1_a12 a opm:Annotation .
+
+pc1:pr_34 a opm:Property ;
+	opm:uri "http://openprovenance.org/primitives#path" ;
+	opm:value "./params2.warp" .
+
+pc1:an1_a12 opm:property pc1:pr_34 .
+
+pc1:a12 opm:annotation pc1:an1_a12 .
 
 pc1:a13 a opm:Artifact ;
 	opm:account pc1:black ;
-	opm:label "Warp Params3" .
+	opm:label "Warp Params3" ;
+	opm:type "http://openprovenance.org/primitives#File"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+pc1:an1_a13 a opm:Annotation .
+
+pc1:pr_35 a opm:Property ;
+	opm:uri "http://openprovenance.org/primitives#path" ;
+	opm:value "./params3.warp" .
+
+pc1:an1_a13 opm:property pc1:pr_35 .
+
+pc1:a13 opm:annotation pc1:an1_a13 .
 
 pc1:a14 a opm:Artifact ;
 	opm:account pc1:black ;
-	opm:label "Warp Params4" .
+	opm:label "Warp Params4" ;
+	opm:type "http://openprovenance.org/primitives#File"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+pc1:an1_a14 a opm:Annotation .
+
+pc1:pr_36 a opm:Property ;
+	opm:uri "http://openprovenance.org/primitives#path" ;
+	opm:value "./params3.warp" .
+
+pc1:an1_a14 opm:property pc1:pr_36 .
+
+pc1:a14 opm:annotation pc1:an1_a14 .
 
 pc1:a15 a opm:Artifact ;
 	opm:account pc1:black ;
@@ -406,11 +439,11 @@ pc1:a15 a opm:Artifact ;
 
 pc1:an1_a15 a opm:Annotation .
 
-pc1:pr_34 a opm:Property ;
+pc1:pr_37 a opm:Property ;
 	opm:uri "http://openprovenance.org/primitives#path" ;
 	opm:value "./resliced1.img" .
 
-pc1:an1_a15 opm:property pc1:pr_34 .
+pc1:an1_a15 opm:property pc1:pr_37 .
 
 pc1:a15 opm:annotation pc1:an1_a15 .
 
@@ -421,37 +454,103 @@ pc1:a16 a opm:Artifact ;
 
 pc1:an1_a16 a opm:Annotation .
 
-pc1:pr_35 a opm:Property ;
+pc1:pr_38 a opm:Property ;
 	opm:uri "http://openprovenance.org/primitives#path" ;
 	opm:value "./resliced1.hdr" .
 
-pc1:an1_a16 opm:property pc1:pr_35 .
+pc1:an1_a16 opm:property pc1:pr_38 .
 
 pc1:a16 opm:annotation pc1:an1_a16 .
 
 pc1:a17 a opm:Artifact ;
 	opm:account pc1:black ;
-	opm:label "Resliced I2" .
+	opm:label "Resliced I2" ;
+	opm:type "http://openprovenance.org/primitives#File"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+pc1:an1_a17 a opm:Annotation .
+
+pc1:pr_39 a opm:Property ;
+	opm:uri "http://openprovenance.org/primitives#path" ;
+	opm:value "./resliced2.img" .
+
+pc1:an1_a17 opm:property pc1:pr_39 .
+
+pc1:a17 opm:annotation pc1:an1_a17 .
 
 pc1:a18 a opm:Artifact ;
 	opm:account pc1:black ;
-	opm:label "Resliced H2" .
+	opm:label "Resliced H2" ;
+	opm:type "http://openprovenance.org/primitives#File"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+pc1:an1_a18 a opm:Annotation .
+
+pc1:pr_40 a opm:Property ;
+	opm:uri "http://openprovenance.org/primitives#path" ;
+	opm:value "./resliced2.hdr" .
+
+pc1:an1_a18 opm:property pc1:pr_40 .
+
+pc1:a18 opm:annotation pc1:an1_a18 .
 
 pc1:a19 a opm:Artifact ;
 	opm:account pc1:black ;
-	opm:label "Resliced I3" .
+	opm:label "Resliced I3" ;
+	opm:type "http://openprovenance.org/primitives#File"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+pc1:an1_a19 a opm:Annotation .
+
+pc1:pr_41 a opm:Property ;
+	opm:uri "http://openprovenance.org/primitives#path" ;
+	opm:value "./resliced3.img" .
+
+pc1:an1_a19 opm:property pc1:pr_41 .
+
+pc1:a19 opm:annotation pc1:an1_a19 .
 
 pc1:a20 a opm:Artifact ;
 	opm:account pc1:black ;
-	opm:label "Resliced H3" .
+	opm:label "Resliced H3" ;
+	opm:type "http://openprovenance.org/primitives#File"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+pc1:an1_a20 a opm:Annotation .
+
+pc1:pr_42 a opm:Property ;
+	opm:uri "http://openprovenance.org/primitives#path" ;
+	opm:value "./resliced3.hdr" .
+
+pc1:an1_a20 opm:property pc1:pr_42 .
+
+pc1:a20 opm:annotation pc1:an1_a20 .
 
 pc1:a21 a opm:Artifact ;
 	opm:account pc1:black ;
-	opm:label "Resliced I4" .
+	opm:label "Resliced I4" ;
+	opm:type "http://openprovenance.org/primitives#File"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+pc1:an1_a21 a opm:Annotation .
+
+pc1:pr_43 a opm:Property ;
+	opm:uri "http://openprovenance.org/primitives#path" ;
+	opm:value "./resliced4.img" .
+
+pc1:an1_a21 opm:property pc1:pr_43 .
+
+pc1:a21 opm:annotation pc1:an1_a21 .
 
 pc1:a22 a opm:Artifact ;
 	opm:account pc1:black ;
-	opm:label "Resliced H4" .
+	opm:label "Resliced H4" ;
+	opm:type "http://openprovenance.org/primitives#File"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+pc1:an1_a22 a opm:Annotation .
+
+pc1:pr_44 a opm:Property ;
+	opm:uri "http://openprovenance.org/primitives#path" ;
+	opm:value "./resliced4.hdr" .
+
+pc1:an1_a22 opm:property pc1:pr_44 .
+
+pc1:a22 opm:annotation pc1:an1_a22 .
 
 pc1:a23 a opm:Artifact ;
 	opm:account pc1:black ;
@@ -460,11 +559,11 @@ pc1:a23 a opm:Artifact ;
 
 pc1:an1_a23 a opm:Annotation .
 
-pc1:pr_36 a opm:Property ;
+pc1:pr_45 a opm:Property ;
 	opm:uri "http://openprovenance.org/primitives#path" ;
 	opm:value "./atlas.img" .
 
-pc1:an1_a23 opm:property pc1:pr_36 .
+pc1:an1_a23 opm:property pc1:pr_45 .
 
 pc1:a23 opm:annotation pc1:an1_a23 .
 
@@ -475,11 +574,11 @@ pc1:a24 a opm:Artifact ;
 
 pc1:an1_a24 a opm:Annotation .
 
-pc1:pr_37 a opm:Property ;
+pc1:pr_46 a opm:Property ;
 	opm:uri "http://openprovenance.org/primitives#path" ;
 	opm:value "./atlas.hdr" .
 
-pc1:an1_a24 opm:property pc1:pr_37 .
+pc1:an1_a24 opm:property pc1:pr_46 .
 
 pc1:a24 opm:annotation pc1:an1_a24 .
 
@@ -490,21 +589,43 @@ pc1:a25 a opm:Artifact ;
 
 pc1:an1_a25 a opm:Annotation .
 
-pc1:pr_38 a opm:Property ;
+pc1:pr_47 a opm:Property ;
 	opm:uri "http://openprovenance.org/primitives#path" ;
 	opm:value "./atlas-x.pgm" .
 
-pc1:an1_a25 opm:property pc1:pr_38 .
+pc1:an1_a25 opm:property pc1:pr_47 .
 
 pc1:a25 opm:annotation pc1:an1_a25 .
 
 pc1:a26 a opm:Artifact ;
 	opm:account pc1:black ;
-	opm:label "Atlas Y Slice" .
+	opm:label "Atlas Y Slice" ;
+	opm:type "http://openprovenance.org/primitives#File"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+pc1:an1_a26 a opm:Annotation .
+
+pc1:pr_48 a opm:Property ;
+	opm:uri "http://openprovenance.org/primitives#path" ;
+	opm:value "./atlas-y.pgm" .
+
+pc1:an1_a26 opm:property pc1:pr_48 .
+
+pc1:a26 opm:annotation pc1:an1_a26 .
 
 pc1:a27 a opm:Artifact ;
 	opm:account pc1:black ;
-	opm:label "Atlas Z Slice" .
+	opm:label "Atlas Z Slice" ;
+	opm:type "http://openprovenance.org/primitives#File"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+pc1:an1_a27 a opm:Annotation .
+
+pc1:pr_49 a opm:Property ;
+	opm:uri "http://openprovenance.org/primitives#path" ;
+	opm:value "./atlas-z.pgm" .
+
+pc1:an1_a27 opm:property pc1:pr_49 .
+
+pc1:a27 opm:annotation pc1:an1_a27 .
 
 pc1:a28 a opm:Artifact ;
 	opm:account pc1:black ;
@@ -513,21 +634,43 @@ pc1:a28 a opm:Artifact ;
 
 pc1:an1_a28 a opm:Annotation .
 
-pc1:pr_39 a opm:Property ;
+pc1:pr_50 a opm:Property ;
 	opm:uri "http://openprovenance.org/primitives#path" ;
 	opm:value "./atlas-x.jpg" .
 
-pc1:an1_a28 opm:property pc1:pr_39 .
+pc1:an1_a28 opm:property pc1:pr_50 .
 
 pc1:a28 opm:annotation pc1:an1_a28 .
 
 pc1:a29 a opm:Artifact ;
 	opm:account pc1:black ;
-	opm:label "Atlas Y Graphic" .
+	opm:label "Atlas Y Graphic" ;
+	opm:type "http://openprovenance.org/primitives#File"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+pc1:an1_a29 a opm:Annotation .
+
+pc1:pr_51 a opm:Property ;
+	opm:uri "http://openprovenance.org/primitives#path" ;
+	opm:value "./atlas-y.jpg" .
+
+pc1:an1_a29 opm:property pc1:pr_51 .
+
+pc1:a29 opm:annotation pc1:an1_a29 .
 
 pc1:a30 a opm:Artifact ;
 	opm:account pc1:black ;
-	opm:label "Atlas Z Graphic" .
+	opm:label "Atlas Z Graphic" ;
+	opm:type "http://openprovenance.org/primitives#File"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+pc1:an1_a30 a opm:Annotation .
+
+pc1:pr_52 a opm:Property ;
+	opm:uri "http://openprovenance.org/primitives#path" ;
+	opm:value "./atlas-z.jpg" .
+
+pc1:an1_a30 opm:property pc1:pr_52 .
+
+pc1:a30 opm:annotation pc1:an1_a30 .
 
 pc1:r_52 a opm:Role ;
 	opm:value "img" .

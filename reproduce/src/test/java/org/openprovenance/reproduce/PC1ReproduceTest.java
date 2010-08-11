@@ -295,6 +295,24 @@ public class PC1ReproduceTest extends TestCase {
                                                                "http://www.ipaw.info/pc1/p10",
                                                                "http://www.ipaw.info/pc1/p13"});
 
+        if (true) {
+            processNames=Arrays.asList(new String [] {"http://www.ipaw.info/pc1/p1",
+                                                      "http://www.ipaw.info/pc1/p2",
+                                                      "http://www.ipaw.info/pc1/p3",
+                                                      "http://www.ipaw.info/pc1/p4",
+                                                      "http://www.ipaw.info/pc1/p5",
+                                                      "http://www.ipaw.info/pc1/p6",
+                                                      "http://www.ipaw.info/pc1/p7",
+                                                      "http://www.ipaw.info/pc1/p8",
+                                                      "http://www.ipaw.info/pc1/p9",
+                                                      "http://www.ipaw.info/pc1/p10",
+                                                      "http://www.ipaw.info/pc1/p11",
+                                                      "http://www.ipaw.info/pc1/p12",
+                                                      "http://www.ipaw.info/pc1/p13",
+                                                      "http://www.ipaw.info/pc1/p14",
+                                                      "http://www.ipaw.info/pc1/p15"               } );
+        }
+
         GraphGenerator gGenerator= new GraphGenerator (oFactory);
 
         Reproducibility rSemantics=new Reproducibility(oFactory,gGenerator,theModel,graph);
