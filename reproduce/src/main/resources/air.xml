@@ -85,6 +85,8 @@
 
       <input  name="i1" type="AnatomyImage"     xsi:nil="true" opr:role="img"/>
       <input  name="i2" type="ReferenceImage"   xsi:nil="true" opr:role="imgRef"/>
+      <input  name="i3" type="AnatomyImage"     xsi:nil="true" opr:role="hdr"/>
+      <input  name="i4" type="ReferenceImage"   xsi:nil="true" opr:role="hdrRef"/>
 
       <binding>
         <application src="line 5">

@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Arrays;
+
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -44,9 +46,11 @@ import com.hp.hpl.jena.vocabulary.RDFS;
 
 import org.openprovenance.model.OPMFactory;
 import org.openprovenance.model.OPMDeserialiser;
+import org.openprovenance.model.OPMSerialiser;
 import org.openprovenance.model.OPMGraph;
 import org.openprovenance.model.IndexedOPMGraph;
 import org.openprovenance.model.Artifact;
+import org.openprovenance.model.Process;
 import org.openprovenance.model.Account;
 
 import org.w3c.dom.Document;
@@ -57,19 +61,17 @@ import org.w3c.dom.Element;
  * Reproducibility of PC1
  */
 public class PC1ReproduceTest extends TestCase {
-    public static String PC1_NS="http://www.ipaw.info/pc1/";
+    public static String PC1_NS=Reproducibility.PC1_NS;
 
-    public OPMFactory oFactory=new OPMFactory();
+    static OPMFactory oFactory=new OPMFactory();
 
     public PrimitiveEnvironment primEnv=new OpenProvenanceEnvironment();
 
-    public ArtifactFactory aFactory= new ArtifactGenerator (oFactory);
 
-
-    Utilities u=new Utilities(oFactory);
 
     public PC1ReproduceTest (String testName) {
         super(testName);
+        
     }
 
     public void testWithModel1() {
@@ -118,6 +120,7 @@ public class PC1ReproduceTest extends TestCase {
             loadOPMGraph();
         } catch (JAXBException je) {
         }
+
     }
 
     public void loadOPMGraph() throws JAXBException    {
@@ -276,8 +279,8 @@ public class PC1ReproduceTest extends TestCase {
     }
 
 
-    static String PATH_PROPERTY="http://openprovenance.org/primitives#path";
-    static String FILE_LOCATION="//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/";
+    //static String PATH_PROPERTY="http://openprovenance.org/primitives#path";
+    //static String FILE_LOCATION="//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/";
     //static String FILE_LOCATION="../src/test/resources/pc1/";
 
 
@@ -285,101 +288,39 @@ public class PC1ReproduceTest extends TestCase {
 
     public void testReproduceP1() throws java.io.IOException, org.jaxen.JaxenException, org.xml.sax.SAXException {
 
-        /*
 
-~/Download/AIR5.2.6/bin/reslice params1.warp resliced1
-~/Download/AIR5.2.6/bin/softmean atlas.hdr y null resliced1.img 
-~/Download/fsl/bin/slicer ./atlas.hdr -x .5 ./sliced.pgm
+        List<String> processNames=Arrays.asList(new String [] {"http://www.ipaw.info/pc1/p1",
+                                                               "http://www.ipaw.info/pc1/p5",
+                                                               "http://www.ipaw.info/pc1/p9",
+                                                               "http://www.ipaw.info/pc1/p10",
+                                                               "http://www.ipaw.info/pc1/p13"});
 
-        */
+        GraphGenerator gGenerator= new GraphGenerator (oFactory);
 
+        Reproducibility rSemantics=new Reproducibility(oFactory,gGenerator,theModel,graph);
 
-        invokeProcess("http://www.ipaw.info/pc1/p1");
-
-        invokeProcess("http://www.ipaw.info/pc1/p5");
-
-        invokeProcess("http://www.ipaw.info/pc1/p9");
-
-        invokeProcess("http://www.ipaw.info/pc1/p10");
-
-        invokeProcess("http://www.ipaw.info/pc1/p13");
-
-
-        System.out.println("aMap " + aFactory.getArtifactMap());
         
-    }
-
-    public String localName(String uri, String ns) {
-        return uri.substring(ns.length());
-    }
-            
-
-    public void invokeProcess(String process) throws java.io.IOException, org.jaxen.JaxenException, org.xml.sax.SAXException {
-        
-        String name=localName(process,PC1_NS) + "-swift";
-        HashMap<String,Artifact> args=new HashMap();
-        Queries q=new Queries(theModel); 
-        List<Literal> results = q.getResourcePropertyAsLiterals(process,
-                                                                "http://openprovenance.org/primitives#primitive");
-        String primitiveName=results.get(0).getString();
-        q.close();
-        
-        q=new Queries(theModel); 
-        q.addPrefixes("pc1",PC1_NS);
-        ResultSet results2 = q.getUsedArtifactsAndRoles("<" + process + ">");
-        while (results2.hasNext()) {
-            QuerySolution qs=results2.next();
-            String artifactUri=qs.getResource("?a").getURI();
-            String role=qs.getLiteral("?r").getString();
-            Artifact a=graph.getArtifact(localName(artifactUri,PC1_NS));
-            //System.out.println("Found role " + role);
-            //System.out.println("Found artifact " + a);
-
-            // should invoke factory here
-            args.put(role,a);
+        for (String processName: processNames) {
+            Process p=graph.getProcess(rSemantics.localName(processName,PC1_NS));
+            rSemantics.invokeProcess(p);
         }
-        q.close();
 
-        q=new Queries(theModel); 
-        q.addPrefixes("pc1",PC1_NS);
-        ResultSet results3 = q.getGeneratedArtifactsAndRoles("<" + process + ">");
-        while (results3.hasNext()) {
-            QuerySolution qs=results3.next();
-            String artifactUri=qs.getResource("?a").getURI();
-            String role=qs.getLiteral("?r").getString();
-            Artifact a=graph.getArtifact(localName(artifactUri,PC1_NS));
-            //System.out.println("Found role " + role);
-            //System.out.println("Found artifact " + a);
+        System.out.println("aMap " + gGenerator.getArtifactMap());
 
-            // should invoke factory here
-            args.put(role,a);
+        try {
+            OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
+            serial.serialiseOPMGraph(new File("target/foo.xml"),gGenerator.getNewGraph(),true);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        q.close();
+ 
         
-        String primitive=primEnv.get(primitiveName);
-        invokePrimitive(primitive,
-                        args,
-                        name);
-    }
-        
-
-
-
-    public void invokePrimitive(String primitive,
-                                HashMap<String,Artifact> args,
-                                String name)
-        throws java.io.IOException, org.jaxen.JaxenException, org.xml.sax.SAXException {
-        
-        Execute exec=new Execute(oFactory,aFactory);
-        Document doc=exec.createInvocationDocument(primitive,args);
-        u.serializeToStandardOut(doc.getDocumentElement(), doc);
-        u.serialize(doc.getDocumentElement(),
-                    doc,
-                    new FileOutputStream("target/" + name + ".xml"));
-        exec.invokeSwift(name + ".xml", name + ".kml");
     }
 
         
+
+
+
     
 
 }

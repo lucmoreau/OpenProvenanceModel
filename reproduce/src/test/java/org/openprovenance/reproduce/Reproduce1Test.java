@@ -35,7 +35,7 @@ import java.io.IOException;
 
 abstract public class Reproduce1Test extends org.openprovenance.model.Reproduce1Test
 {
-    public ArtifactFactory aFactory= new ArtifactGenerator (oFactory);
+    public ArtifactFactory aFactory= new GraphGenerator (oFactory);
 
 
     Utilities u=new Utilities(oFactory);

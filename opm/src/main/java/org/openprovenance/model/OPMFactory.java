@@ -1057,8 +1057,10 @@ public class OPMFactory implements CommonURIs {
         ArtifactRef aid=newArtifactRef(a);
         ProcessRef pid=newProcessRef(p);
         LinkedList ll=new LinkedList();
-        for (Account acc: accounts) {
-            ll.add(newAccountRef(acc));
+        if (accounts!=null) {
+            for (Account acc: accounts) {
+                ll.add(newAccountRef(acc));
+            }
         }
         return  newWasGeneratedBy(id,aid,role,pid,ll);
     }

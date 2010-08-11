@@ -200,7 +200,7 @@ public class Queries {
 
     public ResultSet getProcessesWithProp(String uri, String value) {
         String query=queryString5(uri, value);
-        System.out.println(query);
+        //System.out.println(query);
         qe = QueryExecutionFactory.create(query, model);
         ResultSet results = qe.execSelect();
         return results;
@@ -208,7 +208,7 @@ public class Queries {
 
     public ResultSet getResourceProperty(String resource, String prop) {
         String query=queryString6(resource, prop);
-        System.out.println(query);
+        //System.out.println(query);
         qe = QueryExecutionFactory.create(query, model);
         ResultSet results = qe.execSelect();
         return results;
@@ -216,7 +216,7 @@ public class Queries {
 
     public ResultSet getUsedArtifactsAndRoles(String process) {
         String query=queryString7(process);
-        System.out.println(query);
+        //System.out.println(query);
         qe = QueryExecutionFactory.create(query, model);
         ResultSet results = qe.execSelect();
         return results;
@@ -224,7 +224,7 @@ public class Queries {
 
     public ResultSet getGeneratedArtifactsAndRoles(String process) {
         String query=queryString8(process);
-        System.out.println(query);
+        //System.out.println(query);
         qe = QueryExecutionFactory.create(query, model);
         ResultSet results = qe.execSelect();
         return results;

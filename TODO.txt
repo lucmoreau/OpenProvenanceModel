@@ -1,7 +1,12 @@
+Reproducibility
+- cleanup the types in air.xml
+- allow for multiple such air.xml to be loaded
+- generate WasDerivedFrom edges, according to primitive specification
 
+- modify factory so that it changes locations of files
+- modify factory so that it supports input files
 
-
-
+- handle NS automatically (currently, statitc variable PC1_NS)
     
 
 Validation

@@ -25,7 +25,10 @@ import java.io.OutputStream;
 import org.apache.xml.serialize.XMLSerializer;
 import org.apache.xml.serialize.OutputFormat;
 
+import org.openprovenance.model.OPMSerialiser;
+import org.openprovenance.model.OPMGraph;
 
+import java.io.StringWriter;
 import org.jaxen.JaxenException;
 
 public class Utilities {
@@ -92,11 +95,11 @@ public class Utilities {
     public String getNameFromUri(String name) {
         if (name.startsWith(swift_URI_PREFIX)) {
             String s=name.substring(swift_URI_PREFIX.length());
-            System.out.println("Found " + s);
+            //System.out.println("Found " + s);
             return s;
         } else if (name.startsWith(air_URI_PREFIX)) {
             String s=name.substring(air_URI_PREFIX.length());
-            System.out.println("Found " + s);
+            //System.out.println("Found " + s);
             return s;
         } else {
             return null;
@@ -193,7 +196,17 @@ public class Utilities {
         XMLSerializer serial = new XMLSerializer(out, of);
         serial.serialize(el);
     }
-        
+
+    public void debugPrintOPMGraph(OPMGraph g) {
+        try {
+            OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
+            StringWriter sw=new StringWriter();
+            serial.serialiseOPMGraph(sw,g,true);
+            System.out.println(sw.getBuffer());
+        } catch (Exception e) {
+                 e.printStackTrace();
+        }
+    }
 
 
 }

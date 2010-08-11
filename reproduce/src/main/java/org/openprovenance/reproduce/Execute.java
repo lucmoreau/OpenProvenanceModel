@@ -45,7 +45,7 @@ public class Execute {
                                              HashMap<String,Artifact> arguments)
         throws org.jaxen.JaxenException{
         
-        Process p=oFactory.newProcess(newProcessName(),
+        Process pIGNORE=oFactory.newProcess(newProcessName(),
                                       null,
                                       procedure);
 
@@ -86,8 +86,8 @@ public class Execute {
             String name=u.getName((Node)out);
             String type=u.getType((Node)out);
 
-            System.out.println(" role " + role + ", name " + name + ", type " + type);
-            System.out.println(arguments);
+            //            System.out.println(" role " + role + ", name " + name + ", type " + type);
+            //            System.out.println(arguments);
             Artifact a=arguments.get(role);
             Artifact a2=artifactFactory.newArtifact(a);
             generateOutputForArtifact(a2,type,call,program,types,doc);
@@ -98,10 +98,11 @@ public class Execute {
             String name=u.getName((Node)in);
             String type=u.getType((Node)in);
 
-            System.out.println(" role " + role + ", name " + name + ", type " + type);
-            System.out.println(arguments);
+            //            System.out.println(" role " + role + ", name " + name + ", type " + type);
+            //            System.out.println(arguments);
             Artifact a=arguments.get(role);
-            generateInputForArtifact(a,type,call,program,types,doc);
+            Artifact a2=artifactFactory.newArtifact(a);
+            generateInputForArtifact(a2,type,call,program,types,doc);
             
         }
         program.appendChild(call);
