@@ -303,6 +303,9 @@ public class PC1ReproduceTest extends TestCase {
         invokeProcess("http://www.ipaw.info/pc1/p10");
 
         invokeProcess("http://www.ipaw.info/pc1/p13");
+
+
+        System.out.println("aMap " + aFactory.getArtifactMap());
         
     }
 

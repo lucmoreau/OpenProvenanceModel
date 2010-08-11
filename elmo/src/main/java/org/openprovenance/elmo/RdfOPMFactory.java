@@ -517,33 +517,34 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
     }
 
 
-    public void addNewAnnotations(Annotable res,
-                                  List<JAXBElement<? extends org.openprovenance.model.EmbeddedAnnotation>> anns) {
-        for (JAXBElement<? extends org.openprovenance.model.EmbeddedAnnotation> ann: anns) {
-            EmbeddedAnnotation ea=ann.getValue();
+    // Moved to OPMFactory
+    // public void addNewAnnotations(Annotable res,
+    //                               List<JAXBElement<? extends org.openprovenance.model.EmbeddedAnnotation>> anns) {
+    //     for (JAXBElement<? extends org.openprovenance.model.EmbeddedAnnotation> ann: anns) {
+    //         EmbeddedAnnotation ea=ann.getValue();
 
-            String label=getLabel(ea);
-            if (label!=null) addAnnotation(res,newLabel(label));
+    //         String label=getLabel(ea);
+    //         if (label!=null) addAnnotation(res,newLabel(label));
 
-            String type=getType(ea);
-            if (type!=null) addAnnotation(res,newType(type));
+    //         String type=getType(ea);
+    //         if (type!=null) addAnnotation(res,newType(type));
 
-            String profile=getProfile(ea);
-            if (profile!=null) addAnnotation(res,newProfile(profile));
+    //         String profile=getProfile(ea);
+    //         if (profile!=null) addAnnotation(res,newProfile(profile));
 
-            String pname=getPname(ea);
-            if (pname!=null) addAnnotation(res,newPName(pname));
+    //         String pname=getPname(ea);
+    //         if (pname!=null) addAnnotation(res,newPName(pname));
 
-            Object value=getValue(ea);
-            if (value!=null) addAnnotation(res,newValue(value,getEncoding(ea)));
+    //         Object value=getValue(ea);
+    //         if (value!=null) addAnnotation(res,newValue(value,getEncoding(ea)));
 
-            if (ea.getId()!=null) 
-            addAnnotation(res,newEmbeddedAnnotation(ea.getId(),
-                                                    ea.getProperty(),
-                                                    newAccounts(ea.getAccount()),
-                                                    null));
-        }
-    }
+    //         if (ea.getId()!=null) 
+    //         addAnnotation(res,newEmbeddedAnnotation(ea.getId(),
+    //                                                 ea.getProperty(),
+    //                                                 newAccounts(ea.getAccount()),
+    //                                                 null));
+    //     }
+    // }
 
 
     public OPMGraph newOPMGraph(org.openprovenance.rdf.OPMGraph gr) {

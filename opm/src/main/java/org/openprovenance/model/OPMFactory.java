@@ -809,7 +809,7 @@ public class OPMFactory implements CommonURIs {
         return res;
     }
 
-    public void addNewAnnotations(Annotable res,
+    public void addNewAnnotationsOLD(Annotable res,
                                   List<JAXBElement<? extends org.openprovenance.model.EmbeddedAnnotation>> anns) {
         for (JAXBElement<? extends org.openprovenance.model.EmbeddedAnnotation> ann: anns) {
             EmbeddedAnnotation ea=ann.getValue();
@@ -819,6 +819,43 @@ public class OPMFactory implements CommonURIs {
                                                     ea.getAccount(),
                                                     null));
         }
+    }
+
+
+    public void addNewAnnotations(Annotable res,
+                                  List<JAXBElement<? extends org.openprovenance.model.EmbeddedAnnotation>> anns) {
+        for (JAXBElement<? extends org.openprovenance.model.EmbeddedAnnotation> ann: anns) {
+            EmbeddedAnnotation ea=ann.getValue();
+
+            String label=getLabel(ea);
+            if (label!=null) addAnnotation(res,newLabel(label));
+
+            String type=getType(ea);
+            if (type!=null) addAnnotation(res,newType(type));
+
+            String profile=getProfile(ea);
+            if (profile!=null) addAnnotation(res,newProfile(profile));
+
+            String pname=getPname(ea);
+            if (pname!=null) addAnnotation(res,newPName(pname));
+
+            Object value=getValue(ea);
+            if (value!=null) addAnnotation(res,newValue(value,getEncoding(ea)));
+
+            if (ea.getId()!=null) 
+            addAnnotation(res,newEmbeddedAnnotation(ea.getId(),
+                                                    ea.getProperty(),
+                                                    newAccounts(ea.getAccount()),
+                                                    null));
+        }
+    }
+
+    public List<AccountRef> newAccounts(List<AccountRef> accounts) {
+        List<AccountRef> res=new LinkedList();
+        for (AccountRef acc: accounts) {
+            res.add(newAccountRef((Account)acc.getRef()));
+        }
+        return res;
     }
 
 
@@ -1623,6 +1660,16 @@ public class OPMFactory implements CommonURIs {
                            graph.getAgents(),
                            graph.getCausalDependencies(),
                            graph.getAnnotations());
+    }
+
+    public OPMGraph newOPMGraph() {
+        OPMGraph g=oFactory.newOPMGraph(new LinkedList(),
+                                        new LinkedList(),
+                                        new LinkedList(),
+                                        new LinkedList(),
+                                        new LinkedList(),
+                                        new LinkedList());
+        return g;
     }
 
 
