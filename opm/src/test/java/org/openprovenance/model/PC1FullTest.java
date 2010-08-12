@@ -86,6 +86,23 @@ public class PC1FullTest
     }
 
 
+    public Artifact newParameter(OPMFactory oFactory,
+                                 String id,
+                                 Collection<Account> accounts,
+                                 String label,
+                                 String value) {
+                            
+        Artifact a=oFactory.newArtifact(id,
+                                        accounts,
+                                        label);
+        oFactory.addAnnotation(a,
+                               oFactory.newType("http://openprovenance.org/primitives#String"));
+        oFactory.addValue(a,value,"mime:application/text");
+
+        return a;
+    }
+
+
 
     public OPMGraph makePC1FullGraph(OPMFactory oFactory) {
         return makePC1FullGraph(oFactory,FILE_LOCATION,"./");
@@ -404,19 +421,34 @@ public class PC1FullTest
                              "Atlas X Slice",
                              "atlas-x.pgm",
                              outputLocation);
+        Artifact a25p=newParameter(oFactory,
+                                   "a25p",
+                                   black,
+                                   "slicer param 1",
+                                   "-x .5");
+
         Artifact a26=newFile(oFactory,
                              "a26",
                              black,
                              "Atlas Y Slice",
                              "atlas-y.pgm",
                              outputLocation);
+        Artifact a26p=newParameter(oFactory,
+                                   "a26p",
+                                   black,
+                                   "slicer param 2",
+                                   "-y .5");
         Artifact a27=newFile(oFactory,
                              "a27",
                              black,
                              "Atlas Z Slice",
                              "atlas-z.pgm",
                              outputLocation);
-
+        Artifact a27p=newParameter(oFactory,
+                                   "a27p",
+                                   black,
+                                   "slicer param 3",
+                                   "-z .5");
         Artifact a28=newFile(oFactory,
                              "a28",
                              black,
@@ -469,10 +501,13 @@ public class PC1FullTest
 
         Used u29=oFactory.newUsed(p10,oFactory.newRole("img"),a23,black);
         Used u30=oFactory.newUsed(p10,oFactory.newRole("hdr"),a24,black);
+        Used u30p=oFactory.newUsed(p10,oFactory.newRole("param"),a25p,black);
         Used u31=oFactory.newUsed(p11,oFactory.newRole("img"),a23,black);
         Used u32=oFactory.newUsed(p11,oFactory.newRole("hdr"),a24,black);
+        Used u32p=oFactory.newUsed(p11,oFactory.newRole("param"),a26p,black);
         Used u33=oFactory.newUsed(p12,oFactory.newRole("img"),a23,black);
         Used u34=oFactory.newUsed(p12,oFactory.newRole("hdr"),a24,black);
+        Used u34p=oFactory.newUsed(p12,oFactory.newRole("param"),a27p,black);
 
         Used u35=oFactory.newUsed(p13,oFactory.newRole("in"),a25,black);
         Used u36=oFactory.newUsed(p14,oFactory.newRole("in"),a26,black);
@@ -574,11 +609,11 @@ public class PC1FullTest
                                             new Overlaps[] { },
                                             new Process[] {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15},
                                             new Artifact[] {a1,a2,a5,a6,a3,a4,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,
-                                                            a21,a22,a23,a24,a25,a26,a27,a28,a29,a30},
+                                                            a21,a22,a23,a24,a25,a25p,a26,a26p,a27,a27p,a28,a29,a30},
                                             new Agent[] { //ag1
                                                         },
                                             new Object[] {u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14,u15,u16,u17,u18,u19,u20,
-                                                          u21,u22,u23,u24,u25,u26,u27,u28,u29,u30,u31,u32,u33,u34,u35,u36,u37,
+                                                          u21,u22,u23,u24,u25,u26,u27,u28,u29,u30,u31,u32,u33,u34,u30p,u32p,u34p,u35,u36,u37,
                                                           wg1,wg2,wg3,wg4,wg5,wg6,wg7,wg8,wg9,wg10,wg11,wg12,wg13,wg14,
                                                           wg15,wg16,wg17,wg18,wg19,wg20,
                                                           wd1,wd2,wd3,wd4,wd5,wd6,wd7,wd8,wd9,wd10,wd11,wd12,wd13,wd14,wd15,wd16,

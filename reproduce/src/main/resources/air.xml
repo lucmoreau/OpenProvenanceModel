@@ -119,7 +119,7 @@
   </procedure>
 
 
-  <procedure name="softmean" src="line 4">
+  <procedure name="softmean2" src="line 4">
       <output name="o1"  type="AtlasImg"   xsi:nil="true" opr:role="img"/>
       <output name="o2"  type="AtlasHdr"   xsi:nil="true" opr:role="hdr"/>
       <input  name="in1"  type="Resliced"   xsi:nil="true" opr:role="i1"/>
@@ -136,17 +136,45 @@
       </binding>
   </procedure>
 
+  <procedure name="softmean" src="line 4">
+      <output name="o1"  type="AtlasImg"   xsi:nil="true" opr:role="img"/>
+      <output name="o2"  type="AtlasHdr"   xsi:nil="true" opr:role="hdr"/>
+      <input  name="in1"  type="Resliced"   xsi:nil="true" opr:role="i1"/>
+      <input  name="hdr1"  type="Resliced"   xsi:nil="true" opr:role="h1"/>
+      <input  name="in2"  type="Resliced"   xsi:nil="true" opr:role="i2"/>
+      <input  name="hdr2"  type="Resliced"   xsi:nil="true" opr:role="h2"/>
+      <input  name="in3"  type="Resliced"   xsi:nil="true" opr:role="i3"/>
+      <input  name="hdr3"  type="Resliced"   xsi:nil="true" opr:role="h3"/>
+      <input  name="in4"  type="Resliced"   xsi:nil="true" opr:role="i4"/>
+      <input  name="hdr4"  type="Resliced"   xsi:nil="true" opr:role="h4"/>
+
+      <binding>
+        <application src="line 5">
+          <executable>softmean</executable>
+          <function name="filename"><variableReference>o2</variableReference></function>
+          <stringConstant>y</stringConstant>
+          <stringConstant>null</stringConstant>
+          <function name="filename"><variableReference>in1</variableReference></function>
+          <function name="filename"><variableReference>in2</variableReference></function>
+          <function name="filename"><variableReference>in3</variableReference></function>
+          <function name="filename"><variableReference>in4</variableReference></function>
+        </application>
+      </binding>
+  </procedure>
+
 
   <procedure name="slicer" src="line 10">
       <output name="o"  type="PGM"     xsi:nil="true" opr:role="out"/>
       <input  name="i1" type="IMG"     xsi:nil="true" opr:role="img"/>
       <input  name="i2" type="HDR"     xsi:nil="true" opr:role="hdr"/>
+      <input  name="p"  type="string"  xsi:nil="true" opr:role="param"/>
 
       <binding>
         <application src="line 5">
           <executable>slicer</executable>
           <function name="filename"><variableReference>i2</variableReference></function>
-          <stringConstant>-x .5</stringConstant>
+          <variableReference>p</variableReference>
+          <!-- <stringConstant>-x .5</stringConstant> -->
           <function name="filename"><variableReference>o</variableReference></function>
         </application>
       </binding>

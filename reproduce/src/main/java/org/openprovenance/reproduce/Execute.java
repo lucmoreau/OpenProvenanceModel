@@ -137,8 +137,9 @@ public class Execute {
             addTypeDeclaration(types,varType,doc);
             
         } else if (type.equals("http://openprovenance.org/primitives#String")) {
-            Element v=(Element)oFactory.getValue(a);
-            String s=v.getFirstChild().getNodeValue();
+            // Element v=(Element)oFactory.getValue(a);
+            // String s=v.getFirstChild().getNodeValue();
+            String s=(String)oFactory.getValue(a);
             Element cst=doc.createElementNS(Utilities.swift_XML_NS,"swift:stringConstant");
             cst.appendChild(doc.createTextNode(s));
             input.appendChild(cst);
