@@ -18,6 +18,7 @@ import javax.xml.bind.JAXBElement;
 public class GraphGenerator implements ArtifactFactory, ProcessFactory, GraphFactory {
 
     static String PATH_PROPERTY="http://openprovenance.org/primitives#path";
+    static String VALUE_PROPERTY="http://openprovenance.org/primitives#value";
 
     public String artifactPrefix="_a_";
     public String processPrefix="_p_";
@@ -52,7 +53,6 @@ public class GraphGenerator implements ArtifactFactory, ProcessFactory, GraphFac
         this.oFactory=oFactory;
         this.nGraph=new IndexedOPMGraph(oFactory,oFactory.newOPMGraph());
 
-        init("//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/");
     }
 
     public String newArtifactId() {
@@ -74,6 +74,7 @@ public class GraphGenerator implements ArtifactFactory, ProcessFactory, GraphFac
         if (oid==null) {
             n=oFactory.newArtifact(a);
             updatePath(a.getId(),n);
+            updateValue(a.getId(),n);
             String nid=newArtifactId();
             n.setId(nid);
             aMap.put(a.getId(),nid);
@@ -106,7 +107,7 @@ public class GraphGenerator implements ArtifactFactory, ProcessFactory, GraphFac
 
     
     public void updatePath(String id, Artifact a) {
-        String path=table.get(id);
+        String path=pathTable.get(id);
         if (path!=null) {
             for (JAXBElement<? extends EmbeddedAnnotation> jann: a.getAnnotation()) {
                 EmbeddedAnnotation ann=jann.getValue();
@@ -120,20 +121,31 @@ public class GraphGenerator implements ArtifactFactory, ProcessFactory, GraphFac
     }
 
 
-    Hashtable<String,String> table=new Hashtable();
+    public void updateValue(String id, Artifact a) {
+        Object value=valueTable.get(id);
+        if (value!=null) {
+            for (JAXBElement<? extends EmbeddedAnnotation> jann: a.getAnnotation()) {
+                EmbeddedAnnotation ann=jann.getValue();
+                for (Property prop:ann.getProperty()) {
+                    //does not work if value is not explicit
+                    if (prop.getUri().equals(VALUE_PROPERTY)) {
+                        prop.setValue(value);
+                    }
+                }
+            }
+        }
+    }
 
-    public void init(String where) {
-        table.put("a1",  where + "reference.img");
-        table.put("a2",  where + "reference.hdr");
-        table.put("a3",  where + "anatomy1.img");
-        table.put("a4",  where + "anatomy1.hdr");
-        table.put("a5",  where + "anatomy2.img");
-        table.put("a6",  where + "anatomy2.hdr");
-        table.put("a7",  where + "anatomy3.img");
-        table.put("a8",  where + "anatomy3.hdr");
-        table.put("a9",  where + "anatomy4.img");
-        table.put("a10", where + "anatomy4.hdr");
 
+    Hashtable<String,String> pathTable=new Hashtable();
+    Hashtable<String,Object> valueTable=new Hashtable();
+
+
+    public void setPathTable(Hashtable<String,String> pathTable) {
+        this.pathTable=pathTable;
+    }
+    public void setValueTable(Hashtable<String,Object> valueTable) {
+        this.valueTable=valueTable;
     }
 
 }

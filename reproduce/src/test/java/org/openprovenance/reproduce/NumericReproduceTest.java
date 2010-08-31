@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Arrays;
-
+import java.util.Hashtable;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -280,6 +280,16 @@ public class NumericReproduceTest extends TestCase {
 
     static List<Account> black=new LinkedList();
 
+    public Hashtable<String,Object> initValueTable() {
+        Hashtable<String,Object> pathTable=new Hashtable();
+        pathTable.put("a1",  100);
+        pathTable.put("a2",  200);
+        pathTable.put("a3",  300);
+        pathTable.put("a4",  400);
+        return pathTable;
+    }
+
+
     public void testReproduceNum() throws java.io.IOException, org.jaxen.JaxenException, org.xml.sax.SAXException {
 
 
@@ -304,6 +314,8 @@ public class NumericReproduceTest extends TestCase {
         }
 
         GraphGenerator gGenerator= new GraphGenerator (oFactory);
+        gGenerator.setValueTable(initValueTable());
+
 
         Reproducibility rSemantics=new Reproducibility(numNS, oFactory, gGenerator,theModel,graph);
 

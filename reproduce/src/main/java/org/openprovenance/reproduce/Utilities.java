@@ -33,6 +33,7 @@ import org.jaxen.JaxenException;
 
 public class Utilities {
     static String swift_URI_PREFIX="http://openprovenance.org/reproducibility/swift#";
+    static String java_URI_PREFIX="http://openprovenance.org/reproducibility/java#";
     static String air_URI_PREFIX="http://openprovenance.org/reproducibility/air#";
     static String swift_XML_NS="http://ci.uchicago.edu/swift/2009/02/swiftscript";
     static String opr_XML_NS="http://openprovenance.org/reproducibility";
@@ -61,11 +62,11 @@ public class Utilities {
 		return builder.parse(stream);
 	}
 
-    static String predefinedProcedures="air.xml";
+    //static String predefinedProcedures="air.xml";
 
     Document library;
 
-    public Document loadLibrary() throws SAXException, IOException {
+    public Document loadLibrary(String predefinedProcedures) throws SAXException, IOException {
         library=parserXML(Utilities.class.getClassLoader().getResourceAsStream(predefinedProcedures));
         return library;
     }
@@ -95,6 +96,10 @@ public class Utilities {
     public String getNameFromUri(String name) {
         if (name.startsWith(swift_URI_PREFIX)) {
             String s=name.substring(swift_URI_PREFIX.length());
+            //System.out.println("Found " + s);
+            return s;
+        } else if (name.startsWith(java_URI_PREFIX)) {
+            String s=name.substring(java_URI_PREFIX.length());
             //System.out.println("Found " + s);
             return s;
         } else if (name.startsWith(air_URI_PREFIX)) {

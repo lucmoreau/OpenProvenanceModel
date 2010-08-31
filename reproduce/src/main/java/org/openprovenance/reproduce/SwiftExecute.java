@@ -13,6 +13,7 @@ import org.w3c.dom.Element;
 
 import org.xml.sax.SAXException;
 import java.io.IOException;
+import java.io.FileOutputStream;
 
 
 public class SwiftExecute implements Execute {
@@ -26,7 +27,7 @@ public class SwiftExecute implements Execute {
         this.oFactory=oFactory;
         this.u=new Utilities(oFactory);
         this.artifactFactory=artifactFactory;
-        u.loadLibrary();
+        u.loadLibrary("air.xml");
     }
 
     static int count=0;
@@ -36,18 +37,16 @@ public class SwiftExecute implements Execute {
         return prefix + "p" + (count++);
     }
 
-    public Document OLDinvoke(String procedure,
-                           HashMap<String,Artifact> arguments) throws org.jaxen.JaxenException{
+    public Object prepareInvocationArguments(String procedure,
+                                               HashMap<String,Artifact> arguments)
+        throws org.jaxen.JaxenException {
         return createInvocationDocument(procedure,arguments);
     }
-    
+
     public Document createInvocationDocument(String procedure,
                                              HashMap<String,Artifact> arguments)
         throws org.jaxen.JaxenException{
         
-        Process pIGNORE=oFactory.newProcess(newProcessName(),
-                                      null,
-                                      procedure);
 
         List<?> procs=u.getDefinitionForUri(procedure);
         if ((procs==null)
@@ -203,6 +202,16 @@ public class SwiftExecute implements Execute {
         try {
             p.waitFor();
         } catch (InterruptedException ie) {}
+    }
+
+    public Object invoke(Object o, String name, Utilities u) throws IOException {
+        Document doc=(Document) o;
+        name=name+ "-swift";
+        u.serialize(doc.getDocumentElement(),
+                    doc,
+                    new FileOutputStream("target/" + name + ".xml"));
+        invokeSwift(name + ".xml", name + ".kml");
+        return null;
     }
 
 

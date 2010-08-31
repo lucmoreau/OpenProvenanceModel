@@ -1,6 +1,5 @@
-
-
 package org.openprovenance.reproduce;
+
 import javax.xml.bind.JAXBException;
 
 import java.util.Iterator;
@@ -8,6 +7,7 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Arrays;
+import java.util.Hashtable;
 
 
 import java.io.FileInputStream;
@@ -281,6 +281,25 @@ abstract public class PC1ReproduceTest extends TestCase {
 
     static List<Account> black=new LinkedList();
 
+
+    public Hashtable<String,String> initPathTable(String where) {
+        Hashtable<String,String> pathTable=new Hashtable();
+        pathTable.put("a1",  where + "reference.img");
+        pathTable.put("a2",  where + "reference.hdr");
+        pathTable.put("a3",  where + "anatomy1.img");
+        pathTable.put("a4",  where + "anatomy1.hdr");
+        pathTable.put("a5",  where + "anatomy2.img");
+        pathTable.put("a6",  where + "anatomy2.hdr");
+        pathTable.put("a7",  where + "anatomy3.img");
+        pathTable.put("a8",  where + "anatomy3.hdr");
+        pathTable.put("a9",  where + "anatomy4.img");
+        pathTable.put("a10", where + "anatomy4.hdr");
+
+        return pathTable;
+
+    }
+
+
     public void testReproduceP1() throws java.io.IOException, org.jaxen.JaxenException, org.xml.sax.SAXException {
 
 
@@ -309,6 +328,7 @@ abstract public class PC1ReproduceTest extends TestCase {
         }
 
         GraphGenerator gGenerator= new GraphGenerator (oFactory);
+        gGenerator.setPathTable(initPathTable("//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/"));
 
         Reproducibility rSemantics=new Reproducibility(PC1_NS, oFactory, gGenerator,theModel,graph);
 

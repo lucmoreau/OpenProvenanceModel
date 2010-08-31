@@ -18,11 +18,11 @@ import java.io.IOException;
 public interface Execute {
 
     
-    public Document createInvocationDocument(String procedure,
+    public Object prepareInvocationArguments(String procedure,
                                              HashMap<String,Artifact> arguments)
         throws org.jaxen.JaxenException;
 
 
-    public void invokeSwift(String file1, String file2) throws IOException;
+    public Object invoke(Object o, String name, Utilities u) throws IOException;
 
 }

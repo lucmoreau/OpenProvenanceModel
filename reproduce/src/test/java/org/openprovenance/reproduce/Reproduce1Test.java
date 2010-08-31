@@ -50,7 +50,7 @@ abstract public class Reproduce1Test extends org.openprovenance.model.Reproduce1
         
     {
         super( testName );
-        u.loadLibrary();
+        u.loadLibrary("air.xml");
     }
 
     public void testLibrary() throws Exception {

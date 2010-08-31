@@ -45,7 +45,7 @@ public class Reproducibility {
 
         String process=theNS+p.getId(); 
         
-        String name=localName(process,theNS) + "-swift";
+        String name=localName(process,theNS);
         HashMap<String,Artifact> inputs=new HashMap();
         HashMap<String,Artifact> outputs=new HashMap();
         HashMap<String,Artifact> args=new HashMap();
@@ -115,7 +115,7 @@ public class Reproducibility {
 
     }
         
-
+    ExecuteFactory eFact=new ExecuteFactory();
 
     public void invokePrimitive(String primitive,
                                 HashMap<String,Artifact> args,
@@ -123,13 +123,9 @@ public class Reproducibility {
         throws java.io.IOException, org.jaxen.JaxenException, org.xml.sax.SAXException {
 
         System.out.println("Invoking primitive " + primitive);
-        Execute exec=new SwiftExecute(oFactory,gGenerator);
-        Document doc=exec.createInvocationDocument(primitive,args);
-        //u.serializeToStandardOut(doc.getDocumentElement(), doc);
-        u.serialize(doc.getDocumentElement(),
-                    doc,
-                    new FileOutputStream("target/" + name + ".xml"));
-        exec.invokeSwift(name + ".xml", name + ".kml");
+        Execute exec=eFact.newInstance(primitive,oFactory,gGenerator);
+        Object o=exec.prepareInvocationArguments(primitive,args);
+        exec.invoke(o,name,u);
     }
 
 

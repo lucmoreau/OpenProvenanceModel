@@ -6,15 +6,15 @@ public class OpenProvenanceEnvironment implements PrimitiveEnvironment {
 
     public OpenProvenanceEnvironment() {
         table.put("http://openprovenance.org/primitives#align_warp",
-                  "http://openprovenance.org/reproducibility/air#align_warp");
+                  "http://openprovenance.org/reproducibility/swift#align_warp");
         table.put("http://openprovenance.org/primitives#reslice",
-                  "http://openprovenance.org/reproducibility/air#reslice");
+                  "http://openprovenance.org/reproducibility/swift#reslice");
         table.put("http://openprovenance.org/primitives#softmean",
-                  "http://openprovenance.org/reproducibility/air#softmean");
+                  "http://openprovenance.org/reproducibility/swift#softmean");
         table.put("http://openprovenance.org/primitives#slicer",
-                  "http://openprovenance.org/reproducibility/air#slicer");
+                  "http://openprovenance.org/reproducibility/swift#slicer");
         table.put("http://openprovenance.org/primitives#convert",
-                  "http://openprovenance.org/reproducibility/air#convert");
+                  "http://openprovenance.org/reproducibility/swift#convert");
 
 
         table.put("http://openprovenance.org/primitives#multiplication",
