@@ -15,6 +15,14 @@ public class OpenProvenanceEnvironment implements PrimitiveEnvironment {
                   "http://openprovenance.org/reproducibility/air#slicer");
         table.put("http://openprovenance.org/primitives#convert",
                   "http://openprovenance.org/reproducibility/air#convert");
+
+
+        table.put("http://openprovenance.org/primitives#multiplication",
+                  "http://openprovenance.org/reproducibility/java#multiplication");
+        table.put("http://openprovenance.org/primitives#division",
+                  "http://openprovenance.org/reproducibility/java#division");
+        table.put("http://openprovenance.org/primitives#sum",
+                  "http://openprovenance.org/reproducibility/java#sum");
         
     }
     public String get(String o) {

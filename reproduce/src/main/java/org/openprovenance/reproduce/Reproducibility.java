@@ -17,7 +17,7 @@ import org.openprovenance.model.Process;
 import org.openprovenance.model.IndexedOPMGraph;
 
 public class Reproducibility {
-    public static String PC1_NS="http://www.ipaw.info/pc1/";
+    final String theNS;
 
     final Utilities u;
     final OPMFactory oFactory;
@@ -28,7 +28,8 @@ public class Reproducibility {
     public PrimitiveEnvironment primEnv=new OpenProvenanceEnvironment();
 
 
-    public Reproducibility(OPMFactory oFactory, GraphGenerator gGenerator, Model theModel, IndexedOPMGraph graph) {
+    public Reproducibility(String theNS, OPMFactory oFactory, GraphGenerator gGenerator, Model theModel, IndexedOPMGraph graph) {
+        this.theNS=theNS;
         this.oFactory=oFactory;
         u=new Utilities(oFactory);
         this.gGenerator=gGenerator;
@@ -42,9 +43,9 @@ public class Reproducibility {
 
     public void invokeProcess(Process p) throws java.io.IOException, org.jaxen.JaxenException, org.xml.sax.SAXException {
 
-        String process=PC1_NS+p.getId(); 
+        String process=theNS+p.getId(); 
         
-        String name=localName(process,PC1_NS) + "-swift";
+        String name=localName(process,theNS) + "-swift";
         HashMap<String,Artifact> inputs=new HashMap();
         HashMap<String,Artifact> outputs=new HashMap();
         HashMap<String,Artifact> args=new HashMap();
@@ -57,25 +58,25 @@ public class Reproducibility {
         Process p2=gGenerator.newProcess(p);
         
         q=new Queries(theModel); 
-        q.addPrefixes("pc1",PC1_NS);
+        //        q.addPrefixes("pc1",theNS);
         ResultSet results2 = q.getUsedArtifactsAndRoles("<" + process + ">");
         while (results2.hasNext()) {
             QuerySolution qs=results2.next();
             String artifactUri=qs.getResource("?a").getURI();
             String role=qs.getLiteral("?r").getString();
-            Artifact a=graph.getArtifact(localName(artifactUri,PC1_NS));
+            Artifact a=graph.getArtifact(localName(artifactUri,theNS));
             inputs.put(role,a);
         }
         q.close();
 
         q=new Queries(theModel); 
-        q.addPrefixes("pc1",PC1_NS);
+        //        q.addPrefixes("pc1",theNS);
         ResultSet results3 = q.getGeneratedArtifactsAndRoles("<" + process + ">");
         while (results3.hasNext()) {
             QuerySolution qs=results3.next();
             String artifactUri=qs.getResource("?a").getURI();
             String role=qs.getLiteral("?r").getString();
-            Artifact a=graph.getArtifact(localName(artifactUri,PC1_NS));
+            Artifact a=graph.getArtifact(localName(artifactUri,theNS));
             outputs.put(role,a);
         }
         q.close();
@@ -122,7 +123,7 @@ public class Reproducibility {
         throws java.io.IOException, org.jaxen.JaxenException, org.xml.sax.SAXException {
 
         System.out.println("Invoking primitive " + primitive);
-        Execute exec=new Execute(oFactory,gGenerator);
+        Execute exec=new SwiftExecute(oFactory,gGenerator);
         Document doc=exec.createInvocationDocument(primitive,args);
         //u.serializeToStandardOut(doc.getDocumentElement(), doc);
         u.serialize(doc.getDocumentElement(),

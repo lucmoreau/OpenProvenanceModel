@@ -1,6 +1,5 @@
-
-
 package org.openprovenance.reproduce;
+
 import javax.xml.bind.JAXBException;
 
 import java.util.Iterator;
@@ -58,10 +57,10 @@ import org.w3c.dom.Element;
 
 
 /**
- * Reproducibility of PC1
+ * Reproducibility of Numeric
  */
-abstract public class PC1ReproduceTest extends TestCase {
-    public static String PC1_NS="http://www.ipaw.info/pc1/";
+public class NumericReproduceTest extends TestCase {
+    public static String numNS="http://www.ipaw.info/num/";
 
     static OPMFactory oFactory=new OPMFactory();
 
@@ -69,12 +68,12 @@ abstract public class PC1ReproduceTest extends TestCase {
 
 
 
-    public PC1ReproduceTest (String testName) {
+    public NumericReproduceTest (String testName) {
         super(testName);
         
     }
 
-    public void testWithModel1() {
+    public void testWithModelNum() {
         loadModel();
     }
     
@@ -100,7 +99,7 @@ abstract public class PC1ReproduceTest extends TestCase {
         InfModel model = ModelFactory.createInfModel( reasoner, emptyModel );
             
         // read the files
-        model.read( "file:src/test/resources/pc1-full.n3", "N3" );
+        model.read( "file:src/test/resources/numeric.n3", "N3" );
         model.read( ont1 );
         model.read( ont2 );
         
@@ -125,7 +124,7 @@ abstract public class PC1ReproduceTest extends TestCase {
 
     public void loadOPMGraph() throws JAXBException    {
         OPMDeserialiser deserial=OPMDeserialiser.getThreadOPMDeserialiser();
-        OPMGraph graph1=deserial.deserialiseOPMGraph(new File("src/test/resources/pc1-full.xml"));
+        OPMGraph graph1=deserial.deserialiseOPMGraph(new File("src/test/resources/numeric.xml"));
         graph=new IndexedOPMGraph(oFactory,graph1);
     }
 
@@ -149,7 +148,7 @@ abstract public class PC1ReproduceTest extends TestCase {
         System.out.println();
     }
 
-    public void testQuery2() throws java.io.FileNotFoundException, java.io.IOException {
+    public void testNumQuery2() throws java.io.FileNotFoundException, java.io.IOException {
         
         // Create a new query
         String queryString = 
@@ -164,12 +163,12 @@ abstract public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testQuery3() throws java.io.FileNotFoundException, java.io.IOException {
+    public void testNumQuery3() throws java.io.FileNotFoundException, java.io.IOException {
         
         // Create a new query
         String queryString = 
             "PREFIX opm: <http://openprovenance.org/ontology#> " +
-            "PREFIX pc1: <http://www.ipaw.info/pc1/>  " +
+            "PREFIX num: <http://www.ipaw.info/num/>  " +
             "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
             "SELECT ?a1 ?a2 " +
             "WHERE {" +
@@ -194,18 +193,18 @@ abstract public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testQuery4() {
+    public void testNumQuery4() {
 
         Queries q=new Queries(theModel);
-        q.addPrefixes("pc1",PC1_NS);
+        q.addPrefixes("num",numNS);
 
-        List ll=q.getUsedArtifactsAsResources("pc1:p1");
+        List ll=q.getUsedArtifactsAsResources("num:p1");
         System.out.println(" found " + ll);
         q.close();
-        assertTrue(ll.size()==4);
+        assertTrue(ll.size()==2);
 
 
-        ll=q.getGeneratedArtifactsAsResources("pc1:p2");
+        ll=q.getGeneratedArtifactsAsResources("num:p2");
         System.out.println(" found " + ll);
         q.close();
         assertTrue(ll.size()==1);
@@ -213,11 +212,11 @@ abstract public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testOrderedProcesses() {
+    public void testNumOrderedProcesses() {
         Queries q=new Queries(theModel);
-        q.addPrefixes("pc1",PC1_NS);
+        q.addPrefixes("num",numNS);
 
-        List<Resource> results = q.getProcessesAsResources(PC1_NS);
+        List<Resource> results = q.getProcessesAsResources(numNS);
 
         System.out.println("Found Processes " + results);
 
@@ -225,11 +224,11 @@ abstract public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testInputArtifacts() {
+    public void testNumInputArtifacts() {
         Queries q=new Queries(theModel);
-        q.addPrefixes("pc1",PC1_NS);
+        q.addPrefixes("num",numNS);
 
-        List<Resource> results = q.getInputArtifactsAsResources(PC1_NS);
+        List<Resource> results = q.getInputArtifactsAsResources(numNS);
 
         System.out.println("==> Found Input Artifacts " + results);
 
@@ -237,12 +236,12 @@ abstract public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testQuery5() {
+    public void testNumQuery5() {
         Queries q=new Queries(theModel);
-        q.addPrefixes("pc1",PC1_NS);
+        q.addPrefixes("num",numNS);
 
         List<Resource> results = q.getProcessesWithPropAsResources("http://openprovenance.org/primitives#primitive",
-                                                                   "http://openprovenance.org/primitives#align_warp");
+                                                                   "http://openprovenance.org/primitives#multiplication");
 
         System.out.println("==> Found Processes for Primitive " + results);
 
@@ -250,11 +249,11 @@ abstract public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testQuery6() {
+    public void testNumQuery6() {
         Queries q=new Queries(theModel);
-        q.addPrefixes("pc1",PC1_NS);
+        q.addPrefixes("num",numNS);
 
-        List<Literal> results = q.getResourcePropertyAsLiterals("http://www.ipaw.info/pc1/p1",
+        List<Literal> results = q.getResourcePropertyAsLiterals("http://www.ipaw.info/num/p1",
                                                                   "http://openprovenance.org/primitives#primitive");
 
         System.out.println("==> Found Value for property " + results);
@@ -263,11 +262,11 @@ abstract public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testQuery7() {
+    public void testNumQuery7() {
         Queries q=new Queries(theModel);
-        q.addPrefixes("pc1",PC1_NS);
+        q.addPrefixes("num",numNS);
 
-        ResultSet results = q.getUsedArtifactsAndRoles("pc1:p1");
+        ResultSet results = q.getUsedArtifactsAndRoles("num:p1");
         ResultSetFormatter.out(System.out, results);
 
         q.close();
@@ -275,46 +274,42 @@ abstract public class PC1ReproduceTest extends TestCase {
 
 
     //static String PATH_PROPERTY="http://openprovenance.org/primitives#path";
-    //static String FILE_LOCATION="//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/";
-    //static String FILE_LOCATION="../src/test/resources/pc1/";
+    //static String FILE_LOCATION="//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/num/";
+    //static String FILE_LOCATION="../src/test/resources/num/";
 
 
     static List<Account> black=new LinkedList();
 
-    public void testReproduceP1() throws java.io.IOException, org.jaxen.JaxenException, org.xml.sax.SAXException {
+    public void testReproduceNum() throws java.io.IOException, org.jaxen.JaxenException, org.xml.sax.SAXException {
 
 
-        List<String> processNames=Arrays.asList(new String [] {"http://www.ipaw.info/pc1/p1",
-                                                               "http://www.ipaw.info/pc1/p5",
-                                                               "http://www.ipaw.info/pc1/p9",
-                                                               "http://www.ipaw.info/pc1/p10",
-                                                               "http://www.ipaw.info/pc1/p13"});
+        List<String> processNames=Arrays.asList(new String [] {"http://www.ipaw.info/num/p0"});
 
-        if (true) {
-            processNames=Arrays.asList(new String [] {"http://www.ipaw.info/pc1/p1",
-                                                      "http://www.ipaw.info/pc1/p2",
-                                                      "http://www.ipaw.info/pc1/p3",
-                                                      "http://www.ipaw.info/pc1/p4",
-                                                      "http://www.ipaw.info/pc1/p5",
-                                                      "http://www.ipaw.info/pc1/p6",
-                                                      "http://www.ipaw.info/pc1/p7",
-                                                      "http://www.ipaw.info/pc1/p8",
-                                                      "http://www.ipaw.info/pc1/p9",
-                                                      "http://www.ipaw.info/pc1/p10",
-                                                      "http://www.ipaw.info/pc1/p11",
-                                                      "http://www.ipaw.info/pc1/p12",
-                                                      "http://www.ipaw.info/pc1/p13",
-                                                      "http://www.ipaw.info/pc1/p14",
-                                                      "http://www.ipaw.info/pc1/p15"               } );
+        if (false) {
+            processNames=Arrays.asList(new String [] {"http://www.ipaw.info/num/p1",
+                                                      "http://www.ipaw.info/num/p2",
+                                                      "http://www.ipaw.info/num/p3",
+                                                      "http://www.ipaw.info/num/p4",
+                                                      "http://www.ipaw.info/num/p5",
+                                                      "http://www.ipaw.info/num/p6",
+                                                      "http://www.ipaw.info/num/p7",
+                                                      "http://www.ipaw.info/num/p8",
+                                                      "http://www.ipaw.info/num/p9",
+                                                      "http://www.ipaw.info/num/p10",
+                                                      "http://www.ipaw.info/num/p11",
+                                                      "http://www.ipaw.info/num/p12",
+                                                      "http://www.ipaw.info/num/p13",
+                                                      "http://www.ipaw.info/num/p14",
+                                                      "http://www.ipaw.info/num/p15"               } );
         }
 
         GraphGenerator gGenerator= new GraphGenerator (oFactory);
 
-        Reproducibility rSemantics=new Reproducibility(PC1_NS, oFactory, gGenerator,theModel,graph);
+        Reproducibility rSemantics=new Reproducibility(numNS, oFactory, gGenerator,theModel,graph);
 
         
         for (String processName: processNames) {
-            Process p=graph.getProcess(rSemantics.localName(processName,PC1_NS));
+            Process p=graph.getProcess(rSemantics.localName(processName,numNS));
             rSemantics.invokeProcess(p);
         }
 

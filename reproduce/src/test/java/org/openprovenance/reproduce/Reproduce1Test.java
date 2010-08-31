@@ -180,7 +180,7 @@ abstract public class Reproduce1Test extends org.openprovenance.model.Reproduce1
     }
                                         
     public void testReproduce2() throws Exception {
-        Execute exec=new Execute(oFactory,aFactory);
+        SwiftExecute exec=new SwiftExecute(oFactory,aFactory);
 
         // need to be created from used edges
         HashMap args=new HashMap();
@@ -209,7 +209,7 @@ abstract public class Reproduce1Test extends org.openprovenance.model.Reproduce1
 
 
     public void testReproduce3() throws Exception {
-        Execute exec=new Execute(oFactory,aFactory);
+        SwiftExecute exec=new SwiftExecute(oFactory,aFactory);
 
         // need to be created from used edges
         HashMap args=new HashMap();

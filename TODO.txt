@@ -1,4 +1,10 @@
 Reproducibility
+- create an instance of JavaExecute
+- create a map from URI prefix to Execute
+- dispatch to Execute according to primitive implementation name prefix
+- make Execute interface more generic.
+- allows for invocations
+
 - cleanup the types in air.xml
 - allow for multiple such air.xml to be loaded
 - generate WasDerivedFrom edges, according to primitive specification
