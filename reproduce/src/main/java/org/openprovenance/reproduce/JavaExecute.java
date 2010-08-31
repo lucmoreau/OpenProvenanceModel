@@ -55,6 +55,8 @@ public class JavaExecute implements Execute {
         List<?> ins=u.getInputs(proc);
         List<?> outs=u.getOutputs(proc);
 
+        HashMap<String,Object> args=new HashMap();
+
         for (Object in: ins) {
             String role=u.getRole((Node)in);
             String name=u.getName((Node)in);
@@ -62,12 +64,20 @@ public class JavaExecute implements Execute {
 
             Artifact a=arguments.get(role);
             Artifact a2=artifactFactory.newArtifact(a);
-            
+            args.put(role,oFactory.getValue(a2));            
         }
 
-        
 
-        return arguments;
+        // for (Object out: outs) {
+        //     String role=u.getRole((Node)out);
+        //     String name=u.getName((Node)out);
+        //     String type=u.getType((Node)out);
+
+        //     Artifact a=arguments.get(role);
+        //     Artifact a2=artifactFactory.newArtifact(a);
+        // }
+
+        return new Object[] {args,arguments};
     }
 
     String makeVariable(Artifact a) {
@@ -75,52 +85,67 @@ public class JavaExecute implements Execute {
     }
 
 
-    void generateOutputForArtifact(Artifact a, String varType, Element call, Element program, Element types, Document doc) throws org.jaxen.JaxenException {
-        Element output=doc.createElementNS(Utilities.swift_XML_NS,"swift:output");
 
-        String type=oFactory.getType(a);
-        if (type==null) throw new NullPointerException("Unknown type");
-        if (type.equals("http://openprovenance.org/primitives#File")) {
-            Element ref=doc.createElementNS(Utilities.swift_XML_NS,"swift:variableReference");
-            ref.appendChild(doc.createTextNode(makeVariable(a)));
-            output.appendChild(ref);
 
-            Element var=doc.createElementNS(Utilities.swift_XML_NS,"swift:variable");
-            Element file=doc.createElementNS(Utilities.swift_XML_NS,"swift:file");
-            var.appendChild(file);
-            var.setAttribute("name",makeVariable(a));
-            var.setAttribute("type",varType);
-            var.setAttribute("isGlobal","false");
-            List value=oFactory.getPropertyValues(a,"http://openprovenance.org/primitives#path");
-            file.setAttribute("name",makeFilename((String)value.get(0)));
-            program.appendChild(var);
+    public Object invoke(Object o, String name, String primitive, Utilities u) throws IOException, org.jaxen.JaxenException {
+        HashMap<String,Object> arguments=(HashMap<String,Object>) ((Object[])o)[0];
+        HashMap<String,Artifact> allIOs=(HashMap<String,Artifact>) ((Object[])o)[1];
 
-            addTypeDeclaration(types,varType,doc);
-
-        }
-        
-        call.appendChild(output);
-    }
-
-    HashMap<String,Boolean> seen=new HashMap();
-    public void  addTypeDeclaration(Element types,String varType, Document doc) throws org.jaxen.JaxenException {
-        if (seen.get(varType)==null)  {
-            seen.put(varType,true);
-            Node n=(Node)u.getLibraryTypeDefinition(varType).get(0);
-            Node nn=doc.importNode(n,true);
-            types.appendChild(nn);
-        }
-    }
-
-    public String makeFilename(String path) {
-        return path;
-    }
-
-    public Object invoke(Object o, String name, Utilities u) throws IOException {
-        HashMap<String,Artifact> arguments=(HashMap<String,Artifact>) o;
+        System.out.println("JavaExecute: primitive " + primitive);
         System.out.println("JavaExecute: name " + name);
         System.out.println("JavaExecute: args " + arguments);
-        return arguments;
+
+        HashMap<String,Object> results= new HashMap();
+        Object thisResult=null;
+        if (primitive.equals("http://openprovenance.org/reproducibility/java#sum")) {
+            Integer arg1=(Integer) arguments.get("summand1");
+            Integer arg2=(Integer) arguments.get("summand2");
+            thisResult=arg1+arg2;
+            results.put("out", thisResult);
+        } else if (primitive.equals("http://openprovenance.org/reproducibility/java#multiplication")) {
+            Integer arg1=(Integer) arguments.get("factor1");
+            Integer arg2=(Integer) arguments.get("factor2");
+            thisResult=arg1*arg2;
+            results.put("product", thisResult);
+        } else if (primitive.equals("http://openprovenance.org/reproducibility/java#division")) {
+            Integer arg1=(Integer) arguments.get("dividend");
+            Integer arg2=(Integer) arguments.get("divisor");
+            thisResult=arg1/arg2;
+            results.put("quotient", thisResult);
+        } else new UnsupportedOperationException(primitive);
+
+
+        System.out.println("JavaExecute: results " + results);
+
+        System.out.println("invoke, now create output artifacts for " + primitive);
+        try {
+            // not ideal, would be nicer to have cached results.
+            u.loadLibrary("java.xml");
+        } catch (Exception e) {}
+
+        List<?> procs=u.getDefinitionForUri(primitive);
+        if ((procs==null)
+            || (procs.size()==0)) {
+            throw new NullPointerException();
+        }
+
+        Node proc=(Node)procs.get(0);
+
+        List<?> outs=u.getOutputs(proc);
+        for (Object out: outs) {
+            String role=u.getRole((Node)out);
+            //String name=u.getName((Node)out);
+            //String type=u.getType((Node)out);
+
+            Artifact a=allIOs.get(role);
+            Artifact a2=artifactFactory.newArtifact(a);
+            oFactory.setValue(a2,thisResult);
+         }
+
+
+
+
+        return results;
     }
 
 

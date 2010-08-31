@@ -126,10 +126,15 @@ public class GraphGenerator implements ArtifactFactory, ProcessFactory, GraphFac
         if (value!=null) {
             for (JAXBElement<? extends EmbeddedAnnotation> jann: a.getAnnotation()) {
                 EmbeddedAnnotation ann=jann.getValue();
-                for (Property prop:ann.getProperty()) {
-                    //does not work if value is not explicit
-                    if (prop.getUri().equals(VALUE_PROPERTY)) {
-                        prop.setValue(value);
+                if (ann instanceof org.openprovenance.model.Value) {
+                    org.openprovenance.model.Value val=(org.openprovenance.model.Value) ann;
+                    val.setContent(value);
+                } else {
+                    for (Property prop:ann.getProperty()) {
+                        //does not work if value is not explicit
+                        if (prop.getUri().equals(VALUE_PROPERTY)) {
+                            prop.setValue(value);
+                        }
                     }
                 }
             }

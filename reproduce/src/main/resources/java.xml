@@ -19,4 +19,26 @@
       </binding>
   </procedure>
 
+
+  <procedure name="multiplication" src="line 4">
+
+      <output name="o"  type="java.lang.Integer"   xsi:nil="true" opr:role="product"/>
+      <input  name="i1" type="java.lang.Integer"   xsi:nil="true" opr:role="factor1"/>
+      <input  name="i2" type="java.lang.Integer"   xsi:nil="true" opr:role="factor2"/>
+
+      <binding>
+      </binding>
+  </procedure>
+
+
+  <procedure name="division" src="line 4">
+
+      <output name="o"  type="java.lang.Integer"   xsi:nil="true" opr:role="quotient"/>
+      <input  name="i1" type="java.lang.Integer"   xsi:nil="true" opr:role="dividend"/>
+      <input  name="i2" type="java.lang.Integer"   xsi:nil="true" opr:role="divisor"/>
+
+      <binding>
+      </binding>
+  </procedure>
+
 </program>

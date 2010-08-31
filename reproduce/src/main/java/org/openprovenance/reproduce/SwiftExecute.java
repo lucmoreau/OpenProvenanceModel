@@ -204,7 +204,7 @@ public class SwiftExecute implements Execute {
         } catch (InterruptedException ie) {}
     }
 
-    public Object invoke(Object o, String name, Utilities u) throws IOException {
+    public Object invoke(Object o, String name, String primitive, Utilities u) throws IOException {
         Document doc=(Document) o;
         name=name+ "-swift";
         u.serialize(doc.getDocumentElement(),

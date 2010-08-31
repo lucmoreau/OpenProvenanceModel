@@ -23,6 +23,6 @@ public interface Execute {
         throws org.jaxen.JaxenException;
 
 
-    public Object invoke(Object o, String name, Utilities u) throws IOException;
+    public Object invoke(Object o, String name, String primitive, Utilities u) throws IOException, org.jaxen.JaxenException;
 
 }

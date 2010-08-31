@@ -125,7 +125,7 @@ public class Reproducibility {
         System.out.println("Invoking primitive " + primitive);
         Execute exec=eFact.newInstance(primitive,oFactory,gGenerator);
         Object o=exec.prepareInvocationArguments(primitive,args);
-        exec.invoke(o,name,u);
+        exec.invoke(o,name,primitive, u);
     }
 
 

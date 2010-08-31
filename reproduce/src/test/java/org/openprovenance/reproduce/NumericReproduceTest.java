@@ -44,6 +44,7 @@ import com.hp.hpl.jena.reasoner.ValidityReport;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
 import org.openprovenance.model.OPMFactory;
+import org.openprovenance.model.OPMToDot;
 import org.openprovenance.model.OPMDeserialiser;
 import org.openprovenance.model.OPMSerialiser;
 import org.openprovenance.model.OPMGraph;
@@ -281,19 +282,21 @@ public class NumericReproduceTest extends TestCase {
     static List<Account> black=new LinkedList();
 
     public Hashtable<String,Object> initValueTable() {
-        Hashtable<String,Object> pathTable=new Hashtable();
-        pathTable.put("a1",  100);
-        pathTable.put("a2",  200);
-        pathTable.put("a3",  300);
-        pathTable.put("a4",  400);
-        return pathTable;
+        Hashtable<String,Object> valueTable=new Hashtable();
+        valueTable.put("a1",  100);
+        valueTable.put("a2",  200);
+        //valueTable.put("a3",  300);
+        //valueTable.put("a4",  400);
+        return valueTable;
     }
 
 
     public void testReproduceNum() throws java.io.IOException, org.jaxen.JaxenException, org.xml.sax.SAXException {
 
 
-        List<String> processNames=Arrays.asList(new String [] {"http://www.ipaw.info/num/p0"});
+        List<String> processNames=Arrays.asList(new String [] {"http://www.ipaw.info/num/p0",
+                                                               "http://www.ipaw.info/num/p1",
+                                                               "http://www.ipaw.info/num/p2"});
 
         if (false) {
             processNames=Arrays.asList(new String [] {"http://www.ipaw.info/num/p1",
@@ -330,6 +333,10 @@ public class NumericReproduceTest extends TestCase {
         try {
             OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
             serial.serialiseOPMGraph(new File("target/foo.xml"),gGenerator.getNewGraph(),true);
+
+            OPMToDot toDot=new OPMToDot(true); // with roles
+        
+            toDot.convert(gGenerator.getNewGraph(),"target/num.dot", "target/num.pdf");
         } catch (Exception e) {
             e.printStackTrace();
         }

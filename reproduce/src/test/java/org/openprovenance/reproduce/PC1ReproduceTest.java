@@ -44,6 +44,7 @@ import com.hp.hpl.jena.reasoner.Reasoner;
 import com.hp.hpl.jena.reasoner.ValidityReport;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
+import org.openprovenance.model.OPMToDot;
 import org.openprovenance.model.OPMFactory;
 import org.openprovenance.model.OPMDeserialiser;
 import org.openprovenance.model.OPMSerialiser;
@@ -60,7 +61,7 @@ import org.w3c.dom.Element;
 /**
  * Reproducibility of PC1
  */
-abstract public class PC1ReproduceTest extends TestCase {
+public class PC1ReproduceTest extends TestCase {
     public static String PC1_NS="http://www.ipaw.info/pc1/";
 
     static OPMFactory oFactory=new OPMFactory();
@@ -342,7 +343,11 @@ abstract public class PC1ReproduceTest extends TestCase {
 
         try {
             OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
-            serial.serialiseOPMGraph(new File("target/foo.xml"),gGenerator.getNewGraph(),true);
+            serial.serialiseOPMGraph(new File("target/pc1.xml"),gGenerator.getNewGraph(),true);
+
+            OPMToDot toDot=new OPMToDot(true); // with roles
+            toDot.convert(gGenerator.getNewGraph(),"target/pc1.dot", "target/pc1.pdf");
+
         } catch (Exception e) {
             e.printStackTrace();
         }

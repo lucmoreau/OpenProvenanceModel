@@ -275,6 +275,24 @@ public class OPMFactory implements CommonURIs {
         }
     }
 
+    public Object setValue(EmbeddedAnnotation annotation, Object newValue) {
+        if (annotation instanceof Value) {
+            Value value=(Value) annotation;
+            Object oldValue=value.getContent();
+            value.setContent(newValue);
+            return oldValue;
+        } else {
+            for (Property prop: annotation.getProperty()) {
+                if (prop.getUri().equals(VALUE_PROPERTY)) {
+                    Object oldValue=prop.getValue();
+                    prop.setValue(newValue);
+                    return oldValue;
+                }
+            }
+            return null;
+        }
+    }
+
     public String getEncoding(EmbeddedAnnotation annotation) {
         if (annotation instanceof Value) {
             Value value=(Value) annotation;
@@ -338,6 +356,22 @@ public class OPMFactory implements CommonURIs {
             EmbeddedAnnotation ann=jann.getValue();
             Object value=getValue(ann);
             if (value!=null) return value;
+        }
+        return null;
+    }
+
+
+    /** Return the value of the value property in the first annotation. */
+
+    public Object setValue(List<JAXBElement<? extends EmbeddedAnnotation>> annotations,
+                           Object value) {
+        for (JAXBElement<? extends EmbeddedAnnotation> jann: annotations) {
+            EmbeddedAnnotation ann=jann.getValue();
+            Object oldValue=getValue(ann);
+            if (oldValue!=null) {
+                setValue(ann,value);
+                return oldValue;
+            }
         }
         return null;
     }
@@ -485,6 +519,11 @@ public class OPMFactory implements CommonURIs {
     /** Generic accessor for annotable entities. */
     public Object getValue(Annotable annotable) {
         return getValue(annotable.getAnnotation());
+    }
+
+    /** Generic accessor for annotable entities. */
+    public Object setValue(Annotable annotable,Object value) {
+        return setValue(annotable.getAnnotation(),value);
     }
 
     /** Generic accessor for annotable entities. */
