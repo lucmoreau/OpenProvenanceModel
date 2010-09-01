@@ -1,20 +1,27 @@
 package org.openprovenance.reproduce;
 import org.w3c.dom.Document;
 import java.io.FileOutputStream;
+import java.io.StringReader;
 import java.util.HashMap;
+import java.util.Collections;
+import java.util.Collection;
 import java.util.List;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.Literal;
-
+import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.StmtIterator;
+import com.hp.hpl.jena.rdf.model.Statement;
 
 import org.openprovenance.model.OPMFactory;
 import org.openprovenance.model.OPMGraph;
 import org.openprovenance.model.Artifact;
 import org.openprovenance.model.Process;
 import org.openprovenance.model.IndexedOPMGraph;
+
+import org.openprovenance.elmo.RdfOPMFactory;
 
 public class Reproducibility {
     final String theNS;
@@ -102,10 +109,10 @@ public class Reproducibility {
         for (String r: inputs.keySet()) {
             Artifact a2=iGraph.getArtifact(aMap.get(inputs.get(r).getId()));
             if (a2!=null) {
-                gGenerator.addUsed(oFactory.newUsed(p2,
-                                                    oFactory.newRole(r),
-                                                    a2,
-                                                    null));
+                gGenerator.addUsed(p2,
+                                   oFactory.newRole(r),
+                                   a2,
+                                   null);
             }
         }
 
@@ -140,6 +147,43 @@ public class Reproducibility {
     
     public void addWasDerivedFromForProcess(String uri, Process p2) {
         Resource res1=theModel.createResource(uri);
+
         System.out.println("--> Created resource " + res1);
+
+
+        String rdf=serializeSesameStore();
+        if (rdf!=null) {
+            System.out.println("--> Reading Model ");
+            Model tmpModel = ModelFactory.createDefaultModel( );
+            tmpModel.read(new StringReader(rdf),null,"N3");
+            System.out.println("--> Diffing Models ");
+            Model diffModel=tmpModel.difference(theModel);
+            tmpModel.close();
+            System.out.println("--> Merging Models ");
+            StmtIterator it=diffModel.listStatements();
+            Statement stmt=null;
+            while (it.hasNext()) {
+                stmt=it.nextStatement();
+                System.out.println(" --> adding " + stmt);
+                theModel.add(stmt);
+            }
+            it.close();
+            System.out.println("--> Done with Models ");
+            diffModel.close();
+            System.out.println("--> Done with Models 2 ");
+        }
     }
+
+    public String serializeSesameStore() {
+        if (!(oFactory instanceof RdfOPMFactory)) return null;
+        RdfOPMFactory of=(RdfOPMFactory) oFactory;
+        try {
+            Collection<String[]> prefixes=Collections.singleton(new String[]{"pc1","http://foo"});
+            return of.serializeSesameStore(prefixes);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

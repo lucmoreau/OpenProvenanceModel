@@ -38,6 +38,9 @@ import org.openprovenance.model.WasTriggeredBy;
 
 import org.openprovenance.rdf.AnnotationOrEdgeOrNode;
 import org.openrdf.elmo.Entity;
+import org.openrdf.rio.RDFFormat;
+import org.openrdf.elmo.sesame.SesameManager;
+
 
 /** The factory class to create OPM entities that can be serialised to rdf.
     This package relies on Sesame's elmo, which uses a facade object to access the content of the triple
@@ -80,7 +83,7 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
         this.manager=manager;
     }
 
-    static int count=0;
+    static public int count=0;
 
     public String autoGenerateId(String prefix) {
         String id=prefix+count++;
@@ -763,5 +766,15 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
         return (RdfOPMGraph) res;
     }
 
+    RepositoryHelper rHelper=new RepositoryHelper();
+
+    public String serializeSesameStore(Collection<String[]> prefixes) {
+        try {
+            return rHelper.dumpToRDF((SesameManager)manager,RDFFormat.N3,prefixes);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 }

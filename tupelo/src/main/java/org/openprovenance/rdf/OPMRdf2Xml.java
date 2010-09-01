@@ -468,7 +468,7 @@ public class OPMRdf2Xml {
 
         Artifact a=artifactTable.get(uri);
         if (a==null) {
-            Artifact a2=pFactory.newArtifact(id, null);
+            Artifact a2=pFactory.newArtifact(id, (Collection<Account>)null);
             artifactTable.put(uri,a2);
             return a2;
         } else {

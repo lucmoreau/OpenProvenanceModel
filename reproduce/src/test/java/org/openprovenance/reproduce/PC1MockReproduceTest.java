@@ -3,6 +3,8 @@ package org.openprovenance.reproduce;
 import javax.xml.bind.JAXBException;
 
 import java.util.Iterator;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -54,6 +56,16 @@ import org.openprovenance.model.Artifact;
 import org.openprovenance.model.Process;
 import org.openprovenance.model.Account;
 
+import org.openrdf.elmo.ElmoModule;
+import org.openrdf.elmo.ElmoManagerFactory;
+import org.openrdf.elmo.ElmoManager;
+import org.openrdf.elmo.sesame.SesameManagerFactory;
+import org.openrdf.elmo.sesame.SesameManager;
+import org.openrdf.rio.RDFFormat;
+import org.openprovenance.elmo.RdfOPMFactory;
+import org.openprovenance.elmo.RdfObjectFactory;
+import org.openprovenance.elmo.RepositoryHelper;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -69,10 +81,29 @@ public class PC1MockReproduceTest extends TestCase {
     public PrimitiveEnvironment primEnv=new OpenProvenanceEnvironment().mock();
 
 
+    static ElmoManager        manager=null;
+    static ElmoManagerFactory factory=null;
+    static RepositoryHelper   rHelper=null;
+    static ElmoModule         module =null;
+    static boolean initialized=false;
+    static void initializeElmo() {
+        module = new ElmoModule();
+        rHelper=new RepositoryHelper();
+        rHelper.registerConcepts(module);
+        factory = new SesameManagerFactory(module);
+        manager = factory.createElmoManager();
+        oFactory=new RdfOPMFactory(new RdfObjectFactory(manager,PC1_NS),manager);
+        RdfOPMFactory.count=1000;
+
+    }
+
 
     public PC1MockReproduceTest (String testName) {
         super(testName);
-        
+        if (!initialized) {
+            //initializeElmo();
+            initialized=true;
+        }
     }
 
     public void testWithModelPC1Mock() {
@@ -80,6 +111,7 @@ public class PC1MockReproduceTest extends TestCase {
     }
     
     static Model theModel;
+    static Model theNewModel;
     static IndexedOPMGraph graph;
 
     public void loadModel() {
@@ -124,10 +156,16 @@ public class PC1MockReproduceTest extends TestCase {
 
     }
 
+    OPMFactory originalOFactory=new OPMFactory();
+
     public void loadOPMGraph() throws JAXBException    {
         OPMDeserialiser deserial=OPMDeserialiser.getThreadOPMDeserialiser();
         OPMGraph graph1=deserial.deserialiseOPMGraph(new File("src/test/resources/pc1-full-url.xml"));
-        graph=new IndexedOPMGraph(oFactory,graph1);
+
+        // the graph here is constructed for convenience, since it's easier to navigate this than the triple store
+        // hence, we use the normal factory.
+        graph=new IndexedOPMGraph(originalOFactory,
+                                  graph1);
     }
 
 
@@ -355,10 +393,11 @@ public class PC1MockReproduceTest extends TestCase {
         
     }
 
-        
-
-
-
+    public void testPC1MockDumpStore() throws Exception {
+        System.out.println("Now saving triple store ");
+        //theModel.write(new FileOutputStream("target/pc1-mock-inferred.n3"),"N3");
+        System.out.println("Now saving triple store Done");
+    }
     
 
 }

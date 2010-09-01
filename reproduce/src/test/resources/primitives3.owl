@@ -2211,6 +2211,8 @@ new(?$wdf, ?$any)
     </swrl:Imp>
 
 -->
+
+<!--
     <swrl:Imp>
         <swrl:head>
             <swrl:AtomList>
@@ -2442,6 +2444,7 @@ new(?$wdf, ?$any)
             </swrl:AtomList>
         </swrl:body>
     </swrl:Imp>
+-->
 </rdf:RDF>
 
 

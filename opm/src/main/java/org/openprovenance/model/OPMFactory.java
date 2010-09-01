@@ -843,13 +843,18 @@ public class OPMFactory implements CommonURIs {
         res.setValue(value);
         return res;
     }
-
     public Artifact newArtifact(Artifact a) {
+        return newArtifact(a.getId(),a);
+    }
+
+    /** Create a new artifact with a given identifier, inheriting
+     * everything else from a template artifact. */
+    public Artifact newArtifact(String id, Artifact a) {
         LinkedList<Account> ll=new LinkedList();
         for (AccountRef acc: a.getAccount()) {
             ll.add(newAccount((Account)acc.getRef()));
         }
-        Artifact res=newArtifact(a.getId(),ll);
+        Artifact res=newArtifact(id,ll);
         addNewAnnotations(res,a.getAnnotation());
         return res;
     }

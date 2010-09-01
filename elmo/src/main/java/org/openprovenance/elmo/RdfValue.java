@@ -15,7 +15,7 @@ public class RdfValue extends org.openprovenance.model.Value implements HasFacad
     String prefix;
     QName qname;
 
-    static int count=0;
+    //static int count=0;
     
     public RdfValue(ElmoManager manager, QName qname) {
         this.manager=manager;
@@ -28,7 +28,7 @@ public class RdfValue extends org.openprovenance.model.Value implements HasFacad
     public RdfValue(ElmoManager manager, String prefix) {
         this.manager=manager;
         this.prefix=prefix;
-        setId("av_" + (count++));
+        setId("av_" + (RdfOPMFactory.count++));
     }
 
     public void setId(String value) {

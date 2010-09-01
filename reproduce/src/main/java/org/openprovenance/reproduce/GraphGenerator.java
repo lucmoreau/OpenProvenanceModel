@@ -2,6 +2,7 @@ package org.openprovenance.reproduce;
 import java.util.LinkedList;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Collection;
 import org.openprovenance.model.Artifact;
 import org.openprovenance.model.Process;
 import org.openprovenance.model.OPMFactory;
@@ -11,6 +12,8 @@ import org.openprovenance.model.OPMGraph;
 import org.openprovenance.model.Used;
 import org.openprovenance.model.Property;
 import org.openprovenance.model.WasGeneratedBy;
+import org.openprovenance.model.Role;
+import org.openprovenance.model.Account;
 import javax.xml.bind.JAXBElement;
 
 
@@ -72,11 +75,10 @@ public class GraphGenerator implements ArtifactFactory, ProcessFactory, GraphFac
         String oid=aMap.get(a.getId());
         Artifact n;
         if (oid==null) {
-            n=oFactory.newArtifact(a);
+            String nid=newArtifactId();
+            n=oFactory.newArtifact(nid,a);
             updatePath(a.getId(),n);
             updateValue(a.getId(),n);
-            String nid=newArtifactId();
-            n.setId(nid);
             aMap.put(a.getId(),nid);
             nGraph.addArtifact(n);
         } else {
@@ -94,9 +96,12 @@ public class GraphGenerator implements ArtifactFactory, ProcessFactory, GraphFac
         return n;
     }
 
-    public Used addUsed(Used used) {
+    public Used addUsed(Process p,
+                        Role role,
+                        Artifact a,
+                        Collection<Account> accounts) {
         String nid=newUsedId();
-        used.setId(nid);
+        Used used=oFactory.newUsed(nid,p,role,a,accounts);
         return nGraph.addUsed(used);
     }
     public WasGeneratedBy addWasGeneratedBy(WasGeneratedBy wasGeneratedBy) {

@@ -56,6 +56,15 @@ import org.openprovenance.model.Account;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import org.openrdf.elmo.ElmoModule;
+import org.openrdf.elmo.ElmoManagerFactory;
+import org.openrdf.elmo.ElmoManager;
+import org.openrdf.elmo.sesame.SesameManagerFactory;
+import org.openrdf.elmo.sesame.SesameManager;
+import org.openrdf.rio.RDFFormat;
+import org.openprovenance.elmo.RdfOPMFactory;
+import org.openprovenance.elmo.RdfObjectFactory;
+import org.openprovenance.elmo.RepositoryHelper;
 
 /**
  * Reproducibility of Numeric
@@ -67,10 +76,29 @@ public class NumericReproduceTest extends TestCase {
 
     public PrimitiveEnvironment primEnv=new OpenProvenanceEnvironment();
 
+    static ElmoManager        manager=null;
+    static ElmoManagerFactory factory=null;
+    static RepositoryHelper   rHelper=null;
+    static ElmoModule         module =null;
+    static boolean initialized=false;
+    static void initializeElmo() {
+        module = new ElmoModule();
+        rHelper=new RepositoryHelper();
+        rHelper.registerConcepts(module);
+        factory = new SesameManagerFactory(module);
+        manager = factory.createElmoManager();
+        oFactory=new RdfOPMFactory(new RdfObjectFactory(manager,numNS),manager);
+        RdfOPMFactory.count=1000;
+
+    }
 
 
     public NumericReproduceTest (String testName) {
         super(testName);
+        if (!initialized) {
+            initializeElmo();
+            initialized=true;
+        }
         
     }
 
@@ -116,17 +144,26 @@ public class NumericReproduceTest extends TestCase {
         printIterator(model.listObjectsOfProperty(c, RDFS.subClassOf), "All super classes of " + c.getLocalName());
         
         theModel=model;
+
         try {
             loadOPMGraph();
-        } catch (JAXBException je) {
+            //testNumDumpStore();
+            //theModel.write(new FileOutputStream("target/num-init.n3"),"N3");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
 
+    OPMFactory originalOFactory=new OPMFactory();
+
+
     public void loadOPMGraph() throws JAXBException    {
         OPMDeserialiser deserial=OPMDeserialiser.getThreadOPMDeserialiser();
         OPMGraph graph1=deserial.deserialiseOPMGraph(new File("src/test/resources/numeric.xml"));
-        graph=new IndexedOPMGraph(oFactory,graph1);
+        // the graph here is constructed for convenience, since it's easier to navigate this than the triple store
+        // hence, we use the normal factory.
+        graph=new IndexedOPMGraph(originalOFactory,graph1);
     }
 
 
@@ -344,6 +381,13 @@ public class NumericReproduceTest extends TestCase {
         
     }
 
+
+    public void testNumDumpStore() throws Exception {
+        System.out.println("Now saving triple store ");
+        //theModel.write(new FileOutputStream("target/num-inferred.n3"),"N3");
+        System.out.println("Now saving triple store Done");
+    }
+    
         
 
 

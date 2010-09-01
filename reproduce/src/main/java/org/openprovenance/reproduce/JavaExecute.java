@@ -57,7 +57,6 @@ public class JavaExecute implements Execute {
 
 
         List<?> ins=u.getInputs(proc);
-        List<?> outs=u.getOutputs(proc);
 
         HashMap<String,Object> args=new HashMap();
 
