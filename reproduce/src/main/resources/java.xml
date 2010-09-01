@@ -113,5 +113,14 @@
       </binding>
   </procedure>
 
+  <procedure name="convert2" src="line 12">
+      <output name="o"  type="JPG"     xsi:nil="true" opr:role="out"/>
+      <input  name="i"  type="PGM"     xsi:nil="true" opr:role="in"/>
+
+      <binding>
+      </binding>
+  </procedure>
+
+
 
 </program>

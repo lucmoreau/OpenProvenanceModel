@@ -45,4 +45,10 @@ public class OpenProvenanceEnvironment implements PrimitiveEnvironment {
         return this;
     }
 
+    public OpenProvenanceEnvironment mock2() {
+        table.put("http://openprovenance.org/primitives#convert",
+                  "http://openprovenance.org/reproducibility/java#convert2");
+        return this;
+    }
+
 }

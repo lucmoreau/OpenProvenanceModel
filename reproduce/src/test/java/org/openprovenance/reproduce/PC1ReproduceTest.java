@@ -61,12 +61,13 @@ import org.w3c.dom.Element;
 /**
  * Reproducibility of PC1
  */
-abstract public class PC1ReproduceTest extends TestCase {
+public class PC1ReproduceTest extends TestCase {
     public static String PC1_NS="http://www.ipaw.info/pc1/";
 
     static OPMFactory oFactory=new OPMFactory();
 
-    public PrimitiveEnvironment primEnv=new OpenProvenanceEnvironment();
+    // don't call mock2() if you want execution of convert with swift
+    public PrimitiveEnvironment primEnv=new OpenProvenanceEnvironment().mock2();
 
 
 

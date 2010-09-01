@@ -115,6 +115,38 @@ public class JavaPrimitive {
                 }
                 return;
             }
+
+            if (primitive.equals("http://openprovenance.org/reproducibility/java#convert2")) {
+                File arg1=(File) arguments.get("in");
+                Runtime run=Runtime.getRuntime();
+                
+                if (arg1.toString().endsWith("-x.pgm")) {
+                    try {
+                        java.lang.Process p=run.exec("wget --output-document=target/atlas-x.gif http://www.ipaw.info/challenge/atlas-x.gif");
+                        p.waitFor();
+                    } catch (Exception ie) {
+                        ie.printStackTrace();
+                    }
+
+                } else if (arg1.toString().endsWith("-y.pgm")) {
+                    try {
+                        java.lang.Process p=run.exec("wget --output-document=target/atlas-y.gif http://www.ipaw.info/challenge/atlas-y.gif");
+                        p.waitFor();
+                    } catch (Exception ie) {
+                        ie.printStackTrace();
+                    }
+
+                } else if (arg1.toString().endsWith("-z.pgm")) {
+                    try {
+                        java.lang.Process p=run.exec("wget --output-document=target/atlas-z.gif http://www.ipaw.info/challenge/atlas-z.gif");
+                        p.waitFor();
+                    } catch (Exception ie) {
+                        ie.printStackTrace();
+                    }
+                }
+                return;
+            }
+
         } catch (java.net.MalformedURLException e) {
             e.printStackTrace();
         }

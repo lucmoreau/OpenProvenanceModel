@@ -613,6 +613,11 @@ public class OPMFactory implements CommonURIs {
             String labelValue=label.getValue();
             ann.getProperty().add(newProperty(LABEL_PROPERTY,labelValue));
         }
+        if (ann instanceof Value) {
+            Value val=(Value) ann;
+            Object valValue=val.getContent();
+            ann.getProperty().add(newProperty(VALUE_PROPERTY,valValue));
+        }
         if (ann instanceof PName) {
             PName pname=(PName) ann;
             String pnameValue=pname.getValue();

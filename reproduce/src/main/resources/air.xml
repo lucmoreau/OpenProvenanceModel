@@ -193,6 +193,8 @@
       </binding>
   </procedure>
 
+
+
   <!-- invocation code -->
 
   <variable name="outfile" type="messagefile" isGlobal="false"><file name="q13greeting.txt"/></variable>
