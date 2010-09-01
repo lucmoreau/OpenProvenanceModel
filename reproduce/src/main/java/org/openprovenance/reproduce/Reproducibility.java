@@ -119,6 +119,8 @@ public class Reproducibility {
             }
         }
 
+        addWasDerivedFromForProcess(process,p2);
+
     }
         
     ExecuteFactory eFact=new ExecuteFactory();
@@ -134,7 +136,10 @@ public class Reproducibility {
         exec.invoke(o,name,primitive, u);
     }
 
-
     
-
+    
+    public void addWasDerivedFromForProcess(String uri, Process p2) {
+        Resource res1=theModel.createResource(uri);
+        System.out.println("--> Created resource " + res1);
+    }
 }

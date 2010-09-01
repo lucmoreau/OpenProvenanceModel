@@ -2,6 +2,7 @@ package org.openprovenance.elmo;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
+import java.io.StringWriter;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -61,6 +62,29 @@ public class RepositoryHelper {
                           RDFFormat format,
                           Collection<String[]> prefixes) throws Exception {
         Writer writer = new FileWriter(file);
+        dumpToRDF(writer,
+                  manager,
+                  format,
+                  prefixes);
+    }
+
+    public String dumpToRDF(SesameManager manager,
+                            RDFFormat format,
+                            Collection<String[]> prefixes) throws Exception {
+        StringWriter sw=new StringWriter();
+        dumpToRDF(sw,
+                  manager,
+                  format,
+                  prefixes);
+        return sw.toString();
+    }
+
+
+
+    public void dumpToRDF(Writer writer,
+                          SesameManager manager,
+                          RDFFormat format,
+                          Collection<String[]> prefixes) throws Exception {
         RDFHandler serialiser=null;
         if (format.equals(RDFFormat.N3)) {
             serialiser=new N3Writer(writer);
