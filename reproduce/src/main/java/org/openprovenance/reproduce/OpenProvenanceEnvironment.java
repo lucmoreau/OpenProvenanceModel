@@ -28,4 +28,20 @@ public class OpenProvenanceEnvironment implements PrimitiveEnvironment {
     public String get(String o) {
         return table.get(o);
     }
+
+    /** Overrides swift-based implementation with a java mockup. */
+
+    public void mock() {
+        table.put("http://openprovenance.org/primitives#align_warp",
+                  "http://openprovenance.org/reproducibility/java#align_warp");
+        table.put("http://openprovenance.org/primitives#reslice",
+                  "http://openprovenance.org/reproducibility/java#reslice");
+        table.put("http://openprovenance.org/primitives#softmean",
+                  "http://openprovenance.org/reproducibility/java#softmean");
+        table.put("http://openprovenance.org/primitives#slicer",
+                  "http://openprovenance.org/reproducibility/java#slicer");
+        table.put("http://openprovenance.org/primitives#convert",
+                  "http://openprovenance.org/reproducibility/java#convert");
+    }
+
 }

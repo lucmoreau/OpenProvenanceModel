@@ -75,7 +75,7 @@ public class PC1ReproduceTest extends TestCase {
         
     }
 
-    public void testWithModel1() {
+    public void testWithModelPC1() {
         loadModel();
     }
     
@@ -150,7 +150,7 @@ public class PC1ReproduceTest extends TestCase {
         System.out.println();
     }
 
-    public void testQuery2() throws java.io.FileNotFoundException, java.io.IOException {
+    public void testPC1Query2() throws java.io.FileNotFoundException, java.io.IOException {
         
         // Create a new query
         String queryString = 
@@ -165,7 +165,7 @@ public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testQuery3() throws java.io.FileNotFoundException, java.io.IOException {
+    public void testPC1Query3() throws java.io.FileNotFoundException, java.io.IOException {
         
         // Create a new query
         String queryString = 
@@ -195,7 +195,7 @@ public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testQuery4() {
+    public void testPC1Query4() {
 
         Queries q=new Queries(theModel);
         q.addPrefixes("pc1",PC1_NS);
@@ -214,7 +214,7 @@ public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testOrderedProcesses() {
+    public void testPC1OrderedProcesses() {
         Queries q=new Queries(theModel);
         q.addPrefixes("pc1",PC1_NS);
 
@@ -226,7 +226,7 @@ public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testInputArtifacts() {
+    public void testPC1InputArtifacts() {
         Queries q=new Queries(theModel);
         q.addPrefixes("pc1",PC1_NS);
 
@@ -238,7 +238,7 @@ public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testQuery5() {
+    public void testPC1Query5() {
         Queries q=new Queries(theModel);
         q.addPrefixes("pc1",PC1_NS);
 
@@ -251,7 +251,7 @@ public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testQuery6() {
+    public void testPC1Query6() {
         Queries q=new Queries(theModel);
         q.addPrefixes("pc1",PC1_NS);
 
@@ -264,7 +264,7 @@ public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testQuery7() {
+    public void testPC1Query7() {
         Queries q=new Queries(theModel);
         q.addPrefixes("pc1",PC1_NS);
 
@@ -301,7 +301,7 @@ public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testReproduceP1() throws java.io.IOException, org.jaxen.JaxenException, org.xml.sax.SAXException {
+    public void testReproducePC1() throws java.io.IOException, org.jaxen.JaxenException, org.xml.sax.SAXException {
 
 
         List<String> processNames=Arrays.asList(new String [] {"http://www.ipaw.info/pc1/p1",
