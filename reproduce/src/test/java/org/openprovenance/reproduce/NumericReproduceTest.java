@@ -320,7 +320,7 @@ public class NumericReproduceTest extends TestCase {
         gGenerator.setValueTable(initValueTable());
 
 
-        Reproducibility rSemantics=new Reproducibility(numNS, oFactory, gGenerator,theModel,graph);
+        Reproducibility rSemantics=new Reproducibility(numNS, oFactory, gGenerator, primEnv, theModel, graph);
 
         
         for (String processName: processNames) {

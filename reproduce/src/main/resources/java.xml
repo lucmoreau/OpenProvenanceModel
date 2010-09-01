@@ -41,4 +41,77 @@
       </binding>
   </procedure>
 
+
+  <procedure name="align_warp" src="line 4">
+
+      <output name="o" type="WarpParameters"    xsi:nil="true" opr:role="out"/>
+
+      <input  name="i1" type="AnatomyImage"     xsi:nil="true" opr:role="img"/>
+      <input  name="i2" type="ReferenceImage"   xsi:nil="true" opr:role="imgRef"/>
+      <input  name="i3" type="AnatomyImage"     xsi:nil="true" opr:role="hdr"/>
+      <input  name="i4" type="ReferenceImage"   xsi:nil="true" opr:role="hdrRef"/>
+
+      <binding>
+      </binding>
+  </procedure>
+
+
+
+
+  <procedure name="reslice" src="line 4">
+      <output name="o1"  type="Resliced_IMG"   xsi:nil="true" opr:role="img"/>
+      <output name="o2"  type="Resliced_HDR"   xsi:nil="true" opr:role="hdr"/>
+      <input  name="i1" type="WarpParameters"     xsi:nil="true" opr:role="in"/>
+
+      <binding>
+      </binding>
+  </procedure>
+
+
+  <procedure name="softmean2" src="line 4">
+      <output name="o1"  type="AtlasImg"   xsi:nil="true" opr:role="img"/>
+      <output name="o2"  type="AtlasHdr"   xsi:nil="true" opr:role="hdr"/>
+      <input  name="in1"  type="Resliced"   xsi:nil="true" opr:role="i1"/>
+      <input  name="hdr1"  type="Resliced"   xsi:nil="true" opr:role="h1"/>
+
+      <binding>
+      </binding>
+  </procedure>
+
+  <procedure name="softmean" src="line 4">
+      <output name="o1"  type="AtlasImg"   xsi:nil="true" opr:role="img"/>
+      <output name="o2"  type="AtlasHdr"   xsi:nil="true" opr:role="hdr"/>
+      <input  name="in1"  type="Resliced"   xsi:nil="true" opr:role="i1"/>
+      <input  name="hdr1"  type="Resliced"   xsi:nil="true" opr:role="h1"/>
+      <input  name="in2"  type="Resliced"   xsi:nil="true" opr:role="i2"/>
+      <input  name="hdr2"  type="Resliced"   xsi:nil="true" opr:role="h2"/>
+      <input  name="in3"  type="Resliced"   xsi:nil="true" opr:role="i3"/>
+      <input  name="hdr3"  type="Resliced"   xsi:nil="true" opr:role="h3"/>
+      <input  name="in4"  type="Resliced"   xsi:nil="true" opr:role="i4"/>
+      <input  name="hdr4"  type="Resliced"   xsi:nil="true" opr:role="h4"/>
+
+      <binding>
+      </binding>
+  </procedure>
+
+
+  <procedure name="slicer" src="line 10">
+      <output name="o"  type="PGM"     xsi:nil="true" opr:role="out"/>
+      <input  name="i1" type="IMG"     xsi:nil="true" opr:role="img"/>
+      <input  name="i2" type="HDR"     xsi:nil="true" opr:role="hdr"/>
+      <input  name="p"  type="string"  xsi:nil="true" opr:role="param"/>
+
+      <binding>
+      </binding>
+  </procedure>
+
+  <procedure name="convert" src="line 12">
+      <output name="o"  type="JPG"     xsi:nil="true" opr:role="out"/>
+      <input  name="i"  type="PGM"     xsi:nil="true" opr:role="in"/>
+
+      <binding>
+      </binding>
+  </procedure>
+
+
 </program>

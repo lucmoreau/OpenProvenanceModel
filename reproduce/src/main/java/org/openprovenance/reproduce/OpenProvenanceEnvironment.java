@@ -31,7 +31,7 @@ public class OpenProvenanceEnvironment implements PrimitiveEnvironment {
 
     /** Overrides swift-based implementation with a java mockup. */
 
-    public void mock() {
+    public OpenProvenanceEnvironment mock() {
         table.put("http://openprovenance.org/primitives#align_warp",
                   "http://openprovenance.org/reproducibility/java#align_warp");
         table.put("http://openprovenance.org/primitives#reslice",
@@ -42,6 +42,7 @@ public class OpenProvenanceEnvironment implements PrimitiveEnvironment {
                   "http://openprovenance.org/reproducibility/java#slicer");
         table.put("http://openprovenance.org/primitives#convert",
                   "http://openprovenance.org/reproducibility/java#convert");
+        return this;
     }
 
 }

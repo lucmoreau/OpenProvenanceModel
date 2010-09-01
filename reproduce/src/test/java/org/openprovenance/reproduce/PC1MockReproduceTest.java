@@ -61,21 +61,21 @@ import org.w3c.dom.Element;
 /**
  * Reproducibility of PC1
  */
-abstract public class PC1ReproduceTest extends TestCase {
+public class PC1MockReproduceTest extends TestCase {
     public static String PC1_NS="http://www.ipaw.info/pc1/";
 
     static OPMFactory oFactory=new OPMFactory();
 
-    public PrimitiveEnvironment primEnv=new OpenProvenanceEnvironment();
+    public PrimitiveEnvironment primEnv=new OpenProvenanceEnvironment().mock();
 
 
 
-    public PC1ReproduceTest (String testName) {
+    public PC1MockReproduceTest (String testName) {
         super(testName);
         
     }
 
-    public void testWithModelPC1() {
+    public void testWithModelPC1Mock() {
         loadModel();
     }
     
@@ -101,7 +101,7 @@ abstract public class PC1ReproduceTest extends TestCase {
         InfModel model = ModelFactory.createInfModel( reasoner, emptyModel );
             
         // read the files
-        model.read( "file:src/test/resources/pc1-full.n3", "N3" );
+        model.read( "file:src/test/resources/pc1-full-url.n3", "N3" );
         model.read( ont1 );
         model.read( ont2 );
         
@@ -126,7 +126,7 @@ abstract public class PC1ReproduceTest extends TestCase {
 
     public void loadOPMGraph() throws JAXBException    {
         OPMDeserialiser deserial=OPMDeserialiser.getThreadOPMDeserialiser();
-        OPMGraph graph1=deserial.deserialiseOPMGraph(new File("src/test/resources/pc1-full.xml"));
+        OPMGraph graph1=deserial.deserialiseOPMGraph(new File("src/test/resources/pc1-full-url.xml"));
         graph=new IndexedOPMGraph(oFactory,graph1);
     }
 
@@ -150,7 +150,7 @@ abstract public class PC1ReproduceTest extends TestCase {
         System.out.println();
     }
 
-    public void testPC1Query2() throws java.io.FileNotFoundException, java.io.IOException {
+    public void testPC1MockQuery2() throws java.io.FileNotFoundException, java.io.IOException {
         
         // Create a new query
         String queryString = 
@@ -165,7 +165,7 @@ abstract public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testPC1Query3() throws java.io.FileNotFoundException, java.io.IOException {
+    public void testPC1MockQuery3() throws java.io.FileNotFoundException, java.io.IOException {
         
         // Create a new query
         String queryString = 
@@ -195,7 +195,7 @@ abstract public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testPC1Query4() {
+    public void testPC1MockQuery4() {
 
         Queries q=new Queries(theModel);
         q.addPrefixes("pc1",PC1_NS);
@@ -214,7 +214,7 @@ abstract public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testPC1OrderedProcesses() {
+    public void testPC1MockOrderedProcesses() {
         Queries q=new Queries(theModel);
         q.addPrefixes("pc1",PC1_NS);
 
@@ -226,7 +226,7 @@ abstract public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testPC1InputArtifacts() {
+    public void testPC1MockInputArtifacts() {
         Queries q=new Queries(theModel);
         q.addPrefixes("pc1",PC1_NS);
 
@@ -238,7 +238,7 @@ abstract public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testPC1Query5() {
+    public void testPC1MockQuery5() {
         Queries q=new Queries(theModel);
         q.addPrefixes("pc1",PC1_NS);
 
@@ -251,7 +251,7 @@ abstract public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testPC1Query6() {
+    public void testPC1MockQuery6() {
         Queries q=new Queries(theModel);
         q.addPrefixes("pc1",PC1_NS);
 
@@ -264,7 +264,7 @@ abstract public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testPC1Query7() {
+    public void testPC1MockQuery7() {
         Queries q=new Queries(theModel);
         q.addPrefixes("pc1",PC1_NS);
 
@@ -301,7 +301,7 @@ abstract public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testReproducePC1() throws java.io.IOException, org.jaxen.JaxenException, org.xml.sax.SAXException {
+    public void testReproducePC1Mock() throws java.io.IOException, org.jaxen.JaxenException, org.xml.sax.SAXException {
 
 
         List<String> processNames=Arrays.asList(new String [] {"http://www.ipaw.info/pc1/p1",
@@ -331,7 +331,7 @@ abstract public class PC1ReproduceTest extends TestCase {
         GraphGenerator gGenerator= new GraphGenerator (oFactory);
         gGenerator.setPathTable(initPathTable("//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/"));
 
-        Reproducibility rSemantics=new Reproducibility(PC1_NS, oFactory, gGenerator, primEnv, theModel, graph);
+        Reproducibility rSemantics=new Reproducibility(PC1_NS, oFactory, gGenerator, primEnv, theModel,graph);
 
         
         for (String processName: processNames) {
@@ -343,10 +343,10 @@ abstract public class PC1ReproduceTest extends TestCase {
 
         try {
             OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
-            serial.serialiseOPMGraph(new File("target/pc1.xml"),gGenerator.getNewGraph(),true);
+            serial.serialiseOPMGraph(new File("target/pc1-mock.xml"),gGenerator.getNewGraph(),true);
 
             OPMToDot toDot=new OPMToDot(true); // with roles
-            toDot.convert(gGenerator.getNewGraph(),"target/pc1.dot", "target/pc1.pdf");
+            toDot.convert(gGenerator.getNewGraph(),"target/pc1-mock.dot", "target/pc1-mock.pdf");
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -29,6 +29,8 @@ public class PC1FullTest
         super( testName );
     }
 
+    public boolean urlFlag=true;
+
     /**
      * @return the suite of tests being tested
      */
@@ -55,8 +57,10 @@ public class PC1FullTest
     }
 
     static String PATH_PROPERTY="http://openprovenance.org/primitives#path";
+    static String URL_PROPERTY="http://openprovenance.org/primitives#url";
     static String PRIMITIVE_PROPERTY="http://openprovenance.org/primitives#primitive";
     static String FILE_LOCATION="/shomewhere/pc1/";
+    static String URL_LOCATION="http://www.ipaw.info/challenge/";
 
     static String PRIMITIVE_ALIGN_WARP="http://openprovenance.org/primitives#align_warp";
     static String PRIMITIVE_RESLICE="http://openprovenance.org/primitives#reslice";
@@ -79,7 +83,7 @@ public class PC1FullTest
                                oFactory.newType("http://openprovenance.org/primitives#File"));
         oFactory.addAnnotation(a,
                                oFactory.newEmbeddedAnnotation("an1_" + id,
-                                                              PATH_PROPERTY,
+                                                              (urlFlag) ? URL_PROPERTY : PATH_PROPERTY,
                                                               location + file,
                                                               null));
         return a;
@@ -105,7 +109,11 @@ public class PC1FullTest
 
 
     public OPMGraph makePC1FullGraph(OPMFactory oFactory) {
-        return makePC1FullGraph(oFactory,FILE_LOCATION,"./");
+        if (urlFlag) {
+            return makePC1FullGraph(oFactory,URL_LOCATION,URL_LOCATION);
+        } else {
+            return makePC1FullGraph(oFactory,FILE_LOCATION,"./");
+        }
     }
 
     public OPMGraph makePC1FullGraph(OPMFactory oFactory, String inputLocation, String outputLocation)
@@ -326,28 +334,28 @@ public class PC1FullTest
                              "a11",
                              black,
                              "Warp Params1",
-                             "params1.warp",
+                             "warp1.warp",
                              outputLocation);
 
         Artifact a12=newFile(oFactory,
                              "a12",
                              black,
                              "Warp Params2",
-                             "params2.warp",
+                             "warp2.warp",
                              outputLocation);
 
         Artifact a13=newFile(oFactory,
                              "a13",
                              black,
                              "Warp Params3",
-                             "params3.warp",
+                             "warp3.warp",
                              outputLocation);
 
         Artifact a14=newFile(oFactory,
                              "a14",
                              black,
                              "Warp Params4",
-                             "params3.warp",
+                             "warp4.warp",
                              outputLocation);
 
         Artifact a15=newFile(oFactory,
@@ -453,19 +461,19 @@ public class PC1FullTest
                              "a28",
                              black,
                              "Atlas X Graphic",
-                             "atlas-x.jpg",
+                             "atlas-x.gif",
                              outputLocation);
         Artifact a29=newFile(oFactory,
                              "a29",
                              black,
                              "Atlas Y Graphic",
-                             "atlas-y.jpg",
+                             "atlas-y.gif",
                              outputLocation);
         Artifact a30=newFile(oFactory,
                              "a30",
                              black,
                              "Atlas Z Graphic",
-                             "atlas-z.jpg",
+                             "atlas-z.gif",
                              outputLocation);
 
         Used u1=oFactory.newUsed(p1,oFactory.newRole("img"),a3,black);

@@ -1,7 +1,9 @@
 package org.openprovenance.reproduce;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+import java.net.URL;
 
 import org.openprovenance.model.Artifact;
 import org.openprovenance.model.Process;
@@ -21,6 +23,8 @@ public class JavaExecute implements Execute {
     final ArtifactFactory artifactFactory;
 
     final Utilities u;
+
+    final JavaPrimitive jp= new JavaPrimitive();
 
     public JavaExecute(OPMFactory oFactory, ArtifactFactory artifactFactory) throws SAXException, IOException {
         this.oFactory=oFactory;
@@ -46,7 +50,7 @@ public class JavaExecute implements Execute {
         List<?> procs=u.getDefinitionForUri(procedure);
         if ((procs==null)
             || (procs.size()==0)) {
-            throw new NullPointerException();
+            throw new UnsupportedOperationException("prepareInvocationArguments: procedure " + procedure);
         }
 
         Node proc=(Node)procs.get(0);
@@ -64,24 +68,51 @@ public class JavaExecute implements Execute {
 
             Artifact a=arguments.get(role);
             Artifact a2=artifactFactory.newArtifact(a);
-            args.put(role,oFactory.getValue(a2));            
+            args.put(role,getValue(a2));            
         }
 
-
-        // for (Object out: outs) {
-        //     String role=u.getRole((Node)out);
-        //     String name=u.getName((Node)out);
-        //     String type=u.getType((Node)out);
-
-        //     Artifact a=arguments.get(role);
-        //     Artifact a2=artifactFactory.newArtifact(a);
-        // }
 
         return new Object[] {args,arguments};
     }
 
     String makeVariable(Artifact a) {
         return "var_" + a.getId();
+    }
+
+    static String PATH_PROPERTY="http://openprovenance.org/primitives#path";
+    static String URL_PROPERTY="http://openprovenance.org/primitives#url";
+
+
+    public Object getValue(Artifact a) {
+        Object value=oFactory.getValue(a);
+        if (value!=null) {
+            return value;
+        }
+
+        List pvalue=oFactory.getPropertyValues(a,PATH_PROPERTY);
+        if ((pvalue==null) || (pvalue.size()==0)) {
+        } else {
+            return new File(makeFilename((String)pvalue.get(0)));
+        }
+
+
+        List uvalue=oFactory.getPropertyValues(a,URL_PROPERTY);
+        if ((uvalue==null) || (uvalue.size()==0)) {
+        } else {
+            try {
+                return new URL((String)uvalue.get(0));
+            } catch (java.net.MalformedURLException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        return null;
+
+    }
+
+    public String makeFilename(String file) {
+        return file;
     }
 
 
@@ -96,26 +127,8 @@ public class JavaExecute implements Execute {
         System.out.println("JavaExecute: args " + arguments);
 
         HashMap<String,Object> results= new HashMap();
-        Object thisResult=null;
-        if (primitive.equals("http://openprovenance.org/reproducibility/java#sum")) {
-            Integer arg1=(Integer) arguments.get("summand1");
-            Integer arg2=(Integer) arguments.get("summand2");
-            thisResult=arg1+arg2;
-            results.put("out", thisResult);
-        } else if (primitive.equals("http://openprovenance.org/reproducibility/java#multiplication")) {
-            Integer arg1=(Integer) arguments.get("factor1");
-            Integer arg2=(Integer) arguments.get("factor2");
-            thisResult=arg1*arg2;
-            results.put("product", thisResult);
-        } else if (primitive.equals("http://openprovenance.org/reproducibility/java#division")) {
-            Integer arg1=(Integer) arguments.get("dividend");
-            Integer arg2=(Integer) arguments.get("divisor");
-            thisResult=arg1/arg2;
-            results.put("quotient", thisResult);
-        } else new UnsupportedOperationException(primitive);
 
-
-        System.out.println("JavaExecute: results " + results);
+        jp.invoke(primitive,arguments,results);
 
         System.out.println("invoke, now create output artifacts for " + primitive);
         try {
@@ -126,7 +139,7 @@ public class JavaExecute implements Execute {
         List<?> procs=u.getDefinitionForUri(primitive);
         if ((procs==null)
             || (procs.size()==0)) {
-            throw new NullPointerException();
+            throw new UnsupportedOperationException("invoke for " + primitive);
         }
 
         Node proc=(Node)procs.get(0);
@@ -139,10 +152,18 @@ public class JavaExecute implements Execute {
 
             Artifact a=allIOs.get(role);
             Artifact a2=artifactFactory.newArtifact(a);
-            oFactory.setValue(a2,thisResult);
+
+            Object thisResult=results.get(role);
+
+
+            if (thisResult instanceof URL) {
+                oFactory.setPropertyValue(a2,URL_PROPERTY,thisResult.toString());
+            } else if (thisResult instanceof File) {
+                oFactory.setPropertyValue(a2,PATH_PROPERTY,thisResult.toString());
+            } else {
+                oFactory.setValue(a2,thisResult);
+            }
          }
-
-
 
 
         return results;

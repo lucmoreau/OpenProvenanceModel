@@ -25,16 +25,22 @@ public class Reproducibility {
     final Model theModel;
     final IndexedOPMGraph graph;
 
-    public PrimitiveEnvironment primEnv=new OpenProvenanceEnvironment();
+    final PrimitiveEnvironment primEnv;
 
 
-    public Reproducibility(String theNS, OPMFactory oFactory, GraphGenerator gGenerator, Model theModel, IndexedOPMGraph graph) {
+    public Reproducibility(String theNS,
+                           OPMFactory oFactory,
+                           GraphGenerator gGenerator,
+                           PrimitiveEnvironment primEnv,
+                           Model theModel,
+                           IndexedOPMGraph graph) {
         this.theNS=theNS;
         this.oFactory=oFactory;
         u=new Utilities(oFactory);
         this.gGenerator=gGenerator;
         this.theModel=theModel;
         this.graph=graph;
+        this.primEnv=primEnv;
     }
 
     public String localName(String uri, String ns) {

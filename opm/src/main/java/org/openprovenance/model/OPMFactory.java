@@ -293,6 +293,17 @@ public class OPMFactory implements CommonURIs {
         }
     }
 
+    public Object setPropertyValue(EmbeddedAnnotation annotation, String uri, Object newValue) {
+        for (Property prop: annotation.getProperty()) {
+            if (prop.getUri().equals(uri)) {
+                Object oldValue=prop.getValue();
+                prop.setValue(newValue);
+                return oldValue;
+            }
+        }
+        return null;
+    }
+
     public String getEncoding(EmbeddedAnnotation annotation) {
         if (annotation instanceof Value) {
             Value value=(Value) annotation;
@@ -370,6 +381,21 @@ public class OPMFactory implements CommonURIs {
             Object oldValue=getValue(ann);
             if (oldValue!=null) {
                 setValue(ann,value);
+                return oldValue;
+            }
+        }
+        return null;
+    }
+
+
+    public Object setPropertyValue(List<JAXBElement<? extends EmbeddedAnnotation>> annotations,
+                                   String uri,
+                                   Object value) {
+        for (JAXBElement<? extends EmbeddedAnnotation> jann: annotations) {
+            EmbeddedAnnotation ann=jann.getValue();
+            Object oldValue=getValue(ann,uri);
+            if (oldValue!=null) {
+                setPropertyValue(ann,uri,value);
                 return oldValue;
             }
         }
@@ -524,6 +550,10 @@ public class OPMFactory implements CommonURIs {
     /** Generic accessor for annotable entities. */
     public Object setValue(Annotable annotable,Object value) {
         return setValue(annotable.getAnnotation(),value);
+    }
+
+    public Object setPropertyValue(Annotable annotable, String uri, Object value) {
+        return setPropertyValue(annotable.getAnnotation(), uri, value);
     }
 
     /** Generic accessor for annotable entities. */
