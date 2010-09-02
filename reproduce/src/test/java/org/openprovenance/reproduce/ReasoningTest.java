@@ -419,6 +419,24 @@ public class ReasoningTest extends TestCase {
     }
 
 
+    public void testReasoningQuery11() throws java.io.FileNotFoundException, java.io.IOException {
+        System.out.println("Print existential");
+        // Create a new query
+        String queryString = 
+            "PREFIX opm: <http://openprovenance.org/ontology#> " +
+            "PREFIX prim: <http://openprovenance.org/primitives#> " +
+            "PREFIX pc1: <http://www.ipaw.info/pc1/>  " +
+            "PREFIX num: <http://www.ipaw.info/num/>  " +
+            "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
+            "SELECT ?a1 ?a2 " +
+            "WHERE {" +
+            "      ?a1 prim:existential ?a2. " +
+            "      }";
+
+        runQuery(queryString);
+    }
+
+
 
 
     static List<Account> black=new LinkedList();
