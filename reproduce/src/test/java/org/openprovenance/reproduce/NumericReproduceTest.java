@@ -69,7 +69,7 @@ import org.openprovenance.elmo.RepositoryHelper;
 /**
  * Reproducibility of Numeric
  */
-public class NumericReproduceTest extends TestCase {
+abstract public class NumericReproduceTest extends TestCase {
     public static String numNS="http://www.ipaw.info/num/";
 
     static OPMFactory oFactory=new OPMFactory();

@@ -1,0 +1,1077 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<opm:opmGraph xmlns:opm="http://openprovenance.org/model/v1.1.a" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://example.com/" id="gr_485">
+    <opm:accounts>
+        <opm:account id="black"/>
+    </opm:accounts>
+    <opm:processes>
+        <opm:process id="p1">
+            <opm:account ref="black"/>
+            <opm:label value="align_warp 1"/>
+            <opm:annotation id="an1_p1">
+                <opm:property uri="http://openprovenance.org/primitives#primitive">
+                    <opm:value xsi:type="xsd:string">http://openprovenance.org/primitives#align_warp</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:process>
+        <opm:process id="p2">
+            <opm:account ref="black"/>
+            <opm:label value="align_warp 2"/>
+            <opm:annotation id="an1_p2">
+                <opm:property uri="http://openprovenance.org/primitives#primitive">
+                    <opm:value xsi:type="xsd:string">http://openprovenance.org/primitives#align_warp</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:process>
+        <opm:process id="p3">
+            <opm:account ref="black"/>
+            <opm:label value="align_warp 3"/>
+            <opm:annotation id="an1_p3">
+                <opm:property uri="http://openprovenance.org/primitives#primitive">
+                    <opm:value xsi:type="xsd:string">http://openprovenance.org/primitives#align_warp</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:process>
+        <opm:process id="p4">
+            <opm:account ref="black"/>
+            <opm:label value="align_warp 4"/>
+            <opm:annotation id="an1_p4">
+                <opm:property uri="http://openprovenance.org/primitives#primitive">
+                    <opm:value xsi:type="xsd:string">http://openprovenance.org/primitives#align_warp</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:process>
+        <opm:process id="p5">
+            <opm:account ref="black"/>
+            <opm:label value="Reslice 1"/>
+            <opm:annotation id="an1_p5">
+                <opm:property uri="http://openprovenance.org/primitives#primitive">
+                    <opm:value xsi:type="xsd:string">http://openprovenance.org/primitives#reslice</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:process>
+        <opm:process id="p6">
+            <opm:account ref="black"/>
+            <opm:label value="Reslice 2"/>
+            <opm:annotation id="an1_p6">
+                <opm:property uri="http://openprovenance.org/primitives#primitive">
+                    <opm:value xsi:type="xsd:string">http://openprovenance.org/primitives#reslice</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:process>
+        <opm:process id="p7">
+            <opm:account ref="black"/>
+            <opm:label value="Reslice 3"/>
+            <opm:annotation id="an1_p7">
+                <opm:property uri="http://openprovenance.org/primitives#primitive">
+                    <opm:value xsi:type="xsd:string">http://openprovenance.org/primitives#reslice</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:process>
+        <opm:process id="p8">
+            <opm:account ref="black"/>
+            <opm:label value="Reslice 4"/>
+            <opm:annotation id="an1_p8">
+                <opm:property uri="http://openprovenance.org/primitives#primitive">
+                    <opm:value xsi:type="xsd:string">http://openprovenance.org/primitives#reslice</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:process>
+        <opm:process id="p9">
+            <opm:account ref="black"/>
+            <opm:label value="Softmean"/>
+            <opm:annotation id="an1_p9">
+                <opm:property uri="http://openprovenance.org/primitives#primitive">
+                    <opm:value xsi:type="xsd:string">http://openprovenance.org/primitives#softmean</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:process>
+        <opm:process id="p10">
+            <opm:account ref="black"/>
+            <opm:label value="Slicer 1"/>
+            <opm:annotation id="an1_p10">
+                <opm:property uri="http://openprovenance.org/primitives#primitive">
+                    <opm:value xsi:type="xsd:string">http://openprovenance.org/primitives#slicer</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:process>
+        <opm:process id="p11">
+            <opm:account ref="black"/>
+            <opm:label value="Slicer 2"/>
+            <opm:annotation id="an1_p11">
+                <opm:property uri="http://openprovenance.org/primitives#primitive">
+                    <opm:value xsi:type="xsd:string">http://openprovenance.org/primitives#slicer</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:process>
+        <opm:process id="p12">
+            <opm:account ref="black"/>
+            <opm:label value="Slicer 3"/>
+            <opm:annotation id="an1_p12">
+                <opm:property uri="http://openprovenance.org/primitives#primitive">
+                    <opm:value xsi:type="xsd:string">http://openprovenance.org/primitives#slicer</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:process>
+        <opm:process id="p13">
+            <opm:account ref="black"/>
+            <opm:label value="Convert 1"/>
+            <opm:annotation id="an1_p13">
+                <opm:property uri="http://openprovenance.org/primitives#primitive">
+                    <opm:value xsi:type="xsd:string">http://openprovenance.org/primitives#convert</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:process>
+        <opm:process id="p14">
+            <opm:account ref="black"/>
+            <opm:label value="Convert 2"/>
+            <opm:annotation id="an1_p14">
+                <opm:property uri="http://openprovenance.org/primitives#primitive">
+                    <opm:value xsi:type="xsd:string">http://openprovenance.org/primitives#convert</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:process>
+        <opm:process id="p15">
+            <opm:account ref="black"/>
+            <opm:label value="Convert 3"/>
+            <opm:annotation id="an1_p15">
+                <opm:property uri="http://openprovenance.org/primitives#primitive">
+                    <opm:value xsi:type="xsd:string">http://openprovenance.org/primitives#convert</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:process>
+    </opm:processes>
+    <opm:artifacts>
+        <opm:artifact id="a1">
+            <opm:account ref="black"/>
+            <opm:label value="Reference Image"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a1">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/reference.img</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a2">
+            <opm:account ref="black"/>
+            <opm:label value="Reference Header"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a2">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/reference.hdr</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a5">
+            <opm:account ref="black"/>
+            <opm:label value="Anatomy I2"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a5">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/anatomy2.img</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a6">
+            <opm:account ref="black"/>
+            <opm:label value="Anatomy H2"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a6">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/anatomy2.hdr</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a3">
+            <opm:account ref="black"/>
+            <opm:label value="Anatomy I1"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a3">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/anatomy1.img</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a4">
+            <opm:account ref="black"/>
+            <opm:label value="Anatomy H1"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a4">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/anatomy1.hdr</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a7">
+            <opm:account ref="black"/>
+            <opm:label value="Anatomy I3"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a7">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/anatomy3.img</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a8">
+            <opm:account ref="black"/>
+            <opm:label value="Anatomy H3"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a8">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/anatomy3.hdr</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a9">
+            <opm:account ref="black"/>
+            <opm:label value="Anatomy I4"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a9">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/anatomy4.img</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a10">
+            <opm:account ref="black"/>
+            <opm:label value="Anatomy H4"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a10">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/anatomy4.hdr</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a11">
+            <opm:account ref="black"/>
+            <opm:label value="Warp Params1"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a11">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/warp1.warp</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a12">
+            <opm:account ref="black"/>
+            <opm:label value="Warp Params2"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a12">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/warp2.warp</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a13">
+            <opm:account ref="black"/>
+            <opm:label value="Warp Params3"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a13">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/warp3.warp</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a14">
+            <opm:account ref="black"/>
+            <opm:label value="Warp Params4"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a14">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/warp4.warp</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a15">
+            <opm:account ref="black"/>
+            <opm:label value="Resliced I1"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a15">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/resliced1.img</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a16">
+            <opm:account ref="black"/>
+            <opm:label value="Resliced H1"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a16">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/resliced1.hdr</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a17">
+            <opm:account ref="black"/>
+            <opm:label value="Resliced I2"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a17">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/resliced2.img</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a18">
+            <opm:account ref="black"/>
+            <opm:label value="Resliced H2"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a18">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/resliced2.hdr</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a19">
+            <opm:account ref="black"/>
+            <opm:label value="Resliced I3"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a19">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/resliced3.img</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a20">
+            <opm:account ref="black"/>
+            <opm:label value="Resliced H3"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a20">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/resliced3.hdr</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a21">
+            <opm:account ref="black"/>
+            <opm:label value="Resliced I4"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a21">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/resliced4.img</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a22">
+            <opm:account ref="black"/>
+            <opm:label value="Resliced H4"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a22">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/resliced4.hdr</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a23">
+            <opm:account ref="black"/>
+            <opm:label value="Atlas Image"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a23">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/atlas.img</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a24">
+            <opm:account ref="black"/>
+            <opm:label value="Atlas Header"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a24">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/atlas.hdr</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a25">
+            <opm:account ref="black"/>
+            <opm:label value="Atlas X Slice"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a25">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/atlas-x.pgm</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a25p">
+            <opm:account ref="black"/>
+            <opm:label value="slicer param 1"/>
+            <opm:type value="http://openprovenance.org/primitives#String"/>
+            <opm:value encoding="mime:application/text">
+                <opm:content xsi:type="xsd:string">-x .5</opm:content>
+            </opm:value>
+        </opm:artifact>
+        <opm:artifact id="a26">
+            <opm:account ref="black"/>
+            <opm:label value="Atlas Y Slice"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a26">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/atlas-y.pgm</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a26p">
+            <opm:account ref="black"/>
+            <opm:label value="slicer param 2"/>
+            <opm:type value="http://openprovenance.org/primitives#String"/>
+            <opm:value encoding="mime:application/text">
+                <opm:content xsi:type="xsd:string">-y .5</opm:content>
+            </opm:value>
+        </opm:artifact>
+        <opm:artifact id="a27">
+            <opm:account ref="black"/>
+            <opm:label value="Atlas Z Slice"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a27">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/atlas-z.pgm</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a27p">
+            <opm:account ref="black"/>
+            <opm:label value="slicer param 3"/>
+            <opm:type value="http://openprovenance.org/primitives#String"/>
+            <opm:value encoding="mime:application/text">
+                <opm:content xsi:type="xsd:string">-z .5</opm:content>
+            </opm:value>
+        </opm:artifact>
+        <opm:artifact id="a28">
+            <opm:account ref="black"/>
+            <opm:label value="Atlas X Graphic"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a28">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/atlas-x.gif</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a29">
+            <opm:account ref="black"/>
+            <opm:label value="Atlas Y Graphic"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a29">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/atlas-y.gif</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+        <opm:artifact id="a30">
+            <opm:account ref="black"/>
+            <opm:label value="Atlas Z Graphic"/>
+            <opm:type value="http://openprovenance.org/primitives#File"/>
+            <opm:annotation id="an1_a30">
+                <opm:property uri="http://openprovenance.org/primitives#url">
+                    <opm:value xsi:type="xsd:string">http://www.ipaw.info/challenge/atlas-z.gif</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:artifact>
+    </opm:artifacts>
+    <opm:agents/>
+    <opm:causalDependencies>
+        <opm:used id="u_315">
+            <opm:effect ref="p1"/>
+            <opm:role id="r_314" value="img"/>
+            <opm:cause ref="a3"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_317">
+            <opm:effect ref="p1"/>
+            <opm:role id="r_316" value="hdr"/>
+            <opm:cause ref="a4"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_319">
+            <opm:effect ref="p1"/>
+            <opm:role id="r_318" value="imgRef"/>
+            <opm:cause ref="a1"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_321">
+            <opm:effect ref="p1"/>
+            <opm:role id="r_320" value="hdrRef"/>
+            <opm:cause ref="a2"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_323">
+            <opm:effect ref="p2"/>
+            <opm:role id="r_322" value="img"/>
+            <opm:cause ref="a5"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_325">
+            <opm:effect ref="p2"/>
+            <opm:role id="r_324" value="hdr"/>
+            <opm:cause ref="a6"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_327">
+            <opm:effect ref="p2"/>
+            <opm:role id="r_326" value="imgRef"/>
+            <opm:cause ref="a1"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_329">
+            <opm:effect ref="p2"/>
+            <opm:role id="r_328" value="hdrRef"/>
+            <opm:cause ref="a2"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_331">
+            <opm:effect ref="p3"/>
+            <opm:role id="r_330" value="img"/>
+            <opm:cause ref="a7"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_333">
+            <opm:effect ref="p3"/>
+            <opm:role id="r_332" value="hdr"/>
+            <opm:cause ref="a8"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_335">
+            <opm:effect ref="p3"/>
+            <opm:role id="r_334" value="imgRef"/>
+            <opm:cause ref="a1"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_337">
+            <opm:effect ref="p3"/>
+            <opm:role id="r_336" value="hdrRef"/>
+            <opm:cause ref="a2"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_339">
+            <opm:effect ref="p4"/>
+            <opm:role id="r_338" value="img"/>
+            <opm:cause ref="a9"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_341">
+            <opm:effect ref="p4"/>
+            <opm:role id="r_340" value="hdr"/>
+            <opm:cause ref="a10"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_343">
+            <opm:effect ref="p4"/>
+            <opm:role id="r_342" value="imgRef"/>
+            <opm:cause ref="a1"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_345">
+            <opm:effect ref="p4"/>
+            <opm:role id="r_344" value="hdrRef"/>
+            <opm:cause ref="a2"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_347">
+            <opm:effect ref="p5"/>
+            <opm:role id="r_346" value="in"/>
+            <opm:cause ref="a11"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_349">
+            <opm:effect ref="p6"/>
+            <opm:role id="r_348" value="in"/>
+            <opm:cause ref="a12"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_351">
+            <opm:effect ref="p7"/>
+            <opm:role id="r_350" value="in"/>
+            <opm:cause ref="a13"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_353">
+            <opm:effect ref="p8"/>
+            <opm:role id="r_352" value="in"/>
+            <opm:cause ref="a14"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_355">
+            <opm:effect ref="p9"/>
+            <opm:role id="r_354" value="i1"/>
+            <opm:cause ref="a15"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_357">
+            <opm:effect ref="p9"/>
+            <opm:role id="r_356" value="h1"/>
+            <opm:cause ref="a16"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_359">
+            <opm:effect ref="p9"/>
+            <opm:role id="r_358" value="i2"/>
+            <opm:cause ref="a17"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_361">
+            <opm:effect ref="p9"/>
+            <opm:role id="r_360" value="h2"/>
+            <opm:cause ref="a18"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_363">
+            <opm:effect ref="p9"/>
+            <opm:role id="r_362" value="i3"/>
+            <opm:cause ref="a19"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_365">
+            <opm:effect ref="p9"/>
+            <opm:role id="r_364" value="h3"/>
+            <opm:cause ref="a20"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_367">
+            <opm:effect ref="p9"/>
+            <opm:role id="r_366" value="i4"/>
+            <opm:cause ref="a21"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_369">
+            <opm:effect ref="p9"/>
+            <opm:role id="r_368" value="h4"/>
+            <opm:cause ref="a22"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_371">
+            <opm:effect ref="p10"/>
+            <opm:role id="r_370" value="img"/>
+            <opm:cause ref="a23"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_373">
+            <opm:effect ref="p10"/>
+            <opm:role id="r_372" value="hdr"/>
+            <opm:cause ref="a24"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_377">
+            <opm:effect ref="p11"/>
+            <opm:role id="r_376" value="img"/>
+            <opm:cause ref="a23"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_379">
+            <opm:effect ref="p11"/>
+            <opm:role id="r_378" value="hdr"/>
+            <opm:cause ref="a24"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_383">
+            <opm:effect ref="p12"/>
+            <opm:role id="r_382" value="img"/>
+            <opm:cause ref="a23"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_385">
+            <opm:effect ref="p12"/>
+            <opm:role id="r_384" value="hdr"/>
+            <opm:cause ref="a24"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_375">
+            <opm:effect ref="p10"/>
+            <opm:role id="r_374" value="param"/>
+            <opm:cause ref="a25p"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_381">
+            <opm:effect ref="p11"/>
+            <opm:role id="r_380" value="param"/>
+            <opm:cause ref="a26p"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_387">
+            <opm:effect ref="p12"/>
+            <opm:role id="r_386" value="param"/>
+            <opm:cause ref="a27p"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_389">
+            <opm:effect ref="p13"/>
+            <opm:role id="r_388" value="in"/>
+            <opm:cause ref="a25"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_391">
+            <opm:effect ref="p14"/>
+            <opm:role id="r_390" value="in"/>
+            <opm:cause ref="a26"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_393">
+            <opm:effect ref="p15"/>
+            <opm:role id="r_392" value="in"/>
+            <opm:cause ref="a27"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:wasGeneratedBy id="g_395">
+            <opm:effect ref="a11"/>
+            <opm:role id="r_394" value="out"/>
+            <opm:cause ref="p1"/>
+            <opm:account ref="black"/>
+        </opm:wasGeneratedBy>
+        <opm:wasGeneratedBy id="g_397">
+            <opm:effect ref="a12"/>
+            <opm:role id="r_396" value="out"/>
+            <opm:cause ref="p2"/>
+            <opm:account ref="black"/>
+        </opm:wasGeneratedBy>
+        <opm:wasGeneratedBy id="g_399">
+            <opm:effect ref="a13"/>
+            <opm:role id="r_398" value="out"/>
+            <opm:cause ref="p3"/>
+            <opm:account ref="black"/>
+        </opm:wasGeneratedBy>
+        <opm:wasGeneratedBy id="g_401">
+            <opm:effect ref="a14"/>
+            <opm:role id="r_400" value="out"/>
+            <opm:cause ref="p4"/>
+            <opm:account ref="black"/>
+        </opm:wasGeneratedBy>
+        <opm:wasGeneratedBy id="g_403">
+            <opm:effect ref="a15"/>
+            <opm:role id="r_402" value="img"/>
+            <opm:cause ref="p5"/>
+            <opm:account ref="black"/>
+        </opm:wasGeneratedBy>
+        <opm:wasGeneratedBy id="g_405">
+            <opm:effect ref="a16"/>
+            <opm:role id="r_404" value="hdr"/>
+            <opm:cause ref="p5"/>
+            <opm:account ref="black"/>
+        </opm:wasGeneratedBy>
+        <opm:wasGeneratedBy id="g_407">
+            <opm:effect ref="a17"/>
+            <opm:role id="r_406" value="img"/>
+            <opm:cause ref="p6"/>
+            <opm:account ref="black"/>
+        </opm:wasGeneratedBy>
+        <opm:wasGeneratedBy id="g_409">
+            <opm:effect ref="a18"/>
+            <opm:role id="r_408" value="hdr"/>
+            <opm:cause ref="p6"/>
+            <opm:account ref="black"/>
+        </opm:wasGeneratedBy>
+        <opm:wasGeneratedBy id="g_411">
+            <opm:effect ref="a19"/>
+            <opm:role id="r_410" value="img"/>
+            <opm:cause ref="p7"/>
+            <opm:account ref="black"/>
+        </opm:wasGeneratedBy>
+        <opm:wasGeneratedBy id="g_413">
+            <opm:effect ref="a20"/>
+            <opm:role id="r_412" value="hdr"/>
+            <opm:cause ref="p7"/>
+            <opm:account ref="black"/>
+        </opm:wasGeneratedBy>
+        <opm:wasGeneratedBy id="g_415">
+            <opm:effect ref="a21"/>
+            <opm:role id="r_414" value="img"/>
+            <opm:cause ref="p8"/>
+            <opm:account ref="black"/>
+        </opm:wasGeneratedBy>
+        <opm:wasGeneratedBy id="g_417">
+            <opm:effect ref="a22"/>
+            <opm:role id="r_416" value="hdr"/>
+            <opm:cause ref="p8"/>
+            <opm:account ref="black"/>
+        </opm:wasGeneratedBy>
+        <opm:wasGeneratedBy id="g_419">
+            <opm:effect ref="a23"/>
+            <opm:role id="r_418" value="img"/>
+            <opm:cause ref="p9"/>
+            <opm:account ref="black"/>
+        </opm:wasGeneratedBy>
+        <opm:wasGeneratedBy id="g_421">
+            <opm:effect ref="a24"/>
+            <opm:role id="r_420" value="hdr"/>
+            <opm:cause ref="p9"/>
+            <opm:account ref="black"/>
+        </opm:wasGeneratedBy>
+        <opm:wasGeneratedBy id="g_423">
+            <opm:effect ref="a25"/>
+            <opm:role id="r_422" value="out"/>
+            <opm:cause ref="p10"/>
+            <opm:account ref="black"/>
+        </opm:wasGeneratedBy>
+        <opm:wasGeneratedBy id="g_425">
+            <opm:effect ref="a26"/>
+            <opm:role id="r_424" value="out"/>
+            <opm:cause ref="p11"/>
+            <opm:account ref="black"/>
+        </opm:wasGeneratedBy>
+        <opm:wasGeneratedBy id="g_427">
+            <opm:effect ref="a27"/>
+            <opm:role id="r_426" value="out"/>
+            <opm:cause ref="p12"/>
+            <opm:account ref="black"/>
+        </opm:wasGeneratedBy>
+        <opm:wasGeneratedBy id="g_429">
+            <opm:effect ref="a28"/>
+            <opm:role id="r_428" value="out"/>
+            <opm:cause ref="p13"/>
+            <opm:account ref="black"/>
+        </opm:wasGeneratedBy>
+        <opm:wasGeneratedBy id="g_431">
+            <opm:effect ref="a29"/>
+            <opm:role id="r_430" value="out"/>
+            <opm:cause ref="p14"/>
+            <opm:account ref="black"/>
+        </opm:wasGeneratedBy>
+        <opm:wasGeneratedBy id="g_433">
+            <opm:effect ref="a30"/>
+            <opm:role id="r_432" value="out"/>
+            <opm:cause ref="p15"/>
+            <opm:account ref="black"/>
+        </opm:wasGeneratedBy>
+        <opm:wasDerivedFrom id="d_434">
+            <opm:effect ref="a11"/>
+            <opm:cause ref="a1"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_435">
+            <opm:effect ref="a11"/>
+            <opm:cause ref="a2"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_436">
+            <opm:effect ref="a11"/>
+            <opm:cause ref="a3"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_437">
+            <opm:effect ref="a11"/>
+            <opm:cause ref="a4"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_438">
+            <opm:effect ref="a12"/>
+            <opm:cause ref="a1"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_439">
+            <opm:effect ref="a12"/>
+            <opm:cause ref="a2"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_440">
+            <opm:effect ref="a12"/>
+            <opm:cause ref="a5"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_441">
+            <opm:effect ref="a12"/>
+            <opm:cause ref="a6"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_442">
+            <opm:effect ref="a13"/>
+            <opm:cause ref="a1"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_443">
+            <opm:effect ref="a13"/>
+            <opm:cause ref="a2"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_444">
+            <opm:effect ref="a13"/>
+            <opm:cause ref="a7"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_445">
+            <opm:effect ref="a13"/>
+            <opm:cause ref="a8"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_446">
+            <opm:effect ref="a14"/>
+            <opm:cause ref="a1"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_447">
+            <opm:effect ref="a14"/>
+            <opm:cause ref="a2"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_448">
+            <opm:effect ref="a14"/>
+            <opm:cause ref="a9"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_449">
+            <opm:effect ref="a14"/>
+            <opm:cause ref="a10"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_450">
+            <opm:effect ref="a15"/>
+            <opm:cause ref="a11"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_451">
+            <opm:effect ref="a16"/>
+            <opm:cause ref="a11"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_452">
+            <opm:effect ref="a17"/>
+            <opm:cause ref="a12"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_453">
+            <opm:effect ref="a18"/>
+            <opm:cause ref="a12"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_454">
+            <opm:effect ref="a19"/>
+            <opm:cause ref="a13"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_455">
+            <opm:effect ref="a20"/>
+            <opm:cause ref="a13"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_456">
+            <opm:effect ref="a21"/>
+            <opm:cause ref="a14"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_457">
+            <opm:effect ref="a22"/>
+            <opm:cause ref="a14"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_458">
+            <opm:effect ref="a23"/>
+            <opm:cause ref="a15"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_459">
+            <opm:effect ref="a23"/>
+            <opm:cause ref="a16"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_460">
+            <opm:effect ref="a23"/>
+            <opm:cause ref="a17"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_461">
+            <opm:effect ref="a23"/>
+            <opm:cause ref="a18"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_462">
+            <opm:effect ref="a23"/>
+            <opm:cause ref="a19"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_463">
+            <opm:effect ref="a23"/>
+            <opm:cause ref="a20"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_464">
+            <opm:effect ref="a23"/>
+            <opm:cause ref="a21"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_465">
+            <opm:effect ref="a23"/>
+            <opm:cause ref="a22"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_466">
+            <opm:effect ref="a24"/>
+            <opm:cause ref="a15"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_467">
+            <opm:effect ref="a24"/>
+            <opm:cause ref="a16"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_468">
+            <opm:effect ref="a24"/>
+            <opm:cause ref="a17"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_469">
+            <opm:effect ref="a24"/>
+            <opm:cause ref="a18"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_470">
+            <opm:effect ref="a24"/>
+            <opm:cause ref="a19"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_471">
+            <opm:effect ref="a24"/>
+            <opm:cause ref="a20"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_472">
+            <opm:effect ref="a24"/>
+            <opm:cause ref="a21"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_473">
+            <opm:effect ref="a24"/>
+            <opm:cause ref="a22"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_474">
+            <opm:effect ref="a25"/>
+            <opm:cause ref="a23"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_475">
+            <opm:effect ref="a25"/>
+            <opm:cause ref="a24"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_476">
+            <opm:effect ref="a26"/>
+            <opm:cause ref="a23"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_477">
+            <opm:effect ref="a26"/>
+            <opm:cause ref="a24"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_478">
+            <opm:effect ref="a27"/>
+            <opm:cause ref="a23"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_479">
+            <opm:effect ref="a27"/>
+            <opm:cause ref="a24"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_480">
+            <opm:effect ref="a28"/>
+            <opm:cause ref="a25"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_481">
+            <opm:effect ref="a29"/>
+            <opm:cause ref="a26"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_482">
+            <opm:effect ref="a30"/>
+            <opm:cause ref="a27"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+    </opm:causalDependencies>
+</opm:opmGraph>

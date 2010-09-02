@@ -3,6 +3,8 @@ package org.openprovenance.reproduce;
 import javax.xml.bind.JAXBException;
 
 import java.util.Iterator;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -54,6 +56,16 @@ import org.openprovenance.model.Artifact;
 import org.openprovenance.model.Process;
 import org.openprovenance.model.Account;
 
+import org.openrdf.elmo.ElmoModule;
+import org.openrdf.elmo.ElmoManagerFactory;
+import org.openrdf.elmo.ElmoManager;
+import org.openrdf.elmo.sesame.SesameManagerFactory;
+import org.openrdf.elmo.sesame.SesameManager;
+import org.openrdf.rio.RDFFormat;
+import org.openprovenance.elmo.RdfOPMFactory;
+import org.openprovenance.elmo.RdfObjectFactory;
+import org.openprovenance.elmo.RepositoryHelper;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -61,26 +73,45 @@ import org.w3c.dom.Element;
 /**
  * Reproducibility of PC1
  */
-abstract public class PC1ReproduceTest extends TestCase {
-    public static String PC1_NS="http://www.ipaw.info/pc1/";
+public class ReasoningTest extends TestCase {
+    public static String NUM_NS="http://www.ipaw.info/num/";
 
     static OPMFactory oFactory=new OPMFactory();
 
-    // don't call mock2() if you want execution of convert with swift
-    public PrimitiveEnvironment primEnv=new OpenProvenanceEnvironment().mock2();
+    public PrimitiveEnvironment primEnv=new OpenProvenanceEnvironment().mock();
 
 
+    static ElmoManager        manager=null;
+    static ElmoManagerFactory factory=null;
+    static RepositoryHelper   rHelper=null;
+    static ElmoModule         module =null;
+    static boolean initialized=false;
+    static void initializeElmo() {
+        module = new ElmoModule();
+        rHelper=new RepositoryHelper();
+        rHelper.registerConcepts(module);
+        factory = new SesameManagerFactory(module);
+        manager = factory.createElmoManager();
+        oFactory=new RdfOPMFactory(new RdfObjectFactory(manager,NUM_NS),manager);
+        RdfOPMFactory.count=1000;
 
-    public PC1ReproduceTest (String testName) {
-        super(testName);
-        
     }
 
-    public void testWithModelPC1() {
+
+    public ReasoningTest (String testName) {
+        super(testName);
+        if (!initialized) {
+            initializeElmo();
+            initialized=true;
+        }
+    }
+
+    public void testWithModelReasoning() {
         loadModel();
     }
     
     static Model theModel;
+    static Model theNewModel;
     static IndexedOPMGraph graph;
 
     public void loadModel() {
@@ -102,7 +133,7 @@ abstract public class PC1ReproduceTest extends TestCase {
         InfModel model = ModelFactory.createInfModel( reasoner, emptyModel );
             
         // read the files
-        model.read( "file:src/test/resources/pc1-full.n3", "N3" );
+        model.read( "file:src/test/resources/numeric-reasoning.n3", "N3" );
         model.read( ont1 );
         model.read( ont2 );
         
@@ -125,10 +156,16 @@ abstract public class PC1ReproduceTest extends TestCase {
 
     }
 
+    OPMFactory originalOFactory=new OPMFactory();
+
     public void loadOPMGraph() throws JAXBException    {
         OPMDeserialiser deserial=OPMDeserialiser.getThreadOPMDeserialiser();
-        OPMGraph graph1=deserial.deserialiseOPMGraph(new File("src/test/resources/pc1-full.xml"));
-        graph=new IndexedOPMGraph(oFactory,graph1);
+        OPMGraph graph1=deserial.deserialiseOPMGraph(new File("src/test/resources/numeric-reasoning.xml"));
+
+        // the graph here is constructed for convenience, since it's easier to navigate this than the triple store
+        // hence, we use the normal factory.
+        graph=new IndexedOPMGraph(originalOFactory,
+                                  graph1);
     }
 
 
@@ -151,7 +188,7 @@ abstract public class PC1ReproduceTest extends TestCase {
         System.out.println();
     }
 
-    public void testPC1Query2() throws java.io.FileNotFoundException, java.io.IOException {
+    public void testReasoningQuery2() throws java.io.FileNotFoundException, java.io.IOException {
         
         // Create a new query
         String queryString = 
@@ -166,8 +203,24 @@ abstract public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testPC1Query3() throws java.io.FileNotFoundException, java.io.IOException {
-        
+    public void testReasoningQuery3() throws java.io.FileNotFoundException, java.io.IOException {
+        System.out.println("Print _used");
+        // Create a new query
+        String queryString = 
+            "PREFIX opm: <http://openprovenance.org/ontology#> " +
+            "PREFIX pc1: <http://www.ipaw.info/pc1/>  " +
+            "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
+            "SELECT ?p ?a " +
+            "WHERE {" +
+            "      ?p opm:_used ?a " +
+            "      }";
+
+        runQuery(queryString);
+    }
+
+
+    public void testReasoningQuery3b() throws java.io.FileNotFoundException, java.io.IOException {
+        System.out.println("Print _wasDerivedFrom_star");
         // Create a new query
         String queryString = 
             "PREFIX opm: <http://openprovenance.org/ontology#> " +
@@ -176,6 +229,22 @@ abstract public class PC1ReproduceTest extends TestCase {
             "SELECT ?a1 ?a2 " +
             "WHERE {" +
             "      ?a1 opm:_wasDerivedFrom_star ?a2 " +
+            "      }";
+
+        runQuery(queryString);
+    }
+
+
+    public void testReasoningQuery3c() throws java.io.FileNotFoundException, java.io.IOException {
+        System.out.println("Print effectUsed-1");
+        // Create a new query
+        String queryString = 
+            "PREFIX opm: <http://openprovenance.org/ontology#> " +
+            "PREFIX pc1: <http://www.ipaw.info/pc1/>  " +
+            "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
+            "SELECT ?u ?p " +
+            "WHERE {" +
+            "      ?u opm:effectUsed-1 ?p " +
             "      }";
 
         runQuery(queryString);
@@ -196,18 +265,18 @@ abstract public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testPC1Query4() {
+    public void testReasoningQuery4() {
 
         Queries q=new Queries(theModel);
-        q.addPrefixes("pc1",PC1_NS);
+        q.addPrefixes("num",NUM_NS);
 
-        List ll=q.getUsedArtifactsAsResources("pc1:p1");
+        List ll=q.getUsedArtifactsAsResources("num:p1");
         System.out.println(" found " + ll);
         q.close();
-        assertTrue(ll.size()==4);
+        assertTrue(ll.size()==2);
 
 
-        ll=q.getGeneratedArtifactsAsResources("pc1:p2");
+        ll=q.getGeneratedArtifactsAsResources("num:p2");
         System.out.println(" found " + ll);
         q.close();
         assertTrue(ll.size()==1);
@@ -215,11 +284,11 @@ abstract public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testPC1OrderedProcesses() {
+    public void testReasoningOrderedProcesses() {
         Queries q=new Queries(theModel);
-        q.addPrefixes("pc1",PC1_NS);
+        q.addPrefixes("num",NUM_NS);
 
-        List<Resource> results = q.getProcessesAsResources(PC1_NS);
+        List<Resource> results = q.getProcessesAsResources(NUM_NS);
 
         System.out.println("Found Processes " + results);
 
@@ -227,11 +296,11 @@ abstract public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testPC1InputArtifacts() {
+    public void testReasoningInputArtifacts() {
         Queries q=new Queries(theModel);
-        q.addPrefixes("pc1",PC1_NS);
+        q.addPrefixes("num",NUM_NS);
 
-        List<Resource> results = q.getInputArtifactsAsResources(PC1_NS);
+        List<Resource> results = q.getInputArtifactsAsResources(NUM_NS);
 
         System.out.println("==> Found Input Artifacts " + results);
 
@@ -239,9 +308,9 @@ abstract public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testPC1Query5() {
+    public void testReasoningQuery5() {
         Queries q=new Queries(theModel);
-        q.addPrefixes("pc1",PC1_NS);
+        q.addPrefixes("num",NUM_NS);
 
         List<Resource> results = q.getProcessesWithPropAsResources("http://openprovenance.org/primitives#primitive",
                                                                    "http://openprovenance.org/primitives#align_warp");
@@ -252,9 +321,9 @@ abstract public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testPC1Query6() {
+    public void testReasoningQuery6() {
         Queries q=new Queries(theModel);
-        q.addPrefixes("pc1",PC1_NS);
+        q.addPrefixes("num",NUM_NS);
 
         List<Literal> results = q.getResourcePropertyAsLiterals("http://www.ipaw.info/pc1/p1",
                                                                   "http://openprovenance.org/primitives#primitive");
@@ -265,20 +334,91 @@ abstract public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testPC1Query7() {
+    public void testReasoningQuery7() {
         Queries q=new Queries(theModel);
-        q.addPrefixes("pc1",PC1_NS);
+        q.addPrefixes("num",NUM_NS);
 
-        ResultSet results = q.getUsedArtifactsAndRoles("pc1:p1");
+        ResultSet results = q.getUsedArtifactsAndRoles("num:p1");
         ResultSetFormatter.out(System.out, results);
 
         q.close();
     }
 
 
-    //static String PATH_PROPERTY="http://openprovenance.org/primitives#path";
-    //static String FILE_LOCATION="//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/";
-    //static String FILE_LOCATION="../src/test/resources/pc1/";
+
+    public void testReasoningQuery8() throws java.io.FileNotFoundException, java.io.IOException {
+        System.out.println("Print ProcessPlus");
+        // Create a new query
+        String queryString = 
+            "PREFIX opm: <http://openprovenance.org/ontology#> " +
+            "PREFIX prim: <http://openprovenance.org/primitives#> " +
+            "PREFIX pc1: <http://www.ipaw.info/pc1/>  " +
+            "PREFIX num: <http://www.ipaw.info/num/>  " +
+            "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
+            "SELECT ?p ?r " +
+            "WHERE {" +
+            "      ?p a opm:Role. " +
+            "      ?p prim:isKindOf ?r. " +
+            "      }";
+
+        runQuery(queryString);
+    }
+
+
+
+    public void testReasoningQuery9() throws java.io.FileNotFoundException, java.io.IOException {
+        System.out.println("Print ProcessPlus");
+        // Create a new query
+        String queryString = 
+            "PREFIX opm: <http://openprovenance.org/ontology#> " +
+            "PREFIX prim: <http://openprovenance.org/primitives#> " +
+            "PREFIX pc1: <http://www.ipaw.info/pc1/>  " +
+            "PREFIX num: <http://www.ipaw.info/num/>  " +
+            "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
+            "SELECT ?a1 ?rt1 ?a2 ?rt2  ?p ?d ?dt " +
+            "WHERE {" +
+            "      ?a1 a opm:Artifact. " +
+            "      ?a2 a opm:Artifact. " +
+            "      ?a1 opm:_wasGeneratedBy ?p. " +
+            "      ?p  opm:_used ?a2. " +
+            "      ?a1  opm:effectWasGeneratedBy-1 ?g. " +
+            "      ?g   opm:cause ?p. " +
+            "      ?g   opm:role ?r1. " +
+            "      ?r1  prim:isKindOf ?rt1. " +
+            "      ?p   opm:effectUsed-1 ?u. " +
+            "      ?u   opm:cause ?a2. " +
+            "      ?u   opm:role ?r2. " +
+            "      ?r2  prim:isKindOf ?rt2. " +
+            "      ?p   prim:isKindOf ?pt. " +
+            "      ?pt  ?rel ?d. " +
+            "      ?d   prim:effects ?rt1. " +
+            "      ?d   prim:causedBy ?rt2. " +
+            "      ?d   rdf:type ?dt. " +
+            "      }";
+
+        runQuery(queryString);
+    }
+
+
+
+    public void testReasoningQuery10() throws java.io.FileNotFoundException, java.io.IOException {
+        System.out.println("Print Dummy Inference");
+        // Create a new query
+        String queryString = 
+            "PREFIX opm: <http://openprovenance.org/ontology#> " +
+            "PREFIX prim: <http://openprovenance.org/primitives#> " +
+            "PREFIX pc1: <http://www.ipaw.info/pc1/>  " +
+            "PREFIX num: <http://www.ipaw.info/num/>  " +
+            "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
+            "SELECT ?a1 ?a2 " +
+            "WHERE {" +
+            "      ?a1 prim:dummy ?a2. " +
+            "      }";
+
+        runQuery(queryString);
+    }
+
+
 
 
     static List<Account> black=new LinkedList();
@@ -302,64 +442,11 @@ abstract public class PC1ReproduceTest extends TestCase {
     }
 
 
-    public void testReproducePC1() throws java.io.IOException, org.jaxen.JaxenException, org.xml.sax.SAXException {
-
-
-        List<String> processNames=Arrays.asList(new String [] {"http://www.ipaw.info/pc1/p1",
-                                                               "http://www.ipaw.info/pc1/p5",
-                                                               "http://www.ipaw.info/pc1/p9",
-                                                               "http://www.ipaw.info/pc1/p10",
-                                                               "http://www.ipaw.info/pc1/p13"});
-
-        if (true) {
-            processNames=Arrays.asList(new String [] {"http://www.ipaw.info/pc1/p1",
-                                                      "http://www.ipaw.info/pc1/p2",
-                                                      "http://www.ipaw.info/pc1/p3",
-                                                      "http://www.ipaw.info/pc1/p4",
-                                                      "http://www.ipaw.info/pc1/p5",
-                                                      "http://www.ipaw.info/pc1/p6",
-                                                      "http://www.ipaw.info/pc1/p7",
-                                                      "http://www.ipaw.info/pc1/p8",
-                                                      "http://www.ipaw.info/pc1/p9",
-                                                      "http://www.ipaw.info/pc1/p10",
-                                                      "http://www.ipaw.info/pc1/p11",
-                                                      "http://www.ipaw.info/pc1/p12",
-                                                      "http://www.ipaw.info/pc1/p13",
-                                                      "http://www.ipaw.info/pc1/p14",
-                                                      "http://www.ipaw.info/pc1/p15"               } );
-        }
-
-        GraphGenerator gGenerator= new GraphGenerator (oFactory);
-        gGenerator.setPathTable(initPathTable("//home/lavm/papers/papers/opmowl/OpenProvenanceModel/reproduce/src/test/resources/pc1/"));
-
-        Reproducibility rSemantics=new Reproducibility(PC1_NS, oFactory, gGenerator, primEnv, theModel, graph);
-
-        
-        for (String processName: processNames) {
-            Process p=graph.getProcess(rSemantics.localName(processName,PC1_NS));
-            rSemantics.invokeProcess(p);
-        }
-
-        System.out.println("aMap " + gGenerator.getArtifactMap());
-
-        try {
-            OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
-            serial.serialiseOPMGraph(new File("target/pc1.xml"),gGenerator.getNewGraph(),true);
-
-            OPMToDot toDot=new OPMToDot(true); // with roles
-            toDot.convert(gGenerator.getNewGraph(),"target/pc1.dot", "target/pc1.pdf");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
- 
-        
+    public void testReasoningDumpStore() throws Exception {
+        System.out.println("Now saving triple store ");
+        //theModel.write(new FileOutputStream("target/reasoning-inferred.n3"),"N3");
+        System.out.println("Now saving triple store Done");
     }
-
-        
-
-
-
     
 
 }

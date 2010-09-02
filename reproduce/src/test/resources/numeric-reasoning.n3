@@ -1,0 +1,247 @@
+@prefix opm: <http://openprovenance.org/ontology#> .
+@prefix num: <http://www.ipaw.info/num/> .
+@prefix prim: <http://openprovenance.org/primitives#> .
+
+
+num:black a opm:Account .
+
+num:p0 a prim:ProcessPlus ;
+	opm:account num:black ;
+	opm:label "+" ;
+	prim:isKindOf prim:primPlus.
+
+num:an1_p0 a opm:Annotation .
+
+num:pr_0 a opm:Property ;
+	opm:uri "http://openprovenance.org/primitives#primitive" ;
+	opm:value "http://openprovenance.org/primitives#primPlus" .
+
+num:an1_p0 opm:property num:pr_0 .
+
+num:p0 opm:annotation num:an1_p0 .
+
+num:p1 a opm:Process ;
+	opm:account num:black ;
+	opm:label "*" .
+
+num:an1_p1 a opm:Annotation .
+
+num:pr_1 a opm:Property ;
+	opm:uri "http://openprovenance.org/primitives#primitive" ;
+	opm:value "http://openprovenance.org/primitives#multiplication" .
+
+num:an1_p1 opm:property num:pr_1 .
+
+num:p1 opm:annotation num:an1_p1 .
+
+num:p2 a opm:Process ;
+	opm:account num:black ;
+	opm:label "/" .
+
+num:an1_p2 a opm:Annotation .
+
+num:pr_2 a opm:Property ;
+	opm:uri "http://openprovenance.org/primitives#primitive" ;
+	opm:value "http://openprovenance.org/primitives#division" .
+
+num:an1_p2 opm:property num:pr_2 .
+
+num:p2 opm:annotation num:an1_p2 .
+
+num:a1 a opm:Artifact ;
+	opm:account num:black ;
+	opm:label "n1" ;
+	opm:type "http://openprovenance.org/primitives#Integer"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+num:av_15 a opm:AValue ;
+	opm:content "10"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	opm:encoding "mime:application/int"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+num:a1 opm:avalue num:av_15 .
+
+num:a2 a opm:Artifact ;
+	opm:account num:black ;
+	opm:label "n2" ;
+	opm:type "http://openprovenance.org/primitives#Integer"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+num:av_16 a opm:AValue ;
+	opm:content "20"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	opm:encoding "mime:application/int"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+num:a2 opm:avalue num:av_16 .
+
+num:a3 a opm:Artifact ;
+	opm:account num:black ;
+	opm:label "n3" ;
+	opm:type "http://openprovenance.org/primitives#Integer"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+num:av_17 a opm:AValue ;
+	opm:content "30"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	opm:encoding "mime:application/int"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+num:a3 opm:avalue num:av_17 .
+
+num:a4 a opm:Artifact ;
+	opm:account num:black ;
+	opm:label "n4" ;
+	opm:type "http://openprovenance.org/primitives#Integer"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+num:av_18 a opm:AValue ;
+	opm:content "9"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	opm:encoding "mime:application/int"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+num:a4 opm:avalue num:av_18 .
+
+num:a5 a opm:Artifact ;
+	opm:account num:black ;
+	opm:label "n5" ;
+	opm:type "http://openprovenance.org/primitives#Integer"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+num:av_19 a opm:AValue ;
+	opm:content "30"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	opm:encoding "mime:application/int"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+num:a5 opm:avalue num:av_19 .
+
+num:a6 a opm:Artifact ;
+	opm:account num:black ;
+	opm:label "n6" ;
+	opm:type "http://openprovenance.org/primitives#Integer"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+num:av_20 a opm:AValue ;
+	opm:content "900"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	opm:encoding "mime:application/int"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+num:a6 opm:avalue num:av_20 .
+
+num:a7 a opm:Artifact ;
+	opm:account num:black ;
+	opm:label "n7" ;
+	opm:type "http://openprovenance.org/primitives#Integer"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+num:av_21 a opm:AValue ;
+	opm:content "100"^^<http://www.w3.org/2001/XMLSchema#int> ;
+	opm:encoding "mime:application/int"^^<http://www.w3.org/2001/XMLSchema#anyURI> .
+
+num:a7 opm:avalue num:av_21 .
+
+num:r_17 a opm:Role ;
+	opm:value "summand0" ;
+    prim:isKindOf prim:r0 .
+
+num:u_18 a opm:Used ;
+	opm:effect num:p0 ;
+	opm:role num:r_17 ;
+	opm:cause num:a1 ;
+	opm:account num:black .
+
+num:r_19 a opm:Role ;
+	opm:value "summand1" ;
+    prim:isKindOf prim:r1.
+
+num:u_20 a opm:Used ;
+	opm:effect num:p0 ;
+	opm:role num:r_19 ;
+	opm:cause num:a2 ;
+	opm:account num:black .
+
+num:r_21 a opm:Role ;
+	opm:value "factor1" .
+
+num:u_22 a opm:Used ;
+	opm:effect num:p1 ;
+	opm:role num:r_21 ;
+	opm:cause num:a3 ;
+	opm:account num:black .
+
+num:r_23 a opm:Role ;
+	opm:value "factor2" .
+
+num:u_24 a opm:Used ;
+	opm:effect num:p1 ;
+	opm:role num:r_23 ;
+	opm:cause num:a5 ;
+	opm:account num:black .
+
+num:r_25 a opm:Role ;
+	opm:value "dividend" .
+
+num:u_26 a opm:Used ;
+	opm:effect num:p2 ;
+	opm:role num:r_25 ;
+	opm:cause num:a6 ;
+	opm:account num:black .
+
+num:r_27 a opm:Role ;
+	opm:value "divisor" .
+
+num:u_28 a opm:Used ;
+	opm:effect num:p2 ;
+	opm:role num:r_27 ;
+	opm:cause num:a4 ;
+	opm:account num:black .
+
+num:r_29 a opm:Role ;
+	opm:value "out0" ;
+    prim:isKindOf prim:r2.
+
+
+num:g_30 a opm:WasGeneratedBy ;
+	opm:cause num:p0 ;
+	opm:role num:r_29 ;
+	opm:effect num:a5 ;
+	opm:account num:black .
+
+num:r_31 a opm:Role ;
+	opm:value "product" .
+
+num:g_32 a opm:WasGeneratedBy ;
+	opm:cause num:p1 ;
+	opm:role num:r_31 ;
+	opm:effect num:a6 ;
+	opm:account num:black .
+
+num:r_33 a opm:Role ;
+	opm:value "quotient" .
+
+num:g_34 a opm:WasGeneratedBy ;
+	opm:cause num:p2 ;
+	opm:role num:r_33 ;
+	opm:effect num:a7 ;
+	opm:account num:black .
+
+num:d_35 a opm:WasDerivedFrom ;
+	opm:cause num:a1 ;
+	opm:effect num:a5 ;
+	opm:account num:black .
+
+num:d_36 a opm:WasDerivedFrom ;
+	opm:cause num:a2 ;
+	opm:effect num:a5 ;
+	opm:account num:black .
+
+num:d_37 a opm:WasDerivedFrom ;
+	opm:cause num:a3 ;
+	opm:effect num:a6 ;
+	opm:account num:black .
+
+num:d_38 a opm:WasDerivedFrom ;
+	opm:cause num:a5 ;
+	opm:effect num:a6 ;
+	opm:account num:black .
+
+num:d_39 a opm:WasDerivedFrom ;
+	opm:cause num:a6 ;
+	opm:effect num:a7 ;
+	opm:account num:black .
+
+num:d_40 a opm:WasDerivedFrom ;
+	opm:cause num:a4 ;
+	opm:effect num:a7 ;
+	opm:account num:black .
+
+num:gr_41 a opm:OPMGraph ;
+	opm:hasAccount num:black ;
+	opm:hasProcess num:p2 , num:p1 , num:p0 ;
+	opm:hasArtifact num:a7 , num:a3 , num:a4 , num:a5 , num:a6 , num:a1 , num:a2 ;
+	opm:hasDependency num:d_40 , num:u_20 , num:u_22 , num:u_24 , num:g_30 , num:u_18 , num:u_26 , num:u_28 , num:d_36 , num:d_37 , num:d_38 , num:d_35 , num:d_39 , num:g_34 , num:g_32 .

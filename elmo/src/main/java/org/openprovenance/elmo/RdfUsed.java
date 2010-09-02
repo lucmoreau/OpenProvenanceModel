@@ -42,6 +42,7 @@ public class RdfUsed extends org.openprovenance.model.Used implements HasFacade 
         org.openprovenance.rdf.Process p=(org.openprovenance.rdf.Process)manager.find(q);
         org.openprovenance.rdf.Used u=(org.openprovenance.rdf.Used)manager.find(getQName());
         u.setEffect(p);
+        u.setEffectUsed(p); //to allow OWL chain property inferences
     }
 
     public org.openprovenance.rdf.Used findMyFacade() {
@@ -55,6 +56,7 @@ public class RdfUsed extends org.openprovenance.model.Used implements HasFacade 
         org.openprovenance.rdf.Artifact a=(org.openprovenance.rdf.Artifact)manager.find(q);
         org.openprovenance.rdf.Used u=findMyFacade();
         u.setCause(a);
+        u.setCauseUsed(a); //to allow OWL chain property inferences
     }
 
     public void setRole(org.openprovenance.model.Role value) {

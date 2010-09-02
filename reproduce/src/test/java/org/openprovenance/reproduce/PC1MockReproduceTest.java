@@ -71,9 +71,9 @@ import org.w3c.dom.Element;
 
 
 /**
- * Reproducibility of PC1
+ * Mock Reproducibility of PC1
  */
-public class PC1MockReproduceTest extends TestCase {
+abstract public class PC1MockReproduceTest extends TestCase {
     public static String PC1_NS="http://www.ipaw.info/pc1/";
 
     static OPMFactory oFactory=new OPMFactory();
@@ -204,7 +204,7 @@ public class PC1MockReproduceTest extends TestCase {
 
 
     public void testPC1MockQuery3() throws java.io.FileNotFoundException, java.io.IOException {
-        
+        System.out.println("Print _wasDerivedFrom_star");
         // Create a new query
         String queryString = 
             "PREFIX opm: <http://openprovenance.org/ontology#> " +
@@ -217,6 +217,83 @@ public class PC1MockReproduceTest extends TestCase {
 
         runQuery(queryString);
     }
+
+    public void testPC1MockQuery3b() throws java.io.FileNotFoundException, java.io.IOException {
+        System.out.println("Print _used");
+        // Create a new query
+        String queryString = 
+            "PREFIX opm: <http://openprovenance.org/ontology#> " +
+            "PREFIX pc1: <http://www.ipaw.info/pc1/>  " +
+            "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
+            "SELECT ?p ?a " +
+            "WHERE {" +
+            "      ?p opm:_used ?a " +
+            "      }";
+
+        runQuery(queryString);
+    }
+
+    public void testPC1MockQuery3c() throws java.io.FileNotFoundException, java.io.IOException {
+        System.out.println("Print effectUsed");
+        // Create a new query
+        String queryString = 
+            "PREFIX opm: <http://openprovenance.org/ontology#> " +
+            "PREFIX pc1: <http://www.ipaw.info/pc1/>  " +
+            "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
+            "SELECT ?u ?p " +
+            "WHERE {" +
+            "      ?u opm:effectUsed ?p " +
+            "      }";
+
+        runQuery(queryString);
+    }
+
+    public void testPC1MockQuery3d() throws java.io.FileNotFoundException, java.io.IOException {
+        System.out.println("Print effectUsed-1");
+        // Create a new query
+        String queryString = 
+            "PREFIX opm: <http://openprovenance.org/ontology#> " +
+            "PREFIX pc1: <http://www.ipaw.info/pc1/>  " +
+            "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
+            "SELECT ?u ?p " +
+            "WHERE {" +
+            "      ?p opm:effectUsed-1 ?u " +
+            "      }";
+
+        runQuery(queryString);
+    }
+
+    public void testPC1MockQuery3e() throws java.io.FileNotFoundException, java.io.IOException {
+        System.out.println("Print causeUsed");
+        // Create a new query
+        String queryString = 
+            "PREFIX opm: <http://openprovenance.org/ontology#> " +
+            "PREFIX pc1: <http://www.ipaw.info/pc1/>  " +
+            "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
+            "SELECT ?u ?a " +
+            "WHERE {" +
+            "      ?u opm:causeUsed ?a " +
+            "      }";
+
+        runQuery(queryString);
+    }
+
+    public void testPC1MockQuery3f() throws java.io.FileNotFoundException, java.io.IOException {
+        System.out.println("Print causeUsed-1");
+        // Create a new query
+        String queryString = 
+            "PREFIX opm: <http://openprovenance.org/ontology#> " +
+            "PREFIX pc1: <http://www.ipaw.info/pc1/>  " +
+            "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
+            "SELECT ?u ?a " +
+            "WHERE {" +
+            "      ?a opm:causeUsed-1 ?u " +
+            "      }";
+
+        runQuery(queryString);
+    }
+
+
 
     public void runQuery (String queryString) {
         Query query = QueryFactory.create(queryString);

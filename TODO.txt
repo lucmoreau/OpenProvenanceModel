@@ -1,17 +1,16 @@
 Reproducibility
 
-
-- cleanup the types in air.xml
-- allow for multiple such air.xml to be loaded
 - generate WasDerivedFrom edges, according to primitive specification
 
-- modify factory so that it changes locations of files
-- modify factory so that it supports input files
-   current hardcoded in factory
 
-- handle NS automatically (currently, statitc variable PC1_NS)
+- cleanup the types in air.xml
 
-- softmean is configured to take only two images as input.
+- Handle NS automatically. Currently, there is a single NS supported.
+- Allow for multiple such air.xml files to be loaded
+- Modify factory with more general functionality so that it better
+  - changes locations of files
+  - supports input files (current hardcoded in factory)
+
     
 
 Validation

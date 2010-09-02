@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<opm:opmGraph xmlns:opm="http://openprovenance.org/model/v1.1.a" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://example.com/" id="gr_66">
+    <opm:accounts>
+        <opm:account id="black"/>
+    </opm:accounts>
+    <opm:processes>
+        <opm:process id="p0">
+            <opm:account ref="black"/>
+            <opm:label value="+"/>
+            <opm:annotation id="an1_p0">
+                <opm:property uri="http://openprovenance.org/primitives#primitive">
+                    <opm:value xsi:type="xsd:string">http://openprovenance.org/primitives#sum</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:process>
+        <opm:process id="p1">
+            <opm:account ref="black"/>
+            <opm:label value="*"/>
+            <opm:annotation id="an1_p1">
+                <opm:property uri="http://openprovenance.org/primitives#primitive">
+                    <opm:value xsi:type="xsd:string">http://openprovenance.org/primitives#multiplication</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:process>
+        <opm:process id="p2">
+            <opm:account ref="black"/>
+            <opm:label value="/"/>
+            <opm:annotation id="an1_p2">
+                <opm:property uri="http://openprovenance.org/primitives#primitive">
+                    <opm:value xsi:type="xsd:string">http://openprovenance.org/primitives#division</opm:value>
+                </opm:property>
+            </opm:annotation>
+        </opm:process>
+    </opm:processes>
+    <opm:artifacts>
+        <opm:artifact id="a1">
+            <opm:account ref="black"/>
+            <opm:label value="n1"/>
+            <opm:type value="http://openprovenance.org/primitives#Integer"/>
+            <opm:value encoding="mime:application/int">
+                <opm:content xsi:type="xsd:int">10</opm:content>
+            </opm:value>
+        </opm:artifact>
+        <opm:artifact id="a2">
+            <opm:account ref="black"/>
+            <opm:label value="n2"/>
+            <opm:type value="http://openprovenance.org/primitives#Integer"/>
+            <opm:value encoding="mime:application/int">
+                <opm:content xsi:type="xsd:int">20</opm:content>
+            </opm:value>
+        </opm:artifact>
+        <opm:artifact id="a5">
+            <opm:account ref="black"/>
+            <opm:label value="n5"/>
+            <opm:type value="http://openprovenance.org/primitives#Integer"/>
+            <opm:value encoding="mime:application/int">
+                <opm:content xsi:type="xsd:int">30</opm:content>
+            </opm:value>
+        </opm:artifact>
+        <opm:artifact id="a6">
+            <opm:account ref="black"/>
+            <opm:label value="n6"/>
+            <opm:type value="http://openprovenance.org/primitives#Integer"/>
+            <opm:value encoding="mime:application/int">
+                <opm:content xsi:type="xsd:int">900</opm:content>
+            </opm:value>
+        </opm:artifact>
+        <opm:artifact id="a3">
+            <opm:account ref="black"/>
+            <opm:label value="n3"/>
+            <opm:type value="http://openprovenance.org/primitives#Integer"/>
+            <opm:value encoding="mime:application/int">
+                <opm:content xsi:type="xsd:int">30</opm:content>
+            </opm:value>
+        </opm:artifact>
+        <opm:artifact id="a4">
+            <opm:account ref="black"/>
+            <opm:label value="n4"/>
+            <opm:type value="http://openprovenance.org/primitives#Integer"/>
+            <opm:value encoding="mime:application/int">
+                <opm:content xsi:type="xsd:int">9</opm:content>
+            </opm:value>
+        </opm:artifact>
+        <opm:artifact id="a7">
+            <opm:account ref="black"/>
+            <opm:label value="n7"/>
+            <opm:type value="http://openprovenance.org/primitives#Integer"/>
+            <opm:value encoding="mime:application/int">
+                <opm:content xsi:type="xsd:int">100</opm:content>
+            </opm:value>
+        </opm:artifact>
+    </opm:artifacts>
+    <opm:agents/>
+    <opm:causalDependencies>
+        <opm:used id="u_43">
+            <opm:effect ref="p0"/>
+            <opm:role id="r_42" value="summand1"/>
+            <opm:cause ref="a1"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_45">
+            <opm:effect ref="p0"/>
+            <opm:role id="r_44" value="summand2"/>
+            <opm:cause ref="a2"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_47">
+            <opm:effect ref="p1"/>
+            <opm:role id="r_46" value="factor1"/>
+            <opm:cause ref="a3"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_49">
+            <opm:effect ref="p1"/>
+            <opm:role id="r_48" value="factor2"/>
+            <opm:cause ref="a5"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_51">
+            <opm:effect ref="p2"/>
+            <opm:role id="r_50" value="dividend"/>
+            <opm:cause ref="a6"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:used id="u_53">
+            <opm:effect ref="p2"/>
+            <opm:role id="r_52" value="divisor"/>
+            <opm:cause ref="a4"/>
+            <opm:account ref="black"/>
+        </opm:used>
+        <opm:wasGeneratedBy id="g_55">
+            <opm:effect ref="a5"/>
+            <opm:role id="r_54" value="out"/>
+            <opm:cause ref="p0"/>
+            <opm:account ref="black"/>
+        </opm:wasGeneratedBy>
+        <opm:wasGeneratedBy id="g_57">
+            <opm:effect ref="a6"/>
+            <opm:role id="r_56" value="product"/>
+            <opm:cause ref="p1"/>
+            <opm:account ref="black"/>
+        </opm:wasGeneratedBy>
+        <opm:wasGeneratedBy id="g_59">
+            <opm:effect ref="a7"/>
+            <opm:role id="r_58" value="quotient"/>
+            <opm:cause ref="p2"/>
+            <opm:account ref="black"/>
+        </opm:wasGeneratedBy>
+        <opm:wasDerivedFrom id="d_60">
+            <opm:effect ref="a5"/>
+            <opm:cause ref="a1"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_61">
+            <opm:effect ref="a5"/>
+            <opm:cause ref="a2"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_62">
+            <opm:effect ref="a6"/>
+            <opm:cause ref="a3"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_63">
+            <opm:effect ref="a6"/>
+            <opm:cause ref="a5"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_64">
+            <opm:effect ref="a7"/>
+            <opm:cause ref="a6"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+        <opm:wasDerivedFrom id="d_65">
+            <opm:effect ref="a7"/>
+            <opm:cause ref="a4"/>
+            <opm:account ref="black"/>
+        </opm:wasDerivedFrom>
+    </opm:causalDependencies>
+</opm:opmGraph>
