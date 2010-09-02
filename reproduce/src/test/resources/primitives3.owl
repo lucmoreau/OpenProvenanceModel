@@ -617,7 +617,13 @@
     <owl:Class rdf:about="#ActivationRecord">
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#dependency"/>
+                <owl:onProperty rdf:resource="#process"/>
+                <owl:someValuesFrom rdf:resource="&opm;Process"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#existential"/>
                 <owl:someValuesFrom rdf:resource="&owl;Thing"/>
             </owl:Restriction>
         </rdfs:subClassOf>
@@ -629,13 +635,7 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#process"/>
-                <owl:someValuesFrom rdf:resource="&opm;Process"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="#existential"/>
+                <owl:onProperty rdf:resource="#dependency"/>
                 <owl:someValuesFrom rdf:resource="&owl;Thing"/>
             </owl:Restriction>
         </rdfs:subClassOf>
@@ -742,14 +742,14 @@
         <rdfs:subClassOf rdf:resource="#Derivation"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#effects"/>
-                <owl:allValuesFrom rdf:resource="#RoleRest"/>
+                <owl:onProperty rdf:resource="#causedBy"/>
+                <owl:allValuesFrom rdf:resource="#RoleDividend"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#causedBy"/>
-                <owl:allValuesFrom rdf:resource="#RoleDividend"/>
+                <owl:onProperty rdf:resource="#effects"/>
+                <owl:allValuesFrom rdf:resource="#RoleRest"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -860,8 +860,8 @@
         <rdfs:subClassOf rdf:resource="#Primitive"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#hasDerivation1"/>
-                <owl:allValuesFrom rdf:resource="#DividendQuotientDerivation"/>
+                <owl:onProperty rdf:resource="#hasDerivation0"/>
+                <owl:allValuesFrom rdf:resource="#DividendRestDerivation"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -872,8 +872,8 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#hasDerivation0"/>
-                <owl:allValuesFrom rdf:resource="#DividendRestDerivation"/>
+                <owl:onProperty rdf:resource="#hasDerivation1"/>
+                <owl:allValuesFrom rdf:resource="#DividendQuotientDerivation"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -898,14 +898,14 @@
         <rdfs:subClassOf rdf:resource="#Primitive"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#hasDerivation0"/>
-                <owl:allValuesFrom rdf:resource="#Summand0Derivation"/>
+                <owl:onProperty rdf:resource="#activates"/>
+                <owl:allValuesFrom rdf:resource="#ProcessPlus"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#activates"/>
-                <owl:allValuesFrom rdf:resource="#ProcessPlus"/>
+                <owl:onProperty rdf:resource="#hasDerivation0"/>
+                <owl:allValuesFrom rdf:resource="#Summand0Derivation"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -924,8 +924,8 @@
         <rdfs:subClassOf rdf:resource="#Primitive"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#hasDerivation1"/>
-                <owl:allValuesFrom rdf:resource="#FileTransformationDerivation"/>
+                <owl:onProperty rdf:resource="#hasDerivation0"/>
+                <owl:allValuesFrom rdf:resource="#XSLTTransformationDerivation"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -936,8 +936,8 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#hasDerivation0"/>
-                <owl:allValuesFrom rdf:resource="#XSLTTransformationDerivation"/>
+                <owl:onProperty rdf:resource="#hasDerivation1"/>
+                <owl:allValuesFrom rdf:resource="#FileTransformationDerivation"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -1155,14 +1155,14 @@
         <rdfs:subClassOf rdf:resource="&opm;Used"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&opm;effect"/>
-                <owl:allValuesFrom rdf:resource="#ProcessDiv"/>
+                <owl:onProperty rdf:resource="&opm;role"/>
+                <owl:allValuesFrom rdf:resource="#RoleDividend"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&opm;role"/>
-                <owl:allValuesFrom rdf:resource="#RoleDividend"/>
+                <owl:onProperty rdf:resource="&opm;effect"/>
+                <owl:allValuesFrom rdf:resource="#ProcessDiv"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -1175,14 +1175,14 @@
         <rdfs:subClassOf rdf:resource="&opm;Used"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&opm;role"/>
-                <owl:allValuesFrom rdf:resource="#RoleDivisor"/>
+                <owl:onProperty rdf:resource="&opm;effect"/>
+                <owl:allValuesFrom rdf:resource="#ProcessDiv"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&opm;effect"/>
-                <owl:allValuesFrom rdf:resource="#ProcessDiv"/>
+                <owl:onProperty rdf:resource="&opm;role"/>
+                <owl:allValuesFrom rdf:resource="#RoleDivisor"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -1195,14 +1195,14 @@
         <rdfs:subClassOf rdf:resource="&opm;Used"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&opm;role"/>
-                <owl:allValuesFrom rdf:resource="#RoleFile"/>
+                <owl:onProperty rdf:resource="&opm;effect"/>
+                <owl:allValuesFrom rdf:resource="#ProcessXSLT"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&opm;effect"/>
-                <owl:allValuesFrom rdf:resource="#ProcessXSLT"/>
+                <owl:onProperty rdf:resource="&opm;role"/>
+                <owl:allValuesFrom rdf:resource="#RoleFile"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -1282,14 +1282,14 @@
         <rdfs:subClassOf rdf:resource="&opm;Used"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&opm;role"/>
-                <owl:allValuesFrom rdf:resource="#RoleSummand1"/>
+                <owl:onProperty rdf:resource="&opm;effect"/>
+                <owl:allValuesFrom rdf:resource="#ProcessPlus"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&opm;effect"/>
-                <owl:allValuesFrom rdf:resource="#ProcessPlus"/>
+                <owl:onProperty rdf:resource="&opm;role"/>
+                <owl:allValuesFrom rdf:resource="#RoleSummand1"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -1302,14 +1302,14 @@
         <rdfs:subClassOf rdf:resource="&opm;WasGeneratedBy"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&opm;role"/>
-                <owl:allValuesFrom rdf:resource="#RoleOut0"/>
+                <owl:onProperty rdf:resource="&opm;cause"/>
+                <owl:allValuesFrom rdf:resource="#ProcessXSLT"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&opm;cause"/>
-                <owl:allValuesFrom rdf:resource="#ProcessXSLT"/>
+                <owl:onProperty rdf:resource="&opm;role"/>
+                <owl:allValuesFrom rdf:resource="#RoleOut0"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -1322,12 +1322,6 @@
         <rdfs:subClassOf rdf:resource="&opm;WasGeneratedBy"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&opm;effect"/>
-                <owl:allValuesFrom rdf:resource="#Integer"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
                 <owl:onProperty rdf:resource="&opm;cause"/>
                 <owl:allValuesFrom>
                     <owl:Class>
@@ -1337,6 +1331,12 @@
                         </owl:unionOf>
                     </owl:Class>
                 </owl:allValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&opm;effect"/>
+                <owl:allValuesFrom rdf:resource="#Integer"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -1389,14 +1389,14 @@
         <rdfs:subClassOf rdf:resource="&opm;WasGeneratedBy"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&opm;role"/>
-                <owl:allValuesFrom rdf:resource="#RoleRest"/>
+                <owl:onProperty rdf:resource="&opm;cause"/>
+                <owl:allValuesFrom rdf:resource="#ProcessDiv"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&opm;cause"/>
-                <owl:allValuesFrom rdf:resource="#ProcessDiv"/>
+                <owl:onProperty rdf:resource="&opm;role"/>
+                <owl:allValuesFrom rdf:resource="#RoleRest"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -1649,13 +1649,13 @@
         <rdfs:subClassOf rdf:resource="&opm;WasDerivedFrom"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&opm;cause"/>
+                <owl:onProperty rdf:resource="&opm;effect"/>
                 <owl:allValuesFrom rdf:resource="#Integer"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&opm;effect"/>
+                <owl:onProperty rdf:resource="&opm;cause"/>
                 <owl:allValuesFrom rdf:resource="#Integer"/>
             </owl:Restriction>
         </rdfs:subClassOf>
@@ -1689,14 +1689,14 @@
         <rdfs:subClassOf rdf:resource="&opm;WasDerivedFrom"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&opm;effect"/>
-                <owl:someValuesFrom rdf:resource="#Integer"/>
+                <owl:onProperty rdf:resource="&opm;cause"/>
+                <owl:allValuesFrom rdf:resource="#Integer"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&opm;cause"/>
-                <owl:allValuesFrom rdf:resource="#Integer"/>
+                <owl:onProperty rdf:resource="&opm;effect"/>
+                <owl:someValuesFrom rdf:resource="#Integer"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -1709,14 +1709,14 @@
         <rdfs:subClassOf rdf:resource="&opm;WasDerivedFrom"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&opm;effect"/>
-                <owl:someValuesFrom rdf:resource="#Integer"/>
+                <owl:onProperty rdf:resource="&opm;cause"/>
+                <owl:allValuesFrom rdf:resource="#Integer"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&opm;cause"/>
-                <owl:allValuesFrom rdf:resource="#Integer"/>
+                <owl:onProperty rdf:resource="&opm;effect"/>
+                <owl:someValuesFrom rdf:resource="#Integer"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -1729,14 +1729,14 @@
         <rdfs:subClassOf rdf:resource="&opm;WasDerivedFrom"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&opm;effect"/>
-                <owl:someValuesFrom rdf:resource="#File"/>
+                <owl:onProperty rdf:resource="&opm;cause"/>
+                <owl:allValuesFrom rdf:resource="#StyleSheet"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&opm;cause"/>
-                <owl:allValuesFrom rdf:resource="#StyleSheet"/>
+                <owl:onProperty rdf:resource="&opm;effect"/>
+                <owl:someValuesFrom rdf:resource="#File"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -2303,6 +2303,12 @@
                 </rdf:first>
                 <rdf:rest>
                     <swrl:AtomList>
+                        <rdf:first>
+                            <swrl:ClassAtom>
+                                <swrl:classPredicate rdf:resource="&opm;Artifact"/>
+                                <swrl:argument1 rdf:resource="#a2"/>
+                            </swrl:ClassAtom>
+                        </rdf:first>
                         <rdf:rest>
                             <swrl:AtomList>
                                 <rdf:first>
@@ -2314,13 +2320,6 @@
                                 </rdf:first>
                                 <rdf:rest>
                                     <swrl:AtomList>
-                                        <rdf:first>
-                                            <swrl:IndividualPropertyAtom>
-                                                <swrl:propertyPredicate rdf:resource="&opm;_wasGeneratedBy"/>
-                                                <swrl:argument1 rdf:resource="#a1"/>
-                                                <swrl:argument2 rdf:resource="#p"/>
-                                            </swrl:IndividualPropertyAtom>
-                                        </rdf:first>
                                         <rdf:rest>
                                             <swrl:AtomList>
                                                 <rdf:first>
@@ -2332,6 +2331,13 @@
                                                 </rdf:first>
                                                 <rdf:rest>
                                                     <swrl:AtomList>
+                                                        <rdf:first>
+                                                            <swrl:IndividualPropertyAtom>
+                                                                <swrl:propertyPredicate rdf:resource="&opm;cause"/>
+                                                                <swrl:argument2 rdf:resource="#a2"/>
+                                                                <swrl:argument1 rdf:resource="#u"/>
+                                                            </swrl:IndividualPropertyAtom>
+                                                        </rdf:first>
                                                         <rdf:rest>
                                                             <swrl:AtomList>
                                                                 <rdf:rest>
@@ -2345,6 +2351,13 @@
                                                                         </rdf:first>
                                                                         <rdf:rest>
                                                                             <swrl:AtomList>
+                                                                                <rdf:first>
+                                                                                    <swrl:IndividualPropertyAtom>
+                                                                                        <swrl:propertyPredicate rdf:resource="&opm;role"/>
+                                                                                        <swrl:argument1 rdf:resource="#g"/>
+                                                                                        <swrl:argument2 rdf:resource="#r1"/>
+                                                                                    </swrl:IndividualPropertyAtom>
+                                                                                </rdf:first>
                                                                                 <rdf:rest>
                                                                                     <swrl:AtomList>
                                                                                         <rdf:rest>
@@ -2358,13 +2371,6 @@
                                                                                                 </rdf:first>
                                                                                                 <rdf:rest>
                                                                                                     <swrl:AtomList>
-                                                                                                        <rdf:first>
-                                                                                                            <swrl:IndividualPropertyAtom>
-                                                                                                                <swrl:argument1 rdf:resource="#d"/>
-                                                                                                                <swrl:propertyPredicate rdf:resource="#effects"/>
-                                                                                                                <swrl:argument2 rdf:resource="#rt1"/>
-                                                                                                            </swrl:IndividualPropertyAtom>
-                                                                                                        </rdf:first>
                                                                                                         <rdf:rest>
                                                                                                             <swrl:AtomList>
                                                                                                                 <rdf:rest>
@@ -2410,6 +2416,13 @@
                                                                                                                 </rdf:first>
                                                                                                             </swrl:AtomList>
                                                                                                         </rdf:rest>
+                                                                                                        <rdf:first>
+                                                                                                            <swrl:IndividualPropertyAtom>
+                                                                                                                <swrl:argument1 rdf:resource="#d"/>
+                                                                                                                <swrl:propertyPredicate rdf:resource="#effects"/>
+                                                                                                                <swrl:argument2 rdf:resource="#rt1"/>
+                                                                                                            </swrl:IndividualPropertyAtom>
+                                                                                                        </rdf:first>
                                                                                                     </swrl:AtomList>
                                                                                                 </rdf:rest>
                                                                                             </swrl:AtomList>
@@ -2423,13 +2436,6 @@
                                                                                         </rdf:first>
                                                                                     </swrl:AtomList>
                                                                                 </rdf:rest>
-                                                                                <rdf:first>
-                                                                                    <swrl:IndividualPropertyAtom>
-                                                                                        <swrl:propertyPredicate rdf:resource="&opm;role"/>
-                                                                                        <swrl:argument1 rdf:resource="#g"/>
-                                                                                        <swrl:argument2 rdf:resource="#r1"/>
-                                                                                    </swrl:IndividualPropertyAtom>
-                                                                                </rdf:first>
                                                                             </swrl:AtomList>
                                                                         </rdf:rest>
                                                                     </swrl:AtomList>
@@ -2443,27 +2449,21 @@
                                                                 </rdf:first>
                                                             </swrl:AtomList>
                                                         </rdf:rest>
-                                                        <rdf:first>
-                                                            <swrl:IndividualPropertyAtom>
-                                                                <swrl:propertyPredicate rdf:resource="&opm;cause"/>
-                                                                <swrl:argument2 rdf:resource="#a2"/>
-                                                                <swrl:argument1 rdf:resource="#u"/>
-                                                            </swrl:IndividualPropertyAtom>
-                                                        </rdf:first>
                                                     </swrl:AtomList>
                                                 </rdf:rest>
                                             </swrl:AtomList>
                                         </rdf:rest>
+                                        <rdf:first>
+                                            <swrl:IndividualPropertyAtom>
+                                                <swrl:propertyPredicate rdf:resource="&opm;_wasGeneratedBy"/>
+                                                <swrl:argument1 rdf:resource="#a1"/>
+                                                <swrl:argument2 rdf:resource="#p"/>
+                                            </swrl:IndividualPropertyAtom>
+                                        </rdf:first>
                                     </swrl:AtomList>
                                 </rdf:rest>
                             </swrl:AtomList>
                         </rdf:rest>
-                        <rdf:first>
-                            <swrl:ClassAtom>
-                                <swrl:classPredicate rdf:resource="&opm;Artifact"/>
-                                <swrl:argument1 rdf:resource="#a2"/>
-                            </swrl:ClassAtom>
-                        </rdf:first>
                     </swrl:AtomList>
                 </rdf:rest>
             </swrl:AtomList>
