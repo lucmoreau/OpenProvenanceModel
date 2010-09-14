@@ -33,6 +33,12 @@
       <fileMode>644</fileMode>
     </file>
     <file>
+      <source>target/classes/README-opmconvert.txt</source>
+      <outputDirectory>/opmToolbox</outputDirectory>
+      <fileMode>644</fileMode>
+    </file>
+
+    <file>
       <source>target/classes/README-licenses.txt</source>
       <outputDirectory>/opmToolbox</outputDirectory>
       <fileMode>644</fileMode>
