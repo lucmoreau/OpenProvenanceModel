@@ -30,6 +30,9 @@ NCSA OPEN SOURCE LICENSE
 - org/tupeloproject/tupelo-kernel/2.4.3/tupelo-kernel-2.4.3.jar
 - org/tupeloproject/tupelo-util/2.4.3/tupelo-util-2.4.3.jar
 
+BSD-Like
+- org/openrdf/sesame/
+- org/openrdf/elmo/
 
 
 

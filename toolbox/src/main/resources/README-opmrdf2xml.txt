@@ -1,5 +1,5 @@
 
-opmrdf2xml
+opmrdf2xml  (now precated. please use opmconvert, instead)
 --------
 
 An executable to convert OPM graphs represented as XML/RDF into OPM graphs
