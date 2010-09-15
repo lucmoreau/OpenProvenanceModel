@@ -56,7 +56,14 @@
     </file>
 
     <file>
-      <source>../tupelo/target/example4-rdf.xml</source>
+      <source>../elmo/target/cake1.n3</source>
+      <destName>bad-cake.n3</destName>
+      <outputDirectory>/opmToolbox/examples</outputDirectory>
+      <fileMode>644</fileMode>
+    </file>
+
+    <file>
+      <source>../elmo/target/cake1.rdf</source>
       <destName>bad-cake.rdf</destName>
       <outputDirectory>/opmToolbox/examples</outputDirectory>
       <fileMode>644</fileMode>

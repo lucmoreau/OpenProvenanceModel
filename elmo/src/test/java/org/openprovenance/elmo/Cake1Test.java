@@ -64,6 +64,14 @@ public class Cake1Test extends org.openprovenance.model.Cake1Test {
         rHelper.dumpToRDF(file,(SesameManager)manager,RDFFormat.N3,prefixes);
     }
 
+
+    public void testCake1SaveToRDF() throws Exception {
+        
+        File file = new File("target/cake1.rdf");
+        assert manager!=null;
+        rHelper.dumpToRDF(file,(SesameManager)manager,RDFFormat.RDFXML,prefixes);
+    }
+
     GraphComparator gCompare=new GraphComparator();
 
     public void testCompareCake1Graphs() throws Exception {

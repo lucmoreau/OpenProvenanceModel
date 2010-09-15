@@ -50,11 +50,18 @@ public class PC1TimeTest extends org.openprovenance.model.PC1TimeTest {
     static OPMGraph graph1;
 
     public void testPC1TimeSaveToN3() throws Exception {
+
+        // reset counter to ensure that auto allocated ids are the same
+        RdfOPMFactory.count=0;
+
         // Note, I am reconstructing the graph, to be sure that its
         // facade conrresponds to the current manager (the maven
         // tester plugin seem to create a new instance of this tester
         // object for each test)
         super.testPC1Time();
+
+        // reset counter to ensure that auto allocated ids are the same
+        RdfOPMFactory.count=0;
 
         //graph1=makePC1TimeGraph(oFactory);
         

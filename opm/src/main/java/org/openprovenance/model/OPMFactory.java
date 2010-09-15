@@ -709,7 +709,7 @@ public class OPMFactory implements CommonURIs {
     }
 
     public Role newRole(Role role) {
-        return newRole(role.getId(),role.getValue());
+        return newRole(autoGenerateId(roleIdPrefix,role.getId()),role.getValue());
     }
 
     public Role newRole(String id, String value) {
