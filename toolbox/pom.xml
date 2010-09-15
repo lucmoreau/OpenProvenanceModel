@@ -2,14 +2,14 @@
   <parent>
     <artifactId>specs</artifactId>
     <groupId>org.openprovenance</groupId>
-    <version>1.1.7</version>
+    <version>1.1.8-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.openprovenance</groupId>
   <artifactId>toolbox</artifactId>
   <name>Open Provenance Toolbox</name>
-  <version>1.1.7</version>
+  <version>1.1.8-SNAPSHOT</version>
   <packaging>jar</packaging>
   <description>A series of tools to manipulate OPM graphs from the command line.</description>
 
@@ -20,19 +20,19 @@
     <dependency>
       <groupId>org.openprovenance</groupId>
       <artifactId>opm-core</artifactId>
-      <version>1.1.7</version>
+      <version>1.1.8-SNAPSHOT</version>
     </dependency>
 
     <dependency>
       <groupId>org.openprovenance</groupId>
       <artifactId>opm-tupelo</artifactId>
-      <version>1.1.7</version>
+      <version>1.1.8-SNAPSHOT</version>
     </dependency>
 
     <dependency>
       <groupId>org.openprovenance</groupId>
       <artifactId>opm-elmo</artifactId>
-      <version>1.1.7</version>
+      <version>1.1.8-SNAPSHOT</version>
     </dependency>
  </dependencies>
 

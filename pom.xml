@@ -4,7 +4,7 @@
   <groupId>org.openprovenance</groupId>
   <artifactId>specs</artifactId>
   <name>Open Provenance Specifications</name>
-  <version>1.1.7</version>
+  <version>1.1.8-SNAPSHOT</version>
   <url>http://openprovenance.org/java/site/1_1</url>
   <packaging>pom</packaging>
   <description>The overarching project of Java code related to the Open Provenance specifications.</description>
