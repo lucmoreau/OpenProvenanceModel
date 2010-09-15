@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
-I am pleased to announce the release of the OPM Toolbox 1.1.5. It
+I am pleased to announce the release of the OPM Toolbox 1.1.6. It
 incorporates the recently proposed OWL ontology for OPM v1.1, and
 conversion to/from RDF. 
 
@@ -7,6 +7,7 @@ Key changes to the toolkit:
 
     * More examples in opm/src/test and elmo/src/test
     * Tutorial slides for opm toolbox
+    * Fixed dependency problem for opm-core in toolbox binary release
 
 
 All information on OPM v1.1, the schema, the ontology, and the OPM
@@ -18,7 +19,7 @@ available from http://github.com/lucmoreau/OpenProvenanceModel.
 
 ----------------------------------------------------------------------
 
-OPM Toolbox 1.1.4: maintenance versions
+OPM Toolbox 1.1.4, 1.1.5: maintenance versions
 
 ----------------------------------------------------------------------
 I am pleased to announce the release of the OPM Toolbox 1.1.3. It
