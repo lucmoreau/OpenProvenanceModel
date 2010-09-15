@@ -2,7 +2,9 @@
 opm2dot
 --------
 
-An executable to convert OPM graphs into dot files.
+An executable to convert OPM graphs into dot files, and from dot files
+into pdf format. The latter conversion requires the Graphviz executable
+`dot' to be in the PATH.
 
  
 USAGE:
