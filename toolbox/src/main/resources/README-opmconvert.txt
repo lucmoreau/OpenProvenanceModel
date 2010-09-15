@@ -36,6 +36,8 @@ The arguments are the following:
 
 EXAMPLE
 
- bin/opmconvert -rdf2xml examples/bad-cake.rdf examples/bad-cake2.xml
+ bin/opmconvert -rdf2xml examples/bad-cake.rdf bad-cake2.xml
+ bin/opmconvert -xml2n3  examples/bad-cake.xml bad-cake2.n3 http://example.com/
+
 
 
