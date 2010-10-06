@@ -97,7 +97,7 @@
     
 
 
-    <!-- http://openprovenance.org/ontology#cause -->
+    <!-- http://openprovenance.org/opmo#cause -->
 
     <owl:ObjectProperty rdf:about="#cause">
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
@@ -109,62 +109,7 @@
     
 
 
-    <!-- http://openprovenance.org/ontology#causeUsed -->
-
-    <owl:ObjectProperty rdf:about="#causeUsed">
-        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
-        <rdfs:range rdf:resource="&ns;Artifact"/>
-        <rdfs:domain rdf:resource="#Used"/>
-        <rdfs:subPropertyOf rdf:resource="#cause"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://openprovenance.org/ontology#causeWasControlledBy -->
-
-    <owl:ObjectProperty rdf:about="#causeWasControlledBy">
-        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
-        <rdfs:range rdf:resource="&ns;Agent"/>
-        <rdfs:domain rdf:resource="#WasControlledBy"/>
-        <rdfs:subPropertyOf rdf:resource="#cause"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://openprovenance.org/ontology#causeWasDerivedFrom -->
-
-    <owl:ObjectProperty rdf:about="#causeWasDerivedFrom">
-        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
-        <rdfs:range rdf:resource="&ns;Artifact"/>
-        <rdfs:domain rdf:resource="#WasDerivedFrom"/>
-        <rdfs:subPropertyOf rdf:resource="#cause"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://openprovenance.org/ontology#causeWasGeneratedBy -->
-
-    <owl:ObjectProperty rdf:about="#causeWasGeneratedBy">
-        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
-        <rdfs:range rdf:resource="&ns;Process"/>
-        <rdfs:domain rdf:resource="#WasGeneratedBy"/>
-        <rdfs:subPropertyOf rdf:resource="#cause"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://openprovenance.org/ontology#causeWasTriggeredBy -->
-
-    <owl:ObjectProperty rdf:about="#causeWasTriggeredBy">
-        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
-        <rdfs:range rdf:resource="&ns;Process"/>
-        <rdfs:domain rdf:resource="#WasTriggeredBy"/>
-        <rdfs:subPropertyOf rdf:resource="#cause"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://openprovenance.org/ontology#effect -->
+    <!-- http://openprovenance.org/opmo#effect -->
 
     <owl:ObjectProperty rdf:about="#effect">
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
@@ -173,117 +118,6 @@
         <rdfs:domain rdf:resource="#Edge"/>
         <rdfs:range rdf:resource="#Node"/>
     </owl:ObjectProperty>
-    
-
-
-    <!-- http://openprovenance.org/ontology#effectUsed -->
-
-    <owl:ObjectProperty rdf:about="#effectUsed">
-        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
-        <rdfs:range rdf:resource="&ns;Process"/>
-        <rdfs:domain rdf:resource="#Used"/>
-        <rdfs:subPropertyOf rdf:resource="#effect"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://openprovenance.org/ontology#effectUsed-1 -->
-
-    <owl:ObjectProperty rdf:about="#effectUsed-1">
-        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
-        <rdfs:domain rdf:resource="&ns;Process"/>
-        <rdfs:range rdf:resource="#Used"/>
-        <owl:inverseOf rdf:resource="#effectUsed"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://openprovenance.org/ontology#effectWasControlledBy -->
-
-    <owl:ObjectProperty rdf:about="#effectWasControlledBy">
-        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
-        <rdfs:range rdf:resource="&ns;Process"/>
-        <rdfs:domain rdf:resource="#WasControlledBy"/>
-        <rdfs:subPropertyOf rdf:resource="#effect"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://openprovenance.org/ontology#effectWasControlledBy-1 -->
-
-    <owl:ObjectProperty rdf:about="#effectWasControlledBy-1">
-        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
-        <rdfs:domain rdf:resource="&ns;Process"/>
-        <rdfs:range rdf:resource="#WasControlledBy"/>
-        <owl:inverseOf rdf:resource="#effectWasControlledBy"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://openprovenance.org/ontology#effectWasDerivedFrom -->
-
-    <owl:ObjectProperty rdf:about="#effectWasDerivedFrom">
-        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
-        <rdfs:range rdf:resource="&ns;Artifact"/>
-        <rdfs:domain rdf:resource="#WasDerivedFrom"/>
-        <rdfs:subPropertyOf rdf:resource="#effect"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://openprovenance.org/ontology#effectWasDerivedFrom-1 -->
-
-    <owl:ObjectProperty rdf:about="#effectWasDerivedFrom-1">
-        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
-        <rdfs:domain rdf:resource="&ns;Artifact"/>
-        <rdfs:range rdf:resource="#WasDerivedFrom"/>
-        <owl:inverseOf rdf:resource="#effectWasDerivedFrom"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://openprovenance.org/ontology#effectWasGeneratedBy -->
-
-    <owl:ObjectProperty rdf:about="#effectWasGeneratedBy">
-        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
-        <rdfs:range rdf:resource="&ns;Artifact"/>
-        <rdfs:domain rdf:resource="#WasGeneratedBy"/>
-        <rdfs:subPropertyOf rdf:resource="#effect"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://openprovenance.org/ontology#effectWasGeneratedBy-1 -->
-
-    <owl:ObjectProperty rdf:about="#effectWasGeneratedBy-1">
-        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
-        <rdfs:domain rdf:resource="&ns;Artifact"/>
-        <rdfs:range rdf:resource="#WasGeneratedBy"/>
-        <owl:inverseOf rdf:resource="#effectWasGeneratedBy"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://openprovenance.org/ontology#effectWasTriggeredBy -->
-
-    <owl:ObjectProperty rdf:about="#effectWasTriggeredBy">
-        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
-        <rdfs:range rdf:resource="&ns;Process"/>
-        <rdfs:domain rdf:resource="#WasTriggeredBy"/>
-        <rdfs:subPropertyOf rdf:resource="#effect"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://openprovenance.org/ontology#effectWasTriggeredBy-1 -->
-
-    <owl:ObjectProperty rdf:about="#effectWasTriggeredBy-1">
-        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
-        <rdfs:domain rdf:resource="&ns;Process"/>
-        <rdfs:range rdf:resource="#WasTriggeredBy"/>
-        <owl:inverseOf rdf:resource="#effectWasTriggeredBy"/>
-    </owl:ObjectProperty>
-    
     
 
 
@@ -693,25 +527,25 @@
         <rdfs:subClassOf rdf:resource="#Edge"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#effectUsed"/>
+                <owl:onProperty rdf:resource="#effect"/>
                 <owl:allValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#causeUsed"/>
-                <owl:someValuesFrom rdf:resource="&ns;Artifact"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="#causeUsed"/>
+                <owl:onProperty rdf:resource="#cause"/>
                 <owl:allValuesFrom rdf:resource="&ns;Artifact"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#effectUsed"/>
+                <owl:onProperty rdf:resource="#cause"/>
+                <owl:someValuesFrom rdf:resource="&ns;Artifact"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#effect"/>
                 <owl:someValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
@@ -735,13 +569,13 @@
         <rdfs:subClassOf rdf:resource="#Edge"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#causeWasControlledBy"/>
+                <owl:onProperty rdf:resource="#cause"/>
                 <owl:someValuesFrom rdf:resource="&ns;Agent"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#effectWasControlledBy"/>
+                <owl:onProperty rdf:resource="#effect"/>
                 <owl:someValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
@@ -753,13 +587,13 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#effectWasControlledBy"/>
+                <owl:onProperty rdf:resource="#effect"/>
                 <owl:allValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#causeWasControlledBy"/>
+                <owl:onProperty rdf:resource="#cause"/>
                 <owl:allValuesFrom rdf:resource="&ns;Agent"/>
             </owl:Restriction>
         </rdfs:subClassOf>
@@ -776,25 +610,25 @@
         <rdfs:subClassOf rdf:resource="#Edge"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#effectWasDerivedFrom"/>
+                <owl:onProperty rdf:resource="#effect"/>
                 <owl:allValuesFrom rdf:resource="&ns;Artifact"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#causeWasDerivedFrom"/>
+                <owl:onProperty rdf:resource="#cause"/>
                 <owl:allValuesFrom rdf:resource="&ns;Artifact"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#effectWasDerivedFrom"/>
+                <owl:onProperty rdf:resource="#effect"/>
                 <owl:someValuesFrom rdf:resource="&ns;Artifact"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#causeWasDerivedFrom"/>
+                <owl:onProperty rdf:resource="#cause"/>
                 <owl:someValuesFrom rdf:resource="&ns;Artifact"/>
             </owl:Restriction>
         </rdfs:subClassOf>
@@ -810,13 +644,13 @@
         <rdfs:subClassOf rdf:resource="#Edge"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#causeWasGeneratedBy"/>
+                <owl:onProperty rdf:resource="#cause"/>
                 <owl:allValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#effectWasGeneratedBy"/>
+                <owl:onProperty rdf:resource="#effect"/>
                 <owl:allValuesFrom rdf:resource="&ns;Artifact"/>
             </owl:Restriction>
         </rdfs:subClassOf>
@@ -828,13 +662,13 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#effectWasGeneratedBy"/>
+                <owl:onProperty rdf:resource="#effect"/>
                 <owl:someValuesFrom rdf:resource="&ns;Artifact"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#causeWasGeneratedBy"/>
+                <owl:onProperty rdf:resource="#cause"/>
                 <owl:someValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
@@ -849,105 +683,30 @@
         <rdfs:subClassOf rdf:resource="#Edge"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#causeWasTriggeredBy"/>
+                <owl:onProperty rdf:resource="#cause"/>
                 <owl:allValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#effectWasTriggeredBy"/>
+                <owl:onProperty rdf:resource="#effect"/>
                 <owl:allValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#causeWasTriggeredBy"/>
+                <owl:onProperty rdf:resource="#cause"/>
                 <owl:someValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#effectWasTriggeredBy"/>
+                <owl:onProperty rdf:resource="#effect"/>
                 <owl:someValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
     
-
-
-    <owl:ObjectProperty rdf:about="&ns;used">
-        <rdfs:subPropertyOf rdf:resource="#used_star"/>
-        <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="#effectUsed-1"/>
-            <rdf:Description rdf:about="#causeUsed"/>
-        </owl:propertyChainAxiom>
-    </owl:ObjectProperty>
-    
-    <!-- http://openprovenance.org/ontology#_used_star -->
-
-    <owl:ObjectProperty rdf:about="#used_star">
-        <rdfs:range rdf:resource="&ns;Artifact"/>
-        <rdfs:domain rdf:resource="&ns;Process"/>
-        <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="&ns;used"/>
-            <rdf:Description rdf:about="#wasDerivedFrom_star"/>
-        </owl:propertyChainAxiom>
-    </owl:ObjectProperty>
-
-
-    <!-- http://openprovenance.org/ontology#_wasDerivedFrom_star -->
-
-    <owl:ObjectProperty rdf:about="#wasDerivedFrom_star">
-        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
-        <rdfs:domain rdf:resource="&ns;Artifact"/>
-        <rdfs:range rdf:resource="&ns;Artifact"/>
-    </owl:ObjectProperty>
-    
-
-    <!-- http://openprovenance.org/ontology#_wasDerivedFrom -->
-
-    <owl:ObjectProperty rdf:about="&ns;wasDerivedFrom">
-        <rdfs:subPropertyOf rdf:resource="#wasDerivedFrom_star"/>
-        <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="#effectWasDerivedFrom-1"/>
-            <rdf:Description rdf:about="#causeWasDerivedFrom"/>
-        </owl:propertyChainAxiom>
-    </owl:ObjectProperty>
-
-
-    <owl:ObjectProperty rdf:about="&ns;wasGeneratedBy">
-        <rdfs:subPropertyOf rdf:resource="#wasGeneratedBy_star"/>
-        <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="#effectWasGeneratedBy-1"/>
-            <rdf:Description rdf:about="#causeWasGeneratedBy"/>
-        </owl:propertyChainAxiom>
-    </owl:ObjectProperty>
-    
-
-    <!-- http://openprovenance.org/ontology#_wasGeneratedBy_star -->
-
-    <owl:ObjectProperty rdf:about="#wasGeneratedBy_star">
-        <rdfs:domain rdf:resource="&ns;Artifact"/>
-        <rdfs:range rdf:resource="&ns;Process"/>
-        <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="#wasDerivedFrom_star"/>
-            <rdf:Description rdf:about="&ns;wasGeneratedBy"/>
-        </owl:propertyChainAxiom>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://openprovenance.org/ontology#_wasTriggeredBy -->
-
-    <owl:ObjectProperty rdf:about="&ns;wasTriggeredBy">
-        <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="#effectWasTriggeredBy-1"/>
-            <rdf:Description rdf:about="#causeWasTriggeredBy"/>
-        </owl:propertyChainAxiom>
-    </owl:ObjectProperty>
-    
-
-
 
 
     <!-- http://purl.org/net/opmv/ns#Agent -->
