@@ -49,7 +49,8 @@ public class RepositoryHelper {
 
     public void setPrefixes(RDFHandler serialiser,
                             Collection<String[]> prefixes) throws org.openrdf.rio.RDFHandlerException {
-            serialiser.handleNamespace("opm","http://openprovenance.org/ontology#");
+            serialiser.handleNamespace("opmo","http://openprovenance.org/opmo#");
+            serialiser.handleNamespace("opmv","http://purl.org/net/opmv/ns#");
             for (String[] prefix: prefixes) {
                 serialiser.handleNamespace(prefix[0],prefix[1]);
             }

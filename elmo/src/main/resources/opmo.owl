@@ -2,9 +2,13 @@
 
 
 <!DOCTYPE rdf:RDF [
+    <!ENTITY void "http://rdfs.org/ns/void#" >
+    <!ENTITY terms "http://purl.org/dc/terms/" >
+    <!ENTITY foaf "http://xmlns.com/foaf/0.1/" >
+    <!ENTITY openprovenance "http://openprovenance.org/" >
     <!ENTITY ns "http://purl.org/net/opmv/ns#" >
     <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
-    <!ENTITY opm "http://openprovenance.org/opmo#" >
+    <!ENTITY opmo "http://openprovenance.org/opmo#" >
     <!ENTITY swrl "http://www.w3.org/2003/11/swrl#" >
     <!ENTITY dc "http://purl.org/dc/elements/1.1/" >
     <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#" >
@@ -17,23 +21,31 @@
 ]>
 
 
-<rdf:RDF xmlns="http://openprovenance.org/opmo#"
-     xml:base="http://openprovenance.org/opmo"
-     xmlns:opm="http://openprovenance.org/opmo#"
+<rdf:RDF xmlns="&openprovenance;opmo#"
+     xml:base="&openprovenance;opmo"
      xmlns:dc="http://purl.org/dc/elements/1.1/"
      xmlns:ns="http://purl.org/net/opmv/ns#"
+     xmlns:openprovenance="http://openprovenance.org/"
      xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
      xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:void="http://rdfs.org/ns/void#"
+     xmlns:opmo="&openprovenance;opmo#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:swrl="http://www.w3.org/2003/11/swrl#"
      xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#"
-     xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
     <owl:Ontology rdf:about="">
+        <rdfs:label xml:lang="en"
+            >The OWL Ontology for the Open Provenance Model</rdfs:label>
         <dc:contributor
             >Luc Moreau, Simon Miles, Paolo Missier, Paul Groth, Joe Futrelle, Li Ding,  Daniel Garijo Verdejo, Jeff Pan, Jun Zhao</dc:contributor>
+        <dc:title xml:lang="en"
+            >The OWL Ontology for the Open Provenance Model</dc:title>
         <owl:imports rdf:resource="http://purl.org/net/opmv/ns"/>
     </owl:Ontology>
     
@@ -47,6 +59,7 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
+    <owl:AnnotationProperty rdf:about="&dc;title"/>
     <owl:AnnotationProperty rdf:about="&dc;contributor"/>
     
 
@@ -82,6 +95,8 @@
     <!-- http://openprovenance.org/opmo#annotation -->
 
     <owl:ObjectProperty rdf:about="#annotation">
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
         <rdfs:domain rdf:resource="#Annotable"/>
         <rdfs:range rdf:resource="#Annotation"/>
     </owl:ObjectProperty>
@@ -91,6 +106,8 @@
     <!-- http://openprovenance.org/opmo#avalue -->
 
     <owl:ObjectProperty rdf:about="#avalue">
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
         <rdfs:range rdf:resource="#AValue"/>
         <rdfs:domain rdf:resource="&ns;Artifact"/>
     </owl:ObjectProperty>
@@ -101,6 +118,8 @@
 
     <owl:ObjectProperty rdf:about="#cause">
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo#genid5</rdfs:isDefinedBy>
         <rdfs:comment rdf:datatype="&xsd;string"
             >the cause of an Edge</rdfs:comment>
         <rdfs:domain rdf:resource="#Edge"/>
@@ -109,14 +128,227 @@
     
 
 
+    <!-- http://openprovenance.org/opmo#causeUsed -->
+
+    <owl:ObjectProperty rdf:about="#causeUsed">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:domain rdf:resource="#Used"/>
+        <rdfs:subPropertyOf rdf:resource="#cause"/>
+        <rdfs:range rdf:resource="&ns;Artifact"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/opmo#causeWasControlledBy -->
+
+    <owl:ObjectProperty rdf:about="#causeWasControlledBy">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:domain rdf:resource="#WasControlledBy"/>
+        <rdfs:subPropertyOf rdf:resource="#cause"/>
+        <rdfs:range rdf:resource="&ns;Agent"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/opmo#causeWasDerivedFrom -->
+
+    <owl:ObjectProperty rdf:about="#causeWasDerivedFrom">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:domain rdf:resource="#WasDerivedFrom"/>
+        <rdfs:subPropertyOf rdf:resource="#cause"/>
+        <rdfs:range rdf:resource="&ns;Artifact"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/opmo#causeWasGeneratedBy -->
+
+    <owl:ObjectProperty rdf:about="#causeWasGeneratedBy">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:domain rdf:resource="#WasGeneratedBy"/>
+        <rdfs:subPropertyOf rdf:resource="#cause"/>
+        <rdfs:range rdf:resource="&ns;Process"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/opmo#causeWasTriggeredBy -->
+
+    <owl:ObjectProperty rdf:about="#causeWasTriggeredBy">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:domain rdf:resource="#WasTriggeredBy"/>
+        <rdfs:subPropertyOf rdf:resource="#cause"/>
+        <rdfs:range rdf:resource="&ns;Process"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://openprovenance.org/opmo#effect -->
 
     <owl:ObjectProperty rdf:about="#effect">
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
         <rdfs:comment rdf:datatype="&xsd;string"
             >the effect of an Edge</rdfs:comment>
         <rdfs:domain rdf:resource="#Edge"/>
         <rdfs:range rdf:resource="#Node"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/opmo#effect-1 -->
+
+    <owl:ObjectProperty rdf:about="#effect-1">
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:range rdf:resource="#Edge"/>
+        <rdfs:domain rdf:resource="#Node"/>
+        <owl:inverseOf rdf:resource="#effect"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/opmo#effectUsed -->
+
+    <owl:ObjectProperty rdf:about="#effectUsed">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:domain rdf:resource="#Used"/>
+        <rdfs:subPropertyOf rdf:resource="#effect"/>
+        <rdfs:range rdf:resource="&ns;Process"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/opmo#effectUsed-1 -->
+
+    <owl:ObjectProperty rdf:about="#effectUsed-1">
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:range rdf:resource="#Used"/>
+        <rdfs:subPropertyOf rdf:resource="#effect-1"/>
+        <owl:inverseOf rdf:resource="#effectUsed"/>
+        <rdfs:domain rdf:resource="&ns;Process"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/opmo#effectWasControlledBy -->
+
+    <owl:ObjectProperty rdf:about="#effectWasControlledBy">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:domain rdf:resource="#WasControlledBy"/>
+        <rdfs:subPropertyOf rdf:resource="#effect"/>
+        <rdfs:range rdf:resource="&ns;Process"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/opmo#effectWasControlledBy-1 -->
+
+    <owl:ObjectProperty rdf:about="#effectWasControlledBy-1">
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:range rdf:resource="#WasControlledBy"/>
+        <rdfs:subPropertyOf rdf:resource="#effect-1"/>
+        <owl:inverseOf rdf:resource="#effectWasControlledBy"/>
+        <rdfs:domain rdf:resource="&ns;Process"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/opmo#effectWasDerivedFrom -->
+
+    <owl:ObjectProperty rdf:about="#effectWasDerivedFrom">
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:domain rdf:resource="#WasDerivedFrom"/>
+        <rdfs:subPropertyOf rdf:resource="#effect"/>
+        <rdfs:range rdf:resource="&ns;Artifact"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/opmo#effectWasDerivedFrom-1 -->
+
+    <owl:ObjectProperty rdf:about="#effectWasDerivedFrom-1">
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:range rdf:resource="#WasDerivedFrom"/>
+        <rdfs:subPropertyOf rdf:resource="#effect-1"/>
+        <owl:inverseOf rdf:resource="#effectWasDerivedFrom"/>
+        <rdfs:domain rdf:resource="&ns;Artifact"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/opmo#effectWasGeneratedBy -->
+
+    <owl:ObjectProperty rdf:about="#effectWasGeneratedBy">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:domain rdf:resource="#WasGeneratedBy"/>
+        <rdfs:subPropertyOf rdf:resource="#effect"/>
+        <rdfs:range rdf:resource="&ns;Artifact"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/opmo#effectWasGeneratedBy-1 -->
+
+    <owl:ObjectProperty rdf:about="#effectWasGeneratedBy-1">
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:range rdf:resource="#WasGeneratedBy"/>
+        <rdfs:subPropertyOf rdf:resource="#effect-1"/>
+        <owl:inverseOf rdf:resource="#effectWasGeneratedBy"/>
+        <rdfs:domain rdf:resource="&ns;Artifact"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/opmo#effectWasTriggeredBy -->
+
+    <owl:ObjectProperty rdf:about="#effectWasTriggeredBy">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:domain rdf:resource="#WasTriggeredBy"/>
+        <rdfs:subPropertyOf rdf:resource="#effect"/>
+        <rdfs:range rdf:resource="&ns;Process"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/opmo#effectWasTriggeredBy-1 -->
+
+    <owl:ObjectProperty rdf:about="#effectWasTriggeredBy-1">
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:range rdf:resource="#WasTriggeredBy"/>
+        <rdfs:subPropertyOf rdf:resource="#effect-1"/>
+        <owl:inverseOf rdf:resource="#effectWasTriggeredBy"/>
+        <rdfs:domain rdf:resource="&ns;Process"/>
     </owl:ObjectProperty>
     
 
@@ -136,8 +368,11 @@
     <!-- http://openprovenance.org/opmo#hasAccount -->
 
     <owl:ObjectProperty rdf:about="#hasAccount">
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
         <rdfs:range rdf:resource="#Account"/>
         <rdfs:domain rdf:resource="#OPMGraph"/>
+        <rdfs:subPropertyOf rdf:resource="#hasConstituent"/>
     </owl:ObjectProperty>
     
 
@@ -145,7 +380,10 @@
     <!-- http://openprovenance.org/opmo#hasAgent -->
 
     <owl:ObjectProperty rdf:about="#hasAgent">
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
         <rdfs:domain rdf:resource="#OPMGraph"/>
+        <rdfs:subPropertyOf rdf:resource="#hasConstituent"/>
         <rdfs:range rdf:resource="&ns;Agent"/>
     </owl:ObjectProperty>
     
@@ -154,8 +392,21 @@
     <!-- http://openprovenance.org/opmo#hasArtifact -->
 
     <owl:ObjectProperty rdf:about="#hasArtifact">
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
         <rdfs:domain rdf:resource="#OPMGraph"/>
+        <rdfs:subPropertyOf rdf:resource="#hasConstituent"/>
         <rdfs:range rdf:resource="&ns;Artifact"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/opmo#hasConstituent -->
+
+    <owl:ObjectProperty rdf:about="#hasConstituent">
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:domain rdf:resource="#OPMGraph"/>
     </owl:ObjectProperty>
     
 
@@ -163,8 +414,11 @@
     <!-- http://openprovenance.org/opmo#hasDependency -->
 
     <owl:ObjectProperty rdf:about="#hasDependency">
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
         <rdfs:range rdf:resource="#Edge"/>
         <rdfs:domain rdf:resource="#OPMGraph"/>
+        <rdfs:subPropertyOf rdf:resource="#hasConstituent"/>
     </owl:ObjectProperty>
     
 
@@ -172,7 +426,10 @@
     <!-- http://openprovenance.org/opmo#hasProcess -->
 
     <owl:ObjectProperty rdf:about="#hasProcess">
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
         <rdfs:domain rdf:resource="#OPMGraph"/>
+        <rdfs:subPropertyOf rdf:resource="#hasConstituent"/>
         <rdfs:range rdf:resource="&ns;Process"/>
     </owl:ObjectProperty>
     
@@ -181,6 +438,8 @@
     <!-- http://openprovenance.org/opmo#property -->
 
     <owl:ObjectProperty rdf:about="#property">
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
         <rdfs:domain rdf:resource="#Annotation"/>
         <rdfs:range rdf:resource="#Property"/>
     </owl:ObjectProperty>
@@ -191,6 +450,8 @@
 
     <owl:ObjectProperty rdf:about="#role">
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
         <rdfs:range rdf:resource="#Role"/>
         <rdfs:domain>
             <owl:Class>
@@ -209,6 +470,8 @@
 
     <owl:ObjectProperty rdf:about="#startTime">
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
         <rdfs:comment rdf:datatype="&xsd;string"
             >the time at which the agent began controlling the process</rdfs:comment>
         <rdfs:range rdf:resource="#OTime"/>
@@ -223,9 +486,110 @@
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
         <rdfs:comment rdf:datatype="&xsd;string"
             >a piece of timing information associated with an event</rdfs:comment>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
         <rdfs:domain rdf:resource="#EventEdge"/>
         <rdfs:range rdf:resource="#OTime"/>
     </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/opmo#used_star -->
+
+    <owl:ObjectProperty rdf:about="#used_star">
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:range rdf:resource="&ns;Artifact"/>
+        <rdfs:domain rdf:resource="&ns;Process"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&ns;used"/>
+            <rdf:Description rdf:about="#wasDerivedFrom_star"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/opmo#wasDerivedFrom_star -->
+
+    <owl:ObjectProperty rdf:about="#wasDerivedFrom_star">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:comment
+            >the transitive closure of wasDerivedFrom</rdfs:comment>
+        <rdfs:domain rdf:resource="&ns;Artifact"/>
+        <rdfs:range rdf:resource="&ns;Artifact"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openprovenance.org/opmo#wasGeneratedBy_star -->
+
+    <owl:ObjectProperty rdf:about="#wasGeneratedBy_star">
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:domain rdf:resource="&ns;Artifact"/>
+        <rdfs:range rdf:resource="&ns;Process"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="#wasDerivedFrom_star"/>
+            <rdf:Description rdf:about="&ns;wasGeneratedBy"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/opmv/ns#used -->
+
+    <owl:ObjectProperty rdf:about="&ns;used">
+        <rdfs:subPropertyOf rdf:resource="#used_star"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="#effectUsed-1"/>
+            <rdf:Description rdf:about="#causeUsed"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/opmv/ns#wasDerivedFrom -->
+
+    <owl:ObjectProperty rdf:about="&ns;wasDerivedFrom">
+        <rdfs:seeAlso
+            >http://openprovenance.org/opmo#WasDerivedFrom</rdfs:seeAlso>
+        <rdfs:subPropertyOf rdf:resource="#wasDerivedFrom_star"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="#effectWasDerivedFrom-1"/>
+            <rdf:Description rdf:about="#causeWasDerivedFrom"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/opmv/ns#wasGeneratedBy -->
+
+    <owl:ObjectProperty rdf:about="&ns;wasGeneratedBy">
+        <rdfs:subPropertyOf rdf:resource="#wasGeneratedBy_star"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="#effectWasGeneratedBy-1"/>
+            <rdf:Description rdf:about="#causeWasGeneratedBy"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/opmv/ns#wasTriggeredBy -->
+
+    <owl:ObjectProperty rdf:about="&ns;wasTriggeredBy">
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="#effectWasTriggeredBy-1"/>
+            <rdf:Description rdf:about="#causeWasTriggeredBy"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://rdfs.org/ns/void#exampleResource -->
+
+    <owl:ObjectProperty rdf:about="&void;exampleResource"/>
     
 
 
@@ -244,6 +608,8 @@
 
     <owl:DatatypeProperty rdf:about="#content">
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
         <rdfs:domain rdf:resource="#AValue"/>
         <rdfs:range rdf:resource="&rdfs;Literal"/>
     </owl:DatatypeProperty>
@@ -254,6 +620,8 @@
 
     <owl:DatatypeProperty rdf:about="#encoding">
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
         <rdfs:domain rdf:resource="#AValue"/>
         <rdfs:range rdf:resource="&xsd;anyURI"/>
     </owl:DatatypeProperty>
@@ -266,6 +634,8 @@
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
         <rdfs:comment rdf:datatype="&xsd;string"
             >The event occurred exactly at this time. This is meant to be an abbreviation for an OTime where noEarlierThan and noLaterThan are identical. exactlyAt should be  disjoint from noLaterThan  U noEarlierThan.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
         <rdfs:domain rdf:resource="#OTime"/>
         <rdfs:range rdf:resource="&xsd;dateTime"/>
     </owl:DatatypeProperty>
@@ -275,6 +645,8 @@
     <!-- http://openprovenance.org/opmo#label -->
 
     <owl:DatatypeProperty rdf:about="#label">
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
         <rdfs:domain rdf:resource="#Annotable"/>
         <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
@@ -285,6 +657,8 @@
 
     <owl:DatatypeProperty rdf:about="#noEarlierThan">
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
         <rdfs:comment rdf:datatype="&xsd;string"
             >the event occurred no earlier than this time</rdfs:comment>
         <rdfs:domain rdf:resource="#OTime"/>
@@ -297,6 +671,8 @@
 
     <owl:DatatypeProperty rdf:about="#noLaterThan">
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
         <rdfs:comment rdf:datatype="&xsd;string"
             >the event occurred no later than this time</rdfs:comment>
         <rdfs:domain rdf:resource="#OTime"/>
@@ -308,6 +684,8 @@
     <!-- http://openprovenance.org/opmo#pname -->
 
     <owl:DatatypeProperty rdf:about="#pname">
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
         <rdfs:domain rdf:resource="#Annotable"/>
         <rdfs:range rdf:resource="&xsd;anyURI"/>
     </owl:DatatypeProperty>
@@ -317,6 +695,8 @@
     <!-- http://openprovenance.org/opmo#profile -->
 
     <owl:DatatypeProperty rdf:about="#profile">
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
         <rdfs:domain rdf:resource="#Annotable"/>
         <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
@@ -326,6 +706,8 @@
     <!-- http://openprovenance.org/opmo#type -->
 
     <owl:DatatypeProperty rdf:about="#type">
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
         <rdfs:domain rdf:resource="#Annotable"/>
         <rdfs:range rdf:resource="&xsd;anyURI"/>
     </owl:DatatypeProperty>
@@ -336,6 +718,8 @@
 
     <owl:DatatypeProperty rdf:about="#uri">
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
         <rdfs:domain rdf:resource="#Property"/>
         <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
@@ -346,6 +730,8 @@
 
     <owl:DatatypeProperty rdf:about="#value">
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
         <rdfs:comment rdf:datatype="&xsd;string"
             >the value of a role or a property</rdfs:comment>
         <rdfs:domain>
@@ -357,6 +743,24 @@
             </owl:Class>
         </rdfs:domain>
     </owl:DatatypeProperty>
+    
+
+
+    <!-- http://purl.org/dc/terms/created -->
+
+    <owl:DatatypeProperty rdf:about="&terms;created"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/modified -->
+
+    <owl:DatatypeProperty rdf:about="&terms;modified"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/title -->
+
+    <owl:DatatypeProperty rdf:about="&terms;title"/>
     
 
 
@@ -377,14 +781,14 @@
         <rdfs:subClassOf rdf:resource="#Entity"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#content"/>
-                <owl:someValuesFrom rdf:resource="&rdfs;Literal"/>
+                <owl:onProperty rdf:resource="#encoding"/>
+                <owl:someValuesFrom rdf:resource="&xsd;anyURI"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#encoding"/>
-                <owl:someValuesFrom rdf:resource="&xsd;anyURI"/>
+                <owl:onProperty rdf:resource="#content"/>
+                <owl:someValuesFrom rdf:resource="&rdfs;Literal"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -395,6 +799,7 @@
 
     <owl:Class rdf:about="#Account">
         <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:isDefinedBy rdf:resource=""/>
     </owl:Class>
     
 
@@ -415,6 +820,8 @@
             </owl:Class>
         </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
     </owl:Class>
     
 
@@ -423,6 +830,8 @@
 
     <owl:Class rdf:about="#Annotation">
         <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
     </owl:Class>
     
 
@@ -431,13 +840,17 @@
 
     <owl:Class rdf:about="#Edge">
         <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
     </owl:Class>
     
 
 
     <!-- http://openprovenance.org/opmo#Entity -->
 
-    <owl:Class rdf:about="#Entity"/>
+    <owl:Class rdf:about="#Entity">
+        <rdfs:isDefinedBy rdf:resource=""/>
+    </owl:Class>
     
 
 
@@ -453,6 +866,8 @@
             </owl:Class>
         </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
     </owl:Class>
     
 
@@ -461,6 +876,8 @@
 
     <owl:Class rdf:about="#Node">
         <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
     </owl:Class>
     
 
@@ -469,6 +886,8 @@
 
     <owl:Class rdf:about="#OPMGraph">
         <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
     </owl:Class>
     
 
@@ -477,6 +896,8 @@
 
     <owl:Class rdf:about="#OTime">
         <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
     </owl:Class>
     
 
@@ -485,6 +906,12 @@
 
     <owl:Class rdf:about="#Property">
         <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#value"/>
+                <owl:allValuesFrom rdf:resource="&rdfs;Literal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="#value"/>
@@ -497,12 +924,8 @@
                 <owl:someValuesFrom rdf:resource="&xsd;string"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="#value"/>
-                <owl:allValuesFrom rdf:resource="&rdfs;Literal"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
     </owl:Class>
     
 
@@ -517,6 +940,8 @@
                 <owl:allValuesFrom rdf:resource="&xsd;string"/>
             </owl:Restriction>
         </rdfs:subClassOf>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
     </owl:Class>
     
 
@@ -527,25 +952,25 @@
         <rdfs:subClassOf rdf:resource="#Edge"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#effect"/>
+                <owl:onProperty rdf:resource="#effectUsed"/>
                 <owl:allValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#cause"/>
+                <owl:onProperty rdf:resource="#causeUsed"/>
                 <owl:allValuesFrom rdf:resource="&ns;Artifact"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#cause"/>
+                <owl:onProperty rdf:resource="#causeUsed"/>
                 <owl:someValuesFrom rdf:resource="&ns;Artifact"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#effect"/>
+                <owl:onProperty rdf:resource="#effectUsed"/>
                 <owl:someValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
@@ -559,6 +984,8 @@
         <owl:disjointWith rdf:resource="#WasDerivedFrom"/>
         <owl:disjointWith rdf:resource="#WasGeneratedBy"/>
         <owl:disjointWith rdf:resource="#WasTriggeredBy"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
     </owl:Class>
     
 
@@ -569,14 +996,20 @@
         <rdfs:subClassOf rdf:resource="#Edge"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#cause"/>
-                <owl:someValuesFrom rdf:resource="&ns;Agent"/>
+                <owl:onProperty rdf:resource="#causeWasControlledBy"/>
+                <owl:allValuesFrom rdf:resource="&ns;Agent"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#effect"/>
+                <owl:onProperty rdf:resource="#effectWasControlledBy"/>
                 <owl:someValuesFrom rdf:resource="&ns;Process"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#effectWasControlledBy"/>
+                <owl:allValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -587,19 +1020,15 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#effect"/>
-                <owl:allValuesFrom rdf:resource="&ns;Process"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="#cause"/>
-                <owl:allValuesFrom rdf:resource="&ns;Agent"/>
+                <owl:onProperty rdf:resource="#causeWasControlledBy"/>
+                <owl:someValuesFrom rdf:resource="&ns;Agent"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <owl:disjointWith rdf:resource="#WasDerivedFrom"/>
         <owl:disjointWith rdf:resource="#WasGeneratedBy"/>
         <owl:disjointWith rdf:resource="#WasTriggeredBy"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
     </owl:Class>
     
 
@@ -610,30 +1039,34 @@
         <rdfs:subClassOf rdf:resource="#Edge"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#effect"/>
-                <owl:allValuesFrom rdf:resource="&ns;Artifact"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="#cause"/>
-                <owl:allValuesFrom rdf:resource="&ns;Artifact"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="#effect"/>
+                <owl:onProperty rdf:resource="#causeWasDerivedFrom"/>
                 <owl:someValuesFrom rdf:resource="&ns;Artifact"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#cause"/>
+                <owl:onProperty rdf:resource="#effectWasDerivedFrom"/>
                 <owl:someValuesFrom rdf:resource="&ns;Artifact"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#effectWasDerivedFrom"/>
+                <owl:allValuesFrom rdf:resource="&ns;Artifact"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#causeWasDerivedFrom"/>
+                <owl:allValuesFrom rdf:resource="&ns;Artifact"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <owl:disjointWith rdf:resource="#WasGeneratedBy"/>
         <owl:disjointWith rdf:resource="#WasTriggeredBy"/>
+        <rdfs:comment rdf:datatype="&xsd;string"
+            >WasDerivedFrom is a class to express that an artifact was derived from another artifact. It encompasses all the properties defined for an OPM edge. It is a reification of the opmv:wasDerivedFrom property.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
     </owl:Class>
     
 
@@ -644,13 +1077,13 @@
         <rdfs:subClassOf rdf:resource="#Edge"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#cause"/>
-                <owl:allValuesFrom rdf:resource="&ns;Process"/>
+                <owl:onProperty rdf:resource="#effectWasGeneratedBy"/>
+                <owl:someValuesFrom rdf:resource="&ns;Artifact"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#effect"/>
+                <owl:onProperty rdf:resource="#effectWasGeneratedBy"/>
                 <owl:allValuesFrom rdf:resource="&ns;Artifact"/>
             </owl:Restriction>
         </rdfs:subClassOf>
@@ -662,17 +1095,19 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#effect"/>
-                <owl:someValuesFrom rdf:resource="&ns;Artifact"/>
+                <owl:onProperty rdf:resource="#causeWasGeneratedBy"/>
+                <owl:allValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#cause"/>
+                <owl:onProperty rdf:resource="#causeWasGeneratedBy"/>
                 <owl:someValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <owl:disjointWith rdf:resource="#WasTriggeredBy"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
     </owl:Class>
     
 
@@ -683,28 +1118,30 @@
         <rdfs:subClassOf rdf:resource="#Edge"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#cause"/>
-                <owl:allValuesFrom rdf:resource="&ns;Process"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="#effect"/>
-                <owl:allValuesFrom rdf:resource="&ns;Process"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="#cause"/>
+                <owl:onProperty rdf:resource="#effectWasTriggeredBy"/>
                 <owl:someValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#effect"/>
+                <owl:onProperty rdf:resource="#causeWasTriggeredBy"/>
+                <owl:allValuesFrom rdf:resource="&ns;Process"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#causeWasTriggeredBy"/>
                 <owl:someValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#effectWasTriggeredBy"/>
+                <owl:allValuesFrom rdf:resource="&ns;Process"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
     </owl:Class>
     
 
@@ -713,8 +1150,6 @@
 
     <owl:Class rdf:about="&ns;Agent">
         <rdfs:subClassOf rdf:resource="#Node"/>
-        <owl:disjointWith rdf:resource="&ns;Artifact"/>
-        <owl:disjointWith rdf:resource="&ns;Process"/>
     </owl:Class>
     
 
@@ -723,7 +1158,8 @@
 
     <owl:Class rdf:about="&ns;Artifact">
         <rdfs:subClassOf rdf:resource="#Node"/>
-        <owl:disjointWith rdf:resource="&ns;Process"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
     </owl:Class>
     
 
@@ -733,6 +1169,61 @@
     <owl:Class rdf:about="&ns;Process">
         <rdfs:subClassOf rdf:resource="#Node"/>
     </owl:Class>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&ns;Process"/>
+        </owl:members>
+    </rdf:Description>
+    
+
+
+    <!-- http://rdfs.org/ns/void#Dataset -->
+
+    <owl:Class rdf:about="&void;Dataset"/>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#Thing -->
+
+    <owl:Class rdf:about="&owl;Thing"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/Document -->
+
+    <owl:Class rdf:about="&foaf;Document"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://openprovenance.org/opmo -->
+
+    <void:Dataset rdf:about="">
+        <rdf:type rdf:resource="&owl;Thing"/>
+        <rdf:type rdf:resource="&foaf;Document"/>
+        <terms:created rdf:datatype="&xsd;date">2010-10-06</terms:created>
+        <terms:modified rdf:datatype="&xsd;date">2010-10-07</terms:modified>
+        <terms:title xml:lang="en"
+            >The OPM Ontology</terms:title>
+        <void:exampleResource rdf:resource="#Used"/>
+    </void:Dataset>
+    
+
+
+    <!-- http://openprovenance.org/opmo#Used -->
+
+    <owl:Thing rdf:about="#Used"/>
 </rdf:RDF>
 
 
