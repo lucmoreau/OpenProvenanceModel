@@ -1,0 +1,425 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY void "http://rdfs.org/ns/void#" >
+    <!ENTITY terms "http://purl.org/dc/terms/" >
+    <!ENTITY opmv "http://purl.org/net/opmv/" >
+    <!ENTITY foaf "http://xmlns.com/foaf/0.1/" >
+    <!ENTITY time "http://www.w3.org/2006/time#" >
+    <!ENTITY ns "http://purl.org/net/opmv/ns#" >
+    <!ENTITY www "http://www.jenitennison.com/#" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY owl2xml "http://www.w3.org/2006/12/owl2-xml#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="&opmv;ns#"
+     xml:base="&opmv;ns"
+     xmlns:ns="&opmv;ns#"
+     xmlns:opmv="http://purl.org/net/opmv/"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:www="http://www.jenitennison.com/#"
+     xmlns:void="http://rdfs.org/ns/void#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:time="http://www.w3.org/2006/time#"
+     xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about=""/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.org/dc/terms/creator -->
+
+    <owl:ObjectProperty rdf:about="&terms;creator"/>
+    
+
+
+    <!-- http://purl.org/net/opmv/used -->
+
+    <owl:ObjectProperty rdf:about="&opmv;used">
+        <rdfs:comment xml:lang="en"
+            >used is an abstract property to express that a process used an artifact</rdfs:comment>
+        <rdfs:range rdf:resource="&opmv;Artifact"/>
+        <rdfs:domain rdf:resource="&opmv;Process"/>
+        <rdfs:isDefinedBy rdf:resource=""/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/opmv/wasControlledBy -->
+
+    <owl:ObjectProperty rdf:about="&opmv;wasControlledBy">
+        <rdfs:comment xml:lang="en"
+            >wasControlledBy is an abstract property to express that a process was controlled by an agent.</rdfs:comment>
+        <rdfs:range rdf:resource="&opmv;Agent"/>
+        <rdfs:domain rdf:resource="&opmv;Process"/>
+        <rdfs:isDefinedBy rdf:resource=""/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/opmv/wasDerivedFrom -->
+
+    <owl:ObjectProperty rdf:about="&opmv;wasDerivedFrom">
+        <rdfs:comment xml:lang="en"
+            >wasDerivedFrom is an abstract property to express that an artifact was derived from another artifact.</rdfs:comment>
+        <rdfs:range rdf:resource="&opmv;Artifact"/>
+        <rdfs:domain rdf:resource="&opmv;Artifact"/>
+        <rdfs:isDefinedBy rdf:resource=""/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/opmv/wasEncodedBy -->
+
+    <owl:ObjectProperty rdf:about="&opmv;wasEncodedBy">
+        <rdfs:comment xml:lang="en"
+            >wasEncodedBy is an object property to express that an artifact is encoded by another artifact. The property is useful for expressing the relationship between the data and the file encoding the data.</rdfs:comment>
+        <rdfs:domain rdf:resource="&opmv;Artifact"/>
+        <rdfs:range rdf:resource="&opmv;Artifact"/>
+        <rdfs:isDefinedBy rdf:resource=""/>
+        <rdfs:subPropertyOf rdf:resource="&opmv;wasDerivedFrom"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/opmv/wasEndedAt -->
+
+    <owl:ObjectProperty rdf:about="&opmv;wasEndedAt">
+        <rdfs:comment xml:lang="en"
+            >wasEndedAt is an object property to express that a process was finished at a specific time instant. The property chain defines that all processes, that were performed during a specific time period which ended at a specific instant, were actually finished at that specific time instant.</rdfs:comment>
+        <rdfs:domain rdf:resource="&opmv;Process"/>
+        <rdfs:isDefinedBy rdf:resource=""/>
+        <rdfs:range rdf:resource="&time;Instant"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&opmv;wasPerformedAt"/>
+            <rdf:Description rdf:about="&time;hasEnd"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/opmv/wasGeneratedAt -->
+
+    <owl:ObjectProperty rdf:about="&opmv;wasGeneratedAt">
+        <rdfs:comment xml:lang="en"
+            >wasGeneratedAt is an object property to express that an artifact was generated at a specific time instant. This property is very similar to dct:created. Note that in a very fine-grained case the time when an artifact was generated might not be the same as the time when the process producing that artifact finished.</rdfs:comment>
+        <rdfs:domain rdf:resource="&opmv;Artifact"/>
+        <rdfs:isDefinedBy rdf:resource=""/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <rdfs:range rdf:resource="&time;Instant"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/opmv/wasGeneratedBy -->
+
+    <owl:ObjectProperty rdf:about="&opmv;wasGeneratedBy">
+        <rdfs:comment xml:lang="en"
+            >wasGeneratedBy is an abstract property to express that an artifact was generated by a process.</rdfs:comment>
+        <rdfs:domain rdf:resource="&opmv;Artifact"/>
+        <rdfs:range rdf:resource="&opmv;Process"/>
+        <rdfs:isDefinedBy rdf:resource=""/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/opmv/wasPerformedAt -->
+
+    <owl:ObjectProperty rdf:about="&opmv;wasPerformedAt">
+        <rdfs:comment xml:lang="en"
+            >wasPerformedAt is an object property to express that a process is performed either at a specific time instant or during a specific time interval.</rdfs:comment>
+        <rdfs:domain rdf:resource="&opmv;Process"/>
+        <rdfs:isDefinedBy rdf:resource=""/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <rdfs:range rdf:resource="&time;TemporalEntity"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/opmv/wasPerformedBy -->
+
+    <owl:ObjectProperty rdf:about="&opmv;wasPerformedBy">
+        <rdfs:comment xml:lang="en"
+            >wasPerformedBy is an object property to express that a process was performed by another process. It is a sub-property of wasControlledBy.</rdfs:comment>
+        <rdfs:range rdf:resource="&opmv;Agent"/>
+        <rdfs:domain rdf:resource="&opmv;Process"/>
+        <rdfs:isDefinedBy rdf:resource=""/>
+        <rdfs:subPropertyOf rdf:resource="&opmv;wasControlledBy"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/opmv/wasStartedAt -->
+
+    <owl:ObjectProperty rdf:about="&opmv;wasStartedAt">
+        <rdfs:comment xml:lang="en"
+            >wasStartedAt is an object property to express that a process is started at a specific time instant. The property chain defines that all processes, that were performed during a specific time period which began at a specific instant, were actually started at that specific time instant.</rdfs:comment>
+        <rdfs:domain rdf:resource="&opmv;Process"/>
+        <rdfs:isDefinedBy rdf:resource=""/>
+        <rdfs:range rdf:resource="&time;Instant"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&opmv;wasPerformedAt"/>
+            <rdf:Description rdf:about="&time;hasBeginning"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/opmv/wasTriggeredBy -->
+
+    <owl:ObjectProperty rdf:about="&opmv;wasTriggeredBy">
+        <rdfs:comment xml:lang="en"
+            >wasTriggeredBy is an abstract property to express that a process was triggerred by another process.</rdfs:comment>
+        <rdfs:domain rdf:resource="&opmv;Process"/>
+        <rdfs:range rdf:resource="&opmv;Process"/>
+        <rdfs:isDefinedBy rdf:resource=""/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/opmv/wasUsedAt -->
+
+    <owl:ObjectProperty rdf:about="&opmv;wasUsedAt">
+        <rdfs:comment xml:lang="en"
+            >wasUsedAt is an object property to express that an artifact was used at a specific time instant. An artifact might not be used at the starting time of the process that actually consumed it. Hence, we provide a different time-related property to express when an artifact was used.</rdfs:comment>
+        <rdfs:domain rdf:resource="&opmv;Artifact"/>
+        <rdfs:isDefinedBy rdf:resource=""/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <rdfs:range rdf:resource="&time;Instant"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/opmv/withRespectOf -->
+
+    <owl:ObjectProperty rdf:about="&opmv;withRespectOf">
+        <rdfs:comment xml:lang="en"
+            >withRespectOf is an object property to associate a time instant at which an artifact was used or generated with the process that used or generated that artifact. At a very fine-grained distinction, the time when an artifact was used or generated might not be exactly the same as the starting or ending time of the process in which the artifact was involved. The related properties opmv:wasUsedAt and opmv:wasGeneratedAt can be used as shortcuts to express time-related information about an artifact. The property opmv:wasUsedAt is only used when users want to express precisely in which process an artifact was used or generated. It can be omitted in most cases.</rdfs:comment>
+        <rdfs:range rdf:resource="&opmv;Process"/>
+        <rdfs:isDefinedBy rdf:resource=""/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <rdfs:domain rdf:resource="&time;Instant"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://rdfs.org/ns/void#exampleResource -->
+
+    <owl:ObjectProperty rdf:about="&void;exampleResource"/>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#topObjectProperty -->
+
+    <owl:ObjectProperty rdf:about="&owl;topObjectProperty"/>
+    
+
+
+    <!-- http://www.w3.org/2006/time#hasBeginning -->
+
+    <owl:ObjectProperty rdf:about="&time;hasBeginning">
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2006/time</rdfs:isDefinedBy>
+        <rdfs:range rdf:resource="&time;Instant"/>
+        <rdfs:domain rdf:resource="&time;TemporalEntity"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2006/time#hasEnd -->
+
+    <owl:ObjectProperty rdf:about="&time;hasEnd">
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2006/time</rdfs:isDefinedBy>
+        <rdfs:range rdf:resource="&time;Instant"/>
+        <rdfs:domain rdf:resource="&time;TemporalEntity"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.org/dc/terms/created -->
+
+    <owl:DatatypeProperty rdf:about="&terms;created"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/modified -->
+
+    <owl:DatatypeProperty rdf:about="&terms;modified"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/title -->
+
+    <owl:DatatypeProperty rdf:about="&terms;title"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.org/net/opmv/Agent -->
+
+    <owl:Class rdf:about="&opmv;Agent">
+        <owl:equivalentClass rdf:resource="&foaf;Agent"/>
+        <owl:disjointWith rdf:resource="&opmv;Process"/>
+        <rdfs:comment xml:lang="en"
+            >Agent is a contextual entity acting as a catalyst of a process, enabling, facilitating, controlling, or affecting its execution.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource=""/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/opmv/Artifact -->
+
+    <owl:Class rdf:about="&opmv;Artifact">
+        <owl:disjointWith rdf:resource="&opmv;Process"/>
+        <rdfs:comment xml:lang="en"
+            >Artifact is a general concept that represents immutable piece of state, which may have a physical embodiment in a physical object, or a digital representation in a computer system.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource=""/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/opmv/Process -->
+
+    <owl:Class rdf:about="&opmv;Process">
+        <rdfs:comment xml:lang="en"
+            >Process refers to an action or series of actions performed on or caused by artifacts, and resulting in new artifacts.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource=""/>
+    </owl:Class>
+    
+
+
+    <!-- http://rdfs.org/ns/void#Dataset -->
+
+    <owl:Class rdf:about="&void;Dataset"/>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#Thing -->
+
+    <owl:Class rdf:about="&owl;Thing"/>
+    
+
+
+    <!-- http://www.w3.org/2006/time#Instant -->
+
+    <owl:Class rdf:about="&time;Instant">
+        <rdfs:subClassOf rdf:resource="&time;TemporalEntity"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2006/time</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/2006/time#Interval -->
+
+    <owl:Class rdf:about="&time;Interval">
+        <rdfs:subClassOf rdf:resource="&time;TemporalEntity"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2006/time</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/2006/time#TemporalEntity -->
+
+    <owl:Class rdf:about="&time;TemporalEntity">
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2006/time</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/Agent -->
+
+    <owl:Class rdf:about="&foaf;Agent"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/Document -->
+
+    <owl:Class rdf:about="&foaf;Document"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.org/net/opmv/Process -->
+
+    <owl:Thing rdf:about="&opmv;Process"/>
+    
+
+
+    <!-- http://purl.org/net/opmv/ns -->
+
+    <void:Dataset rdf:about="">
+        <rdf:type rdf:resource="&owl;Thing"/>
+        <rdf:type rdf:resource="&foaf;Document"/>
+        <terms:created rdf:datatype="&xsd;date">2010-04-14</terms:created>
+        <terms:modified rdf:datatype="&xsd;date">2010-10-04</terms:modified>
+        <terms:title xml:lang="en"
+            >The Core OPMV Vocabulary</terms:title>
+        <void:exampleResource rdf:resource="&opmv;Process"/>
+        <terms:creator rdf:resource="&www;me"/>
+    </void:Dataset>
+    
+
+
+    <!-- http://www.jenitennison.com/#me -->
+
+    <owl:Thing rdf:about="&www;me"/>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 2.2.1.1138) http://owlapi.sourceforge.net -->
+
