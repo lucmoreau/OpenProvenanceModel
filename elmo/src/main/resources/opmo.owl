@@ -25,8 +25,8 @@
      xml:base="&openprovenance;opmo"
      xmlns:dc="http://purl.org/dc/elements/1.1/"
      xmlns:ns="http://purl.org/net/opmv/ns#"
-     xmlns:openprovenance="http://openprovenance.org/"
      xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+     xmlns:openprovenance="http://openprovenance.org/"
      xmlns:foaf="http://xmlns.com/foaf/0.1/"
      xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
      xmlns:terms="http://purl.org/dc/terms/"
@@ -778,17 +778,18 @@
     <!-- http://openprovenance.org/opmo#AValue -->
 
     <owl:Class rdf:about="#AValue">
+        <rdfs:label rdf:datatype="&xsd;string">AValue</rdfs:label>
         <rdfs:subClassOf rdf:resource="#Entity"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="#encoding"/>
-                <owl:someValuesFrom rdf:resource="&xsd;anyURI"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="#content"/>
                 <owl:someValuesFrom rdf:resource="&rdfs;Literal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#encoding"/>
+                <owl:someValuesFrom rdf:resource="&xsd;anyURI"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -798,6 +799,7 @@
     <!-- http://openprovenance.org/opmo#Account -->
 
     <owl:Class rdf:about="#Account">
+        <rdfs:label rdf:datatype="&xsd;string">Account</rdfs:label>
         <rdfs:subClassOf rdf:resource="#Entity"/>
         <rdfs:isDefinedBy rdf:resource=""/>
     </owl:Class>
@@ -807,6 +809,7 @@
     <!-- http://openprovenance.org/opmo#Annotable -->
 
     <owl:Class rdf:about="#Annotable">
+        <rdfs:label rdf:datatype="&xsd;string">Annotable</rdfs:label>
         <owl:equivalentClass>
             <owl:Class>
                 <owl:unionOf rdf:parseType="Collection">
@@ -829,6 +832,7 @@
     <!-- http://openprovenance.org/opmo#Annotation -->
 
     <owl:Class rdf:about="#Annotation">
+        <rdfs:label rdf:datatype="&xsd;string">Annotation</rdfs:label>
         <rdfs:subClassOf rdf:resource="#Entity"/>
         <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
             >http://openprovenance.org/opmo</rdfs:isDefinedBy>
@@ -839,6 +843,7 @@
     <!-- http://openprovenance.org/opmo#Edge -->
 
     <owl:Class rdf:about="#Edge">
+        <rdfs:label rdf:datatype="&xsd;string">Edge</rdfs:label>
         <rdfs:subClassOf rdf:resource="#Entity"/>
         <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
             >http://openprovenance.org/opmo</rdfs:isDefinedBy>
@@ -875,6 +880,7 @@
     <!-- http://openprovenance.org/opmo#Node -->
 
     <owl:Class rdf:about="#Node">
+        <rdfs:label rdf:datatype="&xsd;string">Node</rdfs:label>
         <rdfs:subClassOf rdf:resource="#Entity"/>
         <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
             >http://openprovenance.org/opmo</rdfs:isDefinedBy>
@@ -885,6 +891,7 @@
     <!-- http://openprovenance.org/opmo#OPMGraph -->
 
     <owl:Class rdf:about="#OPMGraph">
+        <rdfs:label rdf:datatype="&xsd;string">OPMGraph</rdfs:label>
         <rdfs:subClassOf rdf:resource="#Entity"/>
         <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
             >http://openprovenance.org/opmo</rdfs:isDefinedBy>
@@ -895,6 +902,7 @@
     <!-- http://openprovenance.org/opmo#OTime -->
 
     <owl:Class rdf:about="#OTime">
+        <rdfs:label rdf:datatype="&xsd;string">OTime</rdfs:label>
         <rdfs:subClassOf rdf:resource="#Entity"/>
         <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
             >http://openprovenance.org/opmo</rdfs:isDefinedBy>
@@ -905,7 +913,14 @@
     <!-- http://openprovenance.org/opmo#Property -->
 
     <owl:Class rdf:about="#Property">
+        <rdfs:label rdf:datatype="&xsd;string">Property</rdfs:label>
         <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#uri"/>
+                <owl:someValuesFrom rdf:resource="&xsd;string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="#value"/>
@@ -918,12 +933,6 @@
                 <owl:someValuesFrom rdf:resource="&rdfs;Literal"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="#uri"/>
-                <owl:someValuesFrom rdf:resource="&xsd;string"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
         <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
             >http://openprovenance.org/opmo</rdfs:isDefinedBy>
     </owl:Class>
@@ -933,6 +942,7 @@
     <!-- http://openprovenance.org/opmo#Role -->
 
     <owl:Class rdf:about="#Role">
+        <rdfs:label rdf:datatype="&xsd;string">Role</rdfs:label>
         <rdfs:subClassOf rdf:resource="#Entity"/>
         <rdfs:subClassOf>
             <owl:Restriction>
@@ -949,11 +959,24 @@
     <!-- http://openprovenance.org/opmo#Used -->
 
     <owl:Class rdf:about="#Used">
+        <rdfs:label rdf:datatype="&xsd;string">Used</rdfs:label>
         <rdfs:subClassOf rdf:resource="#Edge"/>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="#effectUsed"/>
+                <owl:someValuesFrom rdf:resource="&ns;Process"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#effectUsed"/>
                 <owl:allValuesFrom rdf:resource="&ns;Process"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#role"/>
+                <owl:someValuesFrom rdf:resource="#Role"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -966,18 +989,6 @@
             <owl:Restriction>
                 <owl:onProperty rdf:resource="#causeUsed"/>
                 <owl:someValuesFrom rdf:resource="&ns;Artifact"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="#effectUsed"/>
-                <owl:someValuesFrom rdf:resource="&ns;Process"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="#role"/>
-                <owl:someValuesFrom rdf:resource="#Role"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <owl:disjointWith rdf:resource="#WasControlledBy"/>
@@ -993,19 +1004,8 @@
     <!-- http://openprovenance.org/opmo#WasControlledBy -->
 
     <owl:Class rdf:about="#WasControlledBy">
+        <rdfs:label rdf:datatype="&xsd;string">WasControlledBy</rdfs:label>
         <rdfs:subClassOf rdf:resource="#Edge"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="#causeWasControlledBy"/>
-                <owl:allValuesFrom rdf:resource="&ns;Agent"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="#effectWasControlledBy"/>
-                <owl:someValuesFrom rdf:resource="&ns;Process"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="#effectWasControlledBy"/>
@@ -1020,8 +1020,20 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
+                <owl:onProperty rdf:resource="#effectWasControlledBy"/>
+                <owl:someValuesFrom rdf:resource="&ns;Process"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
                 <owl:onProperty rdf:resource="#causeWasControlledBy"/>
                 <owl:someValuesFrom rdf:resource="&ns;Agent"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#causeWasControlledBy"/>
+                <owl:allValuesFrom rdf:resource="&ns;Agent"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <owl:disjointWith rdf:resource="#WasDerivedFrom"/>
@@ -1039,8 +1051,8 @@
         <rdfs:subClassOf rdf:resource="#Edge"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#causeWasDerivedFrom"/>
-                <owl:someValuesFrom rdf:resource="&ns;Artifact"/>
+                <owl:onProperty rdf:resource="#effectWasDerivedFrom"/>
+                <owl:allValuesFrom rdf:resource="&ns;Artifact"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -1051,14 +1063,14 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#effectWasDerivedFrom"/>
+                <owl:onProperty rdf:resource="#causeWasDerivedFrom"/>
                 <owl:allValuesFrom rdf:resource="&ns;Artifact"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="#causeWasDerivedFrom"/>
-                <owl:allValuesFrom rdf:resource="&ns;Artifact"/>
+                <owl:someValuesFrom rdf:resource="&ns;Artifact"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <owl:disjointWith rdf:resource="#WasGeneratedBy"/>
@@ -1074,17 +1086,12 @@
     <!-- http://openprovenance.org/opmo#WasGeneratedBy -->
 
     <owl:Class rdf:about="#WasGeneratedBy">
+        <rdfs:label rdf:datatype="&xsd;string">WasGeneratedBy</rdfs:label>
         <rdfs:subClassOf rdf:resource="#Edge"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#effectWasGeneratedBy"/>
-                <owl:someValuesFrom rdf:resource="&ns;Artifact"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="#effectWasGeneratedBy"/>
-                <owl:allValuesFrom rdf:resource="&ns;Artifact"/>
+                <owl:onProperty rdf:resource="#causeWasGeneratedBy"/>
+                <owl:allValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -1095,14 +1102,20 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#causeWasGeneratedBy"/>
-                <owl:allValuesFrom rdf:resource="&ns;Process"/>
+                <owl:onProperty rdf:resource="#effectWasGeneratedBy"/>
+                <owl:allValuesFrom rdf:resource="&ns;Artifact"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="#causeWasGeneratedBy"/>
                 <owl:someValuesFrom rdf:resource="&ns;Process"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#effectWasGeneratedBy"/>
+                <owl:someValuesFrom rdf:resource="&ns;Artifact"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <owl:disjointWith rdf:resource="#WasTriggeredBy"/>
@@ -1115,28 +1128,29 @@
     <!-- http://openprovenance.org/opmo#WasTriggeredBy -->
 
     <owl:Class rdf:about="#WasTriggeredBy">
+        <rdfs:label rdf:datatype="&xsd;string">WasTriggeredBy</rdfs:label>
         <rdfs:subClassOf rdf:resource="#Edge"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#effectWasTriggeredBy"/>
+                <owl:onProperty rdf:resource="#causeWasTriggeredBy"/>
                 <owl:someValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#causeWasTriggeredBy"/>
+                <owl:onProperty rdf:resource="#effectWasTriggeredBy"/>
                 <owl:allValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#causeWasTriggeredBy"/>
+                <owl:onProperty rdf:resource="#effectWasTriggeredBy"/>
                 <owl:someValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#effectWasTriggeredBy"/>
+                <owl:onProperty rdf:resource="#causeWasTriggeredBy"/>
                 <owl:allValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
