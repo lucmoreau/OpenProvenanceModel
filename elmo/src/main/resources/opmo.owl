@@ -792,6 +792,7 @@
                 <owl:someValuesFrom rdf:resource="&xsd;anyURI"/>
             </owl:Restriction>
         </rdfs:subClassOf>
+        <rdfs:isDefinedBy rdf:resource=""/>
     </owl:Class>
     
 
@@ -834,8 +835,7 @@
     <owl:Class rdf:about="#Annotation">
         <rdfs:label rdf:datatype="&xsd;string">Annotation</rdfs:label>
         <rdfs:subClassOf rdf:resource="#Entity"/>
-        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
-            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:isDefinedBy rdf:resource=""/>
     </owl:Class>
     
 
@@ -845,8 +845,7 @@
     <owl:Class rdf:about="#Edge">
         <rdfs:label rdf:datatype="&xsd;string">Edge</rdfs:label>
         <rdfs:subClassOf rdf:resource="#Entity"/>
-        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
-            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:isDefinedBy rdf:resource=""/>
     </owl:Class>
     
 
@@ -995,8 +994,7 @@
         <owl:disjointWith rdf:resource="#WasDerivedFrom"/>
         <owl:disjointWith rdf:resource="#WasGeneratedBy"/>
         <owl:disjointWith rdf:resource="#WasTriggeredBy"/>
-        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
-            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:isDefinedBy rdf:resource=""/>
     </owl:Class>
     
 
@@ -1039,8 +1037,7 @@
         <owl:disjointWith rdf:resource="#WasDerivedFrom"/>
         <owl:disjointWith rdf:resource="#WasGeneratedBy"/>
         <owl:disjointWith rdf:resource="#WasTriggeredBy"/>
-        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
-            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:isDefinedBy rdf:resource=""/>
     </owl:Class>
     
 
@@ -1077,8 +1074,7 @@
         <owl:disjointWith rdf:resource="#WasTriggeredBy"/>
         <rdfs:comment rdf:datatype="&xsd;string"
             >WasDerivedFrom is a class to express that an artifact was derived from another artifact. It encompasses all the properties defined for an OPM edge. It is a reification of the opmv:wasDerivedFrom property.</rdfs:comment>
-        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
-            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:isDefinedBy rdf:resource=""/>
     </owl:Class>
     
 
@@ -1119,8 +1115,7 @@
             </owl:Restriction>
         </rdfs:subClassOf>
         <owl:disjointWith rdf:resource="#WasTriggeredBy"/>
-        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
-            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:isDefinedBy rdf:resource=""/>
     </owl:Class>
     
 
@@ -1154,8 +1149,7 @@
                 <owl:allValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
-            >http://openprovenance.org/opmo</rdfs:isDefinedBy>
+        <rdfs:isDefinedBy rdf:resource=""/>
     </owl:Class>
     
 
