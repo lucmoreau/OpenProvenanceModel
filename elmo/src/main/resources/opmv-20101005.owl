@@ -1,0 +1,330 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <http://purl.org/net/opmv/ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix void:    <http://rdfs.org/ns/void#> .
+@prefix dct:     <http://purl.org/dc/terms/> .
+
+<http://purl.org/net/opmv/ns#> rdf:type owl:Ontology .
+
+<http://purl.org/net/opmv/ns>
+  a owl:Ontology , foaf:Document , void:Dataset ;
+  rdfs:label "The Core OPMV Vocabulary"@en ;
+  dct:title "The Core OPMV Vocabulary"@en ;
+  dct:creator <http://www.jenitennison.com/#me> ;
+  dct:created "2010-04-14"^^xsd:date ;
+  dct:modified "2010-10-04"^^xsd:date ;
+  void:exampleResource :Artifact , :Process , :Agent.
+
+
+###  http://purl.org/net/opmv/ns#used
+
+<http://purl.org/net/opmv/ns#used> rdf:type owl:ObjectProperty ;
+                                   
+                                   rdfs:comment "used is an abstract property to express that a process used an artifact"@en ;
+					
+				   rdfs:isDefinedBy <http://purl.org/net/opmv/ns> ;
+                                   
+                                   rdfs:range <http://purl.org/net/opmv/ns#Artifact> ;
+                                   
+                                   rdfs:domain <http://purl.org/net/opmv/ns#Process> .
+
+
+
+###  http://purl.org/net/opmv/ns#wasControlledBy
+
+<http://purl.org/net/opmv/ns#wasControlledBy> rdf:type owl:ObjectProperty ;
+                                              
+                                              rdfs:comment "wasControlledBy is an abstract property to express that a process was controlled by an agent."@en ;
+					
+					      rdfs:isDefinedBy <http://purl.org/net/opmv/ns> ;
+
+                                              rdfs:range <http://purl.org/net/opmv/ns#Agent> ;
+                                              
+                                              rdfs:domain <http://purl.org/net/opmv/ns#Process> .
+
+
+
+###  http://purl.org/net/opmv/ns#wasDerivedFrom
+
+<http://purl.org/net/opmv/ns#wasDerivedFrom> rdf:type owl:ObjectProperty ;
+                                             
+                                             rdfs:comment "wasDerivedFrom is an abstract property to express that an artifact was derived from another artifact."@en ;
+                                             
+                                             rdfs:isDefinedBy <http://purl.org/net/opmv/ns> ;
+
+					     rdfs:domain <http://purl.org/net/opmv/ns#Artifact> ;
+                                             
+                                             rdfs:range <http://purl.org/net/opmv/ns#Artifact> .
+
+
+
+###  http://purl.org/net/opmv/ns#wasEncodedBy
+
+<http://purl.org/net/opmv/ns#wasEncodedBy> rdf:type owl:ObjectProperty ;
+                                           
+                                           rdfs:comment "wasEncodedBy is an object property to express that an artifact is encoded by another artifact. The property is useful for expressing the relationship between the data and the file encoding the data."@en ;
+
+					   rdfs:isDefinedBy <http://purl.org/net/opmv/ns> ;
+                                           
+                                           rdfs:range <http://purl.org/net/opmv/ns#Artifact> ;
+                                           
+                                           rdfs:domain <http://purl.org/net/opmv/ns#Artifact> ;
+                                           
+                                           rdfs:subPropertyOf <http://purl.org/net/opmv/ns#wasDerivedFrom> .
+
+
+
+
+
+###  http://purl.org/net/opmv/ns#wasEndedAt
+
+<http://purl.org/net/opmv/ns#wasEndedAt> rdf:type owl:ObjectProperty ;
+
+					 rdfs:comment "wasEndedAt is an object property to express that a process was finished at a specific time instant. The property chain defines that all processes, that were performed during a specific time period which ended at a specific instant, were actually finished at that specific time instant."@en ;
+
+					 rdfs:isDefinedBy <http://purl.org/net/opmv/ns> ;
+                                         
+                                         rdfs:domain <http://purl.org/net/opmv/ns#Process> ;
+                                         
+                                         rdfs:range <http://www.w3.org/2006/time#Instant> ;
+                                         
+                                         owl:propertyChainAxiom ( <http://purl.org/net/opmv/ns#wasPerformedAt>
+                                                                  <http://www.w3.org/2006/time#hasEnd>
+                                                                ) .
+
+
+
+###  http://purl.org/net/opmv/ns#wasGeneratedAt
+
+<http://purl.org/net/opmv/ns#wasGeneratedAt> rdf:type owl:ObjectProperty ;
+					     rdfs:isDefinedBy <http://purl.org/net/opmv/ns> ;
+
+					     rdfs:comment "wasGeneratedAt is an object property to express that an artifact was generated at a specific time instant. This property is very similar to dct:created. Note that in a very fine-grained case the time when an artifact was generated might not be the same as the time when the process producing that artifact finished."@en ;
+                                             
+                                             rdfs:domain <http://purl.org/net/opmv/ns#Artifact> ;
+                                             
+                                             rdfs:subPropertyOf owl:topObjectProperty ;
+                                             
+                                             rdfs:range <http://www.w3.org/2006/time#Instant>  
+.
+
+
+###  http://purl.org/net/opmv/ns#wasUsedAt
+
+<http://purl.org/net/opmv/ns#wasUsedAt> rdf:type owl:ObjectProperty ;
+					rdfs:isDefinedBy <http://purl.org/net/opmv/ns> ;
+
+					rdfs:comment "wasUsedAt is an object property to express that an artifact was used at a specific time instant. An artifact might not be used at the starting time of the process that actually consumed it. Hence, we provide a different time-related property to express when an artifact was used."@en ;
+                                             
+                                        rdfs:domain <http://purl.org/net/opmv/ns#Artifact> ;
+                                             
+                                        rdfs:subPropertyOf owl:topObjectProperty ;
+                                             
+                                        rdfs:range <http://www.w3.org/2006/time#Instant> 
+					
+.
+
+###  http://purl.org/net/opmv/ns#withRespectOf
+
+<http://purl.org/net/opmv/ns#withRespectOf> rdf:type owl:ObjectProperty ;
+					rdfs:isDefinedBy <http://purl.org/net/opmv/ns> ;
+
+					rdfs:comment "withRespectOf is an object property to associate a time instant at which an artifact was used or generated with the process that used or generated that artifact. At a very fine-grained distinction, the time when an artifact was used or generated might not be exactly the same as the starting or ending time of the process in which the artifact was involved. The related properties opmv:wasUsedAt and opmv:wasGeneratedAt can be used as shortcuts to express time-related information about an artifact. The property opmv:wasUsedAt is only used when users want to express precisely in which process an artifact was used or generated. It can be omitted in most cases."@en ;
+                                             
+                                        rdfs:domain <http://www.w3.org/2006/time#Instant> ;
+                                             
+                                        rdfs:subPropertyOf owl:topObjectProperty ;
+                                             
+                                        rdfs:range <http://purl.org/net/opmv/ns#Process> 
+					
+.
+
+
+###  http://purl.org/net/opmv/ns#wasGeneratedBy
+
+<http://purl.org/net/opmv/ns#wasGeneratedBy> rdf:type owl:ObjectProperty ;
+                                             
+                                             rdfs:comment "wasGeneratedBy is an abstract property to express that an artifact was generated by a process."@en ;
+                                             
+					     rdfs:isDefinedBy <http://purl.org/net/opmv/ns> ;
+
+                                             rdfs:domain <http://purl.org/net/opmv/ns#Artifact> ;
+                                             
+                                             rdfs:range <http://purl.org/net/opmv/ns#Process> .
+
+
+
+###  http://purl.org/net/opmv/ns#wasPerformedAt
+
+<http://purl.org/net/opmv/ns#wasPerformedAt> rdf:type owl:ObjectProperty ;
+
+					     rdfs:comment "wasPerformedAt is an object property to express that a process is performed either at a specific time instant or during a specific time interval."@en ;
+
+					     rdfs:isDefinedBy <http://purl.org/net/opmv/ns> ;
+                                             
+                                             rdfs:domain <http://purl.org/net/opmv/ns#Process> ;
+                                             
+                                             rdfs:subPropertyOf owl:topObjectProperty ;
+                                             
+                                             rdfs:range <http://www.w3.org/2006/time#TemporalEntity> .
+
+
+
+###  http://purl.org/net/opmv/ns#wasPerformedBy
+
+<http://purl.org/net/opmv/ns#wasPerformedBy> rdf:type owl:ObjectProperty ;
+                                             
+                                             rdfs:comment "wasPerformedBy is an object property to express that a process was performed by another process. It is a sub-property of wasControlledBy. "@en ;
+					     rdfs:isDefinedBy <http://purl.org/net/opmv/ns> ;
+                                             
+                                             rdfs:range <http://purl.org/net/opmv/ns#Agent> ;
+                                             
+                                             rdfs:domain <http://purl.org/net/opmv/ns#Process> ;
+                                             
+                                             rdfs:subPropertyOf <http://purl.org/net/opmv/ns#wasControlledBy> .
+
+
+
+###  http://purl.org/net/opmv/ns#wasStartedAt
+
+<http://purl.org/net/opmv/ns#wasStartedAt> rdf:type owl:ObjectProperty ;
+
+					   rdfs:comment "wasStartedAt is an object property to express that a process is started at a specific time instant. The property chain defines that all processes, that were performed during a specific time period which began at a specific instant, were actually started at that specific time instant."@en ;
+
+					   rdfs:isDefinedBy <http://purl.org/net/opmv/ns> ;
+                                           
+                                           rdfs:domain <http://purl.org/net/opmv/ns#Process> ;
+                                           
+                                           rdfs:range <http://www.w3.org/2006/time#Instant> ;
+                                           
+                                           owl:propertyChainAxiom ( <http://purl.org/net/opmv/ns#wasPerformedAt>
+                                                                    <http://www.w3.org/2006/time#hasBeginning>
+                                                                  ) .
+
+
+
+###  http://purl.org/net/opmv/ns#wasTriggeredBy
+
+<http://purl.org/net/opmv/ns#wasTriggeredBy> rdf:type owl:ObjectProperty ;
+                                             
+                                             rdfs:comment "wasTriggeredBy is an abstract property to express that a process was triggerred by another process. "@en ;
+
+					     rdfs:isDefinedBy <http://purl.org/net/opmv/ns> ;
+                                             
+                                             rdfs:range <http://purl.org/net/opmv/ns#Process> ;
+                                             
+                                             rdfs:domain <http://purl.org/net/opmv/ns#Process> .
+
+
+
+###  http://www.w3.org/2002/07/owl#topObjectProperty
+
+owl:topObjectProperty rdf:type owl:ObjectProperty .
+
+
+
+###  http://www.w3.org/2006/time#hasBeginning
+
+<http://www.w3.org/2006/time#hasBeginning> rdf:type owl:ObjectProperty ;
+
+					   rdfs:isDefinedBy <http://www.w3.org/2006/time> ;
+                                           
+                                           rdfs:range <http://www.w3.org/2006/time#Instant> ;
+                                           
+                                           rdfs:domain <http://www.w3.org/2006/time#TemporalEntity> .
+
+
+
+###  http://www.w3.org/2006/time#hasEnd
+
+<http://www.w3.org/2006/time#hasEnd> rdf:type owl:ObjectProperty ;
+
+				     rdfs:isDefinedBy <http://www.w3.org/2006/time> ;
+                                     
+                                     rdfs:range <http://www.w3.org/2006/time#Instant> ;
+                                     
+                                     rdfs:domain <http://www.w3.org/2006/time#TemporalEntity> .
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  http://purl.org/net/opmv/ns#Agent
+
+<http://purl.org/net/opmv/ns#Agent> rdf:type owl:Class ;
+				    
+                                    
+				    owl:equivalentClass foaf:Agent ;
+
+                                    owl:disjointWith <http://purl.org/net/opmv/ns#Process> ;
+
+				    rdfs:isDefinedBy <http://purl.org/net/opmv/ns> ;
+                                    
+                                    rdfs:comment "Agent is a contextual entity acting as a catalyst of a process, enabling, facilitating, controlling, or affecting its execution."@en .
+
+
+
+###  http://purl.org/net/opmv/ns#Artifact
+
+<http://purl.org/net/opmv/ns#Artifact> rdf:type owl:Class ;
+
+                                       
+                                       owl:disjointWith <http://purl.org/net/opmv/ns#Process> ;
+
+				       rdfs:isDefinedBy <http://purl.org/net/opmv/ns> ;
+                                       
+                                       rdfs:comment "Artifact is a general concept that represents immutable piece of state, which may have a physical embodiment in a physical object, or a digital representation in a computer system."@en .
+
+
+
+###  http://purl.org/net/opmv/ns#Process
+
+<http://purl.org/net/opmv/ns#Process> rdf:type owl:Class ;
+
+
+				      rdfs:isDefinedBy <http://purl.org/net/opmv/ns> ;  
+                                    
+                                      rdfs:comment "Process refers to an action or series of actions performed on or caused by artifacts, and resulting in new artifacts."@en .
+
+
+
+###  http://www.w3.org/2006/time#Instant
+
+<http://www.w3.org/2006/time#Instant> rdf:type owl:Class ;
+                                      
+				      rdfs:isDefinedBy <http://www.w3.org/2006/time> ;  
+
+                                      rdfs:subClassOf <http://www.w3.org/2006/time#TemporalEntity> .
+
+
+
+###  http://www.w3.org/2006/time#Interval
+
+<http://www.w3.org/2006/time#Interval> rdf:type owl:Class ;
+
+				      rdfs:isDefinedBy <http://www.w3.org/2006/time> ;  
+                                       
+                                       rdfs:subClassOf <http://www.w3.org/2006/time#TemporalEntity> .
+
+
+
+###  http://www.w3.org/2006/time#TemporalEntity
+
+<http://www.w3.org/2006/time#TemporalEntity> rdf:type owl:Class ;
+				      rdfs:isDefinedBy <http://www.w3.org/2006/time>  
+.
+
+
+
+
+###  Generated by the OWL API (version 3.0.0.1451) http://owlapi.sourceforge.net
+
