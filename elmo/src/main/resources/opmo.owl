@@ -79,6 +79,8 @@
 
     <owl:ObjectProperty rdf:about="#account">
         <rdfs:label rdf:datatype="&xsd;string">account</rdfs:label>
+        <rdfs:comment rdf:datatype="&xsd;string"
+            >Object Property to express the member of an OPM entity to some Account.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:range rdf:resource="#Account"/>
         <rdfs:domain>
@@ -98,6 +100,8 @@
 
     <owl:ObjectProperty rdf:about="#annotation">
         <rdfs:label rdf:datatype="&xsd;string">annotation</rdfs:label>
+        <rdfs:comment rdf:datatype="&xsd;string"
+            >Object property to associate an Annotable entity and an Annotation.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:domain rdf:resource="#Annotable"/>
         <rdfs:range rdf:resource="#Annotation"/>
@@ -109,6 +113,8 @@
 
     <owl:ObjectProperty rdf:about="#avalue">
         <rdfs:label rdf:datatype="&xsd;string">avalue</rdfs:label>
+        <rdfs:comment rdf:datatype="&xsd;string"
+            >Denotes a serialization of an application value associated with an Artifact. Such serialization should have a type (expressed in a type system suitable for the serialization). Serialization technologies include XML, JSON, and ntriples.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:range rdf:resource="#AValue"/>
         <rdfs:domain rdf:resource="&ns;Artifact"/>
@@ -122,7 +128,7 @@
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
         <rdfs:label rdf:datatype="&xsd;string">cause</rdfs:label>
         <rdfs:comment rdf:datatype="&xsd;string"
-            >the cause of an Edge</rdfs:comment>
+            >The cause of an Edge.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:domain rdf:resource="#Edge"/>
         <rdfs:range rdf:resource="#Node"/>
@@ -135,6 +141,8 @@
     <owl:ObjectProperty rdf:about="#causeUsed">
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
         <rdfs:label rdf:datatype="&xsd;string">causeUsed</rdfs:label>
+        <rdfs:comment rdf:datatype="&xsd;string"
+            >The cause of a Used edge.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:domain rdf:resource="#Used"/>
         <rdfs:subPropertyOf rdf:resource="#cause"/>
@@ -149,6 +157,8 @@
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
         <rdfs:label rdf:datatype="&xsd;string"
             >causeWasControlledBy</rdfs:label>
+        <rdfs:comment rdf:datatype="&xsd;string"
+            >The cause of a WasControlledBy edge.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:domain rdf:resource="#WasControlledBy"/>
         <rdfs:subPropertyOf rdf:resource="#cause"/>
@@ -163,6 +173,8 @@
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
         <rdfs:label rdf:datatype="&xsd;string"
             >causeWasDerivedFrom</rdfs:label>
+        <rdfs:comment rdf:datatype="&xsd;string"
+            >The cause of a WasDerivedFrom edge.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:domain rdf:resource="#WasDerivedFrom"/>
         <rdfs:subPropertyOf rdf:resource="#cause"/>
@@ -177,6 +189,8 @@
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
         <rdfs:label rdf:datatype="&xsd;string"
             >causeWasGeneratedBy</rdfs:label>
+        <rdfs:comment rdf:datatype="&xsd;string"
+            >The cause of a WasGeneratedBy edge.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:domain rdf:resource="#WasGeneratedBy"/>
         <rdfs:subPropertyOf rdf:resource="#cause"/>
@@ -191,6 +205,8 @@
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
         <rdfs:label rdf:datatype="&xsd;string"
             >causeWasTriggeredBy</rdfs:label>
+        <rdfs:comment rdf:datatype="&xsd;string"
+            >The cause of a WasTriggeredBy edge.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:domain rdf:resource="#WasTriggeredBy"/>
         <rdfs:subPropertyOf rdf:resource="#cause"/>
@@ -205,7 +221,7 @@
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
         <rdfs:label rdf:datatype="&xsd;string">effect</rdfs:label>
         <rdfs:comment rdf:datatype="&xsd;string"
-            >the effect of an Edge</rdfs:comment>
+            >The effect of an Edge.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:domain rdf:resource="#Edge"/>
         <rdfs:range rdf:resource="#Node"/>
@@ -218,7 +234,7 @@
     <owl:ObjectProperty rdf:about="#effect-1">
         <rdfs:label rdf:datatype="&xsd;string">effect-1</rdfs:label>
         <rdfs:comment rdf:datatype="&xsd;string"
-            >Convenience class introduces to describe the inverse of an effect. It is used to express property chains.</rdfs:comment>
+            >Convenience class introduced to describe the inverse of an effect. It is used to express property chains.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:range rdf:resource="#Edge"/>
         <rdfs:domain rdf:resource="#Node"/>
@@ -233,7 +249,7 @@
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
         <rdfs:label rdf:datatype="&xsd;string">effectUsed</rdfs:label>
         <rdfs:comment rdf:datatype="&xsd;string"
-            >the effect of a Used edge</rdfs:comment>
+            >The effect of a Used edge.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:domain rdf:resource="#Used"/>
         <rdfs:subPropertyOf rdf:resource="#effect"/>
@@ -248,7 +264,7 @@
         <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
         <rdfs:label rdf:datatype="&xsd;string">effectUsed-1</rdfs:label>
         <rdfs:comment rdf:datatype="&xsd;string"
-            >the cause of a Process by means of a Used edge</rdfs:comment>
+            >The cause of a Process by means of a Used edge.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:range rdf:resource="#Used"/>
         <rdfs:subPropertyOf rdf:resource="#effect-1"/>
@@ -265,7 +281,7 @@
         <rdfs:label rdf:datatype="&xsd;string"
             >effectWasControlledBy</rdfs:label>
         <rdfs:comment rdf:datatype="&xsd;string"
-            >the effect of a WasControlledBy edge</rdfs:comment>
+            >The effect of a WasControlledBy edge.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:domain rdf:resource="#WasControlledBy"/>
         <rdfs:subPropertyOf rdf:resource="#effect"/>
@@ -281,7 +297,7 @@
         <rdfs:label rdf:datatype="&xsd;string"
             >effectWasControlledBy-1</rdfs:label>
         <rdfs:comment rdf:datatype="&xsd;string"
-            >the cause of a Process by means of a WasControlledBy edge</rdfs:comment>
+            >The cause of a Process by means of a WasControlledBy edge.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:range rdf:resource="#WasControlledBy"/>
         <rdfs:subPropertyOf rdf:resource="#effect-1"/>
@@ -297,7 +313,7 @@
         <rdfs:label rdf:datatype="&xsd;string"
             >effectWasDerivedFrom</rdfs:label>
         <rdfs:comment rdf:datatype="&xsd;string"
-            >the effect of a WasDerivedFrom edge</rdfs:comment>
+            >The effect of a WasDerivedFrom edge.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:domain rdf:resource="#WasDerivedFrom"/>
         <rdfs:subPropertyOf rdf:resource="#effect"/>
@@ -313,7 +329,7 @@
         <rdfs:label rdf:datatype="&xsd;string"
             >effectWasDerivedFrom-1</rdfs:label>
         <rdfs:comment rdf:datatype="&xsd;string"
-            >the cause of an Artifact by means of a WasDerivedFrom edge</rdfs:comment>
+            >The cause of an Artifact by means of a WasDerivedFrom edge.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:range rdf:resource="#WasDerivedFrom"/>
         <rdfs:subPropertyOf rdf:resource="#effect-1"/>
@@ -330,7 +346,7 @@
         <rdfs:label rdf:datatype="&xsd;string"
             >effectWasGeneratedBy</rdfs:label>
         <rdfs:comment rdf:datatype="&xsd;string"
-            >the effect of a WasGeneratedBy edge</rdfs:comment>
+            >The effect of a WasGeneratedBy edge.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:domain rdf:resource="#WasGeneratedBy"/>
         <rdfs:subPropertyOf rdf:resource="#effect"/>
@@ -346,7 +362,7 @@
         <rdfs:label rdf:datatype="&xsd;string"
             >effectWasGeneratedBy-1</rdfs:label>
         <rdfs:comment rdf:datatype="&xsd;string"
-            >the cause of an Artifact by means of a WasGeneratedBy edge</rdfs:comment>
+            >The cause of an Artifact by means of a WasGeneratedBy edge.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:range rdf:resource="#WasGeneratedBy"/>
         <rdfs:subPropertyOf rdf:resource="#effect-1"/>
@@ -363,7 +379,7 @@
         <rdfs:label rdf:datatype="&xsd;string"
             >effectWasTriggeredBy</rdfs:label>
         <rdfs:comment rdf:datatype="&xsd;string"
-            >the effect of a WasTriggeredBy edge</rdfs:comment>
+            >The effect of a WasTriggeredBy edge.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:domain rdf:resource="#WasTriggeredBy"/>
         <rdfs:subPropertyOf rdf:resource="#effect"/>
@@ -379,7 +395,7 @@
         <rdfs:label rdf:datatype="&xsd;string"
             >effectWasTriggeredBy-1</rdfs:label>
         <rdfs:comment rdf:datatype="&xsd;string"
-            >the cause of a Process by means of a WasTriggeredBy edge</rdfs:comment>
+            >The cause of a Process by means of a WasTriggeredBy edge.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:range rdf:resource="#WasTriggeredBy"/>
         <rdfs:subPropertyOf rdf:resource="#effect-1"/>
@@ -395,7 +411,7 @@
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
         <rdfs:label rdf:datatype="&xsd;string">endTime</rdfs:label>
         <rdfs:comment rdf:datatype="&xsd;string"
-            >the time at which the agent ended controlling a process</rdfs:comment>
+            >The time at which the agent ended controlling a process.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:range rdf:resource="#OTime"/>
         <rdfs:domain rdf:resource="#WasControlledBy"/>
@@ -450,7 +466,7 @@
     <owl:ObjectProperty rdf:about="#hasConstituent">
         <rdfs:label rdf:datatype="&xsd;string">hasContituent</rdfs:label>
         <rdfs:comment rdf:datatype="&xsd;string"
-            >(Abstract) Property that denotes the constituency relationship between an OPM graph and one of its constituent agent, meaning that the object of this property is a constituent of the subject.</rdfs:comment>
+            >(Abstract) Property that denotes the constituency relationship between an OPM graph and one of its constituent entity, meaning that the object of this property is a constituent of the subject.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:domain rdf:resource="#OPMGraph"/>
     </owl:ObjectProperty>
@@ -489,6 +505,8 @@
 
     <owl:ObjectProperty rdf:about="#property">
         <rdfs:label rdf:datatype="&xsd;string">property</rdfs:label>
+        <rdfs:comment rdf:datatype="&xsd;string"
+            >Object Property that associates an Annotation instance with a (set of) Propery(ies).</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:domain rdf:resource="#Annotation"/>
         <rdfs:range rdf:resource="#Property"/>
@@ -502,7 +520,7 @@
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
         <rdfs:label rdf:datatype="&xsd;string">role</rdfs:label>
         <rdfs:comment rdf:datatype="&xsd;string"
-            >the role of an edge</rdfs:comment>
+            >The role of an edge.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:range rdf:resource="#Role"/>
         <rdfs:domain>
@@ -524,7 +542,7 @@
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
         <rdfs:label rdf:datatype="&xsd;string">startTime</rdfs:label>
         <rdfs:comment rdf:datatype="&xsd;string"
-            >the time at which the agent began controlling a process</rdfs:comment>
+            >The time at which the agent began controlling a process.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:range rdf:resource="#OTime"/>
         <rdfs:domain rdf:resource="#WasControlledBy"/>
@@ -538,7 +556,7 @@
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
         <rdfs:label rdf:datatype="&xsd;string">time</rdfs:label>
         <rdfs:comment rdf:datatype="&xsd;string"
-            >a piece of timing information associated with an EventEdge</rdfs:comment>
+            >A piece of timing information associated with an EventEdge.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:domain rdf:resource="#EventEdge"/>
         <rdfs:range rdf:resource="#OTime"/>
@@ -550,6 +568,8 @@
 
     <owl:ObjectProperty rdf:about="#used_star">
         <rdfs:label rdf:datatype="&xsd;string">used*</rdfs:label>
+        <rdfs:comment rdf:datatype="&xsd;string"
+            >A multi-step used property.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:range rdf:resource="&ns;Artifact"/>
         <rdfs:domain rdf:resource="&ns;Process"/>
@@ -579,6 +599,8 @@
 
     <owl:ObjectProperty rdf:about="#wasGeneratedBy_star">
         <rdfs:label rdf:datatype="&xsd;string">wasGeneratedBy*</rdfs:label>
+        <rdfs:comment rdf:datatype="&xsd;string"
+            >A multi-step wasGeneratedBy edge.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:domain rdf:resource="&ns;Artifact"/>
         <rdfs:range rdf:resource="&ns;Process"/>
@@ -661,9 +683,24 @@
     <owl:DatatypeProperty rdf:about="#content">
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
         <rdfs:label>content</rdfs:label>
+        <rdfs:comment rdf:datatype="&xsd;string"
+            >Content of the serial representation of Artifact.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:domain rdf:resource="#AValue"/>
         <rdfs:range rdf:resource="&rdfs;Literal"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openprovenance.org/opmo#datapropertyAbbreviation -->
+
+    <owl:DatatypeProperty rdf:about="#datapropertyAbbreviation">
+        <rdfs:label rdf:datatype="&xsd;string"
+            >datapropertyAbbreviation</rdfs:label>
+        <rdfs:comment rdf:datatype="&xsd;string"
+            >The OPM Ontology offers several data properties that are abbreviation of common properties defined by OPM. </rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource=""/>
+        <rdfs:domain rdf:resource="#Annotable"/>
     </owl:DatatypeProperty>
     
 
@@ -673,6 +710,8 @@
     <owl:DatatypeProperty rdf:about="#encoding">
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
         <rdfs:label>encoding</rdfs:label>
+        <rdfs:comment rdf:datatype="&xsd;string"
+            >Denotes how a serialization was constructed. For instance, using the Java bean serializer to create an XML document, by applying a specified transformation to the application data, e.g. anonymisation, by passing a reference to the actual value, or by creating a set of RDF triples.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:domain rdf:resource="#AValue"/>
         <rdfs:range rdf:resource="&xsd;anyURI"/>
@@ -694,12 +733,29 @@
     
 
 
+    <!-- http://openprovenance.org/opmo#key -->
+
+    <owl:DatatypeProperty rdf:about="#key">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label>key</rdfs:label>
+        <rdfs:comment rdf:datatype="&xsd;string"
+            >The key of a Property.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource=""/>
+        <rdfs:domain rdf:resource="#Property"/>
+        <rdfs:range rdf:resource="&xsd;anyURI"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://openprovenance.org/opmo#label -->
 
     <owl:DatatypeProperty rdf:about="#label">
         <rdfs:label>label</rdfs:label>
+        <rdfs:comment rdf:datatype="&xsd;string"
+            >This property provides a human-readable version of an OPM entity.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:domain rdf:resource="#Annotable"/>
+        <rdfs:subPropertyOf rdf:resource="#datapropertyAbbreviation"/>
         <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
     
@@ -737,8 +793,11 @@
 
     <owl:DatatypeProperty rdf:about="#pname">
         <rdfs:label>pname</rdfs:label>
+        <rdfs:comment rdf:datatype="&xsd;string"
+            >The persistent name of an entity.  Denotes a persistent name that can be used by OPM graph queriers to compare OPM entities across graphs. The scope of this name is intended to be global.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:domain rdf:resource="#Annotable"/>
+        <rdfs:subPropertyOf rdf:resource="#datapropertyAbbreviation"/>
         <rdfs:range rdf:resource="&xsd;anyURI"/>
     </owl:DatatypeProperty>
     
@@ -748,8 +807,11 @@
 
     <owl:DatatypeProperty rdf:about="#profile">
         <rdfs:label>profile</rdfs:label>
+        <rdfs:comment rdf:datatype="&xsd;string"
+            >This property applies to an OPM graph and denotes a profile that is supported by that graph.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:domain rdf:resource="#Annotable"/>
+        <rdfs:subPropertyOf rdf:resource="#datapropertyAbbreviation"/>
         <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
     
@@ -759,21 +821,12 @@
 
     <owl:DatatypeProperty rdf:about="#type">
         <rdfs:label>type</rdfs:label>
+        <rdfs:comment rdf:datatype="&xsd;string"
+            >The subtype of an entity.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:domain rdf:resource="#Annotable"/>
+        <rdfs:subPropertyOf rdf:resource="#datapropertyAbbreviation"/>
         <rdfs:range rdf:resource="&xsd;anyURI"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://openprovenance.org/opmo#uri -->
-
-    <owl:DatatypeProperty rdf:about="#uri">
-        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
-        <rdfs:label>uri</rdfs:label>
-        <rdfs:isDefinedBy rdf:resource=""/>
-        <rdfs:domain rdf:resource="#Property"/>
-        <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
     
 
@@ -844,6 +897,8 @@
                 <owl:someValuesFrom rdf:resource="&xsd;anyURI"/>
             </owl:Restriction>
         </rdfs:subClassOf>
+        <rdfs:comment rdf:datatype="&xsd;string"
+            >The serial representation of an artifact Value</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
     </owl:Class>
     
@@ -854,6 +909,8 @@
     <owl:Class rdf:about="#Account">
         <rdfs:label rdf:datatype="&xsd;string">Account</rdfs:label>
         <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:comment rdf:datatype="&xsd;string"
+            >The class representing an OPM Account.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
     </owl:Class>
     
@@ -876,6 +933,8 @@
             </owl:Class>
         </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:comment rdf:datatype="&xsd;string"
+            >The set of OPM entities that can be annotated.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
     </owl:Class>
     
@@ -886,6 +945,8 @@
     <owl:Class rdf:about="#Annotation">
         <rdfs:label rdf:datatype="&xsd;string">Annotation</rdfs:label>
         <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:comment rdf:datatype="&xsd;string"
+            >OPM class used to annotate Annotable entities.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
     </owl:Class>
     
@@ -939,7 +1000,7 @@
         <rdfs:label rdf:datatype="&xsd;string">Node</rdfs:label>
         <rdfs:subClassOf rdf:resource="#Entity"/>
         <rdfs:comment rdf:datatype="&xsd;string"
-            >Node is the class of nodes in an OPM graph. Nodes can source or effect of edges.</rdfs:comment>
+            >Node is the class of nodes in an OPM graph. Nodes can be a source or effect of edges.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
     </owl:Class>
     
@@ -950,6 +1011,8 @@
     <owl:Class rdf:about="#OPMGraph">
         <rdfs:label rdf:datatype="&xsd;string">OPMGraph</rdfs:label>
         <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:comment rdf:datatype="&xsd;string"
+            >The class of all OPM graphs.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
     </owl:Class>
     
@@ -960,6 +1023,7 @@
     <owl:Class rdf:about="#OTime">
         <rdfs:label rdf:datatype="&xsd;string">OTime</rdfs:label>
         <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Observed time.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
     </owl:Class>
     
@@ -973,21 +1037,23 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="#value"/>
-                <owl:someValuesFrom rdf:resource="&rdfs;Literal"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="#uri"/>
-                <owl:someValuesFrom rdf:resource="&xsd;string"/>
+                <owl:allValuesFrom rdf:resource="&rdfs;Literal"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="#value"/>
-                <owl:allValuesFrom rdf:resource="&rdfs;Literal"/>
+                <owl:someValuesFrom rdf:resource="&rdfs;Literal"/>
             </owl:Restriction>
         </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#key"/>
+                <owl:someValuesFrom rdf:resource="&xsd;anyURI"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment rdf:datatype="&xsd;string"
+            >Building block allowing for the construction of annotations.  It consists of key-value pair.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
     </owl:Class>
     
@@ -1018,14 +1084,20 @@
         <rdfs:subClassOf rdf:resource="#Edge"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#causeUsed"/>
-                <owl:someValuesFrom rdf:resource="&ns;Artifact"/>
+                <owl:onProperty rdf:resource="#effectUsed"/>
+                <owl:allValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#role"/>
-                <owl:someValuesFrom rdf:resource="#Role"/>
+                <owl:onProperty rdf:resource="#causeUsed"/>
+                <owl:allValuesFrom rdf:resource="&ns;Artifact"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#causeUsed"/>
+                <owl:someValuesFrom rdf:resource="&ns;Artifact"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -1036,14 +1108,8 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#effectUsed"/>
-                <owl:allValuesFrom rdf:resource="&ns;Process"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="#causeUsed"/>
-                <owl:allValuesFrom rdf:resource="&ns;Artifact"/>
+                <owl:onProperty rdf:resource="#role"/>
+                <owl:someValuesFrom rdf:resource="#Role"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <owl:disjointWith rdf:resource="#WasControlledBy"/>
@@ -1067,20 +1133,20 @@ Used is a class that  encompasses all the properties defined by OPM for this kin
         <rdfs:subClassOf rdf:resource="#Edge"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#causeWasControlledBy"/>
-                <owl:allValuesFrom rdf:resource="&ns;Agent"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
                 <owl:onProperty rdf:resource="#effectWasControlledBy"/>
                 <owl:allValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#effectWasControlledBy"/>
-                <owl:someValuesFrom rdf:resource="&ns;Process"/>
+                <owl:onProperty rdf:resource="#causeWasControlledBy"/>
+                <owl:someValuesFrom rdf:resource="&ns;Agent"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#causeWasControlledBy"/>
+                <owl:allValuesFrom rdf:resource="&ns;Agent"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -1091,8 +1157,8 @@ Used is a class that  encompasses all the properties defined by OPM for this kin
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#causeWasControlledBy"/>
-                <owl:someValuesFrom rdf:resource="&ns;Agent"/>
+                <owl:onProperty rdf:resource="#effectWasControlledBy"/>
+                <owl:someValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <owl:disjointWith rdf:resource="#WasDerivedFrom"/>
@@ -1116,7 +1182,13 @@ WasControlledBy is a class that  encompasses all the properties defined by OPM f
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="#effectWasDerivedFrom"/>
-                <owl:allValuesFrom rdf:resource="&ns;Artifact"/>
+                <owl:someValuesFrom rdf:resource="&ns;Artifact"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#causeWasDerivedFrom"/>
+                <owl:someValuesFrom rdf:resource="&ns;Artifact"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -1128,13 +1200,7 @@ WasControlledBy is a class that  encompasses all the properties defined by OPM f
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="#effectWasDerivedFrom"/>
-                <owl:someValuesFrom rdf:resource="&ns;Artifact"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="#causeWasDerivedFrom"/>
-                <owl:someValuesFrom rdf:resource="&ns;Artifact"/>
+                <owl:allValuesFrom rdf:resource="&ns;Artifact"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <owl:disjointWith rdf:resource="#WasGeneratedBy"/>
@@ -1156,14 +1222,8 @@ WasDerivedFrom is a class that  encompasses all the properties defined by OPM fo
         <rdfs:subClassOf rdf:resource="#Edge"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#role"/>
-                <owl:someValuesFrom rdf:resource="#Role"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="#effectWasGeneratedBy"/>
-                <owl:allValuesFrom rdf:resource="&ns;Artifact"/>
+                <owl:onProperty rdf:resource="#causeWasGeneratedBy"/>
+                <owl:someValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -1180,8 +1240,14 @@ WasDerivedFrom is a class that  encompasses all the properties defined by OPM fo
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#causeWasGeneratedBy"/>
-                <owl:someValuesFrom rdf:resource="&ns;Process"/>
+                <owl:onProperty rdf:resource="#effectWasGeneratedBy"/>
+                <owl:allValuesFrom rdf:resource="&ns;Artifact"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#role"/>
+                <owl:someValuesFrom rdf:resource="#Role"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <owl:disjointWith rdf:resource="#WasTriggeredBy"/>
@@ -1208,14 +1274,14 @@ WasGeneratedBy is a class that  encompasses all the properties defined by OPM fo
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#effectWasTriggeredBy"/>
-                <owl:someValuesFrom rdf:resource="&ns;Process"/>
+                <owl:onProperty rdf:resource="#causeWasTriggeredBy"/>
+                <owl:allValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="#causeWasTriggeredBy"/>
-                <owl:allValuesFrom rdf:resource="&ns;Process"/>
+                <owl:onProperty rdf:resource="#effectWasTriggeredBy"/>
+                <owl:someValuesFrom rdf:resource="&ns;Process"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>

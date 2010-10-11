@@ -316,7 +316,7 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
     public RdfProperty newProperty(org.openprovenance.rdf.Property a) {
         QName qname=((Entity)a).getQName();
         RdfProperty res=new RdfProperty(manager,qname);
-        res.setFields(a.getUri(), a.getValue());
+        res.setFields(a.getKey().toString(), a.getValue());
         return res;
     }
 

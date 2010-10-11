@@ -1,4 +1,5 @@
 package org.openprovenance.elmo;
+import java.net.URI;
 import java.util.Set;
 import org.openprovenance.rdf.Account;
 import org.openprovenance.rdf.Node;
@@ -38,7 +39,7 @@ public class RdfProperty extends org.openprovenance.model.Property implements Ha
     public void setUri(String value) {
         super.setUri(value);
         org.openprovenance.rdf.Property r=findMyFacade();
-        r.setUri(value);
+        r.setKey(URI.create(value));
     }
 
 
