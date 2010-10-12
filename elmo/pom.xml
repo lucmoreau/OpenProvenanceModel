@@ -144,7 +144,7 @@ imported before converting.
                     <pathelement path="." />   <!-- add this path element to pick up log4.properties in the classpath -->
                   </classpath>
                   <arg value="-b" />
-                  <arg value="org.openprovenance.rdf=http://openprovenance.org/opmo#" />
+                  <arg value="org.openprovenance.rdf=http://openprovenance.org/model/opmo#" />
                   <arg value="-b" />
                   <arg value="org.openprovenance.rdf=http://purl.org/net/opmv/ns#" />
                   <arg value="-b" />
