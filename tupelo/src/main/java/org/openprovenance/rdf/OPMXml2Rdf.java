@@ -461,7 +461,7 @@ public class OPMXml2Rdf {
 
 
         for (Property prop: ann.getProperty()) {
-            Resource predicate=Resource.uriRef(prop.getUri());
+            Resource predicate=Resource.uriRef(prop.getKey());
             Resource value=makeLiteral(prop.getValue());
 
             

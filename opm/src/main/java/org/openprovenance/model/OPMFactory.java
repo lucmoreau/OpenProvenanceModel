@@ -228,7 +228,7 @@ public class OPMFactory implements CommonURIs {
             return label.getValue();
         } else {
             for (Property prop: annotation.getProperty()) {
-                if (prop.getUri().equals(LABEL_PROPERTY)) {
+                if (prop.getKey().equals(LABEL_PROPERTY)) {
                     return (String) prop.getValue();
                 }
             }
@@ -243,7 +243,7 @@ public class OPMFactory implements CommonURIs {
             return type.getValue();
         } else {
             for (Property prop: annotation.getProperty()) {
-                if (prop.getUri().equals(TYPE_PROPERTY)) {
+                if (prop.getKey().equals(TYPE_PROPERTY)) {
                     return (String) prop.getValue();
                 }
             }
@@ -257,7 +257,7 @@ public class OPMFactory implements CommonURIs {
             return value.getContent();
         } else {
             for (Property prop: annotation.getProperty()) {
-                if (prop.getUri().equals(VALUE_PROPERTY)) {
+                if (prop.getKey().equals(VALUE_PROPERTY)) {
                     return prop.getValue();
                 }
             }
@@ -271,7 +271,7 @@ public class OPMFactory implements CommonURIs {
             return value.getEncoding();
         } else {
             for (Property prop: annotation.getProperty()) {
-                if (prop.getUri().equals(ENCODING_PROPERTY)) {
+                if (prop.getKey().equals(ENCODING_PROPERTY)) {
                     return (String) prop.getValue();
                 }
             }
@@ -285,7 +285,7 @@ public class OPMFactory implements CommonURIs {
             return profile.getValue();
         } else {
             for (Property prop: annotation.getProperty()) {
-                if (prop.getUri().equals(PROFILE_PROPERTY)) {
+                if (prop.getKey().equals(PROFILE_PROPERTY)) {
                     return (String) prop.getValue();
                 }
             }
@@ -299,7 +299,7 @@ public class OPMFactory implements CommonURIs {
             return pname.getValue();
         } else {
             for (Property prop: annotation.getProperty()) {
-                if (prop.getUri().equals(PNAME_PROPERTY)) {
+                if (prop.getKey().equals(PNAME_PROPERTY)) {
                     return (String) prop.getValue();
                 }
             }
@@ -525,38 +525,38 @@ public class OPMFactory implements CommonURIs {
         List<Property> properties=ann.getProperty();
         if (properties.size()==1) {
             Property prop=properties.get(0);
-            if (prop.getUri().equals(LABEL_PROPERTY)) {
+            if (prop.getKey().equals(LABEL_PROPERTY)) {
                 Label label=newLabel((String)prop.getValue());
                 setIdForCompactAnnotation(label,ann.getId());
                 return  of.createLabel(label);
             }
-            if (prop.getUri().equals(TYPE_PROPERTY)) {
+            if (prop.getKey().equals(TYPE_PROPERTY)) {
                 Type type=newType((String)prop.getValue());
                 setIdForCompactAnnotation(type,ann.getId());
                 return  of.createType(type);
             }
-            if (prop.getUri().equals(PROFILE_PROPERTY)) {
+            if (prop.getKey().equals(PROFILE_PROPERTY)) {
                 Profile profile=newProfile((String)prop.getValue());
                 setIdForCompactAnnotation(profile,ann.getId());
                 return  of.createProfile(profile);
             }
-            if (prop.getUri().equals(PNAME_PROPERTY)) {
+            if (prop.getKey().equals(PNAME_PROPERTY)) {
                 PName pname=newPName((String)prop.getValue());
                 setIdForCompactAnnotation(pname,ann.getId());
                 return  of.createPname(pname);
             }
         }
         else if (properties.size()==2) {
-            if ((properties.get(0).getUri().equals(VALUE_PROPERTY))
+            if ((properties.get(0).getKey().equals(VALUE_PROPERTY))
                 &&
-                (properties.get(1).getUri().equals(ENCODING_PROPERTY))) {
+                (properties.get(1).getKey().equals(ENCODING_PROPERTY))) {
                 Value value=newValue(properties.get(0).getValue(),
                                      (String)properties.get(1).getValue());
                 setIdForCompactAnnotation(value,ann.getId());
                 return  of.createValue(value);
-            } else if ((properties.get(1).getUri().equals(VALUE_PROPERTY))
+            } else if ((properties.get(1).getKey().equals(VALUE_PROPERTY))
                        &&
-                       (properties.get(0).getUri().equals(ENCODING_PROPERTY))) {
+                       (properties.get(0).getKey().equals(ENCODING_PROPERTY))) {
                 Value value=newValue(properties.get(1).getValue(),
                                      (String)properties.get(0).getValue());
                 setIdForCompactAnnotation(value,ann.getId());
@@ -1328,13 +1328,13 @@ public class OPMFactory implements CommonURIs {
     public Property newProperty(String property,
                                 Object value) {
         Property res=of.createProperty();
-        res.setUri(property);
+        res.setKey(property);
         res.setValue(value);
         return res;
     }
 
     public Property newProperty(Property property) {
-        return newProperty(property.getUri(),property.getValue());
+        return newProperty(property.getKey(),property.getValue());
     }
 
 

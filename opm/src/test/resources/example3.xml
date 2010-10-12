@@ -1,211 +1,211 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<opm:opmGraph xmlns:opm="http://openprovenance.org/model/v1.1.a" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://example.com/">
-    <opm:accounts>
-        <opm:account id="black"/>
-        <opm:account id="original"/>
-        <opm:account id="sender"/>
-        <opm:account id="receiver"/>
-    </opm:accounts>
-    <opm:processes>
-        <opm:process id="p1">
-            <opm:account ref="black"/>
-            <opm:label value="P1"/>
-        </opm:process>
-        <opm:process id="p2">
-            <opm:account ref="black"/>
-            <opm:label value="P2"/>
-        </opm:process>
-        <opm:process id="p3">
-            <opm:account ref="black"/>
-            <opm:label value="message producer"/>
-        </opm:process>
-        <opm:process id="p4">
-            <opm:account ref="black"/>
-            <opm:label value="message receiver"/>
-        </opm:process>
-    </opm:processes>
-    <opm:artifacts>
-        <opm:artifact id="a1">
-            <opm:account ref="sender"/>
-            <opm:label value="A1s"/>
-        </opm:artifact>
-        <opm:artifact id="a2">
-            <opm:account ref="sender"/>
-            <opm:label value="A2s"/>
-        </opm:artifact>
-        <opm:artifact id="a3">
-            <opm:account ref="sender"/>
-            <opm:label value="A3s"/>
-        </opm:artifact>
-        <opm:artifact id="a4">
-            <opm:account ref="sender"/>
-            <opm:account ref="receiver"/>
-            <opm:label value="msg"/>
-        </opm:artifact>
-        <opm:artifact id="a5">
-            <opm:account ref="receiver"/>
-            <opm:label value="A1r"/>
-        </opm:artifact>
-        <opm:artifact id="a6">
-            <opm:account ref="receiver"/>
-            <opm:label value="A2r"/>
-        </opm:artifact>
-        <opm:artifact id="a7">
-            <opm:account ref="receiver"/>
-            <opm:label value="A3r"/>
-        </opm:artifact>
-        <opm:artifact id="a8">
-            <opm:account ref="original"/>
-            <opm:label value="A1"/>
-        </opm:artifact>
-        <opm:artifact id="a9">
-            <opm:account ref="original"/>
-            <opm:label value="A2"/>
-        </opm:artifact>
-        <opm:artifact id="a10">
-            <opm:account ref="original"/>
-            <opm:label value="A3"/>
-        </opm:artifact>
-    </opm:artifacts>
-    <opm:agents/>
-    <opm:causalDependencies>
-        <opm:used>
-            <opm:effect ref="p3"/>
-            <opm:role value="in"/>
-            <opm:cause ref="a1"/>
-            <opm:account ref="sender"/>
-        </opm:used>
-        <opm:used>
-            <opm:effect ref="p3"/>
-            <opm:role value="in"/>
-            <opm:cause ref="a2"/>
-            <opm:account ref="sender"/>
-        </opm:used>
-        <opm:used>
-            <opm:effect ref="p3"/>
-            <opm:role value="in"/>
-            <opm:cause ref="a3"/>
-            <opm:account ref="sender"/>
-        </opm:used>
-        <opm:used>
-            <opm:effect ref="p4"/>
-            <opm:role value="in"/>
-            <opm:cause ref="a4"/>
-            <opm:account ref="receiver"/>
-        </opm:used>
-        <opm:used>
-            <opm:effect ref="p2"/>
-            <opm:role value="in"/>
-            <opm:cause ref="a5"/>
-            <opm:account ref="receiver"/>
-        </opm:used>
-        <opm:used>
-            <opm:effect ref="p2"/>
-            <opm:role value="in"/>
-            <opm:cause ref="a6"/>
-            <opm:account ref="receiver"/>
-        </opm:used>
-        <opm:used>
-            <opm:effect ref="p2"/>
-            <opm:role value="in"/>
-            <opm:cause ref="a7"/>
-            <opm:account ref="receiver"/>
-        </opm:used>
-        <opm:used>
-            <opm:effect ref="p2"/>
-            <opm:role value="in"/>
-            <opm:cause ref="a8"/>
-            <opm:account ref="original"/>
-        </opm:used>
-        <opm:used>
-            <opm:effect ref="p2"/>
-            <opm:role value="in"/>
-            <opm:cause ref="a9"/>
-            <opm:account ref="original"/>
-        </opm:used>
-        <opm:used>
-            <opm:effect ref="p2"/>
-            <opm:role value="in"/>
-            <opm:cause ref="a10"/>
-            <opm:account ref="original"/>
-        </opm:used>
-        <opm:wasGeneratedBy>
-            <opm:effect ref="a4"/>
-            <opm:role value="out"/>
-            <opm:cause ref="p3"/>
-            <opm:account ref="sender"/>
-        </opm:wasGeneratedBy>
-        <opm:wasGeneratedBy>
-            <opm:effect ref="a5"/>
-            <opm:role value="out"/>
-            <opm:cause ref="p4"/>
-            <opm:account ref="receiver"/>
-        </opm:wasGeneratedBy>
-        <opm:wasGeneratedBy>
-            <opm:effect ref="a6"/>
-            <opm:role value="out"/>
-            <opm:cause ref="p4"/>
-            <opm:account ref="receiver"/>
-        </opm:wasGeneratedBy>
-        <opm:wasGeneratedBy>
-            <opm:effect ref="a7"/>
-            <opm:role value="out"/>
-            <opm:cause ref="p4"/>
-            <opm:account ref="receiver"/>
-        </opm:wasGeneratedBy>
-        <opm:wasGeneratedBy>
-            <opm:effect ref="a1"/>
-            <opm:role value="out"/>
-            <opm:cause ref="p1"/>
-            <opm:account ref="sender"/>
-        </opm:wasGeneratedBy>
-        <opm:wasGeneratedBy>
-            <opm:effect ref="a2"/>
-            <opm:role value="out"/>
-            <opm:cause ref="p1"/>
-            <opm:account ref="sender"/>
-        </opm:wasGeneratedBy>
-        <opm:wasGeneratedBy>
-            <opm:effect ref="a3"/>
-            <opm:role value="out"/>
-            <opm:cause ref="p1"/>
-            <opm:account ref="sender"/>
-        </opm:wasGeneratedBy>
-        <opm:wasGeneratedBy>
-            <opm:effect ref="a8"/>
-            <opm:role value="out"/>
-            <opm:cause ref="p1"/>
-            <opm:account ref="original"/>
-        </opm:wasGeneratedBy>
-        <opm:wasGeneratedBy>
-            <opm:effect ref="a9"/>
-            <opm:role value="out"/>
-            <opm:cause ref="p1"/>
-            <opm:account ref="original"/>
-        </opm:wasGeneratedBy>
-        <opm:wasGeneratedBy>
-            <opm:effect ref="a10"/>
-            <opm:role value="out"/>
-            <opm:cause ref="p1"/>
-            <opm:account ref="original"/>
-        </opm:wasGeneratedBy>
-        <opm:wasDerivedFrom>
-            <opm:effect ref="a5"/>
-            <opm:cause ref="a1"/>
-            <opm:account ref="sender"/>
-            <opm:account ref="receiver"/>
-        </opm:wasDerivedFrom>
-        <opm:wasDerivedFrom>
-            <opm:effect ref="a6"/>
-            <opm:cause ref="a2"/>
-            <opm:account ref="sender"/>
-            <opm:account ref="receiver"/>
-        </opm:wasDerivedFrom>
-        <opm:wasDerivedFrom>
-            <opm:effect ref="a7"/>
-            <opm:cause ref="a3"/>
-            <opm:account ref="sender"/>
-            <opm:account ref="receiver"/>
-        </opm:wasDerivedFrom>
-    </opm:causalDependencies>
-</opm:opmGraph>
+<opmx:opmGraph xmlns:opmx="http://openprovenance.org/model/opmx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://example.com/">
+    <opmx:accounts>
+        <opmx:account id="black"/>
+        <opmx:account id="original"/>
+        <opmx:account id="sender"/>
+        <opmx:account id="receiver"/>
+    </opmx:accounts>
+    <opmx:processes>
+        <opmx:process id="p1">
+            <opmx:account ref="black"/>
+            <opmx:label value="P1"/>
+        </opmx:process>
+        <opmx:process id="p2">
+            <opmx:account ref="black"/>
+            <opmx:label value="P2"/>
+        </opmx:process>
+        <opmx:process id="p3">
+            <opmx:account ref="black"/>
+            <opmx:label value="message producer"/>
+        </opmx:process>
+        <opmx:process id="p4">
+            <opmx:account ref="black"/>
+            <opmx:label value="message receiver"/>
+        </opmx:process>
+    </opmx:processes>
+    <opmx:artifacts>
+        <opmx:artifact id="a1">
+            <opmx:account ref="sender"/>
+            <opmx:label value="A1s"/>
+        </opmx:artifact>
+        <opmx:artifact id="a2">
+            <opmx:account ref="sender"/>
+            <opmx:label value="A2s"/>
+        </opmx:artifact>
+        <opmx:artifact id="a3">
+            <opmx:account ref="sender"/>
+            <opmx:label value="A3s"/>
+        </opmx:artifact>
+        <opmx:artifact id="a4">
+            <opmx:account ref="sender"/>
+            <opmx:account ref="receiver"/>
+            <opmx:label value="msg"/>
+        </opmx:artifact>
+        <opmx:artifact id="a5">
+            <opmx:account ref="receiver"/>
+            <opmx:label value="A1r"/>
+        </opmx:artifact>
+        <opmx:artifact id="a6">
+            <opmx:account ref="receiver"/>
+            <opmx:label value="A2r"/>
+        </opmx:artifact>
+        <opmx:artifact id="a7">
+            <opmx:account ref="receiver"/>
+            <opmx:label value="A3r"/>
+        </opmx:artifact>
+        <opmx:artifact id="a8">
+            <opmx:account ref="original"/>
+            <opmx:label value="A1"/>
+        </opmx:artifact>
+        <opmx:artifact id="a9">
+            <opmx:account ref="original"/>
+            <opmx:label value="A2"/>
+        </opmx:artifact>
+        <opmx:artifact id="a10">
+            <opmx:account ref="original"/>
+            <opmx:label value="A3"/>
+        </opmx:artifact>
+    </opmx:artifacts>
+    <opmx:agents/>
+    <opmx:causalDependencies>
+        <opmx:used>
+            <opmx:effect ref="p3"/>
+            <opmx:role value="in"/>
+            <opmx:cause ref="a1"/>
+            <opmx:account ref="sender"/>
+        </opmx:used>
+        <opmx:used>
+            <opmx:effect ref="p3"/>
+            <opmx:role value="in"/>
+            <opmx:cause ref="a2"/>
+            <opmx:account ref="sender"/>
+        </opmx:used>
+        <opmx:used>
+            <opmx:effect ref="p3"/>
+            <opmx:role value="in"/>
+            <opmx:cause ref="a3"/>
+            <opmx:account ref="sender"/>
+        </opmx:used>
+        <opmx:used>
+            <opmx:effect ref="p4"/>
+            <opmx:role value="in"/>
+            <opmx:cause ref="a4"/>
+            <opmx:account ref="receiver"/>
+        </opmx:used>
+        <opmx:used>
+            <opmx:effect ref="p2"/>
+            <opmx:role value="in"/>
+            <opmx:cause ref="a5"/>
+            <opmx:account ref="receiver"/>
+        </opmx:used>
+        <opmx:used>
+            <opmx:effect ref="p2"/>
+            <opmx:role value="in"/>
+            <opmx:cause ref="a6"/>
+            <opmx:account ref="receiver"/>
+        </opmx:used>
+        <opmx:used>
+            <opmx:effect ref="p2"/>
+            <opmx:role value="in"/>
+            <opmx:cause ref="a7"/>
+            <opmx:account ref="receiver"/>
+        </opmx:used>
+        <opmx:used>
+            <opmx:effect ref="p2"/>
+            <opmx:role value="in"/>
+            <opmx:cause ref="a8"/>
+            <opmx:account ref="original"/>
+        </opmx:used>
+        <opmx:used>
+            <opmx:effect ref="p2"/>
+            <opmx:role value="in"/>
+            <opmx:cause ref="a9"/>
+            <opmx:account ref="original"/>
+        </opmx:used>
+        <opmx:used>
+            <opmx:effect ref="p2"/>
+            <opmx:role value="in"/>
+            <opmx:cause ref="a10"/>
+            <opmx:account ref="original"/>
+        </opmx:used>
+        <opmx:wasGeneratedBy>
+            <opmx:effect ref="a4"/>
+            <opmx:role value="out"/>
+            <opmx:cause ref="p3"/>
+            <opmx:account ref="sender"/>
+        </opmx:wasGeneratedBy>
+        <opmx:wasGeneratedBy>
+            <opmx:effect ref="a5"/>
+            <opmx:role value="out"/>
+            <opmx:cause ref="p4"/>
+            <opmx:account ref="receiver"/>
+        </opmx:wasGeneratedBy>
+        <opmx:wasGeneratedBy>
+            <opmx:effect ref="a6"/>
+            <opmx:role value="out"/>
+            <opmx:cause ref="p4"/>
+            <opmx:account ref="receiver"/>
+        </opmx:wasGeneratedBy>
+        <opmx:wasGeneratedBy>
+            <opmx:effect ref="a7"/>
+            <opmx:role value="out"/>
+            <opmx:cause ref="p4"/>
+            <opmx:account ref="receiver"/>
+        </opmx:wasGeneratedBy>
+        <opmx:wasGeneratedBy>
+            <opmx:effect ref="a1"/>
+            <opmx:role value="out"/>
+            <opmx:cause ref="p1"/>
+            <opmx:account ref="sender"/>
+        </opmx:wasGeneratedBy>
+        <opmx:wasGeneratedBy>
+            <opmx:effect ref="a2"/>
+            <opmx:role value="out"/>
+            <opmx:cause ref="p1"/>
+            <opmx:account ref="sender"/>
+        </opmx:wasGeneratedBy>
+        <opmx:wasGeneratedBy>
+            <opmx:effect ref="a3"/>
+            <opmx:role value="out"/>
+            <opmx:cause ref="p1"/>
+            <opmx:account ref="sender"/>
+        </opmx:wasGeneratedBy>
+        <opmx:wasGeneratedBy>
+            <opmx:effect ref="a8"/>
+            <opmx:role value="out"/>
+            <opmx:cause ref="p1"/>
+            <opmx:account ref="original"/>
+        </opmx:wasGeneratedBy>
+        <opmx:wasGeneratedBy>
+            <opmx:effect ref="a9"/>
+            <opmx:role value="out"/>
+            <opmx:cause ref="p1"/>
+            <opmx:account ref="original"/>
+        </opmx:wasGeneratedBy>
+        <opmx:wasGeneratedBy>
+            <opmx:effect ref="a10"/>
+            <opmx:role value="out"/>
+            <opmx:cause ref="p1"/>
+            <opmx:account ref="original"/>
+        </opmx:wasGeneratedBy>
+        <opmx:wasDerivedFrom>
+            <opmx:effect ref="a5"/>
+            <opmx:cause ref="a1"/>
+            <opmx:account ref="sender"/>
+            <opmx:account ref="receiver"/>
+        </opmx:wasDerivedFrom>
+        <opmx:wasDerivedFrom>
+            <opmx:effect ref="a6"/>
+            <opmx:cause ref="a2"/>
+            <opmx:account ref="sender"/>
+            <opmx:account ref="receiver"/>
+        </opmx:wasDerivedFrom>
+        <opmx:wasDerivedFrom>
+            <opmx:effect ref="a7"/>
+            <opmx:cause ref="a3"/>
+            <opmx:account ref="sender"/>
+            <opmx:account ref="receiver"/>
+        </opmx:wasDerivedFrom>
+    </opmx:causalDependencies>
+</opmx:opmGraph>

@@ -50,8 +50,8 @@ public class NamespacePrefixMapper extends com.sun.xml.bind.marshaller.Namespace
      *      value will be ignored and the system will generate one.
      */
     public String getPreferredPrefix(String namespaceUri, String suggestion, boolean requirePrefix) {
-        if (namespaceUri.equals("http://openprovenance.org/model/v1.1.a")) {
-            return "opm";
+        if (namespaceUri.equals("http://openprovenance.org/model/opmx")) {
+            return "opmx";
         }
         if (namespaceUri.equals("http://openprovenance.org/model/opmPrinterConfig")) {
             return "prn";

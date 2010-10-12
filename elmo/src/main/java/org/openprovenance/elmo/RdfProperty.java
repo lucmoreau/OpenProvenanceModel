@@ -36,8 +36,8 @@ public class RdfProperty extends org.openprovenance.model.Property implements Ha
 
 
 
-    public void setUri(String value) {
-        super.setUri(value);
+    public void setKey(String value) {
+        super.setKey(value);
         org.openprovenance.rdf.Property r=findMyFacade();
         r.setKey(URI.create(value));
     }
@@ -59,7 +59,7 @@ public class RdfProperty extends org.openprovenance.model.Property implements Ha
     }
 
     public void setFields(String uri, Object value) {
-        super.setUri(uri);
+        super.setKey(uri);
         super.setValue(value);
     }
 

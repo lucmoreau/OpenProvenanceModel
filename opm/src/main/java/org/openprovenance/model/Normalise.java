@@ -276,7 +276,7 @@ public class Normalise  {
                                  Property p1=(Property) o1;
                                  Property p2=(Property) o2;
 
-                                 return p1.getUri().compareTo(p2.getUri());
+                                 return p1.getKey().compareTo(p2.getKey());
                              }});
     }
 

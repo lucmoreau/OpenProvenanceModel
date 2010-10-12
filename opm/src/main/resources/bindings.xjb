@@ -7,7 +7,7 @@
 
    
 
-    <jaxb:bindings schemaLocation="opm.1_1.xsd" 
+    <jaxb:bindings schemaLocation="opmx-20101012.xsd" 
                    node="/xs:schema">       
         <jaxb:schemaBindings>
             <jaxb:package name="org.openprovenance.model"/>

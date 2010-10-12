@@ -356,7 +356,7 @@ public class OPMToDot {
         label=label+"<<TABLE cellpadding=\"0\" border=\"0\">\n";
         for (Property prop: ann.getProperty()) {
             label=label+"	<TR>\n";
-            label=label+"	    <TD align=\"left\">" + convertProperty(prop.getUri()) + ":</TD>\n";
+            label=label+"	    <TD align=\"left\">" + convertProperty(prop.getKey()) + ":</TD>\n";
             label=label+"	    <TD align=\"left\">" + prop.getValue() + "</TD>\n";
             label=label+"	</TR>\n";
         }
