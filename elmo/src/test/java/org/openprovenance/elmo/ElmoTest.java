@@ -167,9 +167,9 @@ public class ElmoTest
         wc1.setStartTime(oFactory.newInstantaneousTimeNow());
         wc1.setEndTime(oFactory.newInstantaneousTimeNow());
 
-        Annotation an1=oFactory.newAnnotation("an1",a1,"prop1","val1",accl1);
+        Annotation an1=oFactory.newAnnotation("an1",a1,"http://prop/prop1","val1",accl1);
 
-        Annotation an2=oFactory.newAnnotation("an2",a1,"prop2","val2",accl1);
+        Annotation an2=oFactory.newAnnotation("an2",a1,"http://prop/prop2","val2",accl1);
         //
 
         oFactory.addAnnotation(a2,

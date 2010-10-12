@@ -35,11 +35,23 @@ public class RdfProperty extends org.openprovenance.model.Property implements Ha
     }
 
 
+    /** Utility method creating a QName from a URI. */
+    QName qNameForUri(String value) {
+	int index=value.lastIndexOf('/');
+	int index2=value.lastIndexOf('#');
+	if (index2>index) index=index2;
+	String prefix=value.substring(0,index);
+	String localPart=value.substring(index);
+	QName qname=new QName(prefix,localPart);
+	return qname;
+    }
 
     public void setKey(String value) {
         super.setKey(value);
         org.openprovenance.rdf.Property r=findMyFacade();
-        r.setKey(URI.create(value));
+	Object o=manager.find(qNameForUri(value));
+        //r.setKey(URI.create(value));
+	r.setKey(o);
     }
 
 
