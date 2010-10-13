@@ -154,7 +154,7 @@ imported before converting.
                   <arg value="-p" />
                   <arg value="" />
 
-                  <arg value="src/main/resources/opmo.owl" />
+                  <arg value="src/main/resources/opmo-20101012.owl" />
                 </java>
                 
                 

@@ -1358,10 +1358,10 @@ WasTriggeredBy is a class that  encompasses all the properties defined by OPM fo
     <foaf:Document rdf:about="">
         <rdf:type rdf:resource="&void;Dataset"/>
         <rdf:type rdf:resource="&owl;Thing"/>
-        <terms:created rdf:datatype="&xsd;date">2010-10-06</terms:created>
-        <terms:modified rdf:datatype="&xsd;date">2010-10-07</terms:modified>
+        <terms:created rdf:datatype="&xsd;date">2010-10-12</terms:created>
+        <terms:modified rdf:datatype="&xsd;date">2010-10-13</terms:modified>
         <terms:title xml:lang="en"
-            >The OPM Ontology</terms:title>
+            >The OPM OWL Ontology</terms:title>
         <void:exampleResource rdf:resource="#Used"/>
     </foaf:Document>
     
