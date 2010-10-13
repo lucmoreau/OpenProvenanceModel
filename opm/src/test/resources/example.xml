@@ -58,7 +58,7 @@
             <label value="7"/>
         </artifact>
     </artifacts>
-    <causalDependencies>
+    <dependencies>
         <used>
             <effect ref="p1"/>
             <role value="in"/>
@@ -131,5 +131,5 @@
             <cause ref="p5"/>
             <account ref="orange"/>
         </wasGeneratedBy>
-    </causalDependencies>
+    </dependencies>
 </opmGraph>

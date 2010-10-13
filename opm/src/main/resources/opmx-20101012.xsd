@@ -33,7 +33,7 @@
 	  <xs:element name="processes" type="opmx:Processes" minOccurs="0"/>
 	  <xs:element name="artifacts" type="opmx:Artifacts" minOccurs="0"/>
 	  <xs:element name="agents" type="opmx:Agents" minOccurs="0"/>
-	  <xs:element name="causalDependencies" type="opmx:CausalDependencies" minOccurs="0"/>
+	  <xs:element name="dependencies" type="opmx:Dependencies" minOccurs="0"/>
 	  <xs:element name="annotations" type="opmx:Annotations" minOccurs="0"/>
 	  <xs:element ref="opmx:annotation"  minOccurs="0" maxOccurs="unbounded"/>
 	</xs:sequence>
@@ -58,7 +58,7 @@
   <xs:complexType name="RoleRef">
     <xs:attribute name="ref" type="xs:IDREF"/>
   </xs:complexType>
-  <xs:complexType name="CausalDependencyRef">
+  <xs:complexType name="DependencyRef">
     <xs:attribute name="ref" type="xs:IDREF"/>
   </xs:complexType>
   <xs:complexType name="AnnotationRef">
@@ -243,18 +243,17 @@
 	<xs:attribute name="id" type="xs:ID"/>
   </xs:complexType>
 
-  <xs:complexType name="CausalDependencies">
+  <xs:complexType name="Dependencies">
 	<xs:sequence>
 	  <xs:choice minOccurs="0" maxOccurs="unbounded">
-		<xs:element name="used"            type="opmx:Used"/>
-		<xs:element name="wasGeneratedBy"  type="opmx:WasGeneratedBy"/>
-		<xs:element name="wasTriggeredBy"  type="opmx:WasTriggeredBy"/>
-		<xs:element name="wasDerivedFrom"  type="opmx:WasDerivedFrom"/>
-		<xs:element name="wasControlledBy" type="opmx:WasControlledBy"/>
-		<xs:element name="used_"           type="opmx:UsedStar"/>
-		<xs:element name="wasGeneratedBy_" type="opmx:WasGeneratedByStar"/>
-		<xs:element name="wasTriggeredBy_" type="opmx:WasTriggeredByStar"/>
-		<xs:element name="wasDerivedFrom_"  type="opmx:WasDerivedFromStar"/>
+		<xs:element name="used"               type="opmx:Used"/>
+		<xs:element name="wasGeneratedBy"     type="opmx:WasGeneratedBy"/>
+		<xs:element name="wasTriggeredBy"     type="opmx:WasTriggeredBy"/>
+		<xs:element name="wasDerivedFrom"     type="opmx:WasDerivedFrom"/>
+		<xs:element name="wasControlledBy"    type="opmx:WasControlledBy"/>
+		<xs:element name="usedStar"           type="opmx:UsedStar"/>
+		<xs:element name="wasGeneratedByStar" type="opmx:WasGeneratedByStar"/>
+		<xs:element name="wasDerivedFromStar" type="opmx:WasDerivedFromStar"/>
 	  </xs:choice>
 	</xs:sequence>
   </xs:complexType>

@@ -130,7 +130,7 @@ public class GraphComparator {
 
         Assert.assertTrue( "artifacts elements differ", graph1.getArtifacts().equals(graph2.getArtifacts()) );
 
-        Assert.assertTrue( "edges elements differ", graph1.getCausalDependencies().equals(graph2.getCausalDependencies()) );
+        Assert.assertTrue( "edges elements differ", graph1.getDependencies().equals(graph2.getDependencies()) );
 
         if (graph1.getAgents()!=null && graph2.getAgents()!=null) {
             Assert.assertTrue( "agents elements differ", graph1.getAgents().equals(graph2.getAgents()) );

@@ -68,7 +68,7 @@
         </opmx:artifact>
     </opmx:artifacts>
     <opmx:agents/>
-    <opmx:causalDependencies>
+    <opmx:dependencies>
         <opmx:used>
             <opmx:effect ref="p3"/>
             <opmx:role value="in"/>
@@ -207,5 +207,5 @@
             <opmx:account ref="sender"/>
             <opmx:account ref="receiver"/>
         </opmx:wasDerivedFrom>
-    </opmx:causalDependencies>
+    </opmx:dependencies>
 </opmx:opmGraph>

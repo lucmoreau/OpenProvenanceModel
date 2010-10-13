@@ -309,7 +309,7 @@ public class OPMRdf2Xml {
             Account account=getAccount(pAccount);
 
             Used u2=pFactory.newUsed(process,role,artifact,Collections.singleton(account));
-            graph.getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy().add(u2);
+            graph.getDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy().add(u2);
 
             RdfProvenanceArc rpa=(RdfProvenanceArc) used;
             Resource subject=rpa.getSubject();
@@ -339,7 +339,7 @@ public class OPMRdf2Xml {
             Account account=getAccount(pAccount);
 
             WasGeneratedBy g2=pFactory.newWasGeneratedBy(artifact,role,process,Collections.singleton(account));
-            graph.getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy().add(g2);
+            graph.getDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy().add(g2);
 
             RdfProvenanceArc rpa=(RdfProvenanceArc) generated;
             Resource subject=rpa.getSubject();
@@ -371,7 +371,7 @@ public class OPMRdf2Xml {
             Account account=getAccount(pAccount);
 
             WasControlledBy g2=pFactory.newWasControlledBy(process,role,agent,Collections.singleton(account));
-            graph.getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy().add(g2);
+            graph.getDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy().add(g2);
 
             RdfProvenanceRole rdfRole=(RdfProvenanceRole) pRole;
             Resource roleSubject=rdfRole.getSubject();
@@ -392,7 +392,7 @@ public class OPMRdf2Xml {
             Account account=getAccount(pAccount);
 
             WasDerivedFrom d2=pFactory.newWasDerivedFrom(artifact2,artifact1,Collections.singleton(account));
-            graph.getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy().add(d2);
+            graph.getDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy().add(d2);
 
             RdfProvenanceArc rpa=(RdfProvenanceArc) derived;
             Resource subject=rpa.getSubject();
@@ -412,7 +412,7 @@ public class OPMRdf2Xml {
             Account account=getAccount(pAccount);
 
             WasTriggeredBy t2=pFactory.newWasTriggeredBy(process2,process1,Collections.singleton(account));
-            graph.getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy().add(t2);
+            graph.getDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy().add(t2);
 
 
             RdfProvenanceArc rpa=(RdfProvenanceArc) triggered;

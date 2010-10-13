@@ -117,7 +117,7 @@ public class AnnotationReadTest
 
         assertTrue( "artifacts elements differ", graph.getArtifacts().equals(graph2.getArtifacts()) );
 
-        assertTrue( "edges elements differ", graph.getCausalDependencies().equals(graph2.getCausalDependencies()) );
+        assertTrue( "edges elements differ", graph.getDependencies().equals(graph2.getDependencies()) );
 
         if (graph.getAgents()!=null && graph2.getAgents()!=null) {
             assertTrue( "agents elements differ", graph.getAgents().equals(graph2.getAgents()) );

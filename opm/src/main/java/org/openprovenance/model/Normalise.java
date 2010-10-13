@@ -43,12 +43,12 @@ public class Normalise  {
             }
         }
 
-        for (Object e: graph.getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy()) {
+        for (Object e: graph.getDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy()) {
             sortAnnotations(((Edge)e).getAnnotation());
             sortByRef(((Edge)e).getAccount());
         }
 
-        sortEdges(graph.getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy());
+        sortEdges(graph.getDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy());
     }
 
 
@@ -102,7 +102,7 @@ public class Normalise  {
             }
         }
 
-        for (Object e: graph.getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy()) {
+        for (Object e: graph.getDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy()) {
 
             destroy(((Edge)e).getAnnotation());
         }
@@ -169,7 +169,7 @@ public class Normalise  {
             }
         }
 
-        for (Object e: graph.getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy()) {
+        for (Object e: graph.getDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy()) {
             ((Identifiable)e).setId(null);  // tupelo rdf does not allow ids in edges
 
 

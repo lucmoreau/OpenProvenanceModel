@@ -18,7 +18,7 @@ public class OPMUtilities {
 
     public List<Edge> getEdges(OPMGraph g) {
         List<Edge> res=new LinkedList();
-        CausalDependencies dep=g.getCausalDependencies();
+        Dependencies dep=g.getDependencies();
         for (Object o:dep.getUsedOrWasGeneratedByOrWasTriggeredBy()) {
             res.add((Edge)o);
         }
@@ -38,8 +38,8 @@ public class OPMUtilities {
 
         Agents ags=union(g1.getAgents(),g2.getAgents());
 
-        CausalDependencies lks=union(g1.getCausalDependencies(),
-                                     g2.getCausalDependencies());
+        Dependencies lks=union(g1.getDependencies(),
+                                     g2.getDependencies());
 
         OPMGraph g=of.newOPMGraph(accs,
                                   ps,
@@ -78,7 +78,7 @@ public class OPMUtilities {
         return null;
     }
 
-    public CausalDependencies union (CausalDependencies g1, CausalDependencies g2) {
+    public Dependencies union (Dependencies g1, Dependencies g2) {
         return null;
     }
 
@@ -96,7 +96,7 @@ public class OPMUtilities {
 
         Agents ags=g.getAgents();
 
-        CausalDependencies lks=g.getCausalDependencies();
+        Dependencies lks=g.getDependencies();
 
         OPMGraph g2=of.newOPMGraph(accs,
                                    ps,

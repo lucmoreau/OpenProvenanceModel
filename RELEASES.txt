@@ -1,4 +1,24 @@
 ----------------------------------------------------------------------
+I am pleased to announce the release of the OPM Toolbox 1.1.8. It
+incorporates the recently proposed OWL ontology for OPM v1.1, and
+conversion to/from RDF. 
+
+Key changes to the toolkit:
+
+    * Support for opmx, opmv, and opmo namespaces
+    * Renamed CausalDependencies in Dependencies
+    * RDF serialization: Property has a key property instead of uri
+    * RDF serialization:  key is an ObjectProperty and not DataProperty
+
+
+All information on OPM v1.1, the schema, the ontology, and the OPM
+Toolbox available from openprovenance.org.
+
+Maven artifacts are available from
+http://openprovenance.org/java/maven-releases/. Source code is
+available from http://github.com/lucmoreau/OpenProvenanceModel.
+
+----------------------------------------------------------------------
 I am pleased to announce the release of the OPM Toolbox 1.1.7. It
 incorporates the recently proposed OWL ontology for OPM v1.1, and
 conversion to/from RDF. 

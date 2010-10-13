@@ -268,9 +268,9 @@ public class IndexedOPMGraph extends OPMGraph {
             }
         }
 
-        if (graph.getCausalDependencies()!=null) {
-            if (getCausalDependencies()==null) {
-                setCausalDependencies(of.createCausalDependencies());
+        if (graph.getDependencies()!=null) {
+            if (getDependencies()==null) {
+                setDependencies(of.createDependencies());
             }
             List<Edge> edges=u.getEdges(graph);
 
@@ -362,7 +362,7 @@ public class IndexedOPMGraph extends OPMGraph {
 
         if (!found) {
             allUsed.add(used);
-            getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy().add(used);
+            getDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy().add(used);
         }
         return result;
    }
@@ -424,7 +424,7 @@ public class IndexedOPMGraph extends OPMGraph {
 
         if (!found) {
             allWasGeneratedBy.add(wasGeneratedBy);
-            getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy().add(wasGeneratedBy);
+            getDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy().add(wasGeneratedBy);
         }
         return result;
    }
@@ -481,7 +481,7 @@ public class IndexedOPMGraph extends OPMGraph {
 
         if (!found) {
             allWasDerivedFrom.add(wasDerivedFrom);
-            getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy().add(wasDerivedFrom);
+            getDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy().add(wasDerivedFrom);
         }
 
         return result;
@@ -542,7 +542,7 @@ public class IndexedOPMGraph extends OPMGraph {
 
         if (!found) {
             allWasControlledBy.add(wasControlledBy);
-            getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy().add(wasControlledBy);
+            getDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy().add(wasControlledBy);
         }
         return result;
    }
@@ -598,7 +598,7 @@ public class IndexedOPMGraph extends OPMGraph {
 
         if (!found) {
             allWasTriggeredBy.add(wasTriggeredBy);
-            getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy().add(wasTriggeredBy);
+            getDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy().add(wasTriggeredBy);
         }
         return result;
    }

@@ -109,30 +109,30 @@ public class OPMFactory implements CommonURIs {
 
 
 
-    public CausalDependencyRef newCausalDependencyRef(WasGeneratedBy edge) {
-        CausalDependencyRef res=of.createCausalDependencyRef();
+    public DependencyRef newDependencyRef(WasGeneratedBy edge) {
+        DependencyRef res=of.createDependencyRef();
         res.setRef(edge);
         return res;
     }
 
-    public CausalDependencyRef newCausalDependencyRef(Used edge) {
-        CausalDependencyRef res=of.createCausalDependencyRef();
+    public DependencyRef newDependencyRef(Used edge) {
+        DependencyRef res=of.createDependencyRef();
         res.setRef(edge);
         return res;
     }
-    public CausalDependencyRef newCausalDependencyRef(WasDerivedFrom edge) {
-        CausalDependencyRef res=of.createCausalDependencyRef();
+    public DependencyRef newDependencyRef(WasDerivedFrom edge) {
+        DependencyRef res=of.createDependencyRef();
         res.setRef(edge);
         return res;
     }
 
-    public CausalDependencyRef newCausalDependencyRef(WasControlledBy edge) {
-        CausalDependencyRef res=of.createCausalDependencyRef();
+    public DependencyRef newDependencyRef(WasControlledBy edge) {
+        DependencyRef res=of.createDependencyRef();
         res.setRef(edge);
         return res;
     }
-    public CausalDependencyRef newCausalDependencyRef(WasTriggeredBy edge) {
-        CausalDependencyRef res=of.createCausalDependencyRef();
+    public DependencyRef newDependencyRef(WasTriggeredBy edge) {
+        DependencyRef res=of.createDependencyRef();
         res.setRef(edge);
         return res;
     }
@@ -1244,7 +1244,7 @@ public class OPMFactory implements CommonURIs {
                                     String property,
                                     Object value,
                                     Collection<Account> accs) {
-        CausalDependencyRef cid=newCausalDependencyRef(edge);
+        DependencyRef cid=newDependencyRef(edge);
         LinkedList<AccountRef> ll=new LinkedList();
         if (accs!=null) {
             for (Account acc: accs) {
@@ -1258,7 +1258,7 @@ public class OPMFactory implements CommonURIs {
                                     String property,
                                     Object value,
                                     Collection<Account> accs) {
-        CausalDependencyRef cid=newCausalDependencyRef(edge);
+        DependencyRef cid=newDependencyRef(edge);
         LinkedList<AccountRef> ll=new LinkedList();
         if (accs!=null) {
             for (Account acc: accs) {
@@ -1272,7 +1272,7 @@ public class OPMFactory implements CommonURIs {
                                     String property,
                                     Object value,
                                     Collection<Account> accs) {
-        CausalDependencyRef cid=newCausalDependencyRef(edge);
+        DependencyRef cid=newDependencyRef(edge);
         LinkedList<AccountRef> ll=new LinkedList();
         if (accs!=null) {
             for (Account acc: accs) {
@@ -1286,7 +1286,7 @@ public class OPMFactory implements CommonURIs {
                                     String property,
                                     Object value,
                                     Collection<Account> accs) {
-        CausalDependencyRef cid=newCausalDependencyRef(edge);
+        DependencyRef cid=newDependencyRef(edge);
         LinkedList<AccountRef> ll=new LinkedList();
         if (accs!=null) {
             for (Account acc: accs) {
@@ -1300,7 +1300,7 @@ public class OPMFactory implements CommonURIs {
                                     String property,
                                     Object value,
                                     Collection<Account> accs) {
-        CausalDependencyRef cid=newCausalDependencyRef(edge);
+        DependencyRef cid=newDependencyRef(edge);
         LinkedList<AccountRef> ll=new LinkedList();
         if (accs!=null) {
             for (Account acc: accs) {
@@ -1468,9 +1468,9 @@ public class OPMFactory implements CommonURIs {
             res.setAgents(aags);
         }
         if (lks!=null) {
-            CausalDependencies ccls=of.createCausalDependencies();
+            Dependencies ccls=of.createDependencies();
             ccls.getUsedOrWasGeneratedByOrWasTriggeredBy().addAll(lks);
-            res.setCausalDependencies(ccls);
+            res.setDependencies(ccls);
         }
 
         if (anns!=null) {
@@ -1530,7 +1530,7 @@ public class OPMFactory implements CommonURIs {
                                 Processes ps,
                                 Artifacts as,
                                 Agents ags,
-                                CausalDependencies lks)
+                                Dependencies lks)
     {
         OPMGraph res=of.createOPMGraph();
         //res.setId(autoGenerateId(opmGraphIdPrefix));
@@ -1538,7 +1538,7 @@ public class OPMFactory implements CommonURIs {
         res.setProcesses(ps);
         res.setArtifacts(as);
         res.setAgents(ags);
-        res.setCausalDependencies(lks);
+        res.setDependencies(lks);
         return res;
     }
 
@@ -1546,7 +1546,7 @@ public class OPMFactory implements CommonURIs {
                                 Processes ps,
                                 Artifacts as,
                                 Agents ags,
-                                CausalDependencies lks,
+                                Dependencies lks,
                                 Annotations anns)
     {
         OPMGraph res=of.createOPMGraph();
@@ -1555,7 +1555,7 @@ public class OPMFactory implements CommonURIs {
         res.setProcesses(ps);
         res.setArtifacts(as);
         res.setAgents(ags);
-        res.setCausalDependencies(lks);
+        res.setDependencies(lks);
         res.setAnnotations(anns);
         return res;
     }
@@ -1565,7 +1565,7 @@ public class OPMFactory implements CommonURIs {
                            graph.getProcesses(),
                            graph.getArtifacts(),
                            graph.getAgents(),
-                           graph.getCausalDependencies(),
+                           graph.getDependencies(),
                            graph.getAnnotations());
     }
 

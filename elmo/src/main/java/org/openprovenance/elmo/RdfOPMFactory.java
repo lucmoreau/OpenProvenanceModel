@@ -724,7 +724,7 @@ public class RdfOPMFactory extends org.openprovenance.model.OPMFactory {
 
         List<Object> lks=new LinkedList();
 
-        for (Object edge: gr.getCausalDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy()) {
+        for (Object edge: gr.getDependencies().getUsedOrWasGeneratedByOrWasTriggeredBy()) {
              if (edge instanceof org.openprovenance.model.Used) {
                 lks.add(newUsed((org.openprovenance.model.Used) edge));
             } else if (edge instanceof org.openprovenance.model.WasGeneratedBy) {
