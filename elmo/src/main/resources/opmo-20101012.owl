@@ -229,10 +229,10 @@
     
 
 
-    <!-- http://openprovenance.org/model/opmo#effect-1 -->
+    <!-- http://openprovenance.org/model/opmo#effectInverse -->
 
-    <owl:ObjectProperty rdf:about="#effect-1">
-        <rdfs:label rdf:datatype="&xsd;string">effect-1</rdfs:label>
+    <owl:ObjectProperty rdf:about="#effectInverse">
+        <rdfs:label rdf:datatype="&xsd;string">effectInverse</rdfs:label>
         <rdfs:comment rdf:datatype="&xsd;string"
             >Convenience class introduced to describe the inverse of an effect. It is used to express property chains.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
@@ -258,16 +258,16 @@
     
 
 
-    <!-- http://openprovenance.org/model/opmo#effectUsed-1 -->
+    <!-- http://openprovenance.org/model/opmo#effectUsedInverse -->
 
-    <owl:ObjectProperty rdf:about="#effectUsed-1">
+    <owl:ObjectProperty rdf:about="#effectUsedInverse">
         <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
-        <rdfs:label rdf:datatype="&xsd;string">effectUsed-1</rdfs:label>
+        <rdfs:label rdf:datatype="&xsd;string">effectUsedInverse</rdfs:label>
         <rdfs:comment rdf:datatype="&xsd;string"
             >The cause of a Process by means of a Used edge.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:range rdf:resource="#Used"/>
-        <rdfs:subPropertyOf rdf:resource="#effect-1"/>
+        <rdfs:subPropertyOf rdf:resource="#effectInverse"/>
         <owl:inverseOf rdf:resource="#effectUsed"/>
         <rdfs:domain rdf:resource="&ns;Process"/>
     </owl:ObjectProperty>
@@ -290,17 +290,17 @@
     
 
 
-    <!-- http://openprovenance.org/model/opmo#effectWasControlledBy-1 -->
+    <!-- http://openprovenance.org/model/opmo#effectWasControlledByInverse -->
 
-    <owl:ObjectProperty rdf:about="#effectWasControlledBy-1">
+    <owl:ObjectProperty rdf:about="#effectWasControlledByInverse">
         <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
         <rdfs:label rdf:datatype="&xsd;string"
-            >effectWasControlledBy-1</rdfs:label>
+            >effectWasControlledByInverse</rdfs:label>
         <rdfs:comment rdf:datatype="&xsd;string"
             >The cause of a Process by means of a WasControlledBy edge.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:range rdf:resource="#WasControlledBy"/>
-        <rdfs:subPropertyOf rdf:resource="#effect-1"/>
+        <rdfs:subPropertyOf rdf:resource="#effectInverse"/>
         <owl:inverseOf rdf:resource="#effectWasControlledBy"/>
         <rdfs:domain rdf:resource="&ns;Process"/>
     </owl:ObjectProperty>
@@ -322,17 +322,17 @@
     
 
 
-    <!-- http://openprovenance.org/model/opmo#effectWasDerivedFrom-1 -->
+    <!-- http://openprovenance.org/model/opmo#effectWasDerivedFromInverse -->
 
-    <owl:ObjectProperty rdf:about="#effectWasDerivedFrom-1">
+    <owl:ObjectProperty rdf:about="#effectWasDerivedFromInverse">
         <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
         <rdfs:label rdf:datatype="&xsd;string"
-            >effectWasDerivedFrom-1</rdfs:label>
+            >effectWasDerivedFromInverse</rdfs:label>
         <rdfs:comment rdf:datatype="&xsd;string"
             >The cause of an Artifact by means of a WasDerivedFrom edge.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:range rdf:resource="#WasDerivedFrom"/>
-        <rdfs:subPropertyOf rdf:resource="#effect-1"/>
+        <rdfs:subPropertyOf rdf:resource="#effectInverse"/>
         <owl:inverseOf rdf:resource="#effectWasDerivedFrom"/>
         <rdfs:domain rdf:resource="&ns;Artifact"/>
     </owl:ObjectProperty>
@@ -355,17 +355,17 @@
     
 
 
-    <!-- http://openprovenance.org/model/opmo#effectWasGeneratedBy-1 -->
+    <!-- http://openprovenance.org/model/opmo#effectWasGeneratedByInverse -->
 
-    <owl:ObjectProperty rdf:about="#effectWasGeneratedBy-1">
+    <owl:ObjectProperty rdf:about="#effectWasGeneratedByInverse">
         <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
         <rdfs:label rdf:datatype="&xsd;string"
-            >effectWasGeneratedBy-1</rdfs:label>
+            >effectWasGeneratedByInverse</rdfs:label>
         <rdfs:comment rdf:datatype="&xsd;string"
             >The cause of an Artifact by means of a WasGeneratedBy edge.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:range rdf:resource="#WasGeneratedBy"/>
-        <rdfs:subPropertyOf rdf:resource="#effect-1"/>
+        <rdfs:subPropertyOf rdf:resource="#effectInverse"/>
         <owl:inverseOf rdf:resource="#effectWasGeneratedBy"/>
         <rdfs:domain rdf:resource="&ns;Artifact"/>
     </owl:ObjectProperty>
@@ -388,17 +388,17 @@
     
 
 
-    <!-- http://openprovenance.org/model/opmo#effectWasTriggeredBy-1 -->
+    <!-- http://openprovenance.org/model/opmo#effectWasTriggeredByInverse -->
 
-    <owl:ObjectProperty rdf:about="#effectWasTriggeredBy-1">
+    <owl:ObjectProperty rdf:about="#effectWasTriggeredByInverse">
         <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
         <rdfs:label rdf:datatype="&xsd;string"
-            >effectWasTriggeredBy-1</rdfs:label>
+            >effectWasTriggeredByInverse</rdfs:label>
         <rdfs:comment rdf:datatype="&xsd;string"
             >The cause of a Process by means of a WasTriggeredBy edge.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource=""/>
         <rdfs:range rdf:resource="#WasTriggeredBy"/>
-        <rdfs:subPropertyOf rdf:resource="#effect-1"/>
+        <rdfs:subPropertyOf rdf:resource="#effectInverse"/>
         <owl:inverseOf rdf:resource="#effectWasTriggeredBy"/>
         <rdfs:domain rdf:resource="&ns;Process"/>
     </owl:ObjectProperty>
@@ -630,7 +630,7 @@
     <owl:ObjectProperty rdf:about="&ns;used">
         <rdfs:subPropertyOf rdf:resource="#usedStar"/>
         <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="#effectUsed-1"/>
+            <rdf:Description rdf:about="#effectUsedInverse"/>
             <rdf:Description rdf:about="#causeUsed"/>
         </owl:propertyChainAxiom>
     </owl:ObjectProperty>
@@ -644,7 +644,7 @@
             >http://openprovenance.org/opmo#WasDerivedFrom</rdfs:seeAlso>
         <rdfs:subPropertyOf rdf:resource="#wasDerivedFromStar"/>
         <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="#effectWasDerivedFrom-1"/>
+            <rdf:Description rdf:about="#effectWasDerivedFromInverse"/>
             <rdf:Description rdf:about="#causeWasDerivedFrom"/>
         </owl:propertyChainAxiom>
     </owl:ObjectProperty>
@@ -656,7 +656,7 @@
     <owl:ObjectProperty rdf:about="&ns;wasGeneratedBy">
         <rdfs:subPropertyOf rdf:resource="#wasGeneratedByStar"/>
         <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="#effectWasGeneratedBy-1"/>
+            <rdf:Description rdf:about="#effectWasGeneratedByInverse"/>
             <rdf:Description rdf:about="#causeWasGeneratedBy"/>
         </owl:propertyChainAxiom>
     </owl:ObjectProperty>
@@ -667,7 +667,7 @@
 
     <owl:ObjectProperty rdf:about="&ns;wasTriggeredBy">
         <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="#effectWasTriggeredBy-1"/>
+            <rdf:Description rdf:about="#effectWasTriggeredByInverse"/>
             <rdf:Description rdf:about="#causeWasTriggeredBy"/>
         </owl:propertyChainAxiom>
     </owl:ObjectProperty>

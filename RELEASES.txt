@@ -5,7 +5,10 @@ conversion to/from RDF.
 
 Key changes to the toolkit:
 
-    * Support for opmx, opmv, and opmo namespaces
+    * Introduced the opmx, opmv, and opmo namespaces
+        opmo: http://openprovenance.org/model/opmo
+        opmx: http://openprovenance.org/model/opmx
+        opmv: http://purl.org/net/opmv/ns
     * Renamed CausalDependencies in Dependencies
     * RDF serialization: Property has a key property instead of uri
     * RDF serialization:  key is an ObjectProperty and not DataProperty
