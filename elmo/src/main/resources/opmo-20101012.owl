@@ -43,7 +43,7 @@
         <rdfs:label xml:lang="en"
             >The OWL Ontology for the Open Provenance Model</rdfs:label>
         <dc:contributor
-            >Luc Moreau, Simon Miles, Paolo Missier, Paul Groth, Joe Futrelle, Li Ding,  Daniel Garijo Verdejo, Jeff Pan, Jun Zhao</dc:contributor>
+            >Luc Moreau, Simon Miles, Paolo Missier, Paul Groth, Joe Futrelle, Li Ding,  Daniel Garijo Verdejo, Jeff Pan, Jun Zhao, Mike Jewell</dc:contributor>
         <dc:title xml:lang="en"
             >The OWL Ontology for the Open Provenance Model</dc:title>
         <owl:imports rdf:resource="http://purl.org/net/opmv/ns"/>
