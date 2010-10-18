@@ -3,9 +3,9 @@
 <!-- Authors: Paul Groth and Luc Moreau -->
 
 
-<xs:schema targetNamespace="http://openprovenance.org/model/opmx"
+<xs:schema targetNamespace="http://openprovenance.org/model/opmx#"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:opmx="http://openprovenance.org/model/opmx"
+           xmlns:opmx="http://openprovenance.org/model/opmx#"
            xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
            elementFormDefault="qualified"
            attributeFormDefault="unqualified"

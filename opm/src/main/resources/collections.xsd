@@ -4,14 +4,14 @@
 
 <xs:schema targetNamespace="http://openprovenance.org/profile/collections/v1.0"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:opm="http://openprovenance.org/model/opmx"
+           xmlns:opm="http://openprovenance.org/model/opmx#"
            xmlns:col="http://openprovenance.org/profile/collections/v1.0"
            xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
            elementFormDefault="qualified"
            attributeFormDefault="unqualified"
            jxb:version="2.0">
 
-  <xs:import namespace="http://openprovenance.org/model/opmx"
+  <xs:import namespace="http://openprovenance.org/model/opmx#"
 		     schemaLocation="./opmx-20101012.xsd" />
 
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<opmx:opmGraph xmlns:opmx="http://openprovenance.org/model/opmx" xmlns:opmext="http://openprovenance.org/model/extension/v1.1.a" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://example.com/">
+<opmx:opmGraph xmlns:opmx="http://openprovenance.org/model/opmx#" xmlns:opmext="http://openprovenance.org/model/extension/v1.1.a" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://example.com/">
     <opmx:accounts>
         <opmx:account id="green"/>
         <opmx:account id="orange"/>
