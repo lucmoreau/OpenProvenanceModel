@@ -290,6 +290,11 @@
      <plugin>
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-surefire-report-plugin</artifactId>
+          <configuration>
+            <forkMode>once</forkMode>
+            <argLine>-Xss1024k</argLine> 
+            <!-- <argLine>-Xmx1500m</argLine> -->
+          </configuration>
      </plugin>
 
      <plugin>

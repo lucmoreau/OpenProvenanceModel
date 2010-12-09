@@ -2,6 +2,7 @@ package org.openprovenance.jena;
 
 import java.util.Iterator;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import org.mindswap.pellet.jena.PelletReasonerFactory;
 
@@ -110,7 +111,9 @@ public class TripleStore {
         // Important - free up resources used running the query
         qe.close();
     }
-
+    public void write(OutputStream os) {
+        model.write(os);
+    }
 
     public Querier getQuerier () {
         return new Querier(model);
