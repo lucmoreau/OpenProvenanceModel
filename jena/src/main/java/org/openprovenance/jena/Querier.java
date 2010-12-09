@@ -219,6 +219,12 @@ public class Querier {
     }
 
 
+    public List<Resource> getArtifactsAsResources() {
+        ResultSet results = getArtifacts();
+        return getAsResources(results,"?a");
+    }
+
+
     public List<Resource> getInputArtifactsAsResources(String NS) {
         ResultSet results = getInputArtifacts();
         List<Resource> ll=getAsResources(results,"?a");
