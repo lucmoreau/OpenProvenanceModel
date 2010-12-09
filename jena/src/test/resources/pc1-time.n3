@@ -105,7 +105,9 @@ pc1:d_10 a opmo:WasDerivedFrom ;
 
 pc1:d_11 a opmo:WasDerivedFrom ;
 	opmo:cause pc1:a2 ;
+#	opmo:causeWasDerivedFrom pc1:a2 ;
 	opmo:effect pc1:a5 ;
+#	opmo:effectWasDerivedFrom pc1:a5 ;
 	opmo:account pc1:black .
 
 pc1:d_12 a opmo:WasDerivedFrom ;

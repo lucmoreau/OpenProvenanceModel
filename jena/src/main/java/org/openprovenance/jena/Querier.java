@@ -56,6 +56,36 @@ public class Querier {
     }
 
 
+    String queryString_wasDerivedFrom(String a1) {
+        return "PREFIX opmo: <" + OPMO_NS + "> " +
+            "PREFIX opmv: <" + OPMV_NS + "> " +
+            getPrefixes() +
+            "SELECT ?a2 " +
+            "WHERE {" +
+            "      " + a1 + " opmv:wasDerivedFrom ?a2 "  +
+            "      }";
+    }
+
+    String queryString_wasDerivedFromStar(String a1) {
+        return "PREFIX opmo: <" + OPMO_NS + "> " +
+            "PREFIX opmv: <" + OPMV_NS + "> " +
+            getPrefixes() +
+            "SELECT ?a2 " +
+            "WHERE {" +
+            "      " + a1 + " opmo:wasDerivedFromStar ?a2 "  +
+            "      }";
+    }
+
+    String queryString_causeWasDerivedFrom(String a1) {
+        return "PREFIX opmo: <" + OPMO_NS + "> " +
+            "PREFIX opmv: <" + OPMV_NS + "> " +
+            getPrefixes() +
+            "SELECT ?wdf " +
+            "WHERE {" +
+            "       ?wdf opmo:causeWasDerivedFrom " + a1 + "  "  +
+            "      }";
+    }
+
     String queryString_Process() {
         return "PREFIX opmo: <" + OPMO_NS + "> " +
             "PREFIX opmv: <" + OPMV_NS + "> " +
@@ -67,6 +97,17 @@ public class Querier {
             "ORDER BY ?p ";
     }
 
+    String queryString_Agent() {
+        return "PREFIX opmo: <" + OPMO_NS + "> " +
+            "PREFIX opmv: <" + OPMV_NS + "> " +
+            getPrefixes() +
+            "SELECT ?ag " +
+            "WHERE {" +
+            "      ?ag a opmv:Agent " +
+            "      }" +
+            "ORDER BY ?ag ";
+    }
+
 
     String queryString_Artifact() {
         return "PREFIX opmo: <" + OPMO_NS + "> " +
@@ -75,8 +116,8 @@ public class Querier {
             "SELECT ?a " +
             "WHERE {" +
             "      ?a a opmv:Artifact " +
-            "      OPTIONAL {?a opmv:wasGeneratedBy ?p }" +
-            "      FILTER (!bound(?p)) } ";
+            "      OPTIONAL {?a opmv:wasControlledBy ?ag }" +
+            "      FILTER (!bound(?ag)) } ";
     }
 
     String queryString_ArtifactUsedInRole(String p) {
@@ -162,8 +203,40 @@ public class Querier {
     }
 
 
+
+    public ResultSet getDerivedFromArtifacts(String artifact) {
+        String query=queryString_wasDerivedFrom(artifact);
+        qe = QueryExecutionFactory.create(query, model);
+        ResultSet results = qe.execSelect();
+        return results;
+    }
+
+
+    public ResultSet getDerivedFromStarArtifacts(String artifact) {
+        String query=queryString_wasDerivedFromStar(artifact);
+        qe = QueryExecutionFactory.create(query, model);
+        ResultSet results = qe.execSelect();
+        return results;
+    }
+
+
+    public ResultSet getCauseWasDerivedFromArtifacts(String artifact) {
+        String query=queryString_causeWasDerivedFrom(artifact);
+        qe = QueryExecutionFactory.create(query, model);
+        ResultSet results = qe.execSelect();
+        return results;
+    }
+
     public ResultSet getProcesses() {
         String query=queryString_Process();
+        qe = QueryExecutionFactory.create(query, model);
+        ResultSet results = qe.execSelect();
+        return results;
+    }
+
+
+    public ResultSet getAgents() {
+        String query=queryString_Agent();
         qe = QueryExecutionFactory.create(query, model);
         ResultSet results = qe.execSelect();
         return results;
@@ -205,6 +278,7 @@ public class Querier {
 
     public List<Resource> getUsedArtifactsAsResources(String process) {
         ResultSet results = getUsedArtifacts(process);
+        
         return getAsResources(results,"?a");
     }
 
@@ -213,9 +287,26 @@ public class Querier {
         return getAsResources(results,"?a");
     }
 
+
+    public List<Resource> getDerivedFromArtifactsAsResources(String artifact) {
+        ResultSet results = getDerivedFromArtifacts(artifact);
+        return getAsResources(results,"?a2");
+    }
+
+
+    public List<Resource> getDerivedFromStarArtifactsAsResources(String artifact) {
+        ResultSet results = getDerivedFromStarArtifacts(artifact);
+        return getAsResources(results,"?a2");
+    }
+
     public List<Resource> getProcessesAsResources() {
         ResultSet results = getProcesses();
         return getAsResources(results,"?p");
+    }
+
+    public List<Resource> getAgentsAsResources() {
+        ResultSet results = getAgents();
+        return getAsResources(results,"?ag");
     }
 
 

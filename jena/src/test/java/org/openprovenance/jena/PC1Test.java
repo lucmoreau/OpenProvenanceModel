@@ -47,6 +47,7 @@ public class PC1Test extends TestCase {
         ts.setup();
 
         ts.loadOPMVOntology();
+        ts.loadOPMOOntology();
 
 
         // read the files
@@ -54,7 +55,6 @@ public class PC1Test extends TestCase {
 
         q=ts.getQuerier();
         q.addPrefixes("pc1",PC1_NS);
-
     }
 
     public void testNodes() {
@@ -67,12 +67,29 @@ public class PC1Test extends TestCase {
         resources=q.getArtifactsAsResources();
         assertTrue((resources!=null) && resources.size()==5);
 
-        // results=q.getArtifacts();
-        // ResultSetFormatter.out(System.out, results);
+        resources=q.getAgentsAsResources();
+        assertTrue((resources!=null) && resources.size()==1);
+
+        // The following tests check for the presence of opmv edges
+        // inferred from the opmo ontology
+
+        resources=q.getUsedArtifactsAsResources("pc1:p1");
+        assertTrue((resources!=null) && resources.size()==4);
+
+        resources=q.getGeneratedArtifactsAsResources("pc1:p1");
+        assertTrue((resources!=null) && resources.size()==1);
+
+        resources=q.getDerivedFromArtifactsAsResources("pc1:a5");
+        System.out.println("Resources " + resources);
+        assertTrue((resources!=null) && resources.size()==4);
 
 
-        // results=q.getUsedArtifacts("pc1:p1");
-        // ResultSetFormatter.out(System.out, results);
+        resources=q.getDerivedFromStarArtifactsAsResources("pc1:a5");
+        System.out.println("Resources " + resources);
+        assertTrue((resources!=null) && resources.size()==4);
+
+        ResultSet results=q.getCauseWasDerivedFromArtifacts("pc1:a3");
+        ResultSetFormatter.out(System.out, results);
 
     }
 
