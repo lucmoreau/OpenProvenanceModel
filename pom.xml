@@ -23,6 +23,7 @@
     <module>tupelo</module>    
     <module>elmo</module>    
     <module>toolbox</module>    
+    <module>jena</module>    
   </modules>
 
 
@@ -72,7 +73,7 @@
     <site>
       <id>public.www.site</id>
       <name>Site Deployment location</name>
-      <url>scp://openprovenance@websites1.ecs.soton.ac.uk/home/openprovenance/openprovenance.org/htdocs/java/site/1_1_2</url>
+      <url>scp://openprovenance@websites1.ecs.soton.ac.uk/home/openprovenance/openprovenance.org/htdocs/java/site/1_1_7</url>
     </site>
 
  </distributionManagement>

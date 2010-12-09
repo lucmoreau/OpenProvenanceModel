@@ -1,0 +1,140 @@
+@prefix opmo: <http://openprovenance.org/model/opmo#> .
+@prefix opmv: <http://purl.org/net/opmv/ns#> .
+@prefix pc1: <http://www.ipaw.info/pc1/> .
+
+
+pc1:black a opmo:Account .
+
+pc1:p1 a opmv:Process ;
+	opmo:account pc1:black ;
+	opmo:label "PC1 Workflow" .
+
+pc1:ag1 a opmv:Agent ;
+	opmo:account pc1:black ;
+	opmo:label "John Doe" .
+
+pc1:ti_0 a opmo:OTime ;
+	opmo:exactlyAt "2010-12-09T09:11:16.339Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
+
+pc1:a1 a opmv:Artifact ;
+	opmo:account pc1:black ;
+	opmo:label "Anatomy Image1" .
+
+pc1:a2 a opmv:Artifact ;
+	opmo:account pc1:black ;
+	opmo:label "Anatomy Header1" .
+
+pc1:a3 a opmv:Artifact ;
+	opmo:account pc1:black ;
+	opmo:label "Reference Image" .
+
+pc1:a4 a opmv:Artifact ;
+	opmo:account pc1:black ;
+	opmo:label "Reference Header" .
+
+pc1:a5 a opmv:Artifact ;
+	opmo:account pc1:black ;
+	opmo:label "Atlas X Graphic" .
+
+pc1:r_0 a opmo:Role ;
+	opmo:value "img1" .
+
+pc1:u_1 a opmo:Used ;
+	opmo:effect pc1:p1 ;
+	opmo:role pc1:r_0 ;
+	opmo:cause pc1:a1 ;
+	opmo:account pc1:black .
+
+pc1:r_2 a opmo:Role ;
+	opmo:value "hdr1" .
+
+pc1:u_3 a opmo:Used ;
+	opmo:effect pc1:p1 ;
+	opmo:role pc1:r_2 ;
+	opmo:cause pc1:a2 ;
+	opmo:account pc1:black .
+
+pc1:r_4 a opmo:Role ;
+	opmo:value "imgRef" .
+
+pc1:u_5 a opmo:Used ;
+	opmo:effect pc1:p1 ;
+	opmo:role pc1:r_4 ;
+	opmo:cause pc1:a3 ;
+	opmo:account pc1:black .
+
+pc1:r_6 a opmo:Role ;
+	opmo:value "hdrRef" .
+
+pc1:u_7 a opmo:Used ;
+	opmo:effect pc1:p1 ;
+	opmo:role pc1:r_6 ;
+	opmo:cause pc1:a4 ;
+	opmo:account pc1:black .
+
+pc1:ti_1 a opmo:OTime ;
+	opmo:noEarlierThan "2010-01-15T08:25:03.204Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	opmo:noLaterThan "2010-01-15T08:25:05.204Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
+
+pc1:u_1 opmo:time pc1:ti_1 .
+
+pc1:u_3 opmo:time pc1:ti_1 .
+
+pc1:u_5 opmo:time pc1:ti_1 .
+
+pc1:u_7 opmo:time pc1:ti_1 .
+
+pc1:r_8 a opmo:Role ;
+	opmo:value "x" .
+
+pc1:g_9 a opmo:WasGeneratedBy ;
+	opmo:cause pc1:p1 ;
+	opmo:role pc1:r_8 ;
+	opmo:effect pc1:a5 ;
+	opmo:account pc1:black .
+
+pc1:ti_2 a opmo:OTime ;
+	opmo:exactlyAt "2010-12-09T09:11:17.581Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
+
+pc1:g_9 opmo:time pc1:ti_2 .
+
+pc1:d_10 a opmo:WasDerivedFrom ;
+	opmo:cause pc1:a1 ;
+	opmo:effect pc1:a5 ;
+	opmo:account pc1:black .
+
+pc1:d_11 a opmo:WasDerivedFrom ;
+	opmo:cause pc1:a2 ;
+	opmo:effect pc1:a5 ;
+	opmo:account pc1:black .
+
+pc1:d_12 a opmo:WasDerivedFrom ;
+	opmo:cause pc1:a3 ;
+	opmo:effect pc1:a5 ;
+	opmo:account pc1:black .
+
+pc1:d_13 a opmo:WasDerivedFrom ;
+	opmo:cause pc1:a4 ;
+	opmo:effect pc1:a5 ;
+	opmo:account pc1:black .
+
+pc1:ti_3 a opmo:OTime ;
+	opmo:exactlyAt "2010-12-09T09:11:19.148Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
+
+pc1:r_14 a opmo:Role ;
+	opmo:value "user" .
+
+pc1:c_15 a opmo:WasControlledBy ;
+	opmo:effect pc1:p1 ;
+	opmo:role pc1:r_14 ;
+	opmo:cause pc1:ag1 ;
+	opmo:account pc1:black ;
+	opmo:startTime pc1:ti_0 ;
+	opmo:endTime pc1:ti_3 .
+
+pc1:gr_16 a opmo:OPMGraph ;
+	opmo:hasAccount pc1:black ;
+	opmo:hasProcess pc1:p1 ;
+	opmo:hasArtifact pc1:a5 , pc1:a3 , pc1:a4 , pc1:a1 , pc1:a2 ;
+	opmo:hasAgent pc1:ag1 ;
+	opmo:hasDependency pc1:u_1 , pc1:u_3 , pc1:u_7 , pc1:d_10 , pc1:d_11 , pc1:u_5 , pc1:d_12 , pc1:d_13 , pc1:g_9 , pc1:c_15 .

@@ -58,7 +58,8 @@
             <opmx:value xsi:type="xsd:string">7</opmx:value>
         </opmx:artifact>
     </opmx:artifacts>
-    <opmx:causalDependencies>
+    <opmx:agents/>
+    <opmx:dependencies>
         <opmx:used>
             <opmx:effect ref="p1"/>
             <opmx:role value="in"/>
@@ -131,7 +132,7 @@
             <opmx:cause ref="p5"/>
             <opmx:account ref="orange"/>
         </opmx:wasGeneratedBy>
-    </opmx:causalDependencies>
+    </opmx:dependencies>
     <opmx:annotations>
         <opmx:annotation id="an1">
             <opmx:artifact ref="a1"/>
