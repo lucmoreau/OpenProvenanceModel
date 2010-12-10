@@ -34,7 +34,7 @@ public class TripleStore {
     Reasoner reasoner;
     InfModel model;
 
-    public void setup() {
+    public void setUp() {
   	    // create Pellet reasoner
         reasoner = PelletReasonerFactory.theInstance().create();
 
@@ -44,6 +44,29 @@ public class TripleStore {
         // create an inferencing model using Pellet reasoner
         model = ModelFactory.createInfModel( reasoner, emptyModel );
     }
+    /** Initializes reasoner with OPMV and OPMO ontology, and loads rdf file.
+        @param file url to file
+        @param lang rdf language
+        @param prefix prefix
+        @param ns namespace
+        @return Querier object
+    */
+
+    public Querier setUpReasonerForFile (String file, String lang, String prefix, String ns) {
+        setUp();
+
+        loadOPMVOntology();
+        loadOPMOOntology();
+
+
+        // read the files
+        readFile( file, lang );
+
+        Querier q=getQuerier();
+        q.addPrefixes(prefix,ns);
+        return q;
+    }
+
 
     public void readFile (String url, String lang) {
         model.read(url,lang);

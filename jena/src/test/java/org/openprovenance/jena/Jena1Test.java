@@ -39,7 +39,7 @@ public class Jena1Test extends TestCase {
     public void testOPMV1() {
 
         TripleStore ts= new TripleStore();
-        ts.setup();
+        ts.setUp();
 
 
         ts.loadOPMVOntology();
@@ -69,7 +69,7 @@ public class Jena1Test extends TestCase {
     public void testOPMV2() {
 
         TripleStore ts= new TripleStore();
-        ts.setup();
+        ts.setUp();
 
 
         ts.loadOPMVOntology();

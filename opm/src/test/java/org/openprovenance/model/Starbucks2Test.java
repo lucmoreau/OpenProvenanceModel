@@ -34,14 +34,18 @@ public class Starbucks2Test
      */
 
 
-    static OPMGraph graph1;
+    static public OPMGraph graph1;
 
 
     public void testStarbucks2() throws JAXBException
     {
-        OPMFactory oFactory=new OPMFactory();
+        testStarbucks2(true);
+    }
 
-        OPMGraph graph=makeStarbucksGraph(oFactory);
+    public void testStarbucks2(boolean starEdges) throws JAXBException
+    {
+
+        OPMGraph graph=makeStarbucksGraph(oFactory, starEdges);
 
         OPMSerialiser serial=OPMSerialiser.getThreadOPMSerialiser();
         serial.serialiseOPMGraph(new File("target/starbucks2.xml"),graph,true);
@@ -56,7 +60,11 @@ public class Starbucks2Test
 
     }
 
-    public OPMGraph makeStarbucksGraph(OPMFactory oFactory)
+    public OPMGraph makeStarbucksGraph(OPMFactory oFactory) {
+        return makeStarbucksGraph(oFactory,true);
+    }
+
+    public OPMGraph makeStarbucksGraph(OPMFactory oFactory, boolean starEdges)
     {
 
         Collection<Account> detailedAccount=Collections.singleton(oFactory.newAccount("detailedAccount"));
@@ -111,8 +119,13 @@ public class Starbucks2Test
 
         Used u4=oFactory.newUsed(p4,oFactory.newRole("order"),a1,summaryAccount);
 
-        UsedStar u5=oFactory.newUsedStar(p3,a1,detailedAccount);
-        UsedStar u6=oFactory.newUsedStar(p3,a2,detailedAccount);
+        UsedStar u5=null;
+        UsedStar u6=null;
+
+        if (starEdges) {
+            u5=oFactory.newUsedStar(p3,a1,detailedAccount);
+            u6=oFactory.newUsedStar(p3,a2,detailedAccount);
+        }
 
 
         WasGeneratedBy wg1=oFactory.newWasGeneratedBy(a3,oFactory.newRole("cup"),p1,detailedAccount);
@@ -123,12 +136,21 @@ public class Starbucks2Test
 
         WasGeneratedBy wg5=oFactory.newWasGeneratedBy(a6,oFactory.newRole("receipt"),p1,detailedAccount);
 
-        WasGeneratedByStar wg6=oFactory.newWasGeneratedByStar(a5,p1,detailedAccount);
+        WasGeneratedByStar wg6=null;
+
+        if (starEdges) {
+            wg6=oFactory.newWasGeneratedByStar(a5,p1,detailedAccount);
+        }
 
         WasDerivedFrom wd1=oFactory.newWasDerivedFrom(a4,a3,detailedAccount);
 
         WasDerivedFrom wd2=oFactory.newWasDerivedFrom(a3,a1,detailedAccount);
-        WasDerivedFromStar wd3=oFactory.newWasDerivedFromStar(a5,a1,detailedAccount);
+
+        WasDerivedFromStar wd3=null;
+        if (starEdges) {
+            wd3=oFactory.newWasDerivedFromStar(a5,a1,detailedAccount);
+        }
+        
         WasDerivedFrom wd3b=oFactory.newWasDerivedFrom(a5,a1,summaryAccount);
         //WasDerivedFromStar wd4=oFactory.newWasDerivedFromStar(a4,a1,detailedAccount);
         WasDerivedFrom wd5=oFactory.newWasDerivedFrom(a6,a1,detailedAccount);
@@ -139,9 +161,10 @@ public class Starbucks2Test
         WasTriggeredBy wt1=oFactory.newWasTriggeredBy(p3,p1,detailedAccount);
 
 
+        OPMGraph graph=null;
 
-
-        OPMGraph graph=oFactory.newOPMGraph(bothAccounts,
+        if (starEdges) {
+            graph=oFactory.newOPMGraph(bothAccounts,
                                             new Overlaps[] { },
                                             new Process[] {p1, p2, p3, p4},
                                             new Artifact[] {a1,a2,a3,a4,a5,a6},
@@ -151,6 +174,18 @@ public class Starbucks2Test
                                                           wt1,
                                                           wd1,wd2,wd3,wd3b, wd5,wd6,wd7
                                             } );
+        } else {
+            graph=oFactory.newOPMGraph(bothAccounts,
+                                            new Overlaps[] { },
+                                            new Process[] {p1, p2, p3, p4},
+                                            new Artifact[] {a1,a2,a3,a4,a5,a6},
+                                            new Agent[] { },
+                                       new Object[] {u1,u2,u3,u4,u7,  //*: u5,u6,
+                                                     wg1,wg2,wg3,wg4,wg5,  //*: wg6,
+                                                          wt1,
+                                                     wd1,wd2,wd3b, wd5,wd6,wd7 //*wd3
+                                            } );
+        }
 
 
 
