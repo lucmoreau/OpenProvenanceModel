@@ -61,6 +61,12 @@ public class PC1Test extends TestCase {
         resources=q.getAgentsAsResources();
         assertTrue((resources!=null) && resources.size()==1);
 
+    }
+
+    public void testEdges() {
+
+        List<Resource> resources;
+
         // The following tests check for the presence of opmv edges
         // inferred from the opmo ontology
 
@@ -84,6 +90,10 @@ public class PC1Test extends TestCase {
 
     }
 
+    public void testSave() {
+        // this fails? Why?
+        //ts.write(System.out);
+    }
 
     
 
