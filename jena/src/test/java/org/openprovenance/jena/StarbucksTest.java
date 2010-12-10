@@ -60,6 +60,12 @@ public class StarbucksTest extends TestCase {
 
         resources=q.getAgentsAsResources();
         assertTrue((resources!=null) && resources.size()==0);
+    }
+
+
+    public void testEdges() {
+
+        List<Resource> resources;
 
         // The following tests check for the presence of opmv edges
         // inferred from the opmo ontology
@@ -77,7 +83,7 @@ public class StarbucksTest extends TestCase {
 
         resources=q.getDerivedFromStarArtifactsAsResources("st:a4");
         System.out.println("Resources2 " + resources);
-        System.out.println("Resources2 ***** NOT CORRECT!");
+        System.out.println("Resources2 ***** **********************************************************8 NOT CORRECT!");
         assertTrue((resources!=null) && resources.size()==2);
 
         ResultSet results=q.getCauseWasDerivedFromArtifacts("st:a3");
