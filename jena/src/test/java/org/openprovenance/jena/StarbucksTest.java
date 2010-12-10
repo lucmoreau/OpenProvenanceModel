@@ -80,11 +80,25 @@ public class StarbucksTest extends TestCase {
         System.out.println("Resources1 " + resources);
         assertTrue((resources!=null) && resources.size()==2);
 
+        resources=q.getDerivedFromArtifactsAsResources("st:a6");
+        System.out.println("Resources1a " + resources);
+        assertTrue((resources!=null) && resources.size()==2);
+
+
+        resources=q.getDerivedFromArtifactsAsResources("st:a3");
+        System.out.println("Resources1b " + resources);
+        assertTrue((resources!=null) && resources.size()==1);
+
 
         resources=q.getDerivedFromStarArtifactsAsResources("st:a4");
         System.out.println("Resources2 " + resources);
-        System.out.println("Resources2 ***** **********************************************************8 NOT CORRECT!");
+        System.out.println("Resources2 ***** ********************************************************** NOT CORRECT!");
         assertTrue((resources!=null) && resources.size()==2);
+
+
+        resources=q.getUsedStarArtifactsAsResources("st:p2");
+        System.out.println("Resources3 " + resources);
+        assertTrue((resources!=null) && resources.size()==4);
 
         ResultSet results=q.getCauseWasDerivedFromArtifacts("st:a3");
         ResultSetFormatter.out(System.out, results);

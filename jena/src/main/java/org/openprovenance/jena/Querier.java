@@ -45,6 +45,17 @@ public class Querier {
     }
 
 
+    String queryString_usedStar(String p) {
+        return "PREFIX opmo: <" + OPMO_NS + "> " +
+            "PREFIX opmv: <" + OPMV_NS + "> " +
+            getPrefixes() +
+            "SELECT ?a " +
+            "WHERE {" +
+            "      " + p  + " opmo:usedStar ?a " +
+            "      }";
+    }
+
+
     String queryString_wasGeneratedBy(String p) {
         return "PREFIX opmo: <" + OPMO_NS + "> " +
             "PREFIX opmv: <" + OPMV_NS + "> " +
@@ -174,6 +185,13 @@ public class Querier {
         return results;
     }
 
+    public ResultSet getUsedStarArtifacts(String process) {
+        String query=queryString_usedStar(process);
+        qe = QueryExecutionFactory.create(query, model);
+        ResultSet results = qe.execSelect();
+        return results;
+    }
+
     public List<Resource> getAsResources(ResultSet results, String var) {
         List<Resource> ll=new LinkedList();
         while (results.hasNext()) {
@@ -278,6 +296,11 @@ public class Querier {
 
     public List<Resource> getUsedArtifactsAsResources(String process) {
         ResultSet results = getUsedArtifacts(process);
+        
+        return getAsResources(results,"?a");
+    }
+    public List<Resource> getUsedStarArtifactsAsResources(String process) {
+        ResultSet results = getUsedStarArtifacts(process);
         
         return getAsResources(results,"?a");
     }
