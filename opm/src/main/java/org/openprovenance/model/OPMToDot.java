@@ -357,13 +357,20 @@ public class OPMToDot {
         for (Property prop: ann.getProperty()) {
             label=label+"	<TR>\n";
             label=label+"	    <TD align=\"left\">" + convertProperty(prop.getKey()) + ":</TD>\n";
-            label=label+"	    <TD align=\"left\">" + prop.getValue() + "</TD>\n";
+            label=label+"	    <TD align=\"left\">" + convertValue(prop.getValue()) + "</TD>\n";
             label=label+"	</TR>\n";
         }
         label=label+"    </TABLE>>\n";
         properties.put("label",label);
         return properties;
     }
+
+   public String convertValue(Object v) {
+       String label=""+v;
+       int i=label.lastIndexOf("#");
+       int j=label.lastIndexOf("/");
+       return label.substring(Math.max(i,j)+1, label.length());
+   }
 
     public String convertProperty(String label) {
         int i=label.lastIndexOf("#");

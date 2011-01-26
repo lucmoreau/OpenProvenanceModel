@@ -95,13 +95,30 @@ public class RefinementTest
                                  Collection<Account> accounts,
                                  String label,
                                  String value) {
-                            
+        
         Artifact a=oFactory.newArtifact(id,
                                         accounts,
                                         label);
         oFactory.addAnnotation(a,
                                oFactory.newType("http://openprovenance.org/primitives#String"));
         oFactory.addValue(a,value,"mime:application/text");
+
+        return a;
+    }
+
+
+    public Artifact newInteger(OPMFactory oFactory,
+                               String id,
+                               Collection<Account> accounts,
+                               String label,
+                               int value) {
+                            
+        Artifact a=oFactory.newArtifact(id,
+                                        accounts,
+                                        label);
+        oFactory.addAnnotation(a,
+                               oFactory.newType("http://openprovenance.org/primitives#Integer"));
+        oFactory.addValue(a,value,"mime:application/int");
 
         return a;
     }
@@ -260,26 +277,23 @@ public class RefinementTest
                                     "John Doe");
 
 
-        Artifact a1=newFile(oFactory,
-                             "a1",
-                             black,
-                             "Reference Image",
-                             "reference.img",
-                             inputLocation);
+        Artifact a1=newInteger(oFactory,
+                               "a1",
+                               black,
+                               "a1",
+                               14);
+        Artifact a2=newInteger(oFactory,
+                               "a2",
+                               black,
+                               "a2",
+                               4);
 
-        Artifact a2=newFile(oFactory,
-                             "a2",
-                             black,
-                             "Reference Header",
-                             "reference.hdr",
-                             inputLocation);
+        Artifact a3=newInteger(oFactory,
+                               "a3",
+                               black,
+                               "a3",
+                               2);
 
-        Artifact a3=newFile(oFactory,
-                             "a3",
-                             black,
-                             "Anatomy I1",
-                             "anatomy1.img",
-                             inputLocation);
 
         Artifact a4=newFile(oFactory,
                              "a4",
