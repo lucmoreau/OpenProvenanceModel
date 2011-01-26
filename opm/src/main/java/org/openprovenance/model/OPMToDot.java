@@ -208,6 +208,40 @@ public class OPMToDot {
        
     }
 
+    boolean collapseAnnotations=true;
+
+    static int embeddedAnnotationCounter=0;
+
+    public void emitAnnotations(Annotable node, PrintStream out) {
+        if (collapseAnnotations) {
+
+            EmbeddedAnnotation newAnn=of.newEmbeddedAnnotation("eid"+(embeddedAnnotationCounter++),
+                                                               new LinkedList<Property>(),
+                                                               null,
+                                                               null);
+
+            for (JAXBElement<? extends EmbeddedAnnotation> ann: node.getAnnotation()) {
+                EmbeddedAnnotation emb=ann.getValue();
+                of.expandAnnotation(emb);
+                if (filterAnnotation(emb)) {
+                    List<Property> properties=emb.getProperty();
+                    newAnn.getProperty().addAll(properties);
+                }
+            }
+
+
+            emitAnnotation(node.getId(),newAnn,out);
+
+        } else {
+            for (JAXBElement<? extends EmbeddedAnnotation> ann: node.getAnnotation()) {
+                EmbeddedAnnotation emb=ann.getValue();
+                of.expandAnnotation(emb);
+                if (filterAnnotation(emb)) emitAnnotation(node.getId(), emb,out);
+            }
+        }
+    }
+
+
     //////////////////////////////////////////////////////////////////////
     ///
     ///                              NODES
@@ -221,12 +255,7 @@ public class OPMToDot {
                  addProcessShape(p,addProcessLabel(p, addProcessColor(p,properties))),
                  out);
 
-        for (JAXBElement<? extends EmbeddedAnnotation> ann: p.getAnnotation()) {
-            EmbeddedAnnotation emb=ann.getValue();
-            of.expandAnnotation(emb);
-            if (filterAnnotation(emb)) emitAnnotation(p.getId(), emb,out);
-        }
-
+        emitAnnotations(p,out);
     }
 
     public void emitArtifact(Artifact a, PrintStream out) {
@@ -235,11 +264,8 @@ public class OPMToDot {
         emitNode(a.getId(),
                  addArtifactShape(a,addArtifactLabel(a, addArtifactColor(a,properties))),
                  out);
-        for (JAXBElement<? extends EmbeddedAnnotation> ann: a.getAnnotation()) {
-            EmbeddedAnnotation emb=ann.getValue();
-            of.expandAnnotation(emb);
-            if (filterAnnotation(emb)) emitAnnotation(a.getId(), emb,out);
-        }
+
+        emitAnnotations(a,out);
     }
 
     public void emitAgent(Agent ag, PrintStream out) {
@@ -249,11 +275,7 @@ public class OPMToDot {
                  addAgentShape(ag,addAgentLabel(ag, addAgentColor(ag,properties))),
                  out);
 
-        for (JAXBElement<? extends EmbeddedAnnotation> ann: ag.getAnnotation()) {
-            EmbeddedAnnotation emb=ann.getValue();
-            of.expandAnnotation(emb);
-            if (filterAnnotation(emb)) emitAnnotation(ag.getId(), emb,out);
-        }
+        emitAnnotations(ag,out);
 
     }
 
@@ -266,6 +288,7 @@ public class OPMToDot {
         HashMap<String,String> linkProperties=new HashMap();
         emitEdge(newId,id,addAnnotationLinkProperties(ann,linkProperties),out,true);
     }
+
 
     public boolean filterAnnotation(EmbeddedAnnotation ann) {
         if (ann instanceof Label) {
@@ -366,11 +389,11 @@ public class OPMToDot {
     }
 
    public String convertValue(Object v) {
-       String label=""+v;
-       int i=label.lastIndexOf("#");
-       int j=label.lastIndexOf("/");
-       return label.substring(Math.max(i,j)+1, label.length());
-   }
+         String label=""+v;
+         int i=label.lastIndexOf("#");
+         int j=label.lastIndexOf("/");
+         return label.substring(Math.max(i,j)+1, label.length());
+     }
 
     public String convertProperty(String label) {
         int i=label.lastIndexOf("#");

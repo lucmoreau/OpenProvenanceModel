@@ -498,6 +498,17 @@ public class OPMFactory implements CommonURIs {
             String typeValue=type.getValue();
             ann.getProperty().add(newProperty(TYPE_PROPERTY,typeValue));
         }
+        if (ann instanceof Value) {
+            Value val=(Value) ann;
+            Object valValue=val.getContent();
+            ann.getProperty().add(newProperty(VALUE_PROPERTY,valValue));
+        }
+        if (ann instanceof PName) {
+            PName pname=(PName) ann;
+            String pnameValue=pname.getValue();
+            ann.getProperty().add(newProperty(PNAME_PROPERTY,pnameValue));
+         }
+
     }
 
 
