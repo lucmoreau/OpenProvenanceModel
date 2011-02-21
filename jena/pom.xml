@@ -13,6 +13,19 @@
   <packaging>jar</packaging>
   <description>Set of class to invoke Pellet reasoner for OPM in Jena.</description>
 
+   <repositories>
+    <repository>
+	  <id>jena-repository</id>
+	  <name>Jena Repository</name>
+	  <url>http://openjena.org/repo/</url>
+	</repository>
+
+    <repository>
+	  <id>pellet-repository</id>
+	  <name>Pellet Repository</name>
+	  <url>http://on.cs.unibas.ch/maven/repository/</url>
+	</repository>
+  </repositories>
 
 
 
