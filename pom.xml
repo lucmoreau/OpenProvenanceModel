@@ -38,6 +38,16 @@
          <organization>University of Southampton</organization>
          <timezone>0</timezone>
        </developer>         
+      <developer>
+         <id>lavm</id>
+         <name>Luc Moreau</name>
+         <email>lavm@ecs.soton.ac.uk</email>
+         <roles>
+            <role>Developer</role>
+         </roles>
+         <organization>University of Southampton</organization>
+         <timezone>0</timezone>
+       </developer>         
    </developers>
 
   <ciManagement>
