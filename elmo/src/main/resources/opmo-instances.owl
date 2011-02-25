@@ -1,0 +1,352 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY opmv "http://purl.org/net/opmv/" >
+    <!ENTITY ns "http://purl.org/net/opmv/ns#" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY owl2xml "http://www.w3.org/2006/12/owl2-xml#" >
+    <!ENTITY opmo "http://openprovenance.org/model/opmo#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY Ontology1298627986993 "http://www.semanticweb.org/ontologies/2011/1/Ontology1298627986993.owl#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.semanticweb.org/ontologies/2011/1/Ontology1298627986993.owl#"
+     xml:base="http://www.semanticweb.org/ontologies/2011/1/Ontology1298627986993.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:ns="&opmv;ns#"
+     xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#"
+     xmlns:opmv="http://purl.org/net/opmv/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:opmo="http://openprovenance.org/model/opmo#"
+     xmlns:Ontology1298627986993="http://www.semanticweb.org/ontologies/2011/1/Ontology1298627986993.owl#">
+    <owl:Ontology rdf:about="">
+        <owl:imports rdf:resource="http://openprovenance.org/model/opmo"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://openprovenance.org/model/opmo#causeUsed -->
+
+    <owl:ObjectProperty rdf:about="&opmo;causeUsed"/>
+    
+
+
+    <!-- http://openprovenance.org/model/opmo#causeWasDerivedFrom -->
+
+    <owl:ObjectProperty rdf:about="&opmo;causeWasDerivedFrom"/>
+    
+
+
+    <!-- http://openprovenance.org/model/opmo#causeWasGeneratedBy -->
+
+    <owl:ObjectProperty rdf:about="&opmo;causeWasGeneratedBy"/>
+    
+
+
+    <!-- http://openprovenance.org/model/opmo#effectUsed -->
+
+    <owl:ObjectProperty rdf:about="&opmo;effectUsed"/>
+    
+
+
+    <!-- http://openprovenance.org/model/opmo#effectWasDerivedFrom -->
+
+    <owl:ObjectProperty rdf:about="&opmo;effectWasDerivedFrom"/>
+    
+
+
+    <!-- http://openprovenance.org/model/opmo#effectWasGeneratedBy -->
+
+    <owl:ObjectProperty rdf:about="&opmo;effectWasGeneratedBy"/>
+    
+
+
+    <!-- http://openprovenance.org/model/opmo#wasDerivedFromStar -->
+
+    <owl:ObjectProperty rdf:about="&opmo;wasDerivedFromStar">
+        <rdfs:subPropertyOf rdf:resource="#wdfss"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/1/Ontology1298627986993.owl#wdfss -->
+
+    <owl:ObjectProperty rdf:about="#wdfss">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:range rdf:resource="&opmv;ns#Artifact"/>
+        <rdfs:domain rdf:resource="&opmv;ns#Artifact"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://openprovenance.org/model/opmo#Role -->
+
+    <owl:Class rdf:about="&opmo;Role"/>
+    
+
+
+    <!-- http://openprovenance.org/model/opmo#Used -->
+
+    <owl:Class rdf:about="&opmo;Used"/>
+    
+
+
+    <!-- http://openprovenance.org/model/opmo#WasDerivedFrom -->
+
+    <owl:Class rdf:about="&opmo;WasDerivedFrom"/>
+    
+
+
+    <!-- http://openprovenance.org/model/opmo#WasGeneratedBy -->
+
+    <owl:Class rdf:about="&opmo;WasGeneratedBy"/>
+    
+
+
+    <!-- http://purl.org/net/opmv/Artifact -->
+
+    <owl:Class rdf:about="&opmv;Artifact"/>
+    
+
+
+    <!-- http://purl.org/net/opmv/Process -->
+
+    <owl:Class rdf:about="&opmv;Process"/>
+    
+
+
+    <!-- http://purl.org/net/opmv/ns#Artifact -->
+
+    <owl:Class rdf:about="&opmv;ns#Artifact"/>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#Thing -->
+
+    <owl:Class rdf:about="&owl;Thing"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/1/Ontology1298627986993.owl#a1 -->
+
+    <owl:Thing rdf:about="#a1">
+        <rdf:type rdf:resource="&opmv;Artifact"/>
+        <opmo:effectWasDerivedFrom rdf:resource="#a6"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/1/Ontology1298627986993.owl#a2 -->
+
+    <opmv:Artifact rdf:about="#a2">
+        <rdf:type rdf:resource="&owl;Thing"/>
+    </opmv:Artifact>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/1/Ontology1298627986993.owl#a3 -->
+
+    <owl:Thing rdf:about="#a3">
+        <rdf:type rdf:resource="&opmv;Artifact"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/1/Ontology1298627986993.owl#a4 -->
+
+    <opmv:Artifact rdf:about="#a4">
+        <rdf:type rdf:resource="&owl;Thing"/>
+    </opmv:Artifact>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/1/Ontology1298627986993.owl#a5 -->
+
+    <owl:Thing rdf:about="#a5">
+        <rdf:type rdf:resource="&opmv;Artifact"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/1/Ontology1298627986993.owl#a6 -->
+
+    <owl:Thing rdf:about="#a6">
+        <rdf:type rdf:resource="&opmv;Artifact"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/1/Ontology1298627986993.owl#p1 -->
+
+    <owl:Thing rdf:about="#p1">
+        <rdf:type rdf:resource="&opmv;Process"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/1/Ontology1298627986993.owl#p2 -->
+
+    <owl:Thing rdf:about="#p2">
+        <rdf:type rdf:resource="&opmv;Process"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/1/Ontology1298627986993.owl#p3 -->
+
+    <owl:Thing rdf:about="#p3">
+        <rdf:type rdf:resource="&opmv;Process"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/1/Ontology1298627986993.owl#r -->
+
+    <opmo:Role rdf:about="#r">
+        <rdf:type rdf:resource="&owl;Thing"/>
+    </opmo:Role>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/1/Ontology1298627986993.owl#u1 -->
+
+    <opmo:Used rdf:about="#u1">
+        <rdf:type rdf:resource="&owl;Thing"/>
+        <opmo:causeUsed rdf:resource="#a1"/>
+        <opmo:effectUsed rdf:resource="#p1"/>
+    </opmo:Used>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/1/Ontology1298627986993.owl#u2 -->
+
+    <opmo:Used rdf:about="#u2">
+        <rdf:type rdf:resource="&owl;Thing"/>
+        <opmo:causeUsed rdf:resource="#a2"/>
+        <opmo:effectUsed rdf:resource="#p1"/>
+    </opmo:Used>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/1/Ontology1298627986993.owl#u3 -->
+
+    <owl:Thing rdf:about="#u3">
+        <rdf:type rdf:resource="&opmo;Used"/>
+        <opmo:causeUsed rdf:resource="#a6"/>
+        <opmo:effectUsed rdf:resource="#p2"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/1/Ontology1298627986993.owl#u4 -->
+
+    <owl:Thing rdf:about="#u4">
+        <rdf:type rdf:resource="&opmo;Used"/>
+        <opmo:causeUsed rdf:resource="#a3"/>
+        <opmo:effectUsed rdf:resource="#p2"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/1/Ontology1298627986993.owl#wdf1 -->
+
+    <owl:Thing rdf:about="#wdf1">
+        <rdf:type rdf:resource="&opmo;WasDerivedFrom"/>
+        <opmo:causeWasDerivedFrom rdf:resource="#a1"/>
+        <opmo:effectWasDerivedFrom rdf:resource="#a6"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/1/Ontology1298627986993.owl#wdf2 -->
+
+    <opmo:WasDerivedFrom rdf:about="#wdf2">
+        <rdf:type rdf:resource="&owl;Thing"/>
+        <opmo:causeWasDerivedFrom rdf:resource="#a2"/>
+        <opmo:effectWasDerivedFrom rdf:resource="#a6"/>
+    </opmo:WasDerivedFrom>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/1/Ontology1298627986993.owl#wdf3 -->
+
+    <owl:Thing rdf:about="#wdf3">
+        <rdf:type rdf:resource="&opmo;WasDerivedFrom"/>
+        <opmo:effectWasDerivedFrom rdf:resource="#a4"/>
+        <opmo:causeWasDerivedFrom rdf:resource="#a6"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/1/Ontology1298627986993.owl#wgb1 -->
+
+    <owl:Thing rdf:about="#wgb1">
+        <rdf:type rdf:resource="&opmo;WasGeneratedBy"/>
+        <opmo:effectWasGeneratedBy rdf:resource="#a6"/>
+        <opmo:causeWasGeneratedBy rdf:resource="#p1"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/1/Ontology1298627986993.owl#wgb2 -->
+
+    <owl:Thing rdf:about="#wgb2">
+        <rdf:type rdf:resource="&opmo;WasGeneratedBy"/>
+        <opmo:effectWasGeneratedBy rdf:resource="#a3"/>
+        <opmo:causeWasGeneratedBy rdf:resource="#p1"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/1/Ontology1298627986993.owl#wgb3 -->
+
+    <owl:Thing rdf:about="#wgb3">
+        <rdf:type rdf:resource="&opmo;WasGeneratedBy"/>
+        <opmo:effectWasGeneratedBy rdf:resource="#a4"/>
+        <opmo:causeWasGeneratedBy rdf:resource="#p2"/>
+    </owl:Thing>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 2.2.1.1138) http://owlapi.sourceforge.net -->
+

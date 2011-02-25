@@ -51,125 +51,125 @@ st:r_34 a opmo:Role ;
 	opmo:value "order" .
 
 st:u_35 a opmo:Used ;
-	opmo:effect st:p1 ;
+	opmo:effectUsed st:p1 ;
 	opmo:role st:r_34 ;
-	opmo:cause st:a1 ;
+	opmo:causeUsed st:a1 ;
 	opmo:account st:detailedAccount .
 
 st:r_36 a opmo:Role ;
 	opmo:value "money" .
 
 st:u_37 a opmo:Used ;
-	opmo:effect st:p1 ;
+	opmo:effectUsed st:p1 ;
 	opmo:role st:r_36 ;
-	opmo:cause st:a2 ;
+	opmo:causeUsed st:a2 ;
 	opmo:account st:detailedAccount .
 
 st:r_38 a opmo:Role ;
 	opmo:value "cup" .
 
 st:u_39 a opmo:Used ;
-	opmo:effect st:p2 ;
+	opmo:effectUsed st:p2 ;
 	opmo:role st:r_38 ;
-	opmo:cause st:a3 ;
+	opmo:causeUsed st:a3 ;
 	opmo:account st:detailedAccount .
 
 st:r_40 a opmo:Role ;
 	opmo:value "receipt" .
 
 st:u_41 a opmo:Used ;
-	opmo:effect st:p2 ;
+	opmo:effectUsed st:p2 ;
 	opmo:role st:r_40 ;
-	opmo:cause st:a6 ;
+	opmo:causeUsed st:a6 ;
 	opmo:account st:detailedAccount .
 
 st:r_42 a opmo:Role ;
 	opmo:value "order" .
 
 st:u_43 a opmo:Used ;
-	opmo:effect st:p4 ;
+	opmo:effectUsed st:p4 ;
 	opmo:role st:r_42 ;
-	opmo:cause st:a1 ;
+	opmo:causeUsed st:a1 ;
 	opmo:account st:summaryAccount .
 
 st:r_44 a opmo:Role ;
 	opmo:value "cup" .
 
 st:g_45 a opmo:WasGeneratedBy ;
-	opmo:cause st:p1 ;
+	opmo:causeWasGeneratedBy st:p1 ;
 	opmo:role st:r_44 ;
-	opmo:effect st:a3 ;
+	opmo:effectWasGeneratedBy st:a3 ;
 	opmo:account st:detailedAccount .
 
 st:r_46 a opmo:Role ;
 	opmo:value "coffee" .
 
 st:g_47 a opmo:WasGeneratedBy ;
-	opmo:cause st:p2 ;
+	opmo:causeWasGeneratedBy st:p2 ;
 	opmo:role st:r_46 ;
-	opmo:effect st:a4 ;
+	opmo:effectWasGeneratedBy st:a4 ;
 	opmo:account st:detailedAccount .
 
 st:r_48 a opmo:Role ;
 	opmo:value "juice" .
 
 st:g_49 a opmo:WasGeneratedBy ;
-	opmo:cause st:p3 ;
+	opmo:causeWasGeneratedBy st:p3 ;
 	opmo:role st:r_48 ;
-	opmo:effect st:a5 ;
+	opmo:effectWasGeneratedBy st:a5 ;
 	opmo:account st:detailedAccount .
 
 st:r_50 a opmo:Role ;
 	opmo:value "juice" .
 
 st:g_51 a opmo:WasGeneratedBy ;
-	opmo:cause st:p4 ;
+	opmo:causeWasGeneratedBy st:p4 ;
 	opmo:role st:r_50 ;
-	opmo:effect st:a5 ;
+	opmo:effectWasGeneratedBy st:a5 ;
 	opmo:account st:summaryAccount .
 
 st:r_52 a opmo:Role ;
 	opmo:value "receipt" .
 
 st:g_53 a opmo:WasGeneratedBy ;
-	opmo:cause st:p1 ;
+	opmo:causeWasGeneratedBy st:p1 ;
 	opmo:role st:r_52 ;
-	opmo:effect st:a6 ;
+	opmo:effectWasGeneratedBy st:a6 ;
 	opmo:account st:detailedAccount .
 
 st:d_54 a opmo:WasDerivedFrom ;
-	opmo:cause st:a3 ;
-	opmo:effect st:a4 ;
+	opmo:causeWasDerivedFrom st:a3 ;
+	opmo:effectWasDerivedFrom st:a4 ;
 	opmo:account st:detailedAccount .
 
 st:d_55 a opmo:WasDerivedFrom ;
-	opmo:cause st:a1 ;
-	opmo:effect st:a3 ;
+	opmo:causeWasDerivedFrom st:a1 ;
+	opmo:effectWasDerivedFrom st:a3 ;
 	opmo:account st:detailedAccount .
 
 st:d_56 a opmo:WasDerivedFrom ;
-	opmo:cause st:a1 ;
-	opmo:effect st:a5 ;
+	opmo:causeWasDerivedFrom st:a1 ;
+	opmo:effectWasDerivedFrom st:a5 ;
 	opmo:account st:summaryAccount .
 
 st:d_57 a opmo:WasDerivedFrom ;
-	opmo:cause st:a1 ;
-	opmo:effect st:a6 ;
+	opmo:causeWasDerivedFrom st:a1 ;
+	opmo:effectWasDerivedFrom st:a6 ;
 	opmo:account st:detailedAccount .
 
 st:d_58 a opmo:WasDerivedFrom ;
-	opmo:cause st:a2 ;
-	opmo:effect st:a6 ;
+	opmo:causeWasDerivedFrom st:a2 ;
+	opmo:effectWasDerivedFrom st:a6 ;
 	opmo:account st:detailedAccount .
 
 st:d_59 a opmo:WasDerivedFrom ;
-	opmo:cause st:a6 ;
-	opmo:effect st:a4 ;
+	opmo:causeWasDerivedFrom st:a6 ;
+	opmo:effectWasDerivedFrom st:a4 ;
 	opmo:account st:detailedAccount .
 
 st:t_60 a opmo:WasTriggeredBy ;
-	opmo:effect st:p3 ;
-	opmo:cause st:p1 ;
+	opmo:effectTriggeredBy st:p3 ;
+	opmo:causeTriggeredBy st:p1 ;
 	opmo:account st:detailedAccount .
 
 st:gr_61 a opmo:OPMGraph ;
@@ -177,134 +177,3 @@ st:gr_61 a opmo:OPMGraph ;
 	opmo:hasProcess st:p4 , st:p3 , st:p1 , st:p2 ;
 	opmo:hasArtifact st:a3 , st:a2 , st:a1 , st:a4 , st:a5 , st:a6 ;
 	opmo:hasDependency st:u_41 , st:g_45 , st:u_43 , st:g_47 , st:g_49 , st:t_60 , st:u_39 , st:d_59 , st:u_35 , st:d_56 , st:d_55 , st:u_37 , st:d_58 , st:d_57 , st:g_51 , st:d_54 , st:g_53 .
-
-st:r_0 a opmo:Role ;
-	opmo:value "order" .
-
-st:u_1 a opmo:Used ;
-	opmo:effect st:p1 ;
-	opmo:role st:r_0 ;
-	opmo:cause st:a1 ;
-	opmo:account st:detailedAccount .
-
-st:r_2 a opmo:Role ;
-	opmo:value "money" .
-
-st:u_3 a opmo:Used ;
-	opmo:effect st:p1 ;
-	opmo:role st:r_2 ;
-	opmo:cause st:a2 ;
-	opmo:account st:detailedAccount .
-
-st:r_4 a opmo:Role ;
-	opmo:value "cup" .
-
-st:u_5 a opmo:Used ;
-	opmo:effect st:p2 ;
-	opmo:role st:r_4 ;
-	opmo:cause st:a3 ;
-	opmo:account st:detailedAccount .
-
-st:r_6 a opmo:Role ;
-	opmo:value "receipt" .
-
-st:u_7 a opmo:Used ;
-	opmo:effect st:p2 ;
-	opmo:role st:r_6 ;
-	opmo:cause st:a6 ;
-	opmo:account st:detailedAccount .
-
-st:r_8 a opmo:Role ;
-	opmo:value "order" .
-
-st:u_9 a opmo:Used ;
-	opmo:effect st:p4 ;
-	opmo:role st:r_8 ;
-	opmo:cause st:a1 ;
-	opmo:account st:summaryAccount .
-
-st:r_10 a opmo:Role ;
-	opmo:value "cup" .
-
-st:g_11 a opmo:WasGeneratedBy ;
-	opmo:cause st:p1 ;
-	opmo:role st:r_10 ;
-	opmo:effect st:a3 ;
-	opmo:account st:detailedAccount .
-
-st:r_12 a opmo:Role ;
-	opmo:value "coffee" .
-
-st:g_13 a opmo:WasGeneratedBy ;
-	opmo:cause st:p2 ;
-	opmo:role st:r_12 ;
-	opmo:effect st:a4 ;
-	opmo:account st:detailedAccount .
-
-st:r_14 a opmo:Role ;
-	opmo:value "juice" .
-
-st:g_15 a opmo:WasGeneratedBy ;
-	opmo:cause st:p3 ;
-	opmo:role st:r_14 ;
-	opmo:effect st:a5 ;
-	opmo:account st:detailedAccount .
-
-st:r_16 a opmo:Role ;
-	opmo:value "juice" .
-
-st:g_17 a opmo:WasGeneratedBy ;
-	opmo:cause st:p4 ;
-	opmo:role st:r_16 ;
-	opmo:effect st:a5 ;
-	opmo:account st:summaryAccount .
-
-st:r_18 a opmo:Role ;
-	opmo:value "receipt" .
-
-st:g_19 a opmo:WasGeneratedBy ;
-	opmo:cause st:p1 ;
-	opmo:role st:r_18 ;
-	opmo:effect st:a6 ;
-	opmo:account st:detailedAccount .
-
-st:d_20 a opmo:WasDerivedFrom ;
-	opmo:cause st:a3 ;
-	opmo:effect st:a4 ;
-	opmo:account st:detailedAccount .
-
-st:d_21 a opmo:WasDerivedFrom ;
-	opmo:cause st:a1 ;
-	opmo:effect st:a3 ;
-	opmo:account st:detailedAccount .
-
-st:d_22 a opmo:WasDerivedFrom ;
-	opmo:cause st:a1 ;
-	opmo:effect st:a5 ;
-	opmo:account st:summaryAccount .
-
-st:d_23 a opmo:WasDerivedFrom ;
-	opmo:cause st:a1 ;
-	opmo:effect st:a6 ;
-	opmo:account st:detailedAccount .
-
-st:d_24 a opmo:WasDerivedFrom ;
-	opmo:cause st:a2 ;
-	opmo:effect st:a6 ;
-	opmo:account st:detailedAccount .
-
-st:d_25 a opmo:WasDerivedFrom ;
-	opmo:cause st:a6 ;
-	opmo:effect st:a4 ;
-	opmo:account st:detailedAccount .
-
-st:t_26 a opmo:WasTriggeredBy ;
-	opmo:effect st:p3 ;
-	opmo:cause st:p1 ;
-	opmo:account st:detailedAccount .
-
-st:gr_27 a opmo:OPMGraph ;
-	opmo:hasAccount st:detailedAccount , st:summaryAccount ;
-	opmo:hasProcess st:p4 , st:p3 , st:p1 , st:p2 ;
-	opmo:hasArtifact st:a3 , st:a2 , st:a1 , st:a4 , st:a5 , st:a6 ;
-	opmo:hasDependency st:u_5 , st:g_13 , st:u_3 , st:g_11 , st:u_1 , st:t_26 , st:g_19 , st:g_17 , st:g_15 , st:d_25 , st:d_24 , st:d_23 , st:d_22 , st:u_7 , st:u_9 , st:d_21 , st:d_20 .
