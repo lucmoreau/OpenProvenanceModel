@@ -1,4 +1,4 @@
-----------------------------------------------------------------------
+
 I am pleased to announce the release of the OPM Toolbox 1.1.8. It
 incorporates the recently proposed OWL ontology for OPM v1.1, and
 conversion to/from RDF. 
@@ -9,9 +9,12 @@ Key changes to the toolkit:
         opmo: http://openprovenance.org/model/opmo
         opmx: http://openprovenance.org/model/opmx
         opmv: http://purl.org/net/opmv/ns
+    * Added Jena subproject to load rdf serialization, perform owl reason with pellet, 
+      and run sparql queries
     * Renamed CausalDependencies in Dependencies
     * RDF serialization: Property has a key property instead of uri
     * RDF serialization:  key is an ObjectProperty and not DataProperty
+    * Distribution no longer include support for tupelo
 
 
 All information on OPM v1.1, the schema, the ontology, and the OPM
