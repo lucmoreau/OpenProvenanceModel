@@ -47,6 +47,7 @@ public class RdfWasTriggeredBy extends org.openprovenance.model.WasTriggeredBy i
         org.openprovenance.rdf.Process p=(org.openprovenance.rdf.Process)manager.find(q);
         org.openprovenance.rdf.WasTriggeredBy t=findMyFacade();
         t.setEffect(p);
+        t.setEffectWasTriggeredBy(p); //NOTE: currently generating both edges
     }
 
     public void setCause(org.openprovenance.model.ProcessRef value) {
@@ -55,6 +56,7 @@ public class RdfWasTriggeredBy extends org.openprovenance.model.WasTriggeredBy i
         org.openprovenance.rdf.Process p=(org.openprovenance.rdf.Process)manager.find(q);
         org.openprovenance.rdf.WasTriggeredBy t=findMyFacade();
         t.setCause(p);
+        t.setCauseWasTriggeredBy(p); //NOTE: currently generating both edges
     }
 
 

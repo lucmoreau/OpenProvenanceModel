@@ -82,7 +82,7 @@
         <directory>../elmo/src/main/resources</directory>
         <filtering>false</filtering>
         <includes>
-          <include>opmo-20101012.owl</include>
+          <include>opmo-20110301.owl</include>
           <include>opmv-20101005.owl</include>
         </includes>
       </resource>

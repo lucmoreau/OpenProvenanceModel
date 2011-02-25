@@ -48,6 +48,7 @@ public class RdfWasDerivedFrom extends org.openprovenance.model.WasDerivedFrom i
         org.openprovenance.rdf.Artifact a=(org.openprovenance.rdf.Artifact)manager.find(q);
         org.openprovenance.rdf.WasDerivedFrom d=findMyFacade();
         d.setEffect(a);
+        d.setEffectWasDerivedFrom(a); //NOTE: currently generating both edges
     }
 
     public void setCause(org.openprovenance.model.ArtifactRef value) {
@@ -56,6 +57,7 @@ public class RdfWasDerivedFrom extends org.openprovenance.model.WasDerivedFrom i
         org.openprovenance.rdf.Artifact a=(org.openprovenance.rdf.Artifact)manager.find(q);
         org.openprovenance.rdf.WasDerivedFrom d=findMyFacade();
         d.setCause(a);
+        d.setCauseWasDerivedFrom(a);  //NOTE: currently generating both edges
     }
 
     public void setNodes(org.openprovenance.model.ArtifactRef cause,

@@ -11,6 +11,7 @@ Key changes to the toolkit:
         opmv: http://purl.org/net/opmv/ns
     * Added Jena subproject to load rdf serialization, perform owl reason with pellet, 
       and run sparql queries
+    * Added better support for annotations in OPMToDot
     * Renamed CausalDependencies in Dependencies
     * RDF serialization: Property has a key property instead of uri
     * RDF serialization:  key is an ObjectProperty and not DataProperty

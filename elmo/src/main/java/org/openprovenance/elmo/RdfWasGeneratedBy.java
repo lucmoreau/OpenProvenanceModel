@@ -43,6 +43,7 @@ public class RdfWasGeneratedBy extends org.openprovenance.model.WasGeneratedBy i
         org.openprovenance.rdf.Artifact a=(org.openprovenance.rdf.Artifact)manager.find(q);
         org.openprovenance.rdf.WasGeneratedBy g=findMyFacade();
         g.setEffect(a);
+        g.setEffectWasGeneratedBy(a); //NOTE: currently generating both edges
     }
 
     public org.openprovenance.rdf.WasGeneratedBy findMyFacade() {
@@ -56,6 +57,7 @@ public class RdfWasGeneratedBy extends org.openprovenance.model.WasGeneratedBy i
         org.openprovenance.rdf.Process p=(org.openprovenance.rdf.Process)manager.find(q);
         org.openprovenance.rdf.WasGeneratedBy g=findMyFacade();
         g.setCause(p);
+        g.setCauseWasGeneratedBy(p); //NOTE: currently generating both edges
     }
 
     public void setRole(org.openprovenance.model.Role value) {

@@ -117,7 +117,7 @@ public class TripleStore {
     }
 
     public void loadOPMOOntology() {
-        readResource("../../../opmo-20101012.owl",null,"RDF/XML");
+        readResource("../../../opmo-20110301.owl",null,"RDF/XML");
     }
 
 
