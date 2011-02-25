@@ -23,11 +23,13 @@
       <version>1.1.8-SNAPSHOT</version>
     </dependency>
 
+<!--
     <dependency>
       <groupId>org.openprovenance</groupId>
       <artifactId>opm-tupelo</artifactId>
       <version>1.1.8-SNAPSHOT</version>
     </dependency>
+-->
 
     <dependency>
       <groupId>org.openprovenance</groupId>

@@ -24,16 +24,6 @@
       <fileMode>644</fileMode>
     </file>
     <file>
-      <source>target/classes/README-opmxml2rdf.txt</source>
-      <outputDirectory>/opmToolbox</outputDirectory>
-      <fileMode>644</fileMode>
-    </file>
-    <file>
-      <source>target/classes/README-opmrdf2xml.txt</source>
-      <outputDirectory>/opmToolbox</outputDirectory>
-      <fileMode>644</fileMode>
-    </file>
-    <file>
       <source>target/classes/README-opmconvert.txt</source>
       <outputDirectory>/opmToolbox</outputDirectory>
       <fileMode>644</fileMode>

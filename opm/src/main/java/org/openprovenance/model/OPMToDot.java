@@ -215,22 +215,26 @@ public class OPMToDot {
     public void emitAnnotations(Annotable node, PrintStream out) {
         if (collapseAnnotations) {
 
-            EmbeddedAnnotation newAnn=of.newEmbeddedAnnotation("eid"+(embeddedAnnotationCounter++),
-                                                               new LinkedList<Property>(),
-                                                               null,
-                                                               null);
+            EmbeddedAnnotation newAnn=null;
 
             for (JAXBElement<? extends EmbeddedAnnotation> ann: node.getAnnotation()) {
                 EmbeddedAnnotation emb=ann.getValue();
                 of.expandAnnotation(emb);
                 if (filterAnnotation(emb)) {
                     List<Property> properties=emb.getProperty();
+                    if (newAnn==null) {
+                        newAnn=of.newEmbeddedAnnotation("eid"+(embeddedAnnotationCounter++),
+                                                        new LinkedList<Property>(),
+                                                        null,
+                                                        null);
+                    }
                     newAnn.getProperty().addAll(properties);
                 }
             }
 
-
-            emitAnnotation(node.getId(),newAnn,out);
+            if (newAnn!=null) {
+                emitAnnotation(node.getId(),newAnn,out);
+            }
 
         } else {
             for (JAXBElement<? extends EmbeddedAnnotation> ann: node.getAnnotation()) {
