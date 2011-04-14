@@ -38,7 +38,7 @@ public class OPMSerialiser {
                 try {
                     return new OPMSerialiser();
                 } catch (JAXBException jxb) {
-                    throw new RuntimeException("OPMDeserialiser: serialiser init failure()");
+                    throw new RuntimeException("OPMSerialiser: serialiser init failure()");
                 }
             }
     };
