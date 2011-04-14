@@ -63,7 +63,7 @@ public class DataJournalismTest
 
     static String PRIMITIVE_TRIPLEIZE="http://openprovenance.org/primitives#tripleize";
     static String PRIMITIVE_DOWNLOAD="http://openprovenance.org/primitives#download";
-    static String PRIMITIVE_PLOT="http://openprovenance.org/primitives#plot";
+    static String PRIMITIVE_ANALYZE="http://openprovenance.org/primitives#analyze";
     static String PRIMITIVE_PUBLISH="http://openprovenance.org/primitives#publish";
 
     static String PRIMITIVE_DIV="http://openprovenance.org/primitives#div";
@@ -215,160 +215,285 @@ public class DataJournalismTest
         account012.addAll(account2);
 
 
-        Process p1=oFactory.newProcess("p1",
+        Process trpl1=oFactory.newProcess("trpl1",
                                        account0,
-                                       "p1");
-        oFactory.addAnnotation(p1,
-                               oFactory.newEmbeddedAnnotation("an1_p1",
+                                       "trpl1");
+        oFactory.addAnnotation(trpl1,
+                               oFactory.newEmbeddedAnnotation("an1_trpl1",
                                                               PRIMITIVE_PROPERTY,
                                                               PRIMITIVE_TRIPLEIZE,
                                                               null));
 
-        Process p1v2=oFactory.newProcess("p1v2",
+        Process trpl2=oFactory.newProcess("trpl2",
                                        account0,
-                                       "p1v2");
-        oFactory.addAnnotation(p1v2,
-                               oFactory.newEmbeddedAnnotation("an1_p1v2",
+                                       "trpl2");
+        oFactory.addAnnotation(trpl2,
+                               oFactory.newEmbeddedAnnotation("an1_trpl2",
                                                               PRIMITIVE_PROPERTY,
                                                               PRIMITIVE_TRIPLEIZE,
                                                               null));
 
-        Process p2=oFactory.newProcess("p2",
-                                       account0,
-                                       "p2");
-        oFactory.addAnnotation(p2,
-                               oFactory.newEmbeddedAnnotation("an1_p2",
+        Process dwnld1=oFactory.newProcess("dwnld1",
+                                       account1,
+                                       "dwnld1");
+        oFactory.addAnnotation(dwnld1,
+                               oFactory.newEmbeddedAnnotation("an1_dwnld1",
                                                               PRIMITIVE_PROPERTY,
                                                               PRIMITIVE_DOWNLOAD,
                                                               null));
 
-        Process p3=oFactory.newProcess("p3",
-                                       account0,
-                                       "p3");
-        oFactory.addAnnotation(p3,
-                               oFactory.newEmbeddedAnnotation("an1_p3",
+        Process dwnld3=oFactory.newProcess("dwnld3",
+                                       account2,
+                                       "dwnld3");
+        oFactory.addAnnotation(dwnld3,
+                               oFactory.newEmbeddedAnnotation("an1_dwnld3",
                                                               PRIMITIVE_PROPERTY,
-                                                              PRIMITIVE_PLOT,
+                                                              PRIMITIVE_DOWNLOAD,
                                                               null));
-        Process p4=oFactory.newProcess("p4",
+
+        Process pub1=oFactory.newProcess("pub1",
                                        account0,
-                                       "p4");
-        oFactory.addAnnotation(p4,
-                               oFactory.newEmbeddedAnnotation("an1_p4",
+                                         "pub1");
+        oFactory.addAnnotation(pub1,
+                               oFactory.newEmbeddedAnnotation("an1_pub1",
                                                               PRIMITIVE_PROPERTY,
                                                               PRIMITIVE_PUBLISH,
                                                               null));
 
-        Process p5=oFactory.newProcess("p5",
+
+        Process pub2=oFactory.newProcess("pub2",
                                        account0,
-                                       "p5");
-        oFactory.addAnnotation(p5,
-                               oFactory.newEmbeddedAnnotation("an1_p5",
+                                         "pub2");
+        oFactory.addAnnotation(pub2,
+                               oFactory.newEmbeddedAnnotation("an1_pub2",
+                                                              PRIMITIVE_PROPERTY,
+                                                              PRIMITIVE_PUBLISH,
+                                                              null));
+
+        Process anl1=oFactory.newProcess("anl1",
+                                       account1,
+                                       "anl1");
+        oFactory.addAnnotation(anl1,
+                               oFactory.newEmbeddedAnnotation("an1_anl1",
+                                                              PRIMITIVE_PROPERTY,
+                                                              PRIMITIVE_ANALYZE,
+                                                              null));
+
+        Process anl2=oFactory.newProcess("anl2",
+                                       account2,
+                                       "anl2");
+        oFactory.addAnnotation(anl2,
+                               oFactory.newEmbeddedAnnotation("an1_anl2",
+                                                              PRIMITIVE_PROPERTY,
+                                                              PRIMITIVE_ANALYZE,
+                                                              null));
+        Process pub3=oFactory.newProcess("pub3",
+                                       account1,
+                                       "pub3");
+        oFactory.addAnnotation(pub3,
+                               oFactory.newEmbeddedAnnotation("an1_pub3",
+                                                              PRIMITIVE_PROPERTY,
+                                                              PRIMITIVE_PUBLISH,
+                                                              null));
+
+
+        Process pub4=oFactory.newProcess("pub4",
+                                       account2,
+                                       "pub4");
+        oFactory.addAnnotation(pub4,
+                               oFactory.newEmbeddedAnnotation("an1_pub4",
+                                                              PRIMITIVE_PROPERTY,
+                                                              PRIMITIVE_PUBLISH,
+                                                              null));
+
+        Process dwnld2=oFactory.newProcess("dwnld2",
+                                       account1,
+                                       "dwnld2");
+        oFactory.addAnnotation(dwnld2,
+                               oFactory.newEmbeddedAnnotation("an1_dwnld2",
                                                               PRIMITIVE_PROPERTY,
                                                               PRIMITIVE_DOWNLOAD,
                                                               null));
 
 
 
-        Artifact a1=newResource(oFactory,
-                            "a1",
+        Artifact d1=newResource(oFactory,
+                            "d1",
                             account0,
-                            "a1",
-                            "statistics.csv",
+                            "d1",
+                            "statistics1.csv",
                             "http://gov/data/");
 
-        Artifact a2=newRdfGraphResource(oFactory,
-                                "a2",
+        Artifact f1=newRdfGraphResource(oFactory,
+                                "f1",
                                 account0,
-                                "a2",
-                                "statistics.rdf",
-                                "http://gov/data/");
+                                "f1",
+                                "statistics1.rdf",
+                                "file://repo/data/");
+
+
+        Artifact r1=newRdfGraphResource(oFactory,
+                                        "r1",
+                                        account0,
+                                        "r1",
+                                        "statistics1.rdf",
+                                        "http://gov/data/");
+
+        Artifact r2=newRdfGraphResource(oFactory,
+                                        "r2",
+                                        account0,
+                                        "r2",
+                                        "statistics2.rdf",
+                                        "http://gov/data/");
         
 
-        Artifact a1v2=newResource(oFactory,
-                            "a1v2",
+        Artifact d2=newResource(oFactory,
+                            "d2",
                             account0,
-                            "a1v2",
-                            "statistics.v2.csv",
+                            "d2",
+                            "statistics2.csv",
                             "http://gov/data/");
 
-        Artifact a2v2=newRdfGraphResource(oFactory,
-                                          "a2v2",
+        Artifact f2=newRdfGraphResource(oFactory,
+                                          "f2",
                                           account0,
-                                          "a2v2",
-                                          "statistics.v2.rdf",
+                                          "f2",
+                                          "statistics2.rdf",
                                           "http://gov/data/");
         
 
-        Artifact a3=newRdfGraphFile(oFactory,
-                            "a3",
-                            account0,
-                            "a3",
-                            "statistics.rdf",
+        Artifact lcp1=newRdfGraphFile(oFactory,
+                            "lcp1",
+                            account1,
+                            "lcp1",
+                            "statistics1.rdf",
                             "file:/home/work/");
 
-        Artifact a4=newFile(oFactory,
-                            "a4",
-                            account0,
-                            "a4",
-                            "chart.jpg",
+
+        Artifact lcp3=newRdfGraphFile(oFactory,
+                            "lcp3",
+                            account2,
+                            "lcp3",
+                            "statistics2.rdf",
                             "file:/home/work/");
-        Artifact a5=newResource(oFactory,
-                                "a5",
-                                account0,
-                                "a5",
-                                "chart.jpg",
+
+        Artifact li1=newResource(oFactory,
+                                 "li1",
+                                 account0,
+                                 "li1",
+                                 "license1.txt",
+                                 "http://lic.org/");
+
+        Artifact li2=newResource(oFactory,
+                                 "li2",
+                                 account1,
+                                 "li2",
+                                 "license2.txt",
+                                 "http://lic.org/");
+        Artifact li3=newResource(oFactory,
+                                 "li3",
+                                 account2,
+                                 "li3",
+                                 "license3.txt",
+                                 "http://lic.org/");
+
+
+        Artifact c1=newFile(oFactory,
+                            "c1",
+                            account1,
+                            "c1",
+                            "chart1.jpg",
+                            "file:/home/work/");
+
+        Artifact c2=newFile(oFactory,
+                            "c2",
+                            account2,
+                            "c2",
+                            "chart2.jpg",
+                            "file:/home/work/");
+        Artifact r3=newResource(oFactory,
+                                "r3",
+                                account1,
+                                "r3",
+                                "chart1.jpg",
                                 "http://journal.com/");
-        Artifact a6=newFile(oFactory,
-                            "a6",
-                            account0,
-                            "a6",
-                            "chart.jpg",
+
+        Artifact r4=newResource(oFactory,
+                                "r4",
+                                account2,
+                                "r4",
+                                "chart2.jpg",
+                                "http://blog.com/");
+
+        Artifact lcp2=newFile(oFactory,
+                            "lcp2",
+                            account1,
+                            "lcp2",
+                            "chart1.jpg",
                             "file:/home/work/");
 
 
-        Used u1=oFactory.newUsed(p1,oFactory.newRole("in"),a1,account0);
-        Used u1v2=oFactory.newUsed(p1v2,oFactory.newRole("in"),a1v2,account0);
-        Used u2=oFactory.newUsed(p2,oFactory.newRole("in"),a2,account0);
-        Used u3=oFactory.newUsed(p3,oFactory.newRole("in"),a3,account0);
-        Used u4=oFactory.newUsed(p4,oFactory.newRole("in"),a4,account0);
-        Used u5=oFactory.newUsed(p5,oFactory.newRole("in"),a5,account0);
+        Used u1=oFactory.newUsed(trpl1,oFactory.newRole("in"),d1,account0);
+        Used u1v2=oFactory.newUsed(trpl2,oFactory.newRole("in"),d2,account0);
+        Used u2=oFactory.newUsed(pub1,oFactory.newRole("in"),f1,account0);
+        Used u2e=oFactory.newUsed(pub1,oFactory.newRole("lic"),li1,account0);
+
+        Used u2b=oFactory.newUsed(dwnld1,oFactory.newRole("in"),r1,account1);
+        Used u2f=oFactory.newUsed(dwnld3,oFactory.newRole("in"),r2,account2);
+        Used u3=oFactory.newUsed(anl1,oFactory.newRole("in"),lcp1,account1);
+        Used u3b=oFactory.newUsed(anl2,oFactory.newRole("in2"),lcp3,account2);
+        Used u3a=oFactory.newUsed(anl2,oFactory.newRole("in1"),lcp2,account2);
+        Used u4=oFactory.newUsed(pub3,oFactory.newRole("in"),c1,account1);
+        Used u4c=oFactory.newUsed(pub3,oFactory.newRole("lic"),li2,account1);
+        Used u4b=oFactory.newUsed(pub4,oFactory.newRole("in"),c2,account2);
+        Used u4d=oFactory.newUsed(pub4,oFactory.newRole("lic"),li3,account2);
+        Used u5=oFactory.newUsed(dwnld2,oFactory.newRole("in"),r3,account1);
+
+        Used u2c=oFactory.newUsed(pub2,oFactory.newRole("in"),f2,account0);
+        Used u2d=oFactory.newUsed(pub2,oFactory.newRole("lic"),li1,account0);
 
 
 
 
+        WasGeneratedBy wg1=oFactory.newWasGeneratedBy(f1,oFactory.newRole("out"),trpl1,account0);
+        WasGeneratedBy wg1v2=oFactory.newWasGeneratedBy(f2,oFactory.newRole("out"),trpl2,account0);
+        WasGeneratedBy wg2b=oFactory.newWasGeneratedBy(r1,oFactory.newRole("out"),pub1,account0);
+        WasGeneratedBy wg2c=oFactory.newWasGeneratedBy(r2,oFactory.newRole("out"),pub2,account0);
+        WasGeneratedBy wg2=oFactory.newWasGeneratedBy(lcp1,oFactory.newRole("out"),dwnld1,account1);
+        WasGeneratedBy wg2d=oFactory.newWasGeneratedBy(lcp3,oFactory.newRole("out"),dwnld3,account2);
+        WasGeneratedBy wg3=oFactory.newWasGeneratedBy(c1,oFactory.newRole("analysis"),anl1,account1);
+        WasGeneratedBy wg3b=oFactory.newWasGeneratedBy(c2,oFactory.newRole("analysis"),anl2,account2);
+        WasGeneratedBy wg4=oFactory.newWasGeneratedBy(r3,oFactory.newRole("out"),pub3,account1);
+        WasGeneratedBy wg5=oFactory.newWasGeneratedBy(lcp2,oFactory.newRole("out"),dwnld2,account1);
+        WasGeneratedBy wg6=oFactory.newWasGeneratedBy(r4,oFactory.newRole("out"),pub4,account2);
 
 
-        WasGeneratedBy wg1=oFactory.newWasGeneratedBy(a2,oFactory.newRole("out"),p1,account0);
-        WasGeneratedBy wg1v2=oFactory.newWasGeneratedBy(a2v2,oFactory.newRole("out"),p1v2,account0);
-        WasGeneratedBy wg2=oFactory.newWasGeneratedBy(a3,oFactory.newRole("out"),p2,account0);
-        WasGeneratedBy wg3=oFactory.newWasGeneratedBy(a4,oFactory.newRole("plot"),p3,account0);
-        WasGeneratedBy wg4=oFactory.newWasGeneratedBy(a5,oFactory.newRole("out"),p4,account0);
-        WasGeneratedBy wg5=oFactory.newWasGeneratedBy(a6,oFactory.newRole("out"),p5,account0);
+        WasDerivedFrom wd1=oFactory.newWasDerivedFrom(f1,d1,account0);
+        WasDerivedFrom wd2=oFactory.newWasDerivedFrom(r1,f1,account0);
+        WasDerivedFrom wd2b=oFactory.newWasDerivedFrom(lcp1,r1,account1);
+        WasDerivedFrom wd2c=oFactory.newWasDerivedFrom(r2,f2,account0);
 
+        WasDerivedFrom wd2d=oFactory.newWasDerivedFrom(lcp3,r2,account2);
 
+        WasDerivedFrom wd4=oFactory.newWasDerivedFrom(c1,lcp1,account1);
+        WasDerivedFrom wd4b=oFactory.newWasDerivedFrom(c2,lcp3,account2);
+        WasDerivedFrom wd5=oFactory.newWasDerivedFrom(r3,c1,account1);
+        WasDerivedFrom wd6=oFactory.newWasDerivedFrom(lcp2,r3,account1);
 
-        WasDerivedFrom wd1=oFactory.newWasDerivedFrom(a2,a1,account0);
-        WasDerivedFrom wd2=oFactory.newWasDerivedFrom(a3,a2,account0);
+        WasDerivedFrom wd7=oFactory.newWasDerivedFrom(r4,c2,account2);
 
+        WasDerivedFrom wd1v2=oFactory.newWasDerivedFrom(f2,d2,account0);
+        WasDerivedFrom wd0=oFactory.newWasDerivedFrom(d2,d1,account0);
 
-        WasDerivedFrom wd4=oFactory.newWasDerivedFrom(a4,a3,account0);
-        WasDerivedFrom wd5=oFactory.newWasDerivedFrom(a5,a4,account0);
-        WasDerivedFrom wd6=oFactory.newWasDerivedFrom(a6,a5,account0);
-
-
-        WasDerivedFrom wd1v2=oFactory.newWasDerivedFrom(a2v2,a1v2,account0);
-        WasDerivedFrom wd0=oFactory.newWasDerivedFrom(a1v2,a1,account0);
-
-        OPMGraph graph=oFactory.newOPMGraph(account0,
+        OPMGraph graph=oFactory.newOPMGraph(account012,
                                             new Overlaps[] { },
-                                            new Process[] {p1, p1v2, p2, p3, p4 },
-                                            new Artifact[] {a1,a2,a3,a4,a5,a6, a1v2, a2v2},
+                                            new Process[] {trpl1, trpl2, dwnld1,dwnld3,dwnld2, anl1,anl2, pub3,pub4, pub1,pub2, dwnld2},
+                                            new Artifact[] {d1,f1,lcp1,lcp3,lcp2,c1,c2,r3,r4, d2, f2,li1,li2,li3,r1,r2},
                                             new Agent[] { //ag1
                                                         },
-                                            new Object[] {u1,u2,u3,u4,u5, u1v2,
-                                                          wg1,wg2,wg3,wg4,wg5, wg1v2,
-                                                          wd1,wd2, wd4,wd5,wd6, wd1v2, wd0
+                                            new Object[] {u1,u2,u2b,u2c,u2d,u2e,u2f,u3a,u3,u3b,u4,u4b,u4c,u4d,u5, u1v2,
+                                                          wg1,wg2,wg2b,wg2c,wg2c,wg2d,wg3,wg3b,wg4,wg5, wg1v2,wg6,
+                                                          wd1,wd2,wd2b,wd2c,wd2d,wd4,wd4b,wd5,wd6, wd1v2, wd0, wd7
                                                           //wc1,
                                             } );
 
