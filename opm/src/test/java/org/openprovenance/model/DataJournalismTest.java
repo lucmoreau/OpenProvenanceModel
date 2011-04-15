@@ -63,7 +63,8 @@ public class DataJournalismTest
 
     static String PRIMITIVE_TRIPLEIZE="http://openprovenance.org/primitives#tripleize";
     static String PRIMITIVE_DOWNLOAD="http://openprovenance.org/primitives#download";
-    static String PRIMITIVE_ANALYZE="http://openprovenance.org/primitives#analyze";
+    static String PRIMITIVE_ANALYZE2="http://openprovenance.org/primitives#analyze2";
+    static String PRIMITIVE_ANALYZE1="http://openprovenance.org/primitives#analyze1";
     static String PRIMITIVE_PUBLISH="http://openprovenance.org/primitives#publish";
 
     static String PRIMITIVE_DIV="http://openprovenance.org/primitives#div";
@@ -276,7 +277,7 @@ public class DataJournalismTest
         oFactory.addAnnotation(anl1,
                                oFactory.newEmbeddedAnnotation("an1_anl1",
                                                               PRIMITIVE_PROPERTY,
-                                                              PRIMITIVE_ANALYZE,
+                                                              PRIMITIVE_ANALYZE1,
                                                               null));
 
         Process anl2=oFactory.newProcess("anl2",
@@ -285,7 +286,7 @@ public class DataJournalismTest
         oFactory.addAnnotation(anl2,
                                oFactory.newEmbeddedAnnotation("an1_anl2",
                                                               PRIMITIVE_PROPERTY,
-                                                              PRIMITIVE_ANALYZE,
+                                                              PRIMITIVE_ANALYZE2,
                                                               null));
         Process pub3=oFactory.newProcess("pub3",
                                        account1,
@@ -485,6 +486,8 @@ public class DataJournalismTest
         WasDerivedFrom wd1v2=oFactory.newWasDerivedFrom(f2,d2,account0);
         WasDerivedFrom wd0=oFactory.newWasDerivedFrom(d2,d1,account0);
 
+        WasTriggeredBy wt1=oFactory.newWasTriggeredBy(dwnld3,anl2,account2);
+
         OPMGraph graph=oFactory.newOPMGraph(account012,
                                             new Overlaps[] { },
                                             new Process[] {trpl1, trpl2, dwnld1,dwnld3,dwnld2, anl1,anl2, pub3,pub4, pub1,pub2, dwnld2},
@@ -492,8 +495,9 @@ public class DataJournalismTest
                                             new Agent[] { //ag1
                                                         },
                                             new Object[] {u1,u2,u2b,u2c,u2d,u2e,u2f,u3a,u3,u3b,u4,u4b,u4c,u4d,u5, u1v2,
-                                                          wg1,wg2,wg2b,wg2c,wg2c,wg2d,wg3,wg3b,wg4,wg5, wg1v2,wg6,
-                                                          wd1,wd2,wd2b,wd2c,wd2d,wd4,wd4b,wd5,wd6, wd1v2, wd0, wd7
+                                                          wg1,wg2,wg2b,wg2c,wg2d,wg3,wg3b,wg4,wg5, wg1v2,wg6,
+                                                          wd1,wd2,wd2b,wd2c,wd2d,wd4,wd4b,wd5,wd6, wd1v2, wd0, wd7,
+                                                          wt1
                                                           //wc1,
                                             } );
 
