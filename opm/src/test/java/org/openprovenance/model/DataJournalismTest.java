@@ -308,7 +308,7 @@ public class DataJournalismTest
                                                               null));
 
         Process dwnld2=oFactory.newProcess("dwnld2",
-                                       account1,
+                                       account2,
                                        "dwnld2");
         oFactory.addAnnotation(dwnld2,
                                oFactory.newEmbeddedAnnotation("an1_dwnld2",
@@ -428,10 +428,20 @@ public class DataJournalismTest
 
         Artifact lcp2=newFile(oFactory,
                             "lcp2",
-                            account1,
+                            account2,
                             "lcp2",
                             "chart1.jpg",
                             "file:/home/work/");
+
+        Agent blogger=oFactory.newAgent("blogger",
+                                        account2,
+                                        "blogger");
+        Agent journal=oFactory.newAgent("journal",
+                                        account1,
+                                        "journal");
+        Agent gov=oFactory.newAgent("gov",
+                                        account0,
+                                        "gov");
 
 
         Used u1=oFactory.newUsed(trpl1,oFactory.newRole("in"),d1,account0);
@@ -448,7 +458,7 @@ public class DataJournalismTest
         Used u4c=oFactory.newUsed(pub3,oFactory.newRole("lic"),li2,account1);
         Used u4b=oFactory.newUsed(pub4,oFactory.newRole("in"),c2,account2);
         Used u4d=oFactory.newUsed(pub4,oFactory.newRole("lic"),li3,account2);
-        Used u5=oFactory.newUsed(dwnld2,oFactory.newRole("in"),r3,account1);
+        Used u5=oFactory.newUsed(dwnld2,oFactory.newRole("in"),r3,account2);
 
         Used u2c=oFactory.newUsed(pub2,oFactory.newRole("in"),f2,account0);
         Used u2d=oFactory.newUsed(pub2,oFactory.newRole("lic"),li1,account0);
@@ -465,7 +475,7 @@ public class DataJournalismTest
         WasGeneratedBy wg3=oFactory.newWasGeneratedBy(c1,oFactory.newRole("analysis"),anl1,account1);
         WasGeneratedBy wg3b=oFactory.newWasGeneratedBy(c2,oFactory.newRole("analysis"),anl2,account2);
         WasGeneratedBy wg4=oFactory.newWasGeneratedBy(r3,oFactory.newRole("out"),pub3,account1);
-        WasGeneratedBy wg5=oFactory.newWasGeneratedBy(lcp2,oFactory.newRole("out"),dwnld2,account1);
+        WasGeneratedBy wg5=oFactory.newWasGeneratedBy(lcp2,oFactory.newRole("out"),dwnld2,account2);
         WasGeneratedBy wg6=oFactory.newWasGeneratedBy(r4,oFactory.newRole("out"),pub4,account2);
 
 
@@ -479,7 +489,7 @@ public class DataJournalismTest
         WasDerivedFrom wd4=oFactory.newWasDerivedFrom(c1,lcp1,account1);
         WasDerivedFrom wd4b=oFactory.newWasDerivedFrom(c2,lcp3,account2);
         WasDerivedFrom wd5=oFactory.newWasDerivedFrom(r3,c1,account1);
-        WasDerivedFrom wd6=oFactory.newWasDerivedFrom(lcp2,r3,account1);
+        WasDerivedFrom wd6=oFactory.newWasDerivedFrom(lcp2,r3,account2);
 
         WasDerivedFrom wd7=oFactory.newWasDerivedFrom(r4,c2,account2);
 
@@ -488,17 +498,24 @@ public class DataJournalismTest
 
         WasTriggeredBy wt1=oFactory.newWasTriggeredBy(dwnld3,anl2,account2);
 
+        WasControlledBy wc1=oFactory.newWasControlledBy(pub1,oFactory.newRole("pub"),gov,account0);
+        WasControlledBy wc2=oFactory.newWasControlledBy(pub2,oFactory.newRole("pub"),gov,account0);
+        WasControlledBy wc3=oFactory.newWasControlledBy(pub3,oFactory.newRole("pub"),journal,account1);
+        WasControlledBy wc3b=oFactory.newWasControlledBy(anl1,oFactory.newRole("pub"),journal,account1);
+        WasControlledBy wc4=oFactory.newWasControlledBy(pub4,oFactory.newRole("pub"),blogger,account2);
+        WasControlledBy wc5=oFactory.newWasControlledBy(anl2,oFactory.newRole("pub"),blogger,account2);
+
         OPMGraph graph=oFactory.newOPMGraph(account012,
                                             new Overlaps[] { },
                                             new Process[] {trpl1, trpl2, dwnld1,dwnld3,dwnld2, anl1,anl2, pub3,pub4, pub1,pub2, dwnld2},
                                             new Artifact[] {d1,f1,lcp1,lcp3,lcp2,c1,c2,r3,r4, d2, f2,li1,li2,li3,r1,r2},
-                                            new Agent[] { //ag1
+                                            new Agent[] { blogger, journal, gov
                                                         },
                                             new Object[] {u1,u2,u2b,u2c,u2d,u2e,u2f,u3a,u3,u3b,u4,u4b,u4c,u4d,u5, u1v2,
                                                           wg1,wg2,wg2b,wg2c,wg2d,wg3,wg3b,wg4,wg5, wg1v2,wg6,
                                                           wd1,wd2,wd2b,wd2c,wd2d,wd4,wd4b,wd5,wd6, wd1v2, wd0, wd7,
-                                                          wt1
-                                                          //wc1,
+                                                          wt1,
+                                                          wc1,wc2,wc3,wc3b,wc4,wc5
                                             } );
 
 
