@@ -63,8 +63,10 @@ public class DataJournalismTest
 
     static String PRIMITIVE_TRIPLEIZE="http://openprovenance.org/primitives#tripleize";
     static String PRIMITIVE_DOWNLOAD="http://openprovenance.org/primitives#download";
-    static String PRIMITIVE_ANALYZE2="http://openprovenance.org/primitives#analyze2";
     static String PRIMITIVE_ANALYZE1="http://openprovenance.org/primitives#analyze1";
+    static String PRIMITIVE_ANALYZE2="http://openprovenance.org/primitives#analyze2";
+    static String PRIMITIVE_WRITE1="http://openprovenance.org/primitives#write1";
+    static String PRIMITIVE_WRITE2="http://openprovenance.org/primitives#write2";
     static String PRIMITIVE_PUBLISH="http://openprovenance.org/primitives#publish";
 
     static String PRIMITIVE_DIV="http://openprovenance.org/primitives#div";
@@ -280,6 +282,15 @@ public class DataJournalismTest
                                                               PRIMITIVE_ANALYZE1,
                                                               null));
 
+        Process wr1=oFactory.newProcess("wr1",
+                                       account1,
+                                       "wr1");
+        oFactory.addAnnotation(wr1,
+                               oFactory.newEmbeddedAnnotation("an1_wr1",
+                                                              PRIMITIVE_PROPERTY,
+                                                              PRIMITIVE_WRITE1,
+                                                              null));
+
         Process anl2=oFactory.newProcess("anl2",
                                        account2,
                                        "anl2");
@@ -405,6 +416,12 @@ public class DataJournalismTest
                             "c1",
                             "chart1.jpg",
                             "file:/home/work/");
+        Artifact art1=newFile(oFactory,
+                            "art1",
+                            account1,
+                            "art1",
+                            "art1.html",
+                            "file:/home/work/");
 
         Artifact c2=newFile(oFactory,
                             "c2",
@@ -421,8 +438,15 @@ public class DataJournalismTest
 
         Artifact r4=newResource(oFactory,
                                 "r4",
-                                account2,
+                                account1,
                                 "r4",
+                                "art1.html",
+                                "http://journal.com/");
+
+        Artifact r5=newResource(oFactory,
+                                "r5",
+                                account2,
+                                "r5",
                                 "chart2.jpg",
                                 "http://blog.com/");
 
@@ -439,6 +463,12 @@ public class DataJournalismTest
         Agent journal=oFactory.newAgent("journal",
                                         account1,
                                         "journal");
+        Agent author1=oFactory.newAgent("author1",
+                                        account1,
+                                        "author1");
+        Agent author2=oFactory.newAgent("author2",
+                                        account1,
+                                        "author2");
         Agent gov=oFactory.newAgent("gov",
                                         account0,
                                         "gov");
@@ -454,7 +484,7 @@ public class DataJournalismTest
         Used u3=oFactory.newUsed(anl1,oFactory.newRole("in"),lcp1,account1);
         Used u3b=oFactory.newUsed(anl2,oFactory.newRole("in2"),lcp3,account2);
         Used u3a=oFactory.newUsed(anl2,oFactory.newRole("in1"),lcp2,account2);
-        Used u4=oFactory.newUsed(pub3,oFactory.newRole("in"),c1,account1);
+        Used u4=oFactory.newUsed(pub3,oFactory.newRole("in1"),c1,account1);
         Used u4c=oFactory.newUsed(pub3,oFactory.newRole("lic"),li2,account1);
         Used u4b=oFactory.newUsed(pub4,oFactory.newRole("in"),c2,account2);
         Used u4d=oFactory.newUsed(pub4,oFactory.newRole("lic"),li3,account2);
@@ -463,6 +493,9 @@ public class DataJournalismTest
         Used u2c=oFactory.newUsed(pub2,oFactory.newRole("in"),f2,account0);
         Used u2d=oFactory.newUsed(pub2,oFactory.newRole("lic"),li1,account0);
 
+        Used u6=oFactory.newUsed(pub3,oFactory.newRole("in2"),art1,account1);
+
+        Used u7=oFactory.newUsed(wr1,oFactory.newRole("in2"),c1,account1);
 
 
 
@@ -474,9 +507,12 @@ public class DataJournalismTest
         WasGeneratedBy wg2d=oFactory.newWasGeneratedBy(lcp3,oFactory.newRole("out"),dwnld3,account2);
         WasGeneratedBy wg3=oFactory.newWasGeneratedBy(c1,oFactory.newRole("analysis"),anl1,account1);
         WasGeneratedBy wg3b=oFactory.newWasGeneratedBy(c2,oFactory.newRole("analysis"),anl2,account2);
-        WasGeneratedBy wg4=oFactory.newWasGeneratedBy(r3,oFactory.newRole("out"),pub3,account1);
+        WasGeneratedBy wg4=oFactory.newWasGeneratedBy(r3,oFactory.newRole("fig"),pub3,account1);
+        WasGeneratedBy wg7=oFactory.newWasGeneratedBy(r4,oFactory.newRole("art"),pub3,account1);
         WasGeneratedBy wg5=oFactory.newWasGeneratedBy(lcp2,oFactory.newRole("out"),dwnld2,account2);
-        WasGeneratedBy wg6=oFactory.newWasGeneratedBy(r4,oFactory.newRole("out"),pub4,account2);
+        WasGeneratedBy wg6=oFactory.newWasGeneratedBy(r5,oFactory.newRole("out"),pub4,account2);
+
+        WasGeneratedBy wg8=oFactory.newWasGeneratedBy(art1,oFactory.newRole("out"),wr1,account1);
 
 
         WasDerivedFrom wd1=oFactory.newWasDerivedFrom(f1,d1,account0);
@@ -491,31 +527,36 @@ public class DataJournalismTest
         WasDerivedFrom wd5=oFactory.newWasDerivedFrom(r3,c1,account1);
         WasDerivedFrom wd6=oFactory.newWasDerivedFrom(lcp2,r3,account2);
 
-        WasDerivedFrom wd7=oFactory.newWasDerivedFrom(r4,c2,account2);
+        WasDerivedFrom wd7=oFactory.newWasDerivedFrom(r5,c2,account2);
 
         WasDerivedFrom wd1v2=oFactory.newWasDerivedFrom(f2,d2,account0);
-        WasDerivedFrom wd0=oFactory.newWasDerivedFrom(d2,d1,account0);
+        WasDerivedFrom wd0=oFactory.newWasDerivedFrom("wd0",d2,d1,"isVersionOf",account0);
+
+        WasDerivedFrom wd10=oFactory.newWasDerivedFrom("wd10",art1,c1,"contains",account1);
+        WasDerivedFrom wd10b=oFactory.newWasDerivedFrom("wd10b",r4,r3,"contains",account1);
+        WasDerivedFrom wd11=oFactory.newWasDerivedFrom(r4,art1,account1);
 
         WasTriggeredBy wt1=oFactory.newWasTriggeredBy(dwnld3,anl2,account2);
 
         WasControlledBy wc1=oFactory.newWasControlledBy(pub1,oFactory.newRole("pub"),gov,account0);
         WasControlledBy wc2=oFactory.newWasControlledBy(pub2,oFactory.newRole("pub"),gov,account0);
         WasControlledBy wc3=oFactory.newWasControlledBy(pub3,oFactory.newRole("pub"),journal,account1);
-        WasControlledBy wc3b=oFactory.newWasControlledBy(anl1,oFactory.newRole("pub"),journal,account1);
+        WasControlledBy wc3b=oFactory.newWasControlledBy(anl1,oFactory.newRole("pub"),author1,account1);
+        WasControlledBy wc3c=oFactory.newWasControlledBy(wr1,oFactory.newRole("pub"),author2,account1);
         WasControlledBy wc4=oFactory.newWasControlledBy(pub4,oFactory.newRole("pub"),blogger,account2);
         WasControlledBy wc5=oFactory.newWasControlledBy(anl2,oFactory.newRole("pub"),blogger,account2);
 
         OPMGraph graph=oFactory.newOPMGraph(account012,
                                             new Overlaps[] { },
-                                            new Process[] {trpl1, trpl2, dwnld1,dwnld3,dwnld2, anl1,anl2, pub3,pub4, pub1,pub2, dwnld2},
-                                            new Artifact[] {d1,f1,lcp1,lcp3,lcp2,c1,c2,r3,r4, d2, f2,li1,li2,li3,r1,r2},
-                                            new Agent[] { blogger, journal, gov
+                                            new Process[] {trpl1, trpl2, dwnld1,dwnld3,dwnld2, anl1,anl2, pub3,pub4, pub1,pub2, dwnld2,wr1},
+                                            new Artifact[] {d1,f1,lcp1,lcp3,lcp2,c1,c2,r3,art1, r4, r5, d2, f2,li1,li2,li3,r1,r2},
+                                            new Agent[] { blogger, journal, gov, author1, author2
                                                         },
-                                            new Object[] {u1,u2,u2b,u2c,u2d,u2e,u2f,u3a,u3,u3b,u4,u4b,u4c,u4d,u5, u1v2,
-                                                          wg1,wg2,wg2b,wg2c,wg2d,wg3,wg3b,wg4,wg5, wg1v2,wg6,
-                                                          wd1,wd2,wd2b,wd2c,wd2d,wd4,wd4b,wd5,wd6, wd1v2, wd0, wd7,
+                                            new Object[] {u1,u2,u2b,u2c,u2d,u2e,u2f,u3a,u3,u3b,u4,u4b,u4c,u4d,u5,u6,u7, u1v2,
+                                                          wg1,wg2,wg2b,wg2c,wg2d,wg3,wg3b,wg4,wg5, wg1v2,wg6,wg7,wg8,
+                                                          wd1,wd2,wd2b,wd2c,wd2d,wd4,wd4b,wd5,wd6, wd1v2, wd0,wd10,wd10b,wd11, wd7,
                                                           wt1,
-                                                          wc1,wc2,wc3,wc3b,wc4,wc5
+                                                          wc1,wc2,wc3,wc3b,wc3c,wc4,wc5
                                             } );
 
 
